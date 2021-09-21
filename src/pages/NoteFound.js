@@ -2,7 +2,9 @@ import React from 'react';
 
 function NoteFound() {
   return (
-    <h1>NoteFound</h1>
+    <div>
+      <h1>Note</h1>
+    </div>
   );
 }
 

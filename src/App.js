@@ -1,14 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 // import Provider from './context/Provider';
-import { Login,
+import {
+  Login,
   Comidas,
   Perfil,
   Bebidas,
   Explorar,
   ReceitasFeitas,
   ReceitasFavoritas,
-  // NoteFound,
+  NoteFound,
 } from './pages';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
       <Route path="/explorar" component={ Explorar } />
       <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
-      {/* <Route path="*" component={ NoteFound } /> */}
+      <Route path="*" component={ NoteFound } />
     </Switch>
   );
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import recipeContext from './index';
 
 function Provider({ children }) {
-  const ContextLogin = {};
+  const ContextLogin = { name: 'teste' };
   const ContextHeader = {};
   const ContextComidas = {};
   const ContextBebidas = {};
