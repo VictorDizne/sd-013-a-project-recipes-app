@@ -1,0 +1,16 @@
+export { defaulf as Login } from './Login';
+export { defaulf as Meals } from './Meals';
+export { defaulf as Drinks } from './Drinks';
+export { defaulf as MealDetails } from './MealDetails';
+export { defaulf as DrinkDetails } from './DrinkDetails';
+export { defaulf as MealProgress } from './MealProgress';
+export { defaulf as DrinkProgress } from './DrinkProgress';
+export { defaulf as Explore } from './Explore';
+export { defaulf as ExploreMeals } from './ExploreMeals';
+export { defaulf as ExploreDrinks } from './ExploreDrinks';
+export { defaulf as IngredientsMealsExplore } from './IngredientsMealsExplore';
+export { defaulf as IngredientsDrinksExplore } from './IngredientsDrinksExplore';
+export { defaulf as ExploreMealsArea } from './ExploreMealsArea';
+export { defaulf as Perfil } from './Perfil';
+export { defaulf as MadeRecipes } from './MadeRecipes';
+export { defaulf as FavoriteRecipes } from './FavoriteRecipes';
