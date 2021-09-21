@@ -1,23 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
-import SearchBar from './searchBar';
+import SearchButton from './searchButton';
 
-export default function Header() {
+export default function Header({ name, search }) {
   return (
     <header>
       <Link
         to="/perfil"
-        className="profile-btn"
-        data-testid="profile-top-btn"
       >
-        <img
-          alt="button-icon"
-          src={ profileIcon }
-        />
+        <button type="button" className="profile-btn">
+          <img
+            alt="button-icon"
+            src={ profileIcon }
+            data-testid="profile-top-btn"
+          />
+        </button>
       </Link>
-      <h1 data-testid="page-title">Comidas</h1>
-      <SearchBar />
+      <h1 data-testid="page-title">{name}</h1>
+      {search && <SearchButton />}
     </header>
   );
 }

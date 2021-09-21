@@ -7,11 +7,11 @@ import * as serviceWorker from './serviceWorker';
 import AppProvider from './contexts/appProvider';
 
 ReactDOM.render(
-  <AppProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <AppProvider>
       <App />
-    </BrowserRouter>
-  </AppProvider>,
+    </AppProvider>
+  </BrowserRouter>,
 
   document.getElementById('root'),
 );
