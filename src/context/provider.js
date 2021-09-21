@@ -3,9 +3,7 @@ import React from 'react';
 import MyContext from './myContext';
 
 const Provider = ({ children }) => {
-  const contextValue = {
-
-  };
+  const contextValue = { };
   return (
     <MyContext.Provider value={ contextValue }>
       {children}
