@@ -1,11 +1,12 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
-import { fetchMealsByQuery, fetchDrinksByQuery } from '../services/API';
-import './Header.css';
+import profileIcon from '../../images/profileIcon.svg';
+import searchIcon from '../../images/searchIcon.svg';
+import { fetchMealsByQuery, fetchDrinksByQuery } from '../../services/API';
+import '../../CSS/Header.css';
 
 function Header({ title, search }) {
   const [disable, setDisable] = useState(false);
@@ -144,3 +145,8 @@ function Header({ title, search }) {
 }
 
 export default Header;
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+  search: PropTypes.bool.isRequired,
+};
