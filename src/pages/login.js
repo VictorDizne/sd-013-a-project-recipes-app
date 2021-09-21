@@ -12,7 +12,7 @@ const Login = () => {
 
   const passwordCorrect = () => {
     const passwordLength = 6;
-    if (user.password !== undefined && user.password.length >= passwordLength) {
+    if (user.password !== undefined && user.password.length > passwordLength) {
       return true;
     }
     return false;
@@ -31,7 +31,9 @@ const Login = () => {
   };
 
   const handleChange = ({ target: { name, value } }) => {
-    setUser({ [name]: value });
+    setUser({
+      ...user,
+      [name]: value });
   };
 
   return (
