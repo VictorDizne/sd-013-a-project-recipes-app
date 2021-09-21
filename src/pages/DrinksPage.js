@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function FoodsPage() {
+function DrinksPage() {
   return (
-    <Header title="Comidas" search />
+    <Header title="Bebidas" search />
   );
 }
 
-export default FoodsPage;
+export default DrinksPage;
