@@ -44,7 +44,7 @@ describe('5 - Desenvolva a tela de maneira que o formulário só seja válido ap
     cy.get('[data-testid="login-submit-btn"]').should('be.disabled');
   });
 
-  it('O botão deve estar desativado se a senha deve tiver 6 caracteres ou menos', () => {
+  it('O botão deve estar desativado se a senha tiver 6 caracteres ou menos', () => {
     cy.visit('http://localhost:3000/');
 
     cy.get('[data-testid="login-submit-btn"]').should('be.disabled');
