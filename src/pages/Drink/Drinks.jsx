@@ -1,7 +1,6 @@
 import React from 'react';
-import { Header } from '../../components';
-import Footer from '../../components/General/Footer';
-import RecipesList from '../../components/RecipesList';
+import { Header, Footer } from '../../components/General';
+import RecipesList from '../../components/Home/RecipesList';
 
 function Drinks() {
   return (

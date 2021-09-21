@@ -1,12 +1,12 @@
 import React from 'react';
-import { Header } from '../../components';
+import { Header } from '../../components/General';
 
 function DoneRecipes() {
   return (
-    <div>
-      <Header title="Receitas Feitas" />
+    <>
       Done Recipes Page
-    </div>
+      <Header title="Receitas Feitas" />
+    </>
   );
 }
 

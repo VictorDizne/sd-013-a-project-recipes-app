@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 function RecipesList({ type }) {
@@ -27,3 +28,7 @@ function RecipesList({ type }) {
 }
 
 export default RecipesList;
+
+RecipesList.propTypes = {
+  type: PropTypes.string.isRequired,
+};

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Header } from '../../components';
-import Footer from '../../components/General/Footer';
+import { Header, Footer } from '../../components/General';
 
 function Profile() {
   return (
