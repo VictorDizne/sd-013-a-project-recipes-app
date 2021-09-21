@@ -15,7 +15,7 @@ const Form = () => {
   const [redirect, enableRedirect] = useState(false);
 
   if (redirect) {
-    return <Redirect to="/mainpage" />;
+    return <Redirect to="/comidas" />;
   }
 
   function ableButton() {
@@ -34,6 +34,16 @@ const Form = () => {
   function handlePassword({ target: { value } }) {
     changeUserPassword(value);
     ableButton();
+  }
+
+  function handleClick() {
+    enableRedirect(true);
+    const user = {
+      email: userEmail,
+    };
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
   }
 
   return (
@@ -67,7 +77,7 @@ const Form = () => {
         type="button"
         data-testid="login-submit-btn"
         disabled={ btnDisable }
-        onClick={ () => enableRedirect(true) }
+        onClick={ () => handleClick() }
       >
         Enviar
       </button>
