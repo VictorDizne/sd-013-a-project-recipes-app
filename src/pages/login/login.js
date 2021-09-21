@@ -9,16 +9,17 @@ function Login() {
   const history = useHistory();
 
   // Funcao que faz a verificacao do email: requisito 5
-  const verifyEmailAndPassword = () => {
-    const checkEmail = /.+@.+\.[A-Za-z]+$/;
-    const minimumCarac = 5;
-    if (password.length > minimumCarac && checkEmail.test(email)) {
-      setButton(false);
-    } else { setButton(true); }
-  };
 
   // A funcao que verifica é utilizada toda vez que email ou  password sao alterados
   useEffect(() => {
+    const verifyEmailAndPassword = () => {
+      const checkEmail = /.+@.+\.[A-Za-z]+$/;
+      const minimumCarac = 6;
+      if (password.length > minimumCarac && checkEmail.test(email)) {
+        setButton(false);
+      } else { setButton(true); }
+    };
+
     verifyEmailAndPassword();
   }, [email, password]);
 
@@ -53,7 +54,6 @@ function Login() {
           onChange={ handleChange }
         />
         <input
-          minLength="6"
           data-testid="password-input"
           type="password"
           placeholder="Senha"
