@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import SearchButton from './searchButton';
 
@@ -22,3 +23,8 @@ export default function Header({ name, search }) {
     </header>
   );
 }
+
+Header.propTypes = {
+  name: propTypes.string.isRequired,
+  search: propTypes.bool.isRequired,
+};
