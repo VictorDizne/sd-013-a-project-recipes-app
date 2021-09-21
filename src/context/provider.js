@@ -4,7 +4,7 @@ import MyContext from './myContext';
 
 const Provider = ({ children }) => {
   const contextValue = {
-    data,
+
   };
   return (
     <MyContext.Provider value={ contextValue }>
