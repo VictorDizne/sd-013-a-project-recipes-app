@@ -9,7 +9,6 @@ import ExploreFood from './pages/ExploreFood';
 import ExploreDrink from './pages/ExploreDrink';
 import ExploreIngredient from './pages/ExploreIngredient';
 import ExploreOrigin from './pages/ExploreOrigin';
-import Login from './pages/Login';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
@@ -19,7 +18,7 @@ import ProgressRecipes from './pages/ProgressRecipes';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
+      {/* <Route exact path="/" component={ Login } /> */}
 
       <Route exact path="/comidas" component={ Foods } />
       <Route exact path="/bebidas" component={ Drinks } />
