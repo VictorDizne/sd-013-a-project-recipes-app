@@ -1,11 +1,12 @@
 import React from 'react';
 import { Header } from '../../components';
+import RecipesList from '../../components/RecipesList';
 
 function Foods() {
   return (
     <div>
-      Foods Home Page
       <Header title="Comidas" search />
+      <RecipesList type="Meal" />
     </div>
   );
 }

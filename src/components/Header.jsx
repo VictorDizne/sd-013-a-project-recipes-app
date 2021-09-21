@@ -1,5 +1,6 @@
+/* eslint-disable no-alert */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -12,19 +13,35 @@ function Header({ title, search }) {
   const [query, setQuery] = useState('');
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (type === 'f' && query.length > 1) {
-      // eslint-disable-next-line no-alert
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
 
     if (title === 'Comidas') {
-      fetchMealsByQuery(type, query, dispatch);
+      const fetchMeals = await fetchMealsByQuery(type, query, dispatch);
+
+      if (!fetchMeals) {
+        return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
+
+      if (fetchMeals.length === 1) {
+        history.push(`/comidas/${fetchMeals[0].idMeal}`);
+      }
     }
 
     if (title === 'Bebidas') {
-      fetchDrinksByQuery(type, query, dispatch);
+      const fetchDrinks = await fetchDrinksByQuery(type, query, dispatch);
+
+      if (!fetchDrinks) {
+        return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
+
+      if (fetchDrinks.length === 1) {
+        history.push(`/bebidas/${fetchDrinks[0].idDrink}`);
+      }
     }
   };
 
