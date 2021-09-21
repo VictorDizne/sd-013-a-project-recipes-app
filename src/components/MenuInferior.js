@@ -1,29 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import '../css/MenuInferior'
 
 export default function MenuInferior() {
   return (
-    // teste
     <footer data-testid="footer">
-      <a
-        href="/drinks"
+      <Link
         data-testid="drinks-bottom-btn"
+        to="/drinks"
       >
         <img src="../images/drinkIcon.svg" alt="drinks" />
-      </a>
+      </Link>
 
-      <a
-        href="/explore"
+      <Link
         data-testid="explore-bottom-btn"
+        to="/explore"
       >
         <img src="../images/exploreIcon.svg" alt="drinks" />
-      </a>
+      </Link>
 
-      <a
-        href="/foods"
+      <Link
         data-testid="food-bottom-btn"
+        to="/foods"
       >
         <img src="../images/mealIcon.svg" alt="drinks" />
-      </a>
+      </Link>
     </footer>
   );
 }
