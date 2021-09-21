@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [button, setButton] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // usa isso para mudar de pagina , veja linha 42.
+  const history = useHistory();
 
   // Funcao que faz a verificacao do email: requisito 5
   const verifyEmailAndPassword = () => {
@@ -29,8 +32,15 @@ function Login() {
     }
   };
 
-  // const handleClick = () => {
-  // };
+  const handleClick = () => {
+    localStorage.mealsToken = 1;
+    localStorage.cocktailsToken = 1;
+    const personalEmail = {
+      email,
+    };
+    localStorage.user = JSON.stringify(personalEmail);
+    history.push('/comidas');
+  };
 
   return (
     <div>
@@ -55,6 +65,7 @@ function Login() {
           data-testid="login-submit-btn"
           type="submit"
           id="button"
+          onClick={ handleClick }
         >
           Entrar
         </button>
