@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 
 const FoodByIngredients = () => (
-  <Header title="Buscar comidas por ingredients" />
+  <Header title="Explorar Ingredientes" />
 );
 
 export default FoodByIngredients;
