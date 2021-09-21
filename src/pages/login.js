@@ -24,10 +24,11 @@ const Login = () => {
   };
 
   const handleClick = () => {
+    const emailUser = { email: user.email };
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', user.email);
-    history.push('/mainPage');
+    localStorage.setItem('user', JSON.stringify(emailUser));
+    history.push('/comidas');
   };
 
   const handleChange = ({ target: { name, value } }) => {
