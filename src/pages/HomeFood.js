@@ -6,10 +6,4 @@ const HomeFood = () => (
   </div>
 );
 
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
-
 export default HomeFood;
