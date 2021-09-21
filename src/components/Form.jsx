@@ -36,6 +36,16 @@ const Form = () => {
     ableButton();
   }
 
+  function handleClick() {
+    enableRedirect(true);
+    const user = {
+      email: userEmail,
+    };
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
+  }
+
   return (
     <form>
       <label htmlFor="email">
@@ -67,7 +77,7 @@ const Form = () => {
         type="button"
         data-testid="login-submit-btn"
         disabled={ btnDisable }
-        onClick={ () => enableRedirect(true) }
+        onClick={ () => handleClick() }
       >
         Enviar
       </button>
