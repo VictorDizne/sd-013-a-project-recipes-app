@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-const MainPage = () => (
+const Bebidas = () => (
   <div>
-    <Header page="Comidas" />
+    <Header page="Bebidas" />
   </div>
 );
 
-export default MainPage;
+export default Bebidas;

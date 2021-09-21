@@ -15,7 +15,7 @@ const Form = () => {
   const [redirect, enableRedirect] = useState(false);
 
   if (redirect) {
-    return <Redirect to="/mainpage" />;
+    return <Redirect to="/comidas" />;
   }
 
   function ableButton() {
