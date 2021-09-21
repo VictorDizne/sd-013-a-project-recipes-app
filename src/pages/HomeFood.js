@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../components/header';
 
 const HomeFood = () => (
@@ -8,11 +7,5 @@ const HomeFood = () => (
     Home Food
   </div>
 );
-
-HomeFood.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
 
 export default HomeFood;
