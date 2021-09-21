@@ -1,10 +1,12 @@
 import React from 'react';
+import Footer from '../../components/General/Footer';
 
 function ExploreDrinksByIng() {
   return (
-    <div>
+    <>
       Explore Drinks by Ingredient Page
-    </div>
+      <Footer />
+    </>
   );
 }
 

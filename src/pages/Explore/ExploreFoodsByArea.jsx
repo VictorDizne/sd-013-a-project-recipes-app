@@ -1,10 +1,12 @@
 import React from 'react';
+import Footer from '../../components/General/Footer';
 
 function ExploreFoodsByArea() {
   return (
-    <div>
+    <>
       Explore Foods by Area Page
-    </div>
+      <Footer />
+    </>
   );
 }
 
