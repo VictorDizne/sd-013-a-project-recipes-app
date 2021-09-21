@@ -1,11 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import { fetchMealsByQuery, fetchDrinksByQuery } from '../services/API';
 import './Header.css';
 
 function Header({ title, search }) {
   const [disable, setDisable] = useState(false);
+  const [type, setType] = useState('');
+  const [query, setQuery] = useState('');
+
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    if (type === 'f' && query.length > 1) {
+      // eslint-disable-next-line no-alert
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+
+    if (title === 'Comidas') {
+      fetchMealsByQuery(type, query, dispatch);
+    }
+
+    if (title === 'Bebidas') {
+      fetchDrinksByQuery(type, query, dispatch);
+    }
+  };
 
   return (
     <header className="header-container">
@@ -42,17 +63,24 @@ function Header({ title, search }) {
       { disable && (
         <>
           <div>
-            <input type="text" placeholder="Buscar Receita" data-testid="search-input" />
+            <input
+              onChange={ (e) => setQuery(e.target.value) }
+              value={ query }
+              type="text"
+              placeholder="Buscar Receita"
+              data-testid="search-input"
+            />
           </div>
 
           <div className="radio-container">
             <label htmlFor="ingrediente">
               <input
+                onChange={ (e) => setType(e.target.value) }
                 className="radio-input"
                 name="options"
                 id="ingrediente"
                 type="radio"
-                value="Ingrediente"
+                value="i"
                 data-testid="ingredient-search-radio"
               />
               Ingrediente
@@ -60,11 +88,12 @@ function Header({ title, search }) {
 
             <label htmlFor="nome">
               <input
+                onChange={ (e) => setType(e.target.value) }
                 className="radio-input"
                 name="options"
                 id="nome"
                 type="radio"
-                value="Nome"
+                value="s"
                 data-testid="name-search-radio"
               />
               Nome
@@ -72,11 +101,12 @@ function Header({ title, search }) {
 
             <label htmlFor="primeira-letra">
               <input
+                onChange={ (e) => setType(e.target.value) }
                 className="radio-input"
                 name="options"
                 id="primeira-letra"
                 type="radio"
-                value="Primeira letra"
+                value="f"
                 data-testid="first-letter-search-radio"
               />
               Primeira Letra
@@ -85,6 +115,8 @@ function Header({ title, search }) {
           <button
             className="header-button"
             type="button"
+            data-testid="exec-search-btn"
+            onClick={ handleClick }
           >
             Buscar
           </button>
