@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Provider from './context/provider';
-import Header from './components/Header';
 
 function App() {
   return (
@@ -12,7 +11,6 @@ function App() {
           {/* <Route exact path="/" component={ Login } /> */}
         </Switch>
       </BrowserRouter>
-      <Header />
     </Provider>
   );
 }
