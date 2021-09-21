@@ -1,10 +1,11 @@
 import React from 'react';
+import { Header } from '../../components';
 import Footer from '../../components/General/Footer';
 
 function Profile() {
   return (
     <>
-      Profile Page
+      <Header title="Perfil" />
       <Footer />
     </>
   );
