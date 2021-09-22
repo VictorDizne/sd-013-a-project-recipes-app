@@ -57,7 +57,9 @@ const Login = () => {
         disabled={ !(validateEmail() && passwordCorrect()) }
         handleClick={ handleClick }
         testID="login-submit-btn"
-      />
+      >
+        Entrar
+      </Button>
     </section>
   );
 };
