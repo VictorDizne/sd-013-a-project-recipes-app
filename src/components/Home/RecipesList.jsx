@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDrinksByCategory, fetchDrinksByQuery, fetchDrinksCategories,
   fetchMealsByCategory,
   fetchMealsByQuery, fetchMealsCategories } from '../../services/API';
+import RecipeCard from './RecipeCard';
 
 const handleCat = ({ currentTarget: { value } }, setCat) => {
   setCat((prevState) => (prevState === value ? 'All' : value));
@@ -15,8 +15,6 @@ function RecipesList({ type }) {
   const categories = useSelector((state) => state.api.categories);
   const [cat, setCat] = useState('All');
   const dispatch = useDispatch();
-  const name = type === 'Meal' ? 'strMeal' : 'strDrink';
-  const thumb = type === 'Meal' ? 'strMealThumb' : 'strDrinkThumb';
   const maxListLength = 12;
   const maxCategories = 5;
 
@@ -70,18 +68,9 @@ function RecipesList({ type }) {
         ))
       }
       {
-        lists.slice(0, maxListLength).map((list, index) => {
-          const url = type === 'Meal' ? `/comidas/${list.idMeal}`
-            : `/bebidas/${list.idDrink}`;
-          return (
-            <Link to={ url } key={ index }>
-              <div data-testid={ `${index}-recipe-card` }>
-                <img data-testid={ `${index}-card-img` } src={ list[thumb] } alt="Rec" />
-                <p data-testid={ `${index}-card-name` }>{list[name]}</p>
-              </div>
-            </Link>
-          );
-        })
+        lists.slice(0, maxListLength).map((rec, index) => (
+          <RecipeCard key={ index } type={ type } rec={ rec } idx={ index } />
+        ))
       }
     </div>
   );
