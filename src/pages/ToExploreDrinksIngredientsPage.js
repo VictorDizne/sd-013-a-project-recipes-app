@@ -1,9 +1,13 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function ToExploreDrinksIngredientsPage() {
   return (
-    <Header title="Explorar Ingredientes" />
+    <div style={ { display: 'flex', flexDirection: 'column' } }>
+      <Header title="Explorar Ingredientes" />
+      <Footer />
+    </div>
   );
 }
 

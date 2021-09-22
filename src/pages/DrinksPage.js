@@ -1,9 +1,14 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function DrinksPage() {
   return (
-    <Header title="Bebidas" search />
+    <div style={ { display: 'flex', flexDirection: 'column' } }>
+      <Header title="Bebidas" search />
+      <Footer />
+    </div>
+
   );
 }
 
