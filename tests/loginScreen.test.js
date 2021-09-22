@@ -65,7 +65,7 @@ um email válido e uma senha de mais de 6 caracteres serem preenchidos`, () => {
   it('O botão deve estar ativado se o email e a senha forem válidos', () => {
     renderWithRouter(<App />);
     const emailLabel = screen.getByLabelText(/Email:/i);
-    userEvent.type(emailLabel, correctEmails);
+    userEvent.type(emailLabel, correctEmail);
     const passwordLabel = screen.getByLabelText(/Email:/i);
     userEvent.type(passwordLabel, 'senha123456');
     const enterBtt = screen.getByTestId(btnTestId);
@@ -79,7 +79,7 @@ identificados pelas chaves mealsToken e cocktailsToken`, () => {
   e cocktailsToken devem estar salvos em localStorage`, () => {
     renderWithRouter(<App />);
     const emailLabel = screen.getByLabelText(/Email:/i);
-    userEvent.type(emailLabel, correctEmails);
+    userEvent.type(emailLabel, correctEmail);
     const passwordLabel = screen.getByLabelText(/Email:/i);
     userEvent.type(passwordLabel, 'senha123456');
     const enterBtt = screen.getByTestId(btnTestId);
