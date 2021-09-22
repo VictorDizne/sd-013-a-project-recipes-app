@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function FoodsPage() {
+function ToExplorePage() {
   return (
-    <Header title="Comidas" search />
+    <Header title="Explorar" />
   );
 }
 
-export default FoodsPage;
+export default ToExplorePage;
