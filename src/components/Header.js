@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import SearchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
+import Searchbar from './Searchbar';
 
-const Header = ({ page }) => {
+const Header = ({ page, bebidas }) => {
   const [searchBar, showSearchbar] = useState(false);
 
   if (searchBar) {
@@ -21,9 +22,7 @@ const Header = ({ page }) => {
             data-testid="search-top-btn"
           />
         </button>
-        <label htmlFor="searchBar">
-          <input data-testid="search-input" />
-        </label>
+        <Searchbar bebidas={ bebidas } />
       </header>
     );
   }
@@ -47,6 +46,7 @@ const Header = ({ page }) => {
 
 Header.propTypes = {
   page: PropTypes.string.isRequired,
+  bebidas: PropTypes.bool.isRequired,
 };
 
 export default Header;

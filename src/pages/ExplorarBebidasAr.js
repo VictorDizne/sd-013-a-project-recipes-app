@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 const ExplorarBebidasAr = () => (
   <div>
-    <Header page="Explorar Origem" />
+    <Header page="Explorar Origem" bebidas />
   </div>
 );
 
