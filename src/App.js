@@ -14,11 +14,13 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import NotFound from './pages/NotFound';
 import ProgressRecipes from './pages/ProgressRecipes';
+import Header from './components/Header';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
+        <Route exact path="/" component={ Header } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/bebidas" component={ Drinks } />
 
