@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Header from '../components/Header';
+import recipeContext from '../context';
+import SearchInput from '../components/SearchInput';
 
 function Bebidas() {
+  const currentContext = useContext(recipeContext).ContextComidas;
+  const { showInput } = currentContext;
   return (
     <div>
-      <h1>bebidas</h1>
+      <Header title="Bebidas" hideSearch={ false } hideProfile={ false } />
+      {showInput && <SearchInput />}
     </div>
   );
 }

@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Perfil() {
   return (
     <div>
-      <h1>Perfil</h1>
+      <Header title="Perfil" hideSearch hideProfile={ false } />
     </div>
   );
 }
