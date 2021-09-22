@@ -55,7 +55,7 @@ function Header() {
     }
   };
 
-  useEffect(conditionalTitle, []);
+  useEffect(conditionalTitle, [location]);
 
   return (
     <header>
