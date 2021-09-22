@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 class Header extends React.Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class Header extends React.Component {
           />
         </button>
         { displaySearchBar
-        && <input data-testid="search-input" type="text" name="searchBar" value="" /> }
+        && <SearchBar /> }
       </div>
 
     );
