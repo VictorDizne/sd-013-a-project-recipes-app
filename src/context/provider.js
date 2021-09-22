@@ -6,6 +6,7 @@ import fetchAPI from '../services/fetchAPI';
 function Provider({ children }) {
   const [meals, setMeals] = useState({});
   const [drinks, setDrinks] = useState({});
+  const [cardsToShow, setCardsToShow] = useState({});
 
   useEffect(() => {
     setMeals(fetchAPI('https://www.themealdb.com/api/json/v1/1/search.php?f=a'));
@@ -14,7 +15,11 @@ function Provider({ children }) {
 
   const context = {
     meals,
+    setMeals,
     drinks,
+    setDrinks,
+    cardsToShow,
+    setCardsToShow,
   };
   return (
     <recipesContext.Provider value={ context }>
