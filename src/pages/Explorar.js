@@ -6,14 +6,14 @@ import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 const Explorar = () => (
   <div>
     <HeaderWithoutSearch page="Explorar" />
-    <div data-testid="explore-food">
-      <Link to="/explorar/comidas">
-        <button type="submit">Explorar Comidas</button>
-      </Link>
-    </div>
-    <div data-testid="explore-drinks">
+    <Link to="/explorar/comidas">
+      <div>
+        <button type="submit" data-testid="explore-food">Explorar Comidas</button>
+      </div>
+    </Link>
+    <div>
       <Link to="/explorar/bebidas">
-        <button type="submit">Explorar Bebidas</button>
+        <button type="submit" data-testid="explore-drinks">Explorar Bebidas</button>
       </Link>
     </div>
     <Footer />
