@@ -2,13 +2,17 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.header-avatar {
+  background-color: transparent;
 }
 
 .header-search {
   display: flex;
   justify-content: space-around;
   margin-bottom: 8px;
-  padding: 10px;
   width: 100%;
 }
 
@@ -17,6 +21,7 @@
 }
 
 .header-search button {
+  background-color: transparent;
   border: none;
 }
 
