@@ -2,15 +2,14 @@ import React, { useState, useContext } from 'react';
 import appContext from '../contexts/appContext';
 import { fetchByIngredient, fetchByName, fetchByLetter } from '../services/fetchs';
 
-export default function SearchBar() {
+export default function SearchBar(props) {
   const { state, setState } = useContext(appContext);
 
   const [searchText, setSearchText] = useState('');
   const [option, setOption] = useState('ingredient');
 
   const onSearch = async () => {
-    const { history } = props;
-    if (history.location === '/comidas') {
+    if (props.history.location === '/comidas') {
       let foods;
       switch (option) {
       case 'ingredient':
@@ -32,7 +31,29 @@ export default function SearchBar() {
       default:
         break;
       }
-    } else if ()
+    } else if (props.history.location === '/bebidas') {
+      let drinks;
+      switch (option) {
+      case 'ingredient':
+        drinks = await fetchByIngredient('thecocktaildb', searchText);
+        setState({ ...state, drinks: [...drinks] });
+        break;
+      case 'name':
+        drinks = await fetchByName('thecocktaildb', searchText);
+        setState({ ...state, drinks: [...drinks] });
+        break;
+      case 'first-letter':
+        if (searchText.length > 1) {
+          global.alert('Sua busca deve conter somente 1 (um) caracter');
+        } else {
+          drinks = await fetchByLetter('thecocktaildb', searchText);
+          setState({ ...state, drinks: [...drinks] });
+        }
+        break;
+      default:
+        break;
+      }
+    }
   };
 
   return (
