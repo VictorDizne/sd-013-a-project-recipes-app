@@ -20,7 +20,7 @@ function Footer() {
       </button>
       <button
         type="button"
-        data-testid="explore-bottom-btn"
+        data-testid="food-bottom-btn"
         onClick={ () => history.push('/comidas') }
       >
         <img
@@ -30,7 +30,7 @@ function Footer() {
       </button>
       <button
         type="button"
-        data-testid="food-bottom-btn"
+        data-testid="explore-bottom-btn"
         onClick={ () => history.push('/explorar') }
       >
         <img
