@@ -4,8 +4,8 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchBar: '',
-      searchRadio: '',
+      // searchBar: '',
+      // searchRadio: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -66,7 +66,7 @@ class SearchBar extends React.Component {
               data-testid="first-letter-search-radio"
               type="radio"
               name="searchRadio"
-              value="firstLetter"
+              value="firsteLetter"
               onChange={ this.handleChange }
             />
             Primeira letra
