@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import ComponentFooter from '../components/ComponentFooter';
 
 function ExplorarBebidasIngredientes() {
   return (
@@ -9,6 +10,8 @@ function ExplorarBebidasIngredientes() {
         hideSearch
         hideProfile={ false }
       />
+      <ComponentFooter />
+
     </div>
   );
 }
