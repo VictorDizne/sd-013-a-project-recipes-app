@@ -2,7 +2,6 @@
 export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
 
-
 export const loadingAction = () => ({
   type: LOADING_TYPE
 });
