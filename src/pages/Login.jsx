@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = () => {
+const Login = ({ history }) => {
   const [email, setStateEmail] = useState('');
   const [password, setStatePassword] = useState('');
   // const [isDisabled, setIsDisabled] = useState(true)
@@ -18,6 +18,16 @@ const Login = () => {
     const passwordMin = 7;
     const passwordCorrect = password.length >= passwordMin;
     return re.test(email) && passwordCorrect;
+  };
+
+  const handleClick = () => {
+    const emailStore = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(emailStore));
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    history.push('/comidas');
   };
 
   return (
@@ -40,11 +50,14 @@ const Login = () => {
         disabled={ !(validateEmail()) }
         data-testid="login-submit-btn"
         type="submit"
+        onClick={ handleClick }
       >
         Entrar
       </button>
     </div>
   );
 };
+
+
 
 export default Login;
