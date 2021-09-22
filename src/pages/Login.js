@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function Login() {
+export default function Login({ history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validEmail, setValidEmail] = useState(false);
@@ -36,10 +37,18 @@ export default function Login() {
     }
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault(); // O preventDefault() não deixa a página atualizar (renderizar de novo)
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
+  };
+
   return (
     <>
       <h1> Login </h1>
-      <form>
+      <form onSubmit={ handleSubmit }>
 
         <input
           type="email"
@@ -71,3 +80,7 @@ export default function Login() {
     </>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape(),
+}.isRequired;
