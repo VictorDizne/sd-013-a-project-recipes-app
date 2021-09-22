@@ -37,6 +37,8 @@
   font-weight: 900;
 }
 
+
+
 @keyframes shake {
 
   0% {
@@ -65,4 +67,9 @@
   100% {
     transform: rotate(-10deg);
   }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0px;
 }
