@@ -90,8 +90,10 @@ identificados pelas chaves mealsToken e cocktailsToken`, () => {
   });
 });
 
-describe('7 - Salve o e-mail da pessoa usuária no localStorage na chave user após a submissão', () => {
-  it('Após a submissão, o e-mail de pessoa usuária deve ser salvo em localStorage na chave user no formato { email: email-da-pessoa }', () => {
+describe(`7 - Salve o e-mail da pessoa usuária no 
+  localStorage na chave user após a submissão`, () => {
+  it(`Após a submissão, o e-mail de pessoa usuária deve ser salvo em
+  localStorage na chave user no formato { email: email-da-pessoa }`, () => {
     renderWithRouter(<App />);
     const emailLabel = screen.getByLabelText(/Email:/i);
     userEvent.type(emailLabel, correctEmail);
@@ -104,7 +106,8 @@ describe('7 - Salve o e-mail da pessoa usuária no localStorage na chave user ap
   });
 });
 
-describe('8 - Redirecione a pessoa usuária para a tela principal de receitas de comidas após a submissão e validação com sucesso do login', () => {
+describe(`8 - Redirecione a pessoa usuária para a tela principal de receitas 
+  de comidas após a submissão e validação com sucesso do login`, () => {
   it('A rota muda para a tela principal de receitas de comidas', () => {
     const { history } = renderWithRouter(<App />);
     const emailLabel = screen.getByLabelText(/Email:/i);

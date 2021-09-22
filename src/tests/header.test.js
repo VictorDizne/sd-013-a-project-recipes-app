@@ -87,7 +87,7 @@ describe(`11 - Redirecione a pessoa usuária para a tela de perfil
 describe(`12 - Desenvolva o botão de busca que, ao ser clicado,
  a barra de busca deve aparecer. O mesmo serve para escondê-la`, () => {
   test('clicar no searchButton faz com que apareça a barra de pesquisa', () => {
-    const { history } = renderWithRouter(<HomeFood />);
+    renderWithRouter(<HomeFood />);
 
     const search = screen.getByTestId(searchButtonId);
     fireEvent.click(search);
@@ -96,6 +96,5 @@ describe(`12 - Desenvolva o botão de busca que, ao ser clicado,
 
     fireEvent.click(search);
     expect(searchBar).not.toBeInTheDocument();
-
   });
 });
