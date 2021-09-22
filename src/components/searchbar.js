@@ -37,8 +37,6 @@ function SearchBar({ title }) {
       break;
     }
     // Seta os resultados na context para apresentar os cards ao usuário
-    const maxResults = 12;
-    Object.values(apiResults.meals).slice(0, maxResults);
     setCardsToShow(apiResults);
   }
 
