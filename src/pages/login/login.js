@@ -8,10 +8,9 @@ function Login() {
   // usa isso para mudar de pagina , veja linha 42.
   const history = useHistory();
 
-  // Funcao que faz a verificacao do email: requisito 5
-
   // A funcao que verifica é utilizada toda vez que email ou  password sao alterados
   useEffect(() => {
+    // Funcao que faz a verificacao do email: requisito 5
     const verifyEmailAndPassword = () => {
       const checkEmail = /.+@.+\.[A-Za-z]+$/;
       const minimumCarac = 6;
@@ -19,7 +18,6 @@ function Login() {
         setButton(false);
       } else { setButton(true); }
     };
-
     verifyEmailAndPassword();
   }, [email, password]);
 
