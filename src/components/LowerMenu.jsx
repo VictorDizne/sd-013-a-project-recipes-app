@@ -6,30 +6,33 @@ import mealIcon from '../images/mealIcon.svg';
 
 function LowerMenu() {
   return (
-    <footer data-testid="footer" style={ { flex: 1 } }>
+    <footer data-testid="footer">
       <Link to="/bebidas">
         <button
           type="button"
           data-testid="drinks-bottom-btn"
           src={ drinkIcon }
-          alt="drink-icon"
-        />
+        >
+          <img src={ drinkIcon } alt="drink-icon" />
+        </button>
       </Link>
       <Link to="/explorar">
         <button
           type="button"
           data-testid="explore-bottom-btn"
           src={ exploreIcon }
-          alt="search-icon"
-        />
+        >
+          <img src={ exploreIcon } alt="search-icon" />
+        </button>
       </Link>
       <Link to="/comidas">
         <button
           type="button"
           data-testid="food-bottom-btn"
           src={ mealIcon }
-          alt="meal-icon"
-        />
+        >
+          <img src={ mealIcon } alt="meal-icon" />
+        </button>
       </Link>
     </footer>
   );

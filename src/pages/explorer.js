@@ -1,9 +1,13 @@
 import React from 'react';
 import Header from '../components/header';
+import LowerMenu from '../components/LowerMenu';
 
 function Explorer() {
   return (
-    <Header name="Explorar" search={ false } />
+    <section>
+      <Header name="Explorar" search={ false } />
+      <LowerMenu />
+    </section>
   );
 }
 

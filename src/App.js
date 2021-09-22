@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomeFood from './pages/HomeFood';
 import Login from './pages/Login';
 import Profile from './pages/profile';
-import Drinks from './pages/HomeDrinks';
+import HomeDrinks from './pages/HomeDrinks';
 import DrinkDetails from './pages/DrinkDetails';
 import FoodDetails from './pages/FoodDetails';
 import ReadyRecipes from './pages/readyRecipes';
@@ -22,7 +22,7 @@ function App() {
   return (
     <Switch>
       <Route exact path="/comidas" component={ HomeFood } />
-      <Route exact path="/bebidas" component={ Drinks } />
+      <Route exact path="/bebidas" component={ HomeDrinks } />
       <Route exact path="/" component={ Login } />
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/receitas-feitas" component={ ReadyRecipes } />

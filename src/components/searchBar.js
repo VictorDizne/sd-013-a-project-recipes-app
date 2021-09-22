@@ -1,58 +1,73 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import appContext from '../contexts/appContext';
 import { fetchByIngredient, fetchByName, fetchByLetter } from '../services/fetchs';
 
-export default function SearchBar(props) {
+const SearchBar = () => {
   const { state, setState } = useContext(appContext);
 
   const [searchText, setSearchText] = useState('');
   const [option, setOption] = useState('ingredient');
+  const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+  const history = useHistory();
 
-  const onSearch = async () => {
-    if (props.history.location === '/comidas') {
-      let foods;
+  const switchOptions = async (type) => {
+    if (type === 'themealdb') {
       switch (option) {
       case 'ingredient':
-        foods = await fetchByIngredient(searchText);
-        setState({ ...state, foods: [...foods] });
+        setMeals(await fetchByIngredient(type, searchText));
+        setState({ ...state, foods: [...meals] });
         break;
       case 'name':
-        foods = await fetchByName(searchText);
-        setState({ ...state, foods: [...foods] });
+        setMeals(await fetchByName(type, searchText));
+        setState({ ...state, foods: [...meals] });
         break;
       case 'first-letter':
         if (searchText.length > 1) {
           global.alert('Sua busca deve conter somente 1 (um) caracter');
         } else {
-          foods = await fetchByLetter(searchText);
-          setState({ ...state, foods: [...foods] });
+          setMeals(await fetchByLetter(type, searchText));
+          setState({ ...state, foods: [...meals] });
         }
         break;
       default:
         break;
       }
-    } else if (props.history.location === '/bebidas') {
-      let drinks;
+    } else {
       switch (option) {
       case 'ingredient':
-        drinks = await fetchByIngredient('thecocktaildb', searchText);
+        setDrinks(await fetchByIngredient(type, searchText));
         setState({ ...state, drinks: [...drinks] });
         break;
       case 'name':
-        drinks = await fetchByName('thecocktaildb', searchText);
+        setDrinks(await fetchByName(type, searchText));
         setState({ ...state, drinks: [...drinks] });
         break;
       case 'first-letter':
         if (searchText.length > 1) {
           global.alert('Sua busca deve conter somente 1 (um) caracter');
         } else {
-          drinks = await fetchByLetter('thecocktaildb', searchText);
+          setDrinks(await fetchByLetter(type, searchText));
           setState({ ...state, drinks: [...drinks] });
         }
         break;
       default:
         break;
       }
+    }
+  };
+
+  const onSearch = async () => {
+    if (history.location.pathname === '/comidas') {
+      switchOptions('themealdb');
+    } else {
+      switchOptions('thecocktaildb');
+    }
+    if (meals.length === 1) {
+      history.push(`/comidas/${meals[0].idMeal}`);
+    } else if (drinks.length === 1) {
+      history.push(`/bebidas/${drinks[0].idDrink}`);
     }
   };
 
@@ -110,4 +125,6 @@ export default function SearchBar(props) {
       </button>
     </form>
   );
-}
+};
+
+export default SearchBar;
