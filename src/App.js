@@ -9,6 +9,10 @@ import {
   Explorar,
   ExplorarComidas,
   ExplorarBebidas,
+  DetalhesReceitaComida,
+  DetalhesReceiBebida,
+  ReceitaProcessoComida,
+  ReceitaProcessoBebida,
   ExplorarComidasIngredientes,
   ExplorarBebidasIngredientes,
   LocalOrigem,
@@ -22,8 +26,20 @@ function App() {
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route path="/perfil" component={ Perfil } />
-      <Route path="/comidas" component={ Comidas } />
-      <Route path="/bebidas" component={ Bebidas } />
+      <Route exact path="/comidas" component={ Comidas } />
+      <Route exact path="/bebidas" component={ Bebidas } />
+      <Route exact path="/comidas/{id-da-receita}" component={ DetalhesReceitaComida } />
+      <Route exact path="/bebidas/{id-da-receita}" component={ DetalhesReceiBebida } />
+      <Route
+        exact
+        path="/comidas/{id-da-receita}/in-progress"
+        component={ ReceitaProcessoComida }
+      />
+      <Route
+        exact
+        path="/bebidas/{id-da-receita}/in-progress"
+        component={ ReceitaProcessoBebida }
+      />
       <Route exact path="/explorar" component={ Explorar } />
       <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
       <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />

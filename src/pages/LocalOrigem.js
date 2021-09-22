@@ -15,9 +15,9 @@ function LocalOrigem() {
         }
         title="Explorar Origem"
         search={
-          <Link to="/explorar">
+          <button type="button">
             <img alt="search" data-testid="search-top-btn" src={ searchIcon } />
-          </Link>
+          </button>
         }
       />
     </div>
