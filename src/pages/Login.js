@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const handleEmail = (event) => {
     setEmail(
@@ -14,6 +16,17 @@ function Login() {
     setPassword(
       event.target.value,
     );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    const saveEmail = JSON.stringify({
+      email,
+    });
+    localStorage.setItem('user', saveEmail);
+    history.push('/comidas');
   };
 
   const VALIDATIONEMAIL = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/i;
@@ -48,6 +61,7 @@ function Login() {
           type="submit"
           data-testid="login-submit-btn"
           disabled={ !(VALIDATIONEMAIL.test(email) && password.length > NUMBER_SIX) }
+          onClick={ handleSubmit }
         >
           Entrar
         </button>
