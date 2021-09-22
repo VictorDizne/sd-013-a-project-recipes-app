@@ -1,29 +1,46 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 const Header = ({ pageTitle, history }) => {
+  const [showBar, setShowBar] = useState(false);
+
   const checkObj = {
     'Explorar Origem': true,
     Comidas: true,
     Bebidas: true,
   };
 
+  const handleSearchBtnClick = () => {
+    setShowBar(!showBar);
+  };
+
   return (
     <header>
       <input
         type="image"
-        src="../src/images/profileIcon.svg"
+        src={ profileIcon }
         data-testid="profile-top-btn"
         alt="profile icon"
         onClick={ () => history.push('/perfil') }
       />
       <h2 data-testid="page-title">{ pageTitle }</h2>
       {checkObj[pageTitle]
-    && <img
-      data-testid="search-top-btn"
-      alt="search icon"
-      src="../src/images/searchIcon.svg"
-    />}
+        && <input
+          type="image"
+          data-testid="search-top-btn"
+          alt="search icon"
+          src={ searchIcon }
+          onClick={ handleSearchBtnClick }
+        />}
+      {showBar
+      && (
+        <div className="search-bar">
+          <input data-testid="search-input" />
+        </div>
+      )}
+
     </header>
   );
 };
