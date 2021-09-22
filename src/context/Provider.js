@@ -23,7 +23,7 @@ function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
-};
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+}.isRequired;
 
 export default Provider;
