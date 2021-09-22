@@ -7,6 +7,11 @@ import {
   Perfil,
   Bebidas,
   Explorar,
+  ExplorarComidas,
+  ExplorarBebidas,
+  ExplorarComidasIngredientes,
+  ExplorarBebidasIngredientes,
+  LocalOrigem,
   ReceitasFeitas,
   ReceitasFavoritas,
   NoteFound,
@@ -19,7 +24,20 @@ function App() {
       <Route path="/perfil" component={ Perfil } />
       <Route path="/comidas" component={ Comidas } />
       <Route path="/bebidas" component={ Bebidas } />
-      <Route path="/explorar" component={ Explorar } />
+      <Route exact path="/explorar" component={ Explorar } />
+      <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+      <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+      <Route
+        exact
+        path="/explorar/comidas/ingredientes"
+        component={ ExplorarComidasIngredientes }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/ingredientes"
+        component={ ExplorarBebidasIngredientes }
+      />
+      <Route exact path="/explorar/comidas/area" component={ LocalOrigem } />
       <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route path="*" component={ NoteFound } />

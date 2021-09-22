@@ -1,28 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import PropTypes from 'prop-types';
+import './Header.css';
 
-function Header() {
-  /* const { glass, setGlass } = useState;
-  if(glass) {
-    setGlass
-  }  */
+function Header({ title, profile, search }) {
   return (
-    <header>
-      <Link
-        to="/perfil"
-      >
-        <img alt="profile" data-testid="profile-top-btn" src={ profileIcon } />
-      </Link>
-      <h1 data-testid="page-title">Comidas</h1>
-      <Link
-        to="/explorar"
-      >
-        <img alt="search" data-testid="search-top-btn" src={ searchIcon } />
-      </Link>
+    <header className="header">
+      { profile }
+      <h1 data-testid="page-title">{ title }</h1>
+      { search }
     </header>
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+  profile: PropTypes.object.isRequired,
+  search: PropTypes.object.isRequired,
+}.isRequired;
 
 export default Header;

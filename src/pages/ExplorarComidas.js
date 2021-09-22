@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
 import Header from '../components/Header';
 
-function Bebidas() {
+function ExplorarComidas() {
   return (
     <div>
       <Header
@@ -13,15 +12,12 @@ function Bebidas() {
             <img alt="profile" data-testid="profile-top-btn" src={ profileIcon } />
           </Link>
         }
-        title="Bebidas"
-        search={
-          <Link to="/explorar">
-            <img alt="search" data-testid="search-top-btn" src={ searchIcon } />
-          </Link>
-        }
+        title="Explorar Comidas"
+        search=""
       />
+      <Link to="/explorar/comidas/ingredientes">Por Ingredientes</Link>
     </div>
   );
 }
 
-export default Bebidas;
+export default ExplorarComidas;
