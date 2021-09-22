@@ -2,13 +2,14 @@ import React from 'react';
 import Header from '../components/Header';
 import ComponentFooter from '../components/ComponentFooter';
 
-function Perfil() {
+function ExplorarComidasIngredientes() {
   return (
     <div>
-      <Header title="Perfil" hideSearch hideProfile={ false } />
+      <Header title="Explorar Ingredientes" hideSearch hideProfile={ false } />
       <ComponentFooter />
     </div>
+
   );
 }
 
-export default Perfil;
+export default ExplorarComidasIngredientes;

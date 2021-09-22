@@ -2,13 +2,14 @@ import React from 'react';
 import Header from '../components/Header';
 import ComponentFooter from '../components/ComponentFooter';
 
-function Perfil() {
+function LocalOrigem() {
   return (
     <div>
-      <Header title="Perfil" hideSearch hideProfile={ false } />
+      <Header title="Explorar Origem" hideSearch={ false } hideProfile={ false } />
       <ComponentFooter />
+
     </div>
   );
 }
 
-export default Perfil;
+export default LocalOrigem;

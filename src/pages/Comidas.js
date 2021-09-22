@@ -1,11 +1,17 @@
-import React from 'react';
-import Footer from '../components/ComponentFooter';
+import React, { useContext } from 'react';
+import Header from '../components/Header';
+import recipeContext from '../context';
+import SearchInput from '../components/SearchInput';
+import ComponentFooter from '../components/ComponentFooter';
 
 function Comidas() {
+  const currentContext = useContext(recipeContext).ContextComidas;
+  const { showInput } = currentContext;
   return (
     <div>
-      <h1>comidas</h1>
-      <Footer />
+      <Header title="Comidas" hideSearch={ false } hideProfile={ false } />
+      {showInput && <SearchInput />}
+      <ComponentFooter />
     </div>
   );
 }
