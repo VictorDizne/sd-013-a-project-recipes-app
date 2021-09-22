@@ -6,8 +6,13 @@ export default function createCard(array, tipo) {
   const twelveFirst = array.slice(0, twelve);
   return (
     <div>
-      {twelveFirst.map((alimento, i) => (
-        <Card tipo={ tipo } key={ i } alimento={ alimento } />
+      {twelveFirst.map((alimento, index) => (
+        <Card
+          tipo={ tipo }
+          key={ index }
+          chave={ index }
+          alimento={ alimento }
+        />
       ))}
     </div>
   );
