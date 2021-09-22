@@ -4,7 +4,7 @@ import Header from '../components/header';
 export default function Profile() {
   return (
     <div>
-      <Header name="Perfil" />
+      <Header name="Perfil" search={ false } />
       <p>tela de perfil temporária</p>
     </div>
   );

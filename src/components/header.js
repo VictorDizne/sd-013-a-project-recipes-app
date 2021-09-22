@@ -6,7 +6,7 @@ import SearchButton from './searchButton';
 
 export default function Header({ name, search }) {
   return (
-    <header>
+    <header data-testid="header-test">
       <Link
         to="/perfil"
       >

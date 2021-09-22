@@ -16,6 +16,7 @@ import FoodExplorer from './pages/foodExplorer';
 import OriginExp from './pages/OriginExp';
 import FavoriteRecipes from './pages/favoriteRecipe';
 import DrinkIngredientsExp from './pages/DrinkIngredientsExp';
+import { ProcessDrink, ProcessFood } from './pages';
 
 function App() {
   return (
@@ -50,6 +51,16 @@ function App() {
         exact
         path="/comidas/:id"
         render={ (props) => <FoodDetails { ...props } /> }
+      />
+      <Route
+        exact
+        path="/comidas/:id/in-progress"
+        render={ (props) => <ProcessFood { ...props } /> }
+      />
+      <Route
+        exact
+        path="/bebidas/:id/in-progress"
+        render={ (props) => <ProcessDrink { ...props } /> }
       />
     </Switch>
   );

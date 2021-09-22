@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import Header from '../components/header';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const Login = (props) => {
   };
 
   return (
-    <div>
+    <div data-testid="login-test">
       <form>
         <label htmlFor="email">
           Email:
