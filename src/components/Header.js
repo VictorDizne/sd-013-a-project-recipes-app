@@ -1,16 +1,23 @@
 // @ts-check
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import './Header.css';
+import recipeContext from '../context';
 
 function Header({ title, hideProfile, hideSearch }) {
+  const currentContext = useContext(recipeContext).ContextHeader;
+  const { handleShowInput } = currentContext;
+
   const searchComponent = (
-    <Link to="/explorar">
+    <button
+      type="button"
+      onClick={ handleShowInput }
+    >
       <img alt="search" data-testid="search-top-btn" src={ searchIcon } />
-    </Link>);
+    </button>);
 
   const profileComponent = (
     <Link to="/perfil">

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import recipeContext from './index';
 
 function Provider({ children }) {
-  const ContextLogin = { name: 'teste' };
-  const ContextHeader = {};
-  const ContextComidas = {};
-  const ContextBebidas = {};
+  const [showInput, setShowInput] = useState(false);
+  function handleShowInput() {
+    setShowInput(!showInput);
+  }
+  const ContextLogin = {};
+  const ContextHeader = { handleShowInput };
+  const ContextComidas = { showInput };
+  const ContextBebidas = { showInput };
   const ContextFooter = {};
   const context = {
     ContextLogin,
