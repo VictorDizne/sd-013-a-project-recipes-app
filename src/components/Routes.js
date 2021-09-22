@@ -12,22 +12,26 @@ import ExplorarComidasOri from '../pages/ExplorarComidasOri';
 import Perfil from '../pages/Perfil';
 import ReceitasFeitas from '../pages/ReceitasFeitas';
 import ReceitasFavoritas from '../pages/ReceitasFavoritas';
+import ComidasDetalhes from '../pages/ComidasDetalhe';
+import BebidasDetalhes from '../pages/BebidasDetalhe';
+import ComidaProgress from '../pages/ComidaProgress';
+import BebidaProgress from '../pages/BebidaProgress';
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Comidas } />
-      <Route path="/bebidas" component={ Bebidas } />
-      <Route path="/comidas/:recipeId" component={ Comidas } />
-      <Route path="/bebidas/:recipeId" component={ Comidas } />
+      <Route exact path="/comidas" component={ Comidas } />
+      <Route exact path="/bebidas" component={ Bebidas } />
+      <Route path="/comidas/:recipeId" component={ ComidasDetalhes } />
+      <Route path="/bebidas/:recipeId" component={ BebidasDetalhes } />
       <Route
         path="/comidas/:recipeId/in-progress"
-        component={ Comidas }
+        component={ ComidaProgress }
       />
       <Route
         path="/bebidas/:recipeId/in-progress"
-        component={ Comidas }
+        component={ BebidaProgress }
       />
       <Route path="/explorar" component={ Explorar } />
       <Route path="/explorar/comidas" component={ ExplorarComidas } />
