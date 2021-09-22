@@ -1,9 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import Header from '../components/Header';
 
-export default function ReceitasFeitas() {
+export default function ReceitasFeitas({ history }) {
   return (
-    <div>
-      Eu sou ReceitasFeitas
-    </div>
+    <Header pageTitle="Receitas Feitas" history={ history } />
   );
 }
+
+ReceitasFeitas.propTypes = ({
+  history: PropTypes.objectOf(PropTypes.any),
+}).isRequired;
