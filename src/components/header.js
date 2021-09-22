@@ -12,10 +12,8 @@ function Header({ title }) {
     // Primeiro checa se a página tem o título de Comidas ou Explorar Origem,
     // a barra de procura deve ser mostrada somente nessa ocasião.
     if (title === 'Comidas' || title === 'Explorar Origem') {
-      console.log('entrou');
-      // Caso esteja na página com título de Comidas, aparece um botão para ser
-      // clicado. Ao clicar nesse botão, é mudado o valor responsável por condicionar
-      // a renderização da barra de pesquisa
+      // Caso esteja na página com título de Comidas ou Explorar Origem, aparece um botão para ser
+      // clicado.
       return (
         <button type="button" onClick={ () => setShowSearchBar(!showSearchBar) }>
           <img
@@ -30,7 +28,7 @@ function Header({ title }) {
   function searchBar() {
     // Checa se deve mostrar a searchBar, se for negativo retorna nulo, se for
     // positivo retorna o componente SearchBar
-    const searchBarComponent = showSearchBar ? <SearchBar /> : null;
+    const searchBarComponent = showSearchBar ? <SearchBar title={ title } /> : null;
     return searchBarComponent;
   }
 
