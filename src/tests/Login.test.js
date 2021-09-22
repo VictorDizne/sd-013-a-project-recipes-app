@@ -26,35 +26,52 @@ describe('Testando pagina de "Login"', () => {
   describe('Testando o "Botão"', () => {
     test('verificar se o botão existe', () => {
       renderWithRouter(<App />);
-      const inputValueButton = screen.getByTestId('login-submit-btn');
+      const ButtonClick = screen.getByTestId('login-submit-btn');
 
-      expect(inputValueButton).toBeInTheDocument();
+      expect(ButtonClick).toBeInTheDocument();
     });
 
-    test('verificar se o botão está desbilitado, corretamente', () => {
+    test('verificar se o botão está desabilitado, corretamente', () => {
       renderWithRouter(<App />);
       const inputValueEmail = screen.getByTestId(emailID);
       const inputValuPassWord = screen.getByTestId(inputID);
-      const inputValueButton = screen.getByTestId(buttonID);
+      const ButtonClick = screen.getByTestId(buttonID);
 
       userEvent.type(inputValueEmail, 'Trybe012testegmail.com');
       userEvent.type(inputValuPassWord, '1234567');
 
-      expect(inputValueButton).toBeInTheDocument();
-      expect(inputValueButton.closest('button')).toBeDisabled();
+      expect(ButtonClick.closest('button')).toBeDisabled();
     });
 
     test('verificar se o botão está habilitado, corretamente', () => {
       renderWithRouter(<App />);
       const inputValueEmail = screen.getByTestId(emailID);
       const inputValuPassWord = screen.getByTestId(inputID);
-      const inputValueButton = screen.getByTestId(buttonID);
+      const ButtonClick = screen.getByTestId(buttonID);
 
       userEvent.type(inputValueEmail, 'Trybe012teste@gmail.com');
       userEvent.type(inputValuPassWord, '1234567');
 
-      expect(inputValueButton).toBeInTheDocument();
-      expect(inputValueButton.closest('button')).not.toBeDisabled();
+      expect(ButtonClick.closest('button')).not.toBeDisabled();
+    });
+
+    test('verificar se é redirecionado para a página de "Comidas"', () => {
+      renderWithRouter(<App />);
+
+      const inputValueEmail = screen.getByTestId(emailID);
+      const inputValuPassWord = screen.getByTestId(inputID);
+      const ButtonClick = screen.getByTestId(buttonID);
+
+      userEvent.type(inputValueEmail, 'Trybe012teste@gmail.com');
+      userEvent.type(inputValuPassWord, '1234567');
+      userEvent.click(ButtonClick);
+
+      const textFood = screen.getByRole('heading', {
+        name: /comidas/i,
+        level: 1,
+      });
+
+      expect(textFood).toBeInTheDocument();
     });
   });
 });
