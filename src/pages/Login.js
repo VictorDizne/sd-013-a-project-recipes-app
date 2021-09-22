@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import Header from '../components/header';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
