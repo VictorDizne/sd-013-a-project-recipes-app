@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function ExplorarComidasArea({ history }) {
   return (
-    <Header pageTitle="Explorar Origem" history={ history } />
+    <>
+      <Header pageTitle="Explorar Origem" history={ history } />
+      <Footer />
+    </>
   );
 }
 
