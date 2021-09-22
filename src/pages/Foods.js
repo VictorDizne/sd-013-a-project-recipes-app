@@ -2,13 +2,13 @@ import React from 'react';
 import Header from '../components/Header';
 /* import PropTypes from 'prop-types'; */
 
-function mainPage() {
+function Foods() {
+  const secondButton = true;
   return (
-
     <h1>
-      <Header text="Comidas" />
+      <Header text="Comidas" secondButton={ secondButton } />
     </h1>
   );
 }
 
-export default mainPage;
+export default Foods;
