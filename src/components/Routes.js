@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from '../pages/Login';
 import Comidas from '../pages/Comidas';
+import Perfil from '../pages/Perfil';
 
 function Routes() {
   return (
@@ -30,7 +31,7 @@ function Routes() {
         component={ Comidas }
       />
       <Route path="/explorar/comidas/area" component={ Comidas } />
-      <Route path="/perfil" component={ Comidas } />
+      <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas" component={ Comidas } />
       <Route path="/receitas-faviritas" component={ Comidas } />
     </Switch>
