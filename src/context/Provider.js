@@ -1,17 +1,16 @@
-import React, { createContext, useContext, useState } from 'react';
+// import React, { createContext, useContext, useState } from 'react';
 
-export const MainContext = createContext();
-export const SecondContext = createContext();
+// export const MainContext = createContext();
+// export const SecondContext = createContext();
 
-function Provider({children}) {
-  const contextValue = {
-    state,
-  }
-  return (
-    <MainContext.Provider value={ contextValue }>
-      {children}
-    </MainContext.Provider>
-  )
-}
+// function Provider({ children }) {
+//   const contextValue = {};
 
-export default Provider;
+//   return (
+//     <MainContext.Provider value={ contextValue }>
+//       {children}
+//     </MainContext.Provider>
+//   );
+// }
+
+// export default Provider;
