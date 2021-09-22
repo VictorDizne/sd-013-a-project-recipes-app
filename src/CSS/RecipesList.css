@@ -1,0 +1,6 @@
+.card {
+  height: 100vh; /* AQUI É A ALTERA DA DIV QUE DEVE SER MAIR QUE max-height */
+  margin: 0 auto;
+  max-height: 640px;
+  max-width: 360px;
+}
