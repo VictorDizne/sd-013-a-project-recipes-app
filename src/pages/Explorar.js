@@ -1,20 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
 import Header from '../components/Header';
 
 function Explorar() {
   return (
     <div>
-      <Header
-        profile={
-          <Link to="/perfil">
-            <img alt="profile" data-testid="profile-top-btn" src={ profileIcon } />
-          </Link>
-        }
-        title="Explorar"
-        search=""
-      />
+      <Header title="Explorar Origem" hideSearch hideProfile={ false } />
+
       <Link to="/explorar/comidas">Explorar Comidas</Link>
       <Link to="/explorar/bebidas">Explorar Bebidas</Link>
     </div>

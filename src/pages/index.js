@@ -3,7 +3,7 @@ export { default as Perfil } from './Perfil';
 export { default as Bebidas } from './Bebidas';
 export { default as Comidas } from './Comidas';
 export { default as DetalhesReceitaComida } from './DetalhesReceitaComida';
-export { default as DetalhesReceiBebida } from './DetalhesReceiBebida';
+export { default as DetalhesReceitaBebida } from './DetalhesReceitaBebida';
 export { default as ReceitaProcessoComida } from './ReceitaProcessoComida';
 export { default as ReceitaProcessoBebida } from './ReceitaProcessoBebida';
 export { default as Explorar } from './Explorar';

@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ReceitaProcessoComida() {
   return (
     <div>
-      <h1>ReceitaProcessoComida</h1>
+      <Header title="Receitas em processo comidas" hideSearch={ false } hideProfile />
     </div>
   );
 }
