@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
+import { Container } from 'react-bootstrap';
 import Routes from './components/Routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="meals">
+    <Container fluid>
       <Routes />
-    </div>
+    </Container>
   );
 }
 

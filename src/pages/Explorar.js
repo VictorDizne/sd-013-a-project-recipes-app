@@ -1,13 +1,13 @@
 import React from 'react';
 import Footer from '../components/Footer';
 
-function Comidas() {
+function Explorar() {
   return (
-    <>
-      <h1>Comidas</h1>
+    <div>
+      <h1>Explorar</h1>
       <Footer />
-    </>
+    </div>
   );
 }
 
-export default Comidas;
+export default Explorar;
