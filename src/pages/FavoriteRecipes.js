@@ -5,7 +5,7 @@ export default class FavoriteRecipes extends Component {
   render() {
     return (
       <div>
-        <Header titleHeader="Receitas Favoritas" id="0" />
+        <Header titleHeader="Receitas Favoritas" id="1" />
       </div>
     );
   }
