@@ -1,4 +1,4 @@
-import { ENABLE_DISABLE_SEARCH_BAR } from "../actions";
+import { ENABLE_DISABLE_SEARCH_BAR } from '../actions';
 
 const initialState = {
   enableSearch: true,

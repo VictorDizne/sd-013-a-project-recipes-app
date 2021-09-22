@@ -4,14 +4,14 @@ import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 
 const Foods = () => {
-  const enableSearch = useSelector(({ functionsReducer }) => functionsReducer.enableSearch);
+  const enable = useSelector(({ functionsReducer }) => functionsReducer.enableSearch);
   return (
     <div>
       <h1>Foods</h1>
-      {enableSearch && <SearchBar />}
+      {enable && <SearchBar />}
       <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default Foods;

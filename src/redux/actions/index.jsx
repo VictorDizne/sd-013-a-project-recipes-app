@@ -7,4 +7,4 @@ export const setUserEmail = (email) => ({
 
 export const enableSearchBar = () => ({
   type: ENABLE_DISABLE_SEARCH_BAR,
-})
+});
