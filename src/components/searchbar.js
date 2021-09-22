@@ -17,7 +17,7 @@ function SearchBar({ title }) {
     let apiURL;
     let apiResults;
     // Primeiro checa se iremos pesquisar por uma comida ou por um drink
-    if (foodOrDrink === 'Comidas') {
+    if (foodOrDrink === 'Comidas' || foodOrDrink === 'Explorar origem') {
       apiURL = 'themealdb';
     } else {
       apiURL = 'thecocktaildb';
@@ -37,6 +37,8 @@ function SearchBar({ title }) {
       break;
     }
     // Seta os resultados na context para apresentar os cards ao usuário
+    const maxResults = 12;
+    Object.values(apiResults.meals).slice(0, maxResults);
     setCardsToShow(apiResults);
   }
 
