@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({ id, type, className, disabled, onClick }) => {
-  return (
+const Button = ({ id, type, className, disabled, onClick }) => (
     <button
       id={ id }
       className={ className }
@@ -13,8 +12,7 @@ const Button = ({ id, type, className, disabled, onClick }) => {
     >
       { buttonText }
     </button>
-  );
-};
+);
 
 Button.propTypes = {
   id: PropTypes.string,
