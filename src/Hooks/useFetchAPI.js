@@ -16,7 +16,12 @@ const useFetchAPI = (value, input, page) => {
 
     async function fetchResult() {
       const result = await (await fetch(url)).json();
-      setRecipes(result.meals);
+      setRecipes({
+        ...recipes,
+        meals: result.meals });
+      setRecipes({
+        ...recipes,
+        drinks: result.drinks });
     }
 
     fetchResult();

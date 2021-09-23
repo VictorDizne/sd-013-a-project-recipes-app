@@ -77,7 +77,7 @@ function Header({ text, secondButton }) {
               handleChange={ handleChange }
             />
             <Input
-              labelText="Busca de ingrediente"
+              labelText="Ingrediente"
               value="ingredient"
               name="search-radio"
               inputType="radio"
@@ -85,7 +85,7 @@ function Header({ text, secondButton }) {
               handleChange={ handleCheck }
             />
             <Input
-              labelText="Busca por nome"
+              labelText="Nome"
               value="nameSearch"
               name="search-radio"
               inputType="radio"
@@ -93,7 +93,7 @@ function Header({ text, secondButton }) {
               handleChange={ handleCheck }
             />
             <Input
-              labelText="Busca a primeira letra"
+              labelText="Primeira letra"
               value="firstLetter"
               name="search-radio"
               inputType="radio"
