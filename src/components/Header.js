@@ -10,7 +10,7 @@ function Header() {
     .replace('area', 'Origem');
   console.log(path);
   console.log(pathGrande);
-  const maxChar = 15;
+  const maxChar = 14;
   // const maxStringsChar = 29;
   const formataNome = () => (
     path.length > maxChar
