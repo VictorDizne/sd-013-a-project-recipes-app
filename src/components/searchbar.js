@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import recipesContext from '../context';
 import fetchAPI from '../services/fetchAPI';
@@ -6,14 +6,19 @@ import fetchAPI from '../services/fetchAPI';
 // Quando for montar a SearchBar é necessário passar o título da página como props, conforme linha 98
 
 function SearchBar({ title }) {
-  const { setCardsToShow } = useContext(recipesContext);
-  const [searchParameter, setSearchParameter] = useState();
+  const {
+    setCardsToShow,
+    searchParameter,
+    setSearchParameter,
+    setLoading,
+  } = useContext(recipesContext);
 
   function handleSearchParameter({ target: { name, value } }) {
     setSearchParameter({ ...searchParameter, [name]: value });
   }
 
   async function searchAPI(foodOrDrink) {
+    setLoading(true);
     let apiURL;
     let apiResults;
     // Primeiro checa se iremos pesquisar por uma comida ou por um drink
@@ -38,15 +43,16 @@ function SearchBar({ title }) {
     }
     // Seta os resultados na context para apresentar os cards ao usuário
     setCardsToShow(apiResults);
+    setLoading(false);
   }
 
-  function checkInput(foodOrDrink) {
+  function checkInput() {
     // Checa se estamos pequisando a primeira letra e se o input é maior que um caractere,
     // se for, aparece um alert na tela. Caso contrário, faz a pesquisa na API normalmente
-    if (searchParameter.radio === 'firstLetter' && searchParameter.text.length > 1) {
+    if (searchParameter.radio === 'firstLetter' && searchParameter.text.length !== 1) {
       global.alert('Digite apenas uma letra');
     } else {
-      searchAPI(foodOrDrink);
+      searchAPI(title);
     }
   }
 
@@ -95,7 +101,7 @@ function SearchBar({ title }) {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => checkInput(title) }
+        onClick={ checkInput }
       >
         Buscar
       </button>
