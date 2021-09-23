@@ -9,35 +9,40 @@ function Provider({ children }) {
   const [inputText, setInputText] = useState('');
   const [inputRadio, setInputRadio] = useState('');
   const [data, setData] = useState([]);
-
   const history = useHistory();
+
+  const condicionalFoodLenght = (results) => {
+    if (results.length === 1) {
+      history.push(`/comidas/${results[0].idMeal}`);
+    }
+  };
+
+  const condicionalDrinkLenght = (results) => {
+    if (results.length === 1) {
+      history.push(`/bebidas/${results[0].idDrink}`);
+    }
+  };
 
   const handleMealsApis = async () => {
     if (inputRadio === 'ingredient') {
       const results = await comidasApi.fetchFoodByIngredients(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/comidas/${results[0].idMeal}`);
-      }
+      condicionalFoodLenght(results);
     }
 
     if (inputRadio === 'name') {
       const results = await comidasApi.fetchFoodByName(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/comidas/${results[0].idMeal}`);
-      }
+      condicionalFoodLenght(results);
     }
 
     if (inputRadio === 'letter' && inputText.length === 1) {
       const results = await comidasApi.fetchFoodByLetter(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/comidas/${results[0].idMeal}`);
-      }
+      condicionalFoodLenght(results);
     }
 
     if (inputRadio === 'letter' && inputText.length > 1) {
@@ -50,27 +55,22 @@ function Provider({ children }) {
       const results = await bebidasApi.fetchDrinkByIngredients(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/bebidas/${results[0].idDrink}`);
-      }
+      condicionalDrinkLenght(results);
     }
 
     if (inputRadio === 'name') {
       const results = await bebidasApi.fetchDrinkByName(inputText);
       setData(results);
+      console.log(results);
 
-      if (results.length === 1) {
-        history.push(`/bebidas/${results[0].idDrink}`);
-      }
+      condicionalDrinkLenght(results);
     }
 
     if (inputRadio === 'letter' && inputText.length === 1) {
       const results = await bebidasApi.fetchDrinkByLetter(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/bebidas/${results[0].idDrink}`);
-      }
+      condicionalDrinkLenght(results);
     }
 
     if (inputRadio === 'letter' && inputText.length > 1) {
