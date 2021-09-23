@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('user', '');
   const [password, setPassword] = useState('');
   const [disable, setDisable] = useState(true);
+  const history = useHistory();
 
   const validateLogin = () => {
-    const validPassword = 5;
+    const validPassword = 6;
     const validEmail = /^([\w\d._\-#])+@([\w\d._\-#]+[.][\w\d._\-#]+)+$/;
     if (password.length > validPassword && validEmail.test(email)) {
       setDisable(false);
     } else {
       setDisable(true);
     }
+  };
+
+  useEffect(validateLogin, [email, password]);
+
+  const handleSubmit = () => {
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
   };
 
   return (
@@ -24,7 +35,6 @@ function Login() {
         type="email"
         onChange={ ({ target }) => {
           setEmail(target.value);
-          validateLogin();
         } }
       />
       <input
@@ -34,14 +44,13 @@ function Login() {
         type="password"
         onChange={ ({ target }) => {
           setPassword(target.value);
-          validateLogin();
         } }
       />
       <button
         type="button"
         data-testid="login-submit-btn"
         disabled={ disable }
-        // onClick={ }
+        onClick={ handleSubmit }
       >
         Entrar
       </button>
