@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Header } from '../../components/General';
-import CardDoneRecipes from './CardDoneRecipes';
+import CardDoneRecipes from '../../components/DoneRecipes/CardDoneRecipes';
 
 function DoneRecipes() {
   const doneRecipes = useSelector(({ recipes }) => recipes.doneRecipes);
