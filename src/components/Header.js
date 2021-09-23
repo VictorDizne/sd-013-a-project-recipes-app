@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
   const location = useLocation();
+  const history = useHistory();
 
   const [title, setTitle] = useState('Comidas');
   const [buttonSearch, setButtonSearch] = useState(true);
+  const [inputSearch, setInputSearch] = useState(false);
 
   const conditionalTitle = () => {
     switch (location.pathname) {
@@ -57,6 +59,15 @@ function Header() {
 
   useEffect(conditionalTitle, [location]);
 
+  function handleClickProfile() {
+    history.push('/perfil');
+  }
+
+  function handleClickBtnSearch() {
+    setInputSearch(true);
+    if (inputSearch) return setInputSearch(false);
+  }
+
   return (
     <header>
       <input
@@ -64,6 +75,7 @@ function Header() {
         src={ profileIcon }
         alt="profile"
         data-testid="profile-top-btn"
+        onClick={ handleClickProfile }
       />
       <h1 data-testid="page-title">{title}</h1>
       {
@@ -72,6 +84,13 @@ function Header() {
           src={ searchIcon }
           alt="search"
           data-testid="search-top-btn"
+          onClick={ handleClickBtnSearch }
+        />
+      }
+      {
+        inputSearch && <input
+          type="text"
+          data-testid="search-input"
         />
       }
     </header>
