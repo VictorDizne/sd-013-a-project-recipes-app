@@ -27,4 +27,4 @@ FoodCard.propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-export default FoodCard;
+export default FoodCard; //
