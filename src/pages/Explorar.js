@@ -1,10 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ComponentFooter from '../components/ComponentFooter';
-import { Link } from 'react-router-dom';
 
 function Explorar() {
-
   return (
     <div>
       <Header title="Explorar" hideSearch hideProfile={ false } />
