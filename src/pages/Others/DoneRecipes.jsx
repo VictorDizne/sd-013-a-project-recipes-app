@@ -5,7 +5,7 @@ import CardDoneRecipes from './CardDoneRecipes';
 
 function DoneRecipes() {
   const doneRecipes = useSelector(({ recipes }) => recipes.doneRecipes);
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState('all');
   const [cards, setCards] = useState(doneRecipes);
 
   useEffect(() => {
