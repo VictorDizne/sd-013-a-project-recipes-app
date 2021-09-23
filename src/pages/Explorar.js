@@ -6,9 +6,9 @@ import ComponentFooter from '../components/ComponentFooter';
 function Explorar() {
   return (
     <div>
-      <Header title="Explorar Origem" hideSearch hideProfile={ false } />
-      <Link to="/explorar/comidas">Explorar Comidas</Link>
-      <Link to="/explorar/bebidas">Explorar Bebidas</Link>
+      <Header title="Explorar" hideSearch hideProfile={ false } />
+      <Link data-testid="explore-food" to="/explorar/comidas">Explorar Comidas</Link>
+      <Link data-testid="explore-drinks" to="/explorar/bebidas">Explorar Bebidas</Link>
       <ComponentFooter />
 
     </div>
