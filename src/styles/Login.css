@@ -17,6 +17,7 @@ body {
   min-width: 27%;
   background-color: #2C2B3C;
   border-radius: 2%;
+  box-shadow: 6px 5px 10px rgba(39, 36, 39, 0.692)
 }
 
 .container_login h1 {
@@ -25,6 +26,7 @@ body {
   color: #ffede3;
   border-bottom: 1px solid #655A7C;
   font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
 }
 
 .container_login form {
@@ -33,8 +35,9 @@ body {
 }
 
 .container_login label {
-  font-size: 20px;
+  font-size: 15px;
   color: #ffede3;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .text_field {
@@ -46,15 +49,28 @@ body {
   width: 100%;
   height: 40px;
   font-size: 16px;
-  border: none;
-  outline: none;
   border-radius: 5px;
+  border-bottom-color: #655A7C;
+  background-color: #2C2B3C;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline-color: #655A7C;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .style_button {
-  width: 101.3%;
-  height: 40px;
-  font-size: 16px;
+  width: 150px;
+  height: 45px;
+  font-size: 17px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #ffffff;
   border: none;
   outline: none;
   border-radius: 5px;
@@ -67,9 +83,9 @@ body {
   cursor: pointer;
 }
 
-@media (max-width: 600px)
+@media screen and (max-width: 600px)
 {
   .container_login {
-    width: 98%;
+    width: 100%;
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/RecipeCard.css';
 
 function RecipeCard({
   page,
@@ -7,7 +8,7 @@ function RecipeCard({
   recipe: { strMeal, strMealThumb, strDrink, strDrinkThumb },
 }) {
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div data-testid={ `${index}-recipe-card` } className="contente">
       <img
         src={ (page === 'foods') ? strMealThumb : strDrinkThumb }
         data-testid={ `${index}-card-img` }

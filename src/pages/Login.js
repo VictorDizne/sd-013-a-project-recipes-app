@@ -44,7 +44,7 @@ function Login() {
               id="email-id"
               type="email"
               data-testid="email-input"
-              placeholder="email@email.com"
+              placeholder="trybe@gmail.com"
               value={ email }
               onChange={ handleEmail }
             />
@@ -63,7 +63,7 @@ function Login() {
             />
           </label>
         </div>
-        <div>
+        <div className="button-container">
           <button
             type="submit"
             className="style_button"

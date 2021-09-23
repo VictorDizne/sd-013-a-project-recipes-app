@@ -1,0 +1,71 @@
+header {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.container_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  width: 100%;
+  height: 55px;
+  margin: 0 auto;
+}
+
+.css_botton_1 {
+  margin-left: 5px;
+}
+
+.css_botton_2 {
+  margin-right: 5px;
+}
+
+.fome_bar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+  background-color: #7c6f97;
+}
+
+.input_pesquisa {
+  width: 80%;
+  height: 30px;
+  border-radius: 5px;
+  margin-top: 5px;
+  outline: none;
+}
+
+#ingredient, #name, #letter {
+  margin: 20px 10px;
+}
+
+.fome_bar div label {
+  padding: 10px;
+}
+
+.button_pesquisa {
+  width: 80%;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #09869c;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.button_pesquisa:hover {
+  cursor: pointer;
+  background-color: rgb(48, 160, 48);
+}

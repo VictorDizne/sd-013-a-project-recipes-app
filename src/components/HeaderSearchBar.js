@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from '../context/index';
+import '../styles/Header.css';
 
 function HeaderSearchBar({ page }) {
   const {
@@ -22,10 +23,11 @@ function HeaderSearchBar({ page }) {
   }
 
   return (
-    <form>
+    <form className="fome_bar">
       <input
         type="text"
         placeholder="Buscar receitas"
+        className="input_pesquisa"
         data-testid="search-input"
         value={ inputText }
         onChange={ (event) => setInputText(event.target.value) }
@@ -68,6 +70,7 @@ function HeaderSearchBar({ page }) {
       <button
         type="button"
         data-testid="exec-search-btn"
+        className="button_pesquisa"
         onClick={ handleClick }
       >
         Buscar
