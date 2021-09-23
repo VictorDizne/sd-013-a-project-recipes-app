@@ -15,7 +15,7 @@ const Explorer = () => (
       </button>
     </Link>
 
-    <Link to="/comidas">
+    <Link to="/bebidas">
       <button data-testid="explore-drinks" type="button">
         Explorar Bebidas
       </button>
