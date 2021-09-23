@@ -9,6 +9,7 @@ function Header() {
 
   const [title, setTitle] = useState('Comidas');
   const [buttonSearch, setButtonSearch] = useState(true);
+  const [inputSearch, setInputSearch] = useState(false);
 
   const conditionalTitle = () => {
     switch (location.pathname) {
@@ -62,6 +63,11 @@ function Header() {
     history.push('/perfil');
   }
 
+  function handleClickBtnSearch() {
+    setInputSearch(true);
+    if (inputSearch) return setInputSearch(false);
+  }
+
   return (
     <header>
       <input
@@ -78,6 +84,13 @@ function Header() {
           src={ searchIcon }
           alt="search"
           data-testid="search-top-btn"
+          onClick={ handleClickBtnSearch }
+        />
+      }
+      {
+        inputSearch && <input
+          type="text"
+          data-testid="search-input"
         />
       }
     </header>
