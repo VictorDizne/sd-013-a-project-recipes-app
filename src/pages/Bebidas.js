@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 
@@ -13,7 +14,11 @@ export default function Bebidas({ history }) {
   }, [drinks, history]);
 
   return (
-    <Header pageTitle="Bebidas" history={ history } isMeal={ false } />
+    <>
+      <Header pageTitle="Bebidas" history={ history } isMeal={ false } />
+      <Header pageTitle="Bebidas" history={ history } />
+      <Footer />
+    </>
   );
 }
 
