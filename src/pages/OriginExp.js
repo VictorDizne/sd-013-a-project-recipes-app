@@ -1,9 +1,13 @@
 import React from 'react';
 import Header from '../components/header';
+import LowerMenu from '../components/LowerMenu';
 
 function OriginExp() {
   return (
-    <Header name="Explorar Origem" search />
+    <section>
+      <Header name="Explorar Origem" search />
+      <LowerMenu />
+    </section>
   );
 }
 

@@ -1,9 +1,13 @@
 import React from 'react';
 import Header from '../components/header';
+import LowerMenu from '../components/LowerMenu';
 
 function DrinkExplorer() {
   return (
-    <Header name="Explorar Bebidas" search={ false } />
+    <section>
+      <Header name="Explorar Bebidas" search={ false } />
+      <LowerMenu />
+    </section>
   );
 }
 
