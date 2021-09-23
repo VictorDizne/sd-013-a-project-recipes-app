@@ -14,15 +14,15 @@ function Drinks() {
     <section>
       <Header text="Bebidas" secondButton={ secondButton } />
       <h1>Drinks</h1>
-      { recipes.drinks === undefined ? (<h3>...loading</h3>)
+      { recipes.drinks === undefined ? null
         : (
           recipes.drinks.map((recipe, index) => (
             <div key={ index } data-testid={ `${index}-recipe-card` }>
-              <h3 data-testid={ `${index}-recipe-name` }>{ recipe.strDrink }</h3>
+              <h3 data-testid={ `${index}-card-name` }>{ recipe.strDrink }</h3>
               <img
                 src={ recipe.strDrinkThumb }
                 alt={ recipe.strDrink }
-                data-testid={ `${index}-recipe-img` }
+                data-testid={ `${index}-card-img` }
               />
             </div>
           )))}
