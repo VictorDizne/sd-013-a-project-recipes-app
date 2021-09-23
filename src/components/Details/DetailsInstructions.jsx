@@ -6,8 +6,8 @@ function DetailsInstructions() {
 
   if (!instructions) return null;
 
-  const instrucArray = instructions.split('\r\n');
-  instrucArray.forEach((p, i) => { if (!p.endsWith('.')) instrucArray[i] = `${p}.`; });
+  const instrucArray = instructions.split('\r\n'); // Splita as instruções nas quebras de linha;
+  instrucArray.forEach((p, i) => { if (!p.endsWith('.')) instrucArray[i] = `${p}.`; }); // Adiciona ponto final (.) quando não tiver;
   return (
     <div className="details-instructions-container">
       <h3>Instructions</h3>

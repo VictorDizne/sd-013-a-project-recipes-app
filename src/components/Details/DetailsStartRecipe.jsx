@@ -11,9 +11,9 @@ function DetailsStartRecipe({ spec }) {
   const type = spec === 'Meal' ? 'meals' : 'cocktails';
   const page = spec === 'Meal' ? 'comidas' : 'bebidas';
 
-  const done = doneRecipes.some((r) => r.id === id);
+  const done = doneRecipes.some((r) => r.id === id); // Verifica se a receita já foi concluida;
 
-  return (
+  return ( // Só renderiza o botão caso a receita ainda não tenha sido concluida;
     <div style={ done ? { display: 'none' } : {} }>
       <button
         className="details-start-btn"
@@ -24,7 +24,7 @@ function DetailsStartRecipe({ spec }) {
         {inProgressRecipes[type][id] ? 'Continuar Receita' : 'Começar Receita'}
       </button>
     </div>
-  );
+  ); // Caso a receita já esteja em progresso, o texto do botão é alterado;
 }
 
 export default DetailsStartRecipe;
