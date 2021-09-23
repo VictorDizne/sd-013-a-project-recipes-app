@@ -1,0 +1,41 @@
+import React, { useEffect, useState } from 'react';
+// import { Children } from 'react';
+import PropTypes from 'prop-types';
+import MyContext from './MyContext';
+
+export default function MyProvider({ Children }) {
+  const [data, setData] = useState([]);
+
+  const fetchStar = () => {
+    fetch('https://swapi-trybe.herokuapp.com/api/planets/')
+      .then((response) => response.json())
+      .then((body) => {
+        const del = body.results.map(({ residents, ...rest }) => rest);
+        setData(del);
+      });
+  };
+
+  useEffect(fetchStar, []);
+
+  return (
+    <MyContext.Provider value={ { data, setData } }>
+      { Children }
+    </MyContext.Provider>
+  );
+}
+MyProvider.propTypes = {
+  Children: PropTypes.shape(),
+}.isRequired;
+
+ 
+//MyProvider
+
+
+import { createContext } from 'react';
+
+const MyContext = createContext([]);
+
+export default MyContext;
+
+
+//MyContext

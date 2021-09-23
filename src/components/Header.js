@@ -11,14 +11,36 @@ function Header({ text, secondButton }) {
   const { data, setData } = useContext(Context);
   const [render, setRender] = useState(false);
   const handleInput = () => (render ? setRender(false) : setRender(true));
+  const [input, setInput] = useState({
+    inputText: '',
+    inputSearch: '',
+  });
 
   useEffect(() => {}, [render]);
 
   const handleChange = (e) => {
-    setData({ 
-      ...data,
-      [e.target.name]: e.target.value });
+    setInput({
+      ...input,
+      inputText: e.target.value });
   };
+
+  const handleCheck = (e) => {
+    setInput({
+      ...input,
+      inputSearch: e.target.value });
+  };
+
+  const handleClick = () => {
+    if (input.inputSearch === 'firstLetter' && input.inputText.length > 1) {
+      global.alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    setData({
+      text: input.inputText,
+      search: input.inputSearch,
+    });
+  };
+
+  useEffect(() => {}, [data]);
 
   return (
     <div>
@@ -52,7 +74,7 @@ function Header({ text, secondButton }) {
               name="search"
               inputType="text"
               testID="search-input"
-              handleChange={ handleChange } 
+              handleChange={ handleChange }
             />
             <Input
               labelText="Busca de ingrediente"
@@ -60,7 +82,7 @@ function Header({ text, secondButton }) {
               name="search-radio"
               inputType="radio"
               testID="ingredient-search-radio"
-              handleChange={ handleChange } 
+              handleChange={ handleCheck }
             />
             <Input
               labelText="Busca por nome"
@@ -68,7 +90,7 @@ function Header({ text, secondButton }) {
               name="search-radio"
               inputType="radio"
               testID="name-search-radio"
-              handleChange={ handleChange } 
+              handleChange={ handleCheck }
             />
             <Input
               labelText="Busca a primeira letra"
@@ -76,10 +98,11 @@ function Header({ text, secondButton }) {
               name="search-radio"
               inputType="radio"
               testID="first-letter-search-radio"
-              handleChange={ handleChange } 
+              handleChange={ handleCheck }
             />
             <Button
               testID="exec-search-btn"
+              handleClick={ handleClick }
             >
               Buscar
             </Button>
