@@ -42,6 +42,7 @@ function Login() {
             Email
             <input
               id="email-id"
+              className="email_class_1"
               type="email"
               data-testid="email-input"
               placeholder="trybe@gmail.com"
@@ -55,6 +56,7 @@ function Login() {
             Senha
             <input
               id="senha-id"
+              className="email_class_2"
               type="password"
               data-testid="password-input"
               placeholder="*******"

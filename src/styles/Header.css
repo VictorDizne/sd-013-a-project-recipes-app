@@ -1,18 +1,18 @@
 header {
-  margin: 0;
   border: 0;
+  margin: 0;
   padding: 0;
   width: 100%;
 }
 
 .container_header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
-  width: 100%;
+  background-color: white;
+  display: flex;
   height: 55px;
+  justify-content: space-between;
   margin: 0 auto;
+  width: 100%;
 }
 
 .css_botton_1 {
@@ -24,25 +24,25 @@ header {
 }
 
 .fome_bar {
-  width: 100%;
+  align-items: center;
+  background-color: rgb(124, 111, 151);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   position: absolute;
+  width: 100%;
   z-index: 1;
-  background-color: #7c6f97;
 }
 
 .input_pesquisa {
-  width: 80%;
-  height: 30px;
   border-radius: 5px;
+  height: 30px;
   margin-top: 5px;
   outline: none;
+  width: 80%;
 }
 
-#ingredient, #name, #letter {
+.radio_1, .radio_2, .radio_3 {
   margin: 20px 10px;
 }
 
@@ -51,21 +51,21 @@ header {
 }
 
 .button_pesquisa {
-  width: 80%;
-  height: 35px;
-  border-radius: 5px;
+  background-color: rgb(9, 134, 156);
   border: none;
-  outline: none;
+  border-radius: 5px;
+  color: white;
+  font-family: Montserrat , sans-serif;
   font-size: 15px;
-  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  color: #ffffff;
-  background-color: #09869c;
-  margin-top: 5px;
+  height: 35px;
   margin-bottom: 20px;
+  margin-top: 5px;
+  outline: none;
+  width: 80%;
 }
 
 .button_pesquisa:hover {
-  cursor: pointer;
   background-color: rgb(48, 160, 48);
+  cursor: pointer;
 }

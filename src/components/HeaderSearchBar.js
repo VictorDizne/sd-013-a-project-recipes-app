@@ -37,6 +37,7 @@ function HeaderSearchBar({ page }) {
           <input
             type="radio"
             name="search-type"
+            className="radio_1"
             id="ingredient"
             data-testid="ingredient-search-radio"
             value="ingredient"
@@ -48,6 +49,7 @@ function HeaderSearchBar({ page }) {
           <input
             type="radio"
             name="search-type"
+            className="radio_2"
             id="name"
             data-testid="name-search-radio"
             value="name"
@@ -59,6 +61,7 @@ function HeaderSearchBar({ page }) {
           <input
             type="radio"
             name="search-type"
+            className="radio_3"
             id="letter"
             data-testid="first-letter-search-radio"
             value="letter"
