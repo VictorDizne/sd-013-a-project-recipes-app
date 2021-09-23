@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import SearchField from './SearchField';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -32,10 +33,7 @@ function Header({ title, search }) {
       <h3 data-testid="page-title">{title}</h3>
       { search && renderButtonSearch() }
 
-      { handleInput && <input
-        type="text"
-        data-testid="search-input"
-      /> }
+      { handleInput && <SearchField /> }
     </div>
   );
 }
