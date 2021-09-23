@@ -10,9 +10,13 @@ const Button = ({ children, handleClick }) => (
   </button>
 );
 
+Button.defaultProps = {
+  handleClick: null,
+};
+
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
 };
 
 export default Button;
