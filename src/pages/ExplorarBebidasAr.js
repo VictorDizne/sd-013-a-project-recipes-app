@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 
 const ExplorarBebidasAr = () => (
   <div>
-    <Header page="Explorar Origem" />
+    <Header page="Explorar Origem" bebidas />
     <Footer />
   </div>
 );
