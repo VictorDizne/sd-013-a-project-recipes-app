@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Card = ({ alimento, tipo, chave }) => {
   const image = alimento[`str${tipo}Thumb`];
   const name = alimento[`str${tipo}`];
-
+  const idAlimento = alimento[`id${tipo}`];
+  const rota = tipo === 'Meal' ? `/comidas/${idAlimento}` : `/bebidas/${idAlimento}`;
   return (
-    <div data-testid={ `${chave}-recipe-card` }>
+    <Link
+      to={ rota }
+      data-testid={ `${chave}-recipe-card` }
+    >
       <img
         alt={ name }
         src={ image }
@@ -14,7 +19,7 @@ const Card = ({ alimento, tipo, chave }) => {
         data-testid={ `${chave}-card-img` }
       />
       <p data-testid={ `${chave}-card-name` }>{name}</p>
-    </div>
+    </Link>
   );
 };
 

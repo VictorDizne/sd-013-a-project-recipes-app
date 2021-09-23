@@ -8,7 +8,7 @@ const Provider = ({ children }) => {
   const [dataDrink, setDataDrink] = useState([]);
   const [categoryFood, setCategoryFood] = useState([]);
   const [categoryDrink, setCategoryDrink] = useState([]);
-  const [btnState, setBtnState] = useState({});
+  const [btnState, setBtnState] = useState({ category: '' });
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
 

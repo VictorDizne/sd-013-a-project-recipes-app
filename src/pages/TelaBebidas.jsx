@@ -32,10 +32,10 @@ const TelaBebidas = () => {
     ApiCategoryDrink();
   }, [btnState]);
 
-  return dataDrink === undefined ? <Loading /> : (
+  return !dataDrink ? <Loading /> : (
     <>
       <Filters alimento={ categoryDrink } />
-      { categoryFilter === undefined ? createCard(dataDrink, 'Drink')
+      { !categoryFilter ? createCard(dataDrink, 'Drink')
         : createCard(categoryFilter, 'Drink') }
     </>
   );
