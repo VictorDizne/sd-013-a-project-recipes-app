@@ -5,21 +5,19 @@ import '../App.css';
 const Footer = () => (
   <div data-testid="footer" className="Footer">
     <Link
-      to="/bebidas"
+      to="/comidas"
       type="button"
-      data-testid="drinks-bottom-btn"
-    >
-      <img src="src/images/drinkIcon.svg" alt="icone de bebida" />
-    </Link>
-    <Link
+      data-testid="food-bottom-btn"
+      src="src/images/drinkIcon.svg" alt="icone de bebida" />
+      <Link
       to="/explorar"
       type="button"
       data-testid="explore-bottom-btn"
-    >
+      >
       <img src="src/images/exploreIcon.svg" alt="icone de explorar" />
     </Link>
     <Link
-      to="/comidas"
+      to="/bebidas"
       type="button"
       data-testid="food-bottom-btn"
     >
