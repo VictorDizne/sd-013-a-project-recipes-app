@@ -17,15 +17,15 @@ function Footer() {
         heigth: '100px' } }
       data-testid="footer"
     >
-      <Link to='/bebidas'>
+      <Link to="/bebidas">
         <img data-testid="drinks-bottom-btn" src={ drinks } alt="drinks" />
       </Link>
-      <Link to='/explorar'>
+      <Link to="/explorar">
         <img data-testid="explore-bottom-btn" src={ explorar } alt="explorar" />
       </Link>
-      <Link to='/comidas'>
+      <Link to="/comidas">
         <img data-testid="food-bottom-btn" src={ comidas } alt="comidas" />
-      </Link>  
+      </Link>
     </div>
   );
 }

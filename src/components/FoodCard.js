@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function FoodCard({ data, index, thumb }) {
+function FoodCard(index, data, thumb) {
   return (
     <div
       style={ { width: '48%', height: '70px' } }

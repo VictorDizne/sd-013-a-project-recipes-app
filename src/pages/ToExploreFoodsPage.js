@@ -5,8 +5,8 @@ import Header from '../components/Header';
 function ToExploreFoodsPage() {
   return (
     <div>
-     <Header title="Explorar Comidas" />
-     <Footer />
+      <Header title="Explorar Comidas" />
+      <Footer />
     </div>
   );
 }

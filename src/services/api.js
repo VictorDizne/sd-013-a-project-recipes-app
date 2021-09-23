@@ -1,4 +1,4 @@
-async function fetchApi(searchInput, radioInput, myPage) {
+async function fetchApi(searchInput = '', radioInput, myPage) {
   if (radioInput === 'ingredient') {
     const returnedJson = await fetch(`https://www.${myPage}.com/api/json/v1/1/filter.php?i=${searchInput}`).then((res) => res.json());
     return returnedJson;

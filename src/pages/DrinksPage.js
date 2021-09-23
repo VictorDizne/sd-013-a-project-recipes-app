@@ -23,14 +23,14 @@ function DrinksPage() {
   );
 
   return (
-    <div style={ { display: 'flex', flexDirection: 'column' } }>    
+    <div style={ { display: 'flex', flexDirection: 'column' } }>
       <Header title="Bebidas" search />
       <div style={ { display: 'flex', flexWrap: 'wrap' } }>
         { recipe
           .map((item, index) => (index >= LIMITER_FOODS
-            ? null : returnCard(item, index))) }      
+            ? null : returnCard(item, index))) }
       </div>
-        <Footer />
+      <Footer />
     </div>
   );
 }
