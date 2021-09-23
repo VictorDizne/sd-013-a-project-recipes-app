@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import MyContext from '../context/Context';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import FoodCard from '../components/FoodCard';
 
 function DrinksPage() {
@@ -22,6 +23,10 @@ function DrinksPage() {
   );
 
   return (
+    <div style={ { display: 'flex', flexDirection: 'column' } }>
+      <Header title="Bebidas" search />
+    </div>
+
     <div>
       <Header title="Bebidas" search />
       <div style={ { display: 'flex', flexWrap: 'wrap' } }>
@@ -29,6 +34,7 @@ function DrinksPage() {
           .map((item, index) => (index >= LIMITER_FOODS
             ? null : returnCard(item, index))) }
       </div>
+      <Footer />
     </div>
   );
 }
