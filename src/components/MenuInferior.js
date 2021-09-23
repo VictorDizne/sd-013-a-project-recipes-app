@@ -1,30 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../css/MenuInferior.css';
+import drinkIcon from '../images/drinkIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
 
 export default function MenuInferior() {
+  const history = useHistory();
+  const clickDrinks = history.push('/drinks');
+  const clickExplore = history.push('/explore');
+  const clickFoods = history.push('/foods');
+
   return (
-    <footer data-testid="footer">
-      <Link
-        data-testid="drinks-bottom-btn"
-        to="/drinks"
-      >
-        <img src="../images/drinkIcon.svg" alt="drinks" />
-      </Link>
+    <footer data-testid="footer" className="footer">
+      <button type="button" onClick={ () => clickDrinks }>
+        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drinks" />
+      </button>
 
-      <Link
-        data-testid="explore-bottom-btn"
-        to="/explore"
-      >
-        <img src="../images/exploreIcon.svg" alt="drinks" />
-      </Link>
+      <button type="button" onClick={ () => clickExplore }>
+        <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="explore" />
+      </button>
 
-      <Link
-        data-testid="food-bottom-btn"
-        to="/foods"
-      >
-        <img src="../images/mealIcon.svg" alt="drinks" />
-      </Link>
+      <button type="button" onClick={ () => clickFoods }>
+        <img data-testid="food-bottom-btn" src={ mealIcon } alt="foods" />
+      </button>
     </footer>
   );
 }
