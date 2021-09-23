@@ -12,7 +12,7 @@ const RedirectComponent = ({ fetchResult }) => {
       return <Redirect to={ `comidas/${fetchResult.meals[0].idMeal}` } />;
     }
     if (fetchResult.drinks === null || fetchResult.meals === null) {
-      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }
   return null;
