@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RedirectComponent from './RedirectComponent';
+import FilterResults from './FilterResults';
 
 const Searchbar = ({ bebidas }) => {
   const [ingredient, switchIngredient] = useState(false);
@@ -106,6 +107,7 @@ const Searchbar = ({ bebidas }) => {
         Fazer busca
       </button>
       <RedirectComponent fetchResult={ fetchResult } />
+      <FilterResults fetchResult={ fetchResult } />
     </div>
   );
 };
