@@ -44,7 +44,7 @@ const Header = ({ pageTitle, history, isMeal }) => {
 Header.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   history: PropTypes.node.isRequired,
-  type: PropTypes.string.isRequired,
+  isMeal: PropTypes.bool.isRequired,
 };
 
 export default Header;
