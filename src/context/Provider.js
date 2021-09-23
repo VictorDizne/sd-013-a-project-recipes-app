@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from './index';
@@ -9,6 +9,8 @@ function Provider({ children }) {
   const [inputText, setInputText] = useState('');
   const [inputRadio, setInputRadio] = useState('');
   const [data, setData] = useState([]);
+  const [foodCategories, setFoodCategories] = useState('');
+  const [drinkCategories, setDrinkCategories] = useState('');
   const history = useHistory();
 
   const condicionalFoodLenght = (results) => {
@@ -60,6 +62,14 @@ function Provider({ children }) {
     }
   };
 
+  useEffect(() => {
+    const fetchFoodByCategoryAPI = async () => {
+      const results = await comidasApi.fetchFoodByCategories(foodCategories);
+      setData(results);
+    };
+    fetchFoodByCategoryAPI();
+  }, [foodCategories]);
+
   const handleMealsApisOnLoad = async () => {
     const results = await comidasApi.fetchFoodOnLoad();
     setData(results);
@@ -96,6 +106,16 @@ function Provider({ children }) {
     }
   };
 
+  useEffect(() => {
+    const fetchDrinkByCategoryAPI = async () => {
+      const results = await bebidasApi.fetchDrinkByCategories(drinkCategories);
+      if (results) {
+        setData(results);
+      }
+    };
+    fetchDrinkByCategoryAPI();
+  }, [drinkCategories]);
+
   const handleDrinksApisOnload = async () => {
     const results = await bebidasApi.fetchDrinkOnLoad();
     setData(results);
@@ -112,6 +132,10 @@ function Provider({ children }) {
     handleDrinksApis,
     handleMealsApisOnLoad,
     handleDrinksApisOnload,
+    setFoodCategories,
+    foodCategories,
+    setDrinkCategories,
+    drinkCategories,
   };
 
   return (

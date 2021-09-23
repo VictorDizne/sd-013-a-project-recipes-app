@@ -1,25 +1,45 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import RecipesContext from '../context/index';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
+import { fetchFoodCategories } from '../services/comidasApi';
 
 const Foods = () => {
-  const { data, handleMealsApisOnLoad } = useContext(RecipesContext);
+  const { data,
+    handleMealsApisOnLoad,
+    setFoodCategories } = useContext(RecipesContext);
+  const [buttons, setButtons] = useState([]);
   const MAX_RECIPES = 12;
+  const MAX_BUTTONS = 5;
 
   useEffect(() => {
     handleMealsApisOnLoad();
+    const fetchButtons = async () => {
+      const response = await fetchFoodCategories();
+      setButtons(response);
+    };
+    fetchButtons();
   }, []);
 
   return (
     <div>
       <Header title="Comidas" hasSearchIcon page="foods" />
       <div>
-        { data && data.slice(0, MAX_RECIPES).map(((recipe, index) => (
-          <RecipeCard key={ index } index={ index } recipe={ recipe } page="foods" />
-        )))}
+        { buttons && buttons.slice(0, MAX_BUTTONS).map((b, index) => (
+          <button
+            key={ index }
+            type="button"
+            data-testid={ `${b.strCategory}-category-filter` }
+            onClick={ () => setFoodCategories(b.strCategory) }
+          >
+            { b.strCategory }
+          </button>
+        ))}
       </div>
+      { data && data.slice(0, MAX_RECIPES).map(((recipe, index) => (
+        <RecipeCard key={ index } index={ index } recipe={ recipe } page="foods" />
+      )))}
       <Footer />
     </div>
   );
