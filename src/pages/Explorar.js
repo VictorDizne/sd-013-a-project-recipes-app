@@ -11,6 +11,7 @@ const Explorar = () => (
         <button type="submit" data-testid="explore-food">Explorar Comidas</button>
       </div>
     </Link>
+
     <div>
       <Link to="/explorar/bebidas">
         <button type="submit" data-testid="explore-drinks">Explorar Bebidas</button>
