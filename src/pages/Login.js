@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../styles/Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -33,38 +34,48 @@ function Login() {
   const NUMBER_SIX = 6;
 
   return (
-    <div>
+    <div className="container_login">
+      <h1>Login</h1>
       <form>
-        <label htmlFor="email-id">
-          Email
-          <input
-            id="email-id"
-            type="email"
-            data-testid="email-input"
-            placeholder="email@email.com"
-            value={ email }
-            onChange={ handleEmail }
-          />
-        </label>
-        <label htmlFor="senha-id">
-          Senha
-          <input
-            id="senha-id"
-            type="password"
-            data-testid="password-input"
-            placeholder="*******"
-            value={ password }
-            onChange={ handlePassword }
-          />
-        </label>
-        <button
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ !(VALIDATIONEMAIL.test(email) && password.length > NUMBER_SIX) }
-          onClick={ handleSubmit }
-        >
-          Entrar
-        </button>
+        <div className="text_field">
+          <label htmlFor="email-id">
+            Email
+            <input
+              id="email-id"
+              className="email_class_1"
+              type="email"
+              data-testid="email-input"
+              placeholder="trybe@gmail.com"
+              value={ email }
+              onChange={ handleEmail }
+            />
+          </label>
+        </div>
+        <div className="text_field">
+          <label htmlFor="senha-id">
+            Senha
+            <input
+              id="senha-id"
+              className="email_class_2"
+              type="password"
+              data-testid="password-input"
+              placeholder="*******"
+              value={ password }
+              onChange={ handlePassword }
+            />
+          </label>
+        </div>
+        <div className="button-container">
+          <button
+            type="submit"
+            className="style_button"
+            data-testid="login-submit-btn"
+            disabled={ !(VALIDATIONEMAIL.test(email) && password.length > NUMBER_SIX) }
+            onClick={ handleSubmit }
+          >
+            Entrar
+          </button>
+        </div>
       </form>
     </div>
   );
