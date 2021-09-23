@@ -5,15 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/login/login';
 import Comidas from './pages/comidas.js';
 import Perfil from './components/PerfilScreen';
+import RecipeDetail from './pages/recipeDetail';
+import Comidas from './pages/comidas';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/comidas" component={ Comidas } />
+      <Route path="/comidas/:id" component={ RecipeDetail } />
       {/* <Route exact path="/bebidas" component={} />
       <Route exact path="/explorar" component={} />
       <Route exact path="/explorar/comidas" component={} />
-      <Route exact path="/comidas/:id-da-receita" component={} />
       <Route exact path="/bebidas/:id-da-receita" component={} />
       <Route exact path="/comidas/:id-da-receita/in-progress" component={} />
       <Route exact path="/bebidas/:id-da-receita/in-progress" component={} />
