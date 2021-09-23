@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Context from '../Context/Context';
 import Button from './Button';
 import Input from './Input';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header({ text, secondButton }) {
+  const { data, setData } = useContext(Context);
   const [render, setRender] = useState(false);
   const handleInput = () => (render ? setRender(false) : setRender(true));
 
   useEffect(() => {}, [render]);
+
+  const handleChange = (e) => {
+    setData({ 
+      ...data,
+      [e.target.name]: e.target.value });
+  };
 
   return (
     <div>
@@ -44,7 +52,7 @@ function Header({ text, secondButton }) {
               name="search"
               inputType="text"
               testID="search-input"
-            /* handleChange={} */
+              handleChange={ handleChange } 
             />
             <Input
               labelText="Busca de ingrediente"
@@ -52,7 +60,7 @@ function Header({ text, secondButton }) {
               name="search-radio"
               inputType="radio"
               testID="ingredient-search-radio"
-            /* handleChange={} */
+              handleChange={ handleChange } 
             />
             <Input
               labelText="Busca por nome"
@@ -60,7 +68,7 @@ function Header({ text, secondButton }) {
               name="search-radio"
               inputType="radio"
               testID="name-search-radio"
-            /* handleChange={} */
+              handleChange={ handleChange } 
             />
             <Input
               labelText="Busca a primeira letra"
@@ -68,7 +76,7 @@ function Header({ text, secondButton }) {
               name="search-radio"
               inputType="radio"
               testID="first-letter-search-radio"
-            /* handleChange={} */
+              handleChange={ handleChange } 
             />
             <Button
               testID="exec-search-btn"
