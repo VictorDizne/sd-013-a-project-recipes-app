@@ -9,6 +9,8 @@ function Provider({ children }) {
   const [cardsToShow, setCardsToShow] = useState();
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState({});
+  const [ingredientes, setIngredientes] = useState([]);
+  const [medida, setMedida] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -25,6 +27,10 @@ function Provider({ children }) {
     setMeals,
     drinks,
     details,
+    medida,
+    setMedida,
+    ingredientes,
+    setIngredientes,
     setDetails,
     setDrinks,
     searchParameter,

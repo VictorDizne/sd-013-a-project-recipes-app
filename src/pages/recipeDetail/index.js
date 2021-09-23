@@ -11,18 +11,31 @@ function RecipeDetail() {
     details,
     setDetails,
     setLoading,
+    medida,
+    setMedida,
     loading,
+    ingredientes,
+    setIngredientes,
   } = useContext(recipesContext);
   const { id } = useParams();
 
-  // const ingredients = (mealInfo) => {
-  //   const arr = Object.keys(mealInfo);
-  //   const limit = 21;
-  //   for (let i = 0; i < limit; i = +1) {
-  //     return
-  //   }
-  //   console.log(arr);
-  // };
+  const ingredientsList = (mealInfo) => {
+    const arr = Object.keys(mealInfo);
+    const ingredients = arr
+      .filter((k) => (k.includes('strIngredient') ? k : null))
+      .map((values) => mealInfo[values])
+      .filter((ingredient) => ingredient.length > 1);
+    setIngredientes(ingredients);
+  };
+
+  const measureList = (mealInfo) => {
+    const arr = Object.keys(mealInfo);
+    const measures = arr
+      .filter((k) => (k.includes('strMeasure') ? k : null))
+      .map((values) => mealInfo[values])
+      .filter((measure) => measure.length > 1);
+    setMedida(measures);
+  };
 
   const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const fetchByID = async () => {
@@ -30,7 +43,8 @@ function RecipeDetail() {
     const { meals } = await fetchAPI(URL);
     setDetails(meals[0]);
     setLoading(false);
-    // ingredients(meals[0]);
+    ingredientsList(meals[0]);
+    measureList(meals[0]);
   };
 
   useEffect(() => {
@@ -66,9 +80,23 @@ function RecipeDetail() {
         />
       </button>
       <ul data-testid={ `${id}-ingredient-name-and-measure` }>
-        <li>oi</li>
+        {ingredientes
+          .map((ing, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
+            >
+              {`${medida[index]} of ${ing}`}
+            </li>
+          ))}
       </ul>
       <p data-testid="instructions">{ details.strInstructions }</p>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </>
   );
 }
