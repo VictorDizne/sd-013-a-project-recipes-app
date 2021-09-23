@@ -7,7 +7,8 @@ function Provider({ children }) {
   const [emailInput, setEmailInput] = useState('');
 
   return (
-    // permite componentes consumidores a assinarem mudanças no contexto, no caso email e set email que serao salvos no estado
+    // permite componentes consumidores a assinarem mudanças no contexto,
+    // no caso email e set email que serao salvos no estado
     <Context.Provider
       value={ {
         emailInput,
