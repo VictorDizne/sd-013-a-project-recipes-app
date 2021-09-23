@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../App.css';
+import drinkIcon from '../images/drinkIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
+import metalIcon from '../images/mealIcon.svg';
+
+import '../PaginasCss/Footer.css';
 
 const Footer = () => (
   <div data-testid="footer" className="Footer">
@@ -8,20 +12,25 @@ const Footer = () => (
       to="/comidas"
       type="button"
       data-testid="food-bottom-btn"
-      src="src/images/drinkIcon.svg" alt="icone de bebida" />
-      <Link
+      src={ metalIcon }
+    >
+      <img src={ metalIcon } alt="icone de comida" />
+    </Link>
+    <Link
       to="/explorar"
       type="button"
       data-testid="explore-bottom-btn"
-      >
-      <img src="src/images/exploreIcon.svg" alt="icone de explorar" />
+      src={ exploreIcon }
+    >
+      <img src={ exploreIcon } alt="icone de explorar" />
     </Link>
     <Link
       to="/bebidas"
       type="button"
-      data-testid="food-bottom-btn"
+      data-testid="drinks-bottom-btn"
+      src={ drinkIcon }
     >
-      <img src="src/images/mealIcon.svg" alt="icone de comida" />
+      <img src={ drinkIcon } alt="icone de bebida" />
     </Link>
   </div>
 );
