@@ -16,7 +16,6 @@ export default function Bebidas({ history }) {
   return (
     <>
       <Header pageTitle="Bebidas" history={ history } isMeal={ false } />
-      <Header pageTitle="Bebidas" history={ history } />
       <Footer />
     </>
   );
