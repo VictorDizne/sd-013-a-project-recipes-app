@@ -46,7 +46,6 @@ function Login() {
         Entrar
       </button>
     </section>
-
   );
 }
 
