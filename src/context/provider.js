@@ -8,22 +8,9 @@ const Provider = ({ children }) => {
   const [dataDrink, setDataDrink] = useState([]);
   const [categoryFood, setCategoryFood] = useState([]);
   const [categoryDrink, setCategoryDrink] = useState([]);
-
-  useEffect(() => {
-    const foodRequest = async () => {
-      const food = await foodAPIRequest();
-      setDataFood(food);
-    };
-    foodRequest();
-  }, []);
-
-  useEffect(() => {
-    const cocktailsRequest = async () => {
-      const drink = await cocktailsAPIRequest();
-      setDataDrink(drink);
-    };
-    cocktailsRequest();
-  }, []);
+  const [btnState, setBtnState] = useState({ category: '' });
+  const [categoryFilter, setCategoryFilter] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect(() => {
     const categoryFoodRequest = async () => {
@@ -50,6 +37,12 @@ const Provider = ({ children }) => {
     setCategoryFood,
     categoryDrink,
     setCategoryDrink,
+    btnState,
+    setBtnState,
+    categoryFilter,
+    isFiltered,
+    setIsFiltered,
+    setCategoryFilter,
   };
 
   return (
