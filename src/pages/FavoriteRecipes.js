@@ -3,7 +3,9 @@ import Header from '../components/Header';
 
 function FavoriteRecipes() {
   return (
-    <Header title="Receitas Favoritas" />
+    <div>
+     <Header title="Receitas Favoritas" />
+    </div>
   );
 }
 

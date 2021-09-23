@@ -3,7 +3,6 @@ import MyContext from '../context/Context';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FoodCard from '../components/FoodCard';
-
 function FoodsPage() {
   const { recipe, setMyPage } = useContext(MyContext);
 
@@ -23,9 +22,7 @@ function FoodsPage() {
   );
 
   return (
-    <div style={ { display: 'flex', flexDirection: 'column' } }>
-      <Header title="Comidas" search />
-    <div>
+    <div style={ { display: 'flex', flexDirection: 'column' } }>    
       <Header title="Comidas" search />
       <div style={ { display: 'flex', flexWrap: 'wrap' } }>
         { recipe

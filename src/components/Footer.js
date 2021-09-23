@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import drinks from '../images/drinkIcon.svg';
 import explorar from '../images/exploreIcon.svg';
@@ -16,9 +17,15 @@ function Footer() {
         heigth: '100px' } }
       data-testid="footer"
     >
-      <img data-testid="drinks-bottom-btn" src={ drinks } alt="drinks" />
-      <img data-testid="explore-bottom-btn" src={ explorar } alt="explorar" />
-      <img data-testid="food-bottom-btn" src={ comidas } alt="comidas" />
+      <Link to='/bebidas'>
+        <img data-testid="drinks-bottom-btn" src={ drinks } alt="drinks" />
+      </Link>
+      <Link to='/explorar'>
+        <img data-testid="explore-bottom-btn" src={ explorar } alt="explorar" />
+      </Link>
+      <Link to='/comidas'>
+        <img data-testid="food-bottom-btn" src={ comidas } alt="comidas" />
+      </Link>  
     </div>
   );
 }

@@ -1,8 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function DrinkDetailInProgressPage() {
   return (
-    <h1>DrinkDetailsPage</h1>
+    <div>
+     <Header title="Detalhes Bebidas em progresso" />
+    </div>
   );
 }
 
