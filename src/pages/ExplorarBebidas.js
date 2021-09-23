@@ -7,8 +7,8 @@ function ExplorarBebidas() {
   return (
     <div>
       <Header title="Explorar Bebidas" hideSearch hideProfile={ false } />
-
-      <Link to="/explorar/bebidas/ingredientes">Por Ingredientes</Link>
+      <Link data-testid="explore-by-ingredient" to="/explorar/bebidas/ingredientes">Por Ingredientes</Link>
+      <Link data-testid="explore-surprise" to="/">Me Surpreenda!</Link>
       <ComponentFooter />
 
     </div>
