@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBox from './SearchBox';
 
 function Header() {
   const location = useLocation();
@@ -88,10 +89,7 @@ function Header() {
         />
       }
       {
-        inputSearch && <input
-          type="text"
-          data-testid="search-input"
-        />
+        inputSearch && <SearchBox />
       }
     </header>
   );
