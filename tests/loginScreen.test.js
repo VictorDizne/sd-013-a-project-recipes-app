@@ -1,6 +1,5 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
 import userEvent from '@testing-library/user-event';
 import App from '../src/App';
 import renderWithRouter from './renderWithRouter';
@@ -40,7 +39,7 @@ describe(`4 - Desenvolva a tela de maneira que a pessoa
   deve conseguir escrever sua senha no input de senha`, () => {
   it('É possível escrever o email', () => {
     renderWithRouter(<App />);
-    const passwordLabel = screen.getByLabelText(/Email:/i);
+    const passwordLabel = screen.getByLabelText(/Senha:/i);
     userEvent.type(passwordLabel, 'senha123456');
     expect(passwordLabel.value).toBe('senha123456');
   });
@@ -57,7 +56,7 @@ um email válido e uma senha de mais de 6 caracteres serem preenchidos`, () => {
   });
   it('O botão deve estar desativado se a senha deve tiver 6 caracteres ou menos', () => {
     renderWithRouter(<App />);
-    const passwordLabel = screen.getByLabelText(/Email:/i);
+    const passwordLabel = screen.getByLabelText(/Senha:/i);
     userEvent.type(passwordLabel, '12345');
     const enterBtt = screen.getByTestId(btnTestId);
     expect(enterBtt).toBeDisabled();
@@ -65,8 +64,8 @@ um email válido e uma senha de mais de 6 caracteres serem preenchidos`, () => {
   it('O botão deve estar ativado se o email e a senha forem válidos', () => {
     renderWithRouter(<App />);
     const emailLabel = screen.getByLabelText(/Email:/i);
-    userEvent.type(emailLabel, correctEmail);
-    const passwordLabel = screen.getByLabelText(/Email:/i);
+    userEvent.type(emailLabel, correctEmails);
+    const passwordLabel = screen.getByLabelText(/Senha:/i);
     userEvent.type(passwordLabel, 'senha123456');
     const enterBtt = screen.getByTestId(btnTestId);
     expect(enterBtt).not.toBeDisabled();
@@ -79,8 +78,8 @@ identificados pelas chaves mealsToken e cocktailsToken`, () => {
   e cocktailsToken devem estar salvos em localStorage`, () => {
     renderWithRouter(<App />);
     const emailLabel = screen.getByLabelText(/Email:/i);
-    userEvent.type(emailLabel, correctEmail);
-    const passwordLabel = screen.getByLabelText(/Email:/i);
+    userEvent.type(emailLabel, correctEmails);
+    const passwordLabel = screen.getByLabelText(/Senha:/i);
     userEvent.type(passwordLabel, 'senha123456');
     const enterBtt = screen.getByTestId(btnTestId);
     userEvent.click(enterBtt);
@@ -88,5 +87,36 @@ identificados pelas chaves mealsToken e cocktailsToken`, () => {
     const { cocktailsToken } = localStorage;
     expect(mealsToken).toBe(1);
     expect(cocktailsToken).toBe(1);
+  });
+});
+
+describe(`7 - Salve o e-mail da pessoa usuária
+  no localStorage na chave user após a submissão`, () => {
+  it(`Após a submissão, o e-mail de pessoa usuária deve
+  ser salvo em localStorage na chave user no formato { email: email-da-pessoa }`, () => {
+    renderWithRouter(<App />);
+    const emailLabel = screen.getByLabelText(/Email:/i);
+    userEvent.type(emailLabel, correctEmail);
+    const passwordLabel = screen.getByLabelText(/Senha:/i);
+    userEvent.type(passwordLabel, 'senha123456');
+    const enterBtt = screen.getByTestId(btnTestId);
+    userEvent.click(enterBtt);
+    const { user } = localStorage;
+    expect(user).toBe({ email: correctEmail });
+  });
+});
+
+describe(`8 - Redirecione a pessoa usuária para a tela principal
+  de receitas de comidas após a submissão e validação com sucesso do login`, () => {
+  it('A rota muda para a tela principal de receitas de comidas', () => {
+    const { history } = renderWithRouter(<App />);
+    const emailLabel = screen.getByLabelText(/Email:/i);
+    userEvent.type(emailLabel, correctEmails);
+    const passwordLabel = screen.getByLabelText(/Senha:/i);
+    userEvent.type(passwordLabel, 'senha123456');
+    const enterBtt = screen.getByTestId(btnTestId);
+    userEvent.click(enterBtt);
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/comidas');
   });
 });
