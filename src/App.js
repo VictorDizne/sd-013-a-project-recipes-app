@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import MainPage from './pages/MainPage';
+import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import Bebidas from './pages/Bebidas';
 import Provider from './redux/Context';
@@ -20,7 +20,7 @@ function App() {
     <Provider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/comidas" component={ MainPage } />
+          <Route exact path="/comidas" component={ Comidas } />
           <Route exact path="/bebidas" component={ Bebidas } />
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />

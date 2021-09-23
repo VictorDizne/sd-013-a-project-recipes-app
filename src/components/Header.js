@@ -34,7 +34,10 @@ const Header = ({ page }) => {
         <img src={ profileIcon } alt="searchIcon" data-testid="profile-top-btn" />
       </Link>
       <h3 data-testid="page-title">{page}</h3>
-      <button onClick={ () => showSearchbar(true) } type="button">
+      <button
+        onClick={ () => showSearchbar(true) }
+        type="button"
+      >
         <img
           src={ SearchIcon }
           alt="searchIcon"
