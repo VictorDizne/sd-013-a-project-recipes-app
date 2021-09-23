@@ -4,14 +4,14 @@ import Context from './Context';
 // consulta ao site - https://pt-br.reactjs.org/docs/render-props.html
 
 function Provider({ children }) {
-  const [email, setEmail] = useState('');
+  const [emailInput, setEmailInput] = useState('');
 
   return (
     // permite componentes consumidores a assinarem mudanças no contexto, no caso email e set email que serao salvos no estado
     <Context.Provider
       value={ {
-        email,
-        setEmail,
+        emailInput,
+        setEmailInput,
       } }
     >
       {children}
