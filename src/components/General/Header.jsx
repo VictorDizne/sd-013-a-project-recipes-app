@@ -62,7 +62,7 @@ function Header({ title, search }) {
         <div
           data-testid="page-title"
         >
-          <h1 clasName="header-title">{ title }</h1>
+          <h1 className="header-title">{ title }</h1>
         </div>
 
         { search && (
