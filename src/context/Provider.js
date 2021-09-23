@@ -60,6 +60,11 @@ function Provider({ children }) {
     }
   };
 
+  const handleMealsApisOnLoad = async () => {
+    const results = await comidasApi.fetchFoodOnLoad();
+    setData(results);
+  };
+
   const handleDrinksApis = async () => {
     if (inputRadio === 'ingredient') {
       const results = await bebidasApi.fetchDrinkByIngredients(inputText);
@@ -91,6 +96,11 @@ function Provider({ children }) {
     }
   };
 
+  const handleDrinksApisOnload = async () => {
+    const results = await bebidasApi.fetchDrinkOnLoad();
+    setData(results);
+  };
+
   const contextValue = {
     inputText,
     setInputText,
@@ -100,6 +110,8 @@ function Provider({ children }) {
     setData,
     handleMealsApis,
     handleDrinksApis,
+    handleMealsApisOnLoad,
+    handleDrinksApisOnload,
   };
 
   return (
