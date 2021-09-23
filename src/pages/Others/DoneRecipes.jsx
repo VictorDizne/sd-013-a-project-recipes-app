@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Header } from '../../components/General';
+import CardDoneRecipes from './CardDoneRecipes';
 
 function DoneRecipes() {
+  const doneRecipes = useSelector(({ recipes }) => recipes.doneRecipes);
   const [filters, setFilters] = useState([]);
-  const [done, setDone] = useState([]);
+  const [cards, setCards] = useState(doneRecipes);
 
   useEffect(() => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipes) {
-      setDone(doneRecipes);
-      setFilters(doneRecipes);
+    if (filters === 'all') {
+      setCards(doneRecipes);
+    } else {
+      setCards(doneRecipes.filter((recipe) => recipe.type === filters));
     }
-  }, []);
+  }, [doneRecipes, filters]);
 
   return (
     <div>
@@ -21,31 +24,29 @@ function DoneRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
-          onClick={ () => setFilters(done) }
+          onClick={ () => setFilters('all') }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
-          onClick={ () => setFilters(done.filter((recipe) => recipe.type === 'comida')) }
+          onClick={ () => setFilters('comida') }
+          value="comida"
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
-          onClick={ () => setFilters(done.filter((recipe) => recipe.type === 'bebida')) }
+          onClick={ () => setFilters('bebida') }
+          value="bebida"
         >
           Drinks
         </button>
       </div>
       <div>
-        {filters.map((card, index) => (
-          <div key={ index }>
-            { card }
-          </div>
-        ))}
+        <CardDoneRecipes cards={ cards } />
       </div>
     </div>
   );
