@@ -14,7 +14,6 @@ const Explorer = () => (
     <Link to="/comidas">
       <Button
         id="explore-food"
-        type="button"
         buttonText="Explorar Comidas"
       />
     </Link>
@@ -22,7 +21,6 @@ const Explorer = () => (
     <Link to="/bebidas">
       <Button
         id="explore-drinks"
-        type="button"
         buttonText="Explorar Bebidas"
       />
     </Link>
