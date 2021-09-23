@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/login/login';
+import Comidas from './pages/comidas.js';
+import Perfil from './components/PerfilScreen';
 import RecipeDetail from './pages/recipeDetail';
 import Comidas from './pages/comidas';
 
@@ -21,9 +23,9 @@ function App() {
       <Route exact path="/explorar/comidas/ingredientes" component={} />
       <Route exact path="/explorar/bebidas/ingredientes" component={} />
       <Route exact path="/explorar/comidas/area" component={} />
-      <Route exact path="/perfil" component={} />
       <Route exact path="/receitas-feitas" component={} />
       <Route exact path="/receitas-favoritas" component={} /> */}
+      <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/" component={ Login } />
     </Switch>
   );
