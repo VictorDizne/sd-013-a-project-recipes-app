@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
-const Header = ({ pageTitle, history }) => {
+const Header = ({ pageTitle, history, isMeal }) => {
   const [showBar, setShowBar] = useState(false);
 
   const checkObj = {
@@ -34,12 +35,7 @@ const Header = ({ pageTitle, history }) => {
           src={ searchIcon }
           onClick={ handleSearchBtnClick }
         />}
-      {showBar
-      && (
-        <div className="search-bar">
-          <input data-testid="search-input" />
-        </div>
-      )}
+      {showBar && <SearchBar isMeal={ isMeal } />}
 
     </header>
   );
@@ -48,6 +44,7 @@ const Header = ({ pageTitle, history }) => {
 Header.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   history: PropTypes.node.isRequired,
+  isMeal: PropTypes.bool.isRequired,
 };
 
 export default Header;

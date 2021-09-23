@@ -6,7 +6,7 @@ import Header from '../components/Header';
 export default function ExplorarBebidasIngredientes({ history }) {
   return (
     <>
-      <Header pageTitle="Explorar Ingredientes" history={ history } />
+      <Header pageTitle="Explorar Ingredientes" history={ history } isMeal={ false } />
       <Footer />
     </>
   );
