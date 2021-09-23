@@ -10,6 +10,7 @@ import {
   DrinkProgress,
   Explorer,
   FoodsExplorer,
+  FoodsExplorerByOrigin,
   DrinksExplorer,
   FoodsExplorerByIngredient,
   DrinksByIngredients,
@@ -22,34 +23,31 @@ function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/comidas" component={ Foods } />
-      <Route exact path="/bebidas" component={ Drinks } />
-      <Route exact path="/comidas/:id" component={ FoodRecipeDetails } />
-      <Route exact path="/bebidas/:id" component={ DrinkRecipesDetails } />
-      <Route exact path="/comidas/:id/in-progress" component={ FoodProgress } />
-      <Route exact path="/bebidas/:id/in-progress" component={ DrinkProgress } />
-      <Route exact path="/explorar" component={ Explorer } />
+      <Route path="/comidas" component={ Foods } />
+      <Route path="/bebidas" component={ Drinks } />
+      <Route path="/comidas/:id" component={ FoodRecipeDetails } />
+      <Route path="/bebidas/:id" component={ DrinkRecipesDetails } />
+      <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
+      <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
+      <Route path="/explorar" component={ Explorer } />
       <Route
-        exact
         path="/explorar/comidas"
         component={ FoodsExplorer }
       />
-      <Route exact path="/explorar/bebidas" component={ DrinksExplorer } />
+      <Route path="/explorar/bebidas" component={ DrinksExplorer } />
       <Route
-        exact
         path="/explorar/comidas/ingredientes"
         component={ FoodsExplorerByIngredient }
       />
       <Route
-        exact
         path="/explorar/bebidas/ingredientes"
         component={ DrinksByIngredients }
       />
-      <Route exact path="/explorar/comidas/area" component={ FoodsExplorerByOrigin } />
-      <Route exact path="*" component={ NotFound } />
-      <Route exact path="/perfil" component={ Profile } />
-      <Route exact path="/receitas-feitas" component={ DoneRecipes } />
-      <Route exact path="/receitas-favoritas" component={ FavoritedRecipes } />
+      <Route path="/explorar/comidas/area" component={ FoodsExplorerByOrigin } />
+      <Route path="*" component={ NotFound } />
+      <Route path="/perfil" component={ Profile } />
+      <Route path="/receitas-feitas" component={ DoneRecipes } />
+      <Route path="/receitas-favoritas" component={ FavoritedRecipes } />
     </Switch>
   );
 }
