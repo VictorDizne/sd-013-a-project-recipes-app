@@ -28,7 +28,36 @@ function Header() {
       >
         <img src={ searchImage } alt="Ícone Busca" />
       </button>
-      { inputSearch && <input type="text" data-testid="search-input" /> }
+      { inputSearch && (
+        <div>
+          <input type="text" data-testid="search-input" />
+          <label htmlFor="radio-ingredient">
+            Ingrediente
+            <input
+              id="radio-ingredient"
+              data-testid="ingredient-search-radio"
+              type="radio"
+            />
+          </label>
+          <label htmlFor="radio-name">
+            Nome
+            <input
+              id="radio-name"
+              type="radio"
+              data-testid="name-search-radio"
+            />
+          </label>
+          <label htmlFor="radio-first">
+            Primeira Letra
+            <input
+              id="radio-first"
+              type="radio"
+              data-testid="first-letter-search-radio"
+            />
+          </label>
+          <button type="button" data-testid="exec-search-btn">Busca</button>
+        </div>
+      ) }
     </div>
   );
 }
