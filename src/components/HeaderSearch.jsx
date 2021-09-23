@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function HeaderSearch({ tela }) {
   const [radio, setRadio] = useState({
     input: '',
     search: '',
   });
+  const history = useHistory();
 
   const handleChange = ({ target: { value, name } }) => {
     setRadio({
@@ -37,7 +39,12 @@ function HeaderSearch({ tela }) {
     }
     const data = await fetch(API);
     const json = await data.json();
-    console.log(json);
+    const type = (page === 'Bebidas') ? json.drinks : json.meals;
+    const id = (page === 'Bebidas' ? json.drinks[0].idDrink : json.meals[0].idMeal);
+    console.log(id);
+    if (type.length === 1) {
+      history.push(`/${page.toLowerCase()}/${id}`);
+    }
   };
 
   return (
