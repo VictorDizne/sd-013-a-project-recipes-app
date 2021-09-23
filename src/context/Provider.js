@@ -12,14 +12,21 @@ function Provider({ children }) {
   const history = useHistory();
 
   const condicionalFoodLenght = (results) => {
-    if (results.length === 1) {
+    if (results && results.length === 1) {
       history.push(`/comidas/${results[0].idMeal}`);
     }
+    console.log(results, 'second');
   };
 
   const condicionalDrinkLenght = (results) => {
-    if (results.length === 1) {
+    if (results && results.length === 1) {
       history.push(`/bebidas/${results[0].idDrink}`);
+    }
+  };
+
+  const condicionalMessageError = (results) => {
+    if (!results) {
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   };
 
@@ -28,6 +35,7 @@ function Provider({ children }) {
       const results = await comidasApi.fetchFoodByIngredients(inputText);
       setData(results);
 
+      condicionalMessageError(results);
       condicionalFoodLenght(results);
     }
 
@@ -35,6 +43,7 @@ function Provider({ children }) {
       const results = await comidasApi.fetchFoodByName(inputText);
       setData(results);
 
+      condicionalMessageError(results);
       condicionalFoodLenght(results);
     }
 
@@ -42,6 +51,7 @@ function Provider({ children }) {
       const results = await comidasApi.fetchFoodByLetter(inputText);
       setData(results);
 
+      condicionalMessageError(results);
       condicionalFoodLenght(results);
     }
 
@@ -55,6 +65,7 @@ function Provider({ children }) {
       const results = await bebidasApi.fetchDrinkByIngredients(inputText);
       setData(results);
 
+      condicionalMessageError(results);
       condicionalDrinkLenght(results);
     }
 
@@ -63,6 +74,7 @@ function Provider({ children }) {
       setData(results);
       console.log(results);
 
+      condicionalMessageError(results);
       condicionalDrinkLenght(results);
     }
 
@@ -70,6 +82,7 @@ function Provider({ children }) {
       const results = await bebidasApi.fetchDrinkByLetter(inputText);
       setData(results);
 
+      condicionalMessageError(results);
       condicionalDrinkLenght(results);
     }
 

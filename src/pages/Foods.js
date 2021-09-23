@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import RecipesContext from '../context/index';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
+import Footer from '../components/Footer';
 
 const Foods = () => {
   const { data } = useContext(RecipesContext);
@@ -9,9 +10,10 @@ const Foods = () => {
   return (
     <div>
       <Header title="Comidas" hasSearchIcon page="foods" />
-      { data.slice(0, MAX_RECIPES).map(((recipe, index) => (
+      { data && data.slice(0, MAX_RECIPES).map(((recipe, index) => (
         <RecipeCard key={ index } index={ index } recipe={ recipe } page="foods" />
       )))}
+      <Footer />
     </div>
   );
 };
