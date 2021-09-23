@@ -4,8 +4,10 @@ import Footer from '../components/Footer';
 import Context from '../context/Context';
 import fetchMeals from '../services/fetchMeals';
 import fetchMealsCategories from '../services/fetchMealsCategories';
+import fetchMealsFilterCategories from '../services/fetchMealsFilterCategories';
 
 const NUM_MEALS = 12;
+const NUM_FIVE = 5;
 
 function Comidas() {
   const { meals, setMeals, mealsCategories, setMealsCategories } = useContext(Context);
@@ -28,14 +30,25 @@ function Comidas() {
 
   if (isLoading) return <h1>Loading...</h1>;
 
+  const filteredByCategory = async (category) => {
+    const results = await fetchMealsFilterCategories(category);
+    console.log(results);
+    setMeals(results);
+  };
+
+  const handleOnClick = (category) => {
+    filteredByCategory(category);
+  };
+
   return (
     <>
       <nav>
-        {mealsCategories.filter((cat, idx) => idx < 5).map(({ strCategory }) => (
+        {mealsCategories.filter((cat, idx) => idx < NUM_FIVE).map(({ strCategory }) => (
           <button
             key={ strCategory }
             type="button"
             data-testid={ `${strCategory}-category-filter` }
+            onClick={ () => handleOnClick(strCategory) }
           >
             {strCategory}
           </button>
