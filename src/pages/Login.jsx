@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -18,19 +19,6 @@ function Login() {
     );
     return validEmail && validPassword;
   }
-  // const userValid = () => {
-  //   const userPass = 6;
-  //   if (password.length <= userPass) return false;
-  //   if (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(email)) return false;
-  //   return true;
-  // };
-
-  // const checkEmail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/
-  //   .test(email);
-
-  // const chekcPass = password.length > userPass;
-  // const verify = checkEmail && chekcPass ? trureturn : false;
-  // return verify;
   return (
     <section>
       <form>
@@ -38,7 +26,6 @@ function Login() {
           type="email"
           value={ email }
           onChange={ (event) => setEmail(event.target.value) }
-          // onChange={ userValid }
           data-testid="email-input"
         />
         <input
@@ -47,15 +34,16 @@ function Login() {
           value={ password }
           onChange={ (event) => setPassword(event.target.value) }
         />
-
-        <button
-          type="button"
-          onClick={ userLogin }
-          disabled={ !userValid() }
-          data-testid="login-submit-btn"
-        >
-          Entrar
-        </button>
+        <Link to="/comidas">
+          <button
+            type="button"
+            onClick={ userLogin }
+            disabled={ !userValid() }
+            data-testid="login-submit-btn"
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     </section>
   );
