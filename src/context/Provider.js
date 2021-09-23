@@ -5,11 +5,24 @@ import MyContext from './Context';
 const Provider = ({ children }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [radioInput, setRadioInput] = useState('');
+  const [myPage, setMyPage] = useState('');
+  const [recipe, setRecipe] = useState([]);
+
   const contextValue = {
     email,
     setEmail,
+    searchInput,
     password,
     setPassword,
+    setSearchInput,
+    radioInput,
+    recipe,
+    setRadioInput,
+    setRecipe,
+    setMyPage,
+    myPage,
   };
   return (
     <MyContext.Provider value={ contextValue }>
