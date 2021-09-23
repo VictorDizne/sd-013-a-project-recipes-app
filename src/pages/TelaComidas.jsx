@@ -4,11 +4,12 @@ import createCard from '../services/createCard';
 import Filters from '../components/Filters';
 
 const TelaComidas = () => {
-  const { dataFood, categoryFood } = useContext(MyContext);
+  const { dataFood, categoryFood, categoryFilter } = useContext(MyContext);
   return (
     <>
       <Filters alimento={ categoryFood } />
-      { createCard(dataFood, 'Meal') }
+      { categoryFilter === null ? createCard(dataFood, 'Meal')
+        : createCard(categoryFilter, 'Meal') }
     </>
   );
 };

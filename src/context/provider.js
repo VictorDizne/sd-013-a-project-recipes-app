@@ -8,6 +8,16 @@ const Provider = ({ children }) => {
   const [dataDrink, setDataDrink] = useState([]);
   const [categoryFood, setCategoryFood] = useState([]);
   const [categoryDrink, setCategoryDrink] = useState([]);
+  const [btnState, setBtnState] = useState({});
+  const [categoryFilter, setCategoryFilter] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
+
+  console.log(btnState);
+  /*  useEffect(() => {
+    const filterFoodBtn = dataFood
+      .filter((food) => food.strCategory === (btnState.category));
+    setCategoryFilter(filterFoodBtn);
+  }, [btnState]); */
 
   useEffect(() => {
     const foodRequest = async () => {
@@ -41,6 +51,24 @@ const Provider = ({ children }) => {
     categoryDrinkRequest();
   }, []);
 
+  useEffect(() => {
+    const { category } = btnState;
+    const ApiCategoryFood = async () => {
+      const fetchCategoryFood = await foodAPIRequest('filter', `c=${category}`);
+      setCategoryFilter(fetchCategoryFood);
+    };
+    ApiCategoryFood();
+  }, [btnState]);
+
+  useEffect(() => {
+    const { category } = btnState;
+    const ApiCategoryDrink = async () => {
+      const fetchCategoryDrink = await cocktailsAPIRequest('filter', `c=${category}`);
+      setCategoryFilter(fetchCategoryDrink);
+    };
+    ApiCategoryDrink();
+  }, [btnState]);
+
   const contextValue = {
     dataFood,
     setDataFood,
@@ -50,6 +78,12 @@ const Provider = ({ children }) => {
     setCategoryFood,
     categoryDrink,
     setCategoryDrink,
+    btnState,
+    setBtnState,
+    categoryFilter,
+    isFiltered,
+    setIsFiltered,
+    setCategoryFilter,
   };
 
   return (

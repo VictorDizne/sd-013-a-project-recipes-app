@@ -4,6 +4,7 @@ import React from 'react';
 const Card = ({ alimento, tipo, chave }) => {
   const image = alimento[`str${tipo}Thumb`];
   const name = alimento[`str${tipo}`];
+
   return (
     <div data-testid={ `${chave}-recipe-card` }>
       <img

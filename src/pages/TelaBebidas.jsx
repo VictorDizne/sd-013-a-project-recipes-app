@@ -4,11 +4,12 @@ import MyContext from '../context/myContext';
 import createCard from '../services/createCard';
 
 const TelaBebidas = () => {
-  const { dataDrink, categoryDrink } = useContext(MyContext);
+  const { dataDrink, categoryDrink, categoryFilter } = useContext(MyContext);
   return (
     <>
       <Filters alimento={ categoryDrink } />
-      { createCard(dataDrink, 'Drink') }
+      { categoryFilter === null ? createCard(dataDrink, 'Drink')
+        : createCard(categoryFilter, 'Drink') }
     </>
   );
 };
