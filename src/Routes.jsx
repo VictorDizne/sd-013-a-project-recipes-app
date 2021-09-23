@@ -99,7 +99,7 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/receitas-favoritasMe"
+        path="/receitas-favoritas"
         component={ FavoriteRecipes }
       />
     </Switch>
