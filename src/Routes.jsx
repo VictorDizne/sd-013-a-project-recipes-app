@@ -39,12 +39,12 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/comidas/{id-da-receita}"
+        path="/comidas/:id"
         component={ MealDetails }
       />
       <Route
         exact
-        path="/bebidas/{id-da-receita}"
+        path="/bebidas/:id"
         component={ DrinkDetails }
       />
       <Route
