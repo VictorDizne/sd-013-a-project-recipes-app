@@ -10,6 +10,7 @@ import {
   DrinkProgress,
   Explorer,
   FoodsExplorer,
+  FoodsExplorerByOrigin,
   DrinksExplorer,
   FoodsExplorerByIngredient,
   DrinksByIngredients,
