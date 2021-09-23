@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useLocation, useHistory } from 'react-router';
+import { MainContext } from '../context/Provider';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBox from './SearchBox';
@@ -7,6 +8,8 @@ import SearchBox from './SearchBox';
 function Header() {
   const location = useLocation();
   const history = useHistory();
+  const initialRender = useRef(false);
+  const { searchSettings, recipes } = useContext(MainContext);
 
   const [title, setTitle] = useState('Comidas');
   const [buttonSearch, setButtonSearch] = useState(true);
@@ -59,6 +62,18 @@ function Header() {
   };
 
   useEffect(conditionalTitle, [location]);
+
+  useEffect(() => {
+    if (initialRender.current) {
+      const { path } = searchSettings;
+      const { idMeal, idDrink } = recipes[0];
+      if (recipes.length === 1) {
+        history.push(`${path}/${idMeal || idDrink}`);
+      }
+    } else {
+      initialRender.current = true;
+    }
+  }, [recipes]);
 
   function handleClickProfile() {
     history.push('/perfil');

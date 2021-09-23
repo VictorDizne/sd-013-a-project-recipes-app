@@ -33,6 +33,7 @@ export function Provider({ children }) {
     setSearchSettings,
     searchSettings,
     setRecipes,
+    recipes,
   };
 
   return (
