@@ -4,8 +4,8 @@ export const foodAPIRequest = async (param1 = 'search', param2 = 's=') => {
   return meals;
 };
 
-export const cocktailsAPIRequest = async (param1 = 'search', param2 = '') => {
-  const url2 = `https://www.thecocktaildb.com/api/json/v1/1/${param1}.php?s=${param2}`;
+export const cocktailsAPIRequest = async (param1 = 'search', param2 = 's=') => {
+  const url2 = `https://www.thecocktaildb.com/api/json/v1/1/${param1}.php?${param2}`;
   const { drinks } = await fetch(url2).then((result) => result.json());
   return drinks;
 };
