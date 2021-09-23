@@ -12725,6 +12725,11 @@ url@0.11.0, url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
+use-named-state@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-named-state/-/use-named-state-1.0.0.tgz#a432fce1a36b8e4b25fe9f123cd6122215764583"
+  integrity sha512-UOS/lfoeVdzTpyZYc0e5el6UV7zT2gk3xAS3Rt5cXmmPokWZXt5ImmH+i7ZwWnnDBn1yo+t24TzyacdLTBXRoA==
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDebugState } from 'use-named-state';
 
 function ComponentLogin() {
   const history = useHistory();
-  const [emailComp, setEmailComp] = useDebugState('email', '');
-  const [passwordComp, setPasswordComp] = useDebugState('password', '');
+  const [emailComp, setEmailComp] = useState('email', '');
+  const [passwordComp, setPasswordComp] = useState('password', '');
 
   const validEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/i;
   const six = 6;
