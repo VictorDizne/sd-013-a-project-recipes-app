@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useEffect, useState, useRef } from 'react';
-import { fetchRecipes } from '../services';
+import { fetchRecipes, fetchRecipersAll } from '../services';
 
 export const MainContext = createContext();
 
@@ -11,6 +11,7 @@ export function Provider({ children }) {
     path: '',
   });
   const [recipes, setRecipes] = useState(['teste']);
+  const [recipesAll, setRecipesAll] = useState([]);
   const initialRender = useRef(false);
 
   useEffect(() => {
@@ -35,6 +36,14 @@ export function Provider({ children }) {
     setRecipes,
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchRecipersAll();
+      console.log(data);
+      setRecipesAll(data);
+    };
+    fetchData();
+  }, []);
   return (
     <MainContext.Provider value={ contextValue }>
       {children}

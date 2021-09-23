@@ -27,4 +27,8 @@ export const fetchRecipes = async (query, type, path) => {
   }
 };
 
-export const generic = () => null;
+export const fetchRecipersAll = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s');
+  const json = await response.json();
+  return json;
+};
