@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function HeaderSearch() {
+function HeaderSearch({ tela }) {
   const [radio, setRadio] = useState({
     input: '',
     search: '',
@@ -13,20 +13,24 @@ function HeaderSearch() {
     });
   };
 
-  const fetchSearch = async (filter, input) => {
+  const fetchSearch = async (page, filter, input) => {
     let API = '';
+    let link = 'themealdb';
+    if (page === 'Bebidas') {
+      link = 'thecocktaildb';
+    }
     switch (filter) {
     case 'ingrediente':
-      API = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`;
+      API = `https://www.${link}.com/api/json/v1/1/filter.php?i=${input}`;
       break;
     case 'nome':
-      API = `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`;
+      API = `https://www.${link}.com/api/json/v1/1/search.php?s=${input}`;
       break;
     case 'primeira-letra':
       if (input.length > 1) {
         return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      API = `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`;
+      API = `https://www.${link}.com/api/json/v1/1/search.php?f=${input}`;
       break;
     default:
       API = '';
@@ -80,7 +84,7 @@ function HeaderSearch() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => fetchSearch(radio.search, radio.input) }
+        onClick={ () => fetchSearch(tela, radio.search, radio.input) }
       >
         Busca
       </button>
