@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function FoodCard(index, data, thumb) {
+function FoodCard({index, data, thumb, name}) {
   return (
     <div
       style={ { width: '48%', height: '70px' } }
@@ -13,7 +13,7 @@ function FoodCard(index, data, thumb) {
         src={ data[thumb] }
         style={ { heigth: '50px', width: '50px' } }
       />
-      <p data-testid={ `${index}-card-name` }>{ data.strCategory }</p>
+      <p data-testid={ `${index}-card-name` }>{ data[name] }</p>
     </div>
   );
 }

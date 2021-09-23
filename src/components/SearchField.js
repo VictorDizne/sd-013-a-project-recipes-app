@@ -23,14 +23,24 @@ function SearchField() {
       setPage('comidas');
       setRecipe(meals);
       setIdType('idMeal');
-      return meals.length === 1 ? setRedirect(true) : setRedirect(false);
-    }
+      if ( !meals ) {
+        global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+      } else {
+        meals.length === 1 ? setRedirect(true) : setRedirect(false);
+      }
+      
+    } else {
     const { drinks } = await api(searchInput, radioInput, myPage);
     setPage('bebidas');
     setRecipe(drinks);
     setIdType('idDrink');
-    return drinks.length === 1 ? setRedirect(true) : setRedirect(false);
-  }
+    if ( !drinks ) {
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+    } else {
+      drinks.length === 1 ? setRedirect(true) : setRedirect(false);
+    }
+     
+   } }
   return (
     <div style={ { display: 'flex', flexFlow: 'column' } }>
       <input

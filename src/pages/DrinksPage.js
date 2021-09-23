@@ -13,11 +13,12 @@ function DrinksPage() {
     setMyPage('thecocktaildb');
   }, [setMyPage]);
 
-  const returnCard = (item, index) => (
+  const returnCard = (item, index, name) => (
     <FoodCard
       key={ index }
       index={ index }
-      thumb="strMealThumb"
+      thumb="strDrinkThumb"
+      name="strDrink"
       data={ item }
     />
   );
@@ -26,8 +27,8 @@ function DrinksPage() {
     <div style={ { display: 'flex', flexDirection: 'column' } }>
       <Header title="Bebidas" search />
       <div style={ { display: 'flex', flexWrap: 'wrap' } }>
-        { recipe
-          .map((item, index) => (index >= LIMITER_FOODS
+        { recipe !== null &&
+          recipe.map((item, index) => (index >= LIMITER_FOODS
             ? null : returnCard(item, index))) }
       </div>
       <Footer />
