@@ -3,6 +3,7 @@ import { fetchByName } from '../services/fetchs';
 import appContext from '../contexts/appContext';
 import Header from '../components/header';
 import LowerMenu from '../components/LowerMenu';
+import SearchDrinkCategories from '../components/searchDrinkCategories';
 
 function HomeDrinks() {
   const { state, setState, state: { drinks } } = useContext(appContext);
@@ -14,12 +15,13 @@ function HomeDrinks() {
       setState({ ...state, drinks: [...defaultDrinks] });
     };
     fetchData();
-  }, [setState, state]);
+  }, []);
 
   return (
     <div>
       <Header name="Bebidas" search />
       Home Drinks
+      <SearchDrinkCategories />
       { drinks
         .filter((drink, index) => index < MAX_DRINKS)
         .map((drink, index) => (
