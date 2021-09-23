@@ -8,6 +8,7 @@ function Provider({ children }) {
   const [searchParameter, setSearchParameter] = useState();
   const [cardsToShow, setCardsToShow] = useState();
   const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState({});
 
   useEffect(() => {
     async function fetchData() {
@@ -23,6 +24,8 @@ function Provider({ children }) {
     meals,
     setMeals,
     drinks,
+    details,
+    setDetails,
     setDrinks,
     searchParameter,
     setSearchParameter,
