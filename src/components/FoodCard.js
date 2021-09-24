@@ -1,20 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-function FoodCard({ index, data, thumb, name }) {
+function FoodCard({ index, data, thumb, name, id, route }) {
   return (
-    <div
-      style={ { width: '48%', height: '70px' } }
-      data-testid={ `${index}-recipe-card` }
-    >
-      <img
-        data-testid={ `${index}-card-img` }
-        alt={ data.strCategory }
-        src={ data[thumb] }
-        style={ { heigth: '50px', width: '50px' } }
-      />
-      <p data-testid={ `${index}-card-name` }>{ data[name] }</p>
-    </div>
+    <Link style={ { width: '48%', height: '70px' } } to={`/${[route]}/${data[id]}`}>
+      <div
+        // style={ { width: '48%', height: '70px' } }
+        data-testid={ `${index}-recipe-card` }
+      >
+        <img
+          data-testid={ `${index}-card-img` }
+          alt={ data.strCategory }
+          src={ data[thumb] }
+          style={ { heigth: '50px', width: '50px' } }
+        />
+        <p data-testid={ `${index}-card-name` }>{ data[name] }</p>
+      </div>
+    </Link>
   );
 }
 

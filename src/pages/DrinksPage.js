@@ -1,35 +1,46 @@
-import React, { useEffect, useContext } from 'react';
-import MyContext from '../context/Context';
-import { Header, Footer, FoodCard } from '../components';
-// import Header from '../components/Header';
-// import Footer from '../components/Footer';
-// import FoodCard from '../components/FoodCard';
+import React, { useEffect, useContext } from "react";
+import MyContext from "../context/Context";
+import * as myFunc from '../services/api';
+import { Header, Footer, FoodCard, ButtonsFilters } from "../components";
 
 function DrinksPage() {
-  const { recipes, setMyPage } = useContext(MyContext);
+  const { recipes, setMyPage, myPage, setRecipes } = useContext(MyContext);
 
   const LIMITER_FOODS = 12;
 
-  useEffect(() => {
-    setMyPage('thecocktaildb');
-  }, [setMyPage]);
+  const randonRecipes = async () => {
+    const { drinks } = await myFunc.fetchRandonRecipes(myPage);
+    setRecipes(drinks);
+  };
 
+  useEffect(() => {
+    setMyPage("thecocktaildb");
+    if (myPage !== '') {
+      randonRecipes();
+    }
+  }, [setMyPage, myPage]);
+  
   const returnCard = (item, index) => (
     <FoodCard
-      key={ index }
-      index={ index }
+      key={index}
+      index={index}
       thumb="strDrinkThumb"
       name="strDrink"
-      data={ item }
+      id="idDrink"
+      data={item}
+      route="bebidas"
     />
   );
 
   return (
-    <div style={ { display: 'flex', flexDirection: 'column' } }>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <Header title="Bebidas" search />
-      <div style={ { display: 'flex', flexWrap: 'wrap' } }>
-        {recipes !== null && recipes.map((item, index) => (index >= LIMITER_FOODS
-          ? null : returnCard(item, index))) }
+      <ButtonsFilters page="drinks" />
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {recipes !== null &&
+          recipes.map((item, index) =>
+            index >= LIMITER_FOODS ? null : returnCard(item, index)
+          )}
       </div>
       <Footer />
     </div>
