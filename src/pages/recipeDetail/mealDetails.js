@@ -6,7 +6,7 @@ import recipesContext from '../../context';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
-function RecipeDetail() {
+function MealDetails() {
   const {
     details,
     setDetails,
@@ -101,7 +101,7 @@ function RecipeDetail() {
   );
 }
 
-RecipeDetail.propTypes = {
+MealDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -109,4 +109,4 @@ RecipeDetail.propTypes = {
   }).isRequired,
 };
 
-export default RecipeDetail;
+export default MealDetails;
