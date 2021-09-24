@@ -22,9 +22,9 @@ export default function Comidas({ history }) {
     //   console.log('xablau');
     //   global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     // }
-    // if (meals.length === 1) {
-    //   history.push(`/comidas/${meals[0].idMeal}`);
-    // }
+    if (meals.length === 1) {
+      history.push(`/comidas/${meals[0].idMeal}`);
+    }
   }, [history, meals]);
 
   useEffect(() => {

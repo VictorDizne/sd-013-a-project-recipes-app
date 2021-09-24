@@ -26,7 +26,7 @@ const RecipesContextProvider = ({ children }) => {
           return alert();
         }
         if (json.meals.length > endIndex) {
-          const twelveFirstMeals = json.meals.splice(0, endIndex);
+          const twelveFirstMeals = json.meals.slice(0, endIndex);
           setMeals(twelveFirstMeals);
           setIsLoading(false);
         } else {
@@ -47,7 +47,7 @@ const RecipesContextProvider = ({ children }) => {
           return alert();
         }
         if (json.drinks.length > endIndex) {
-          const twelveFirstDrinks = json.drinks.splice(0, endIndex);
+          const twelveFirstDrinks = json.drinks.slice(0, endIndex);
           setDrinks(twelveFirstDrinks);
           setIsLoading(false);
         } else {

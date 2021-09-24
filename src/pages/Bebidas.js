@@ -22,9 +22,9 @@ export default function Bebidas({ history }) {
     //   global
     //     .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     // }
-    // if (drinks.length === 1) {
-    //   history.push(`/bebidas/${drinks[0].idDrink}`);
-    // }
+    if (drinks.length === 1) {
+      history.push(`/bebidas/${drinks[0].idDrink}`);
+    }
   }, [drinks, history]);
 
   useEffect(() => {
@@ -40,6 +40,22 @@ export default function Bebidas({ history }) {
   useEffect(() => {
     if (drinks.length > 0 && drinksCategories) setIsLoading(false);
   }, [drinks, drinksCategories, setIsLoading]);
+
+  // const getDrinksByCategory = (categoryName) => {
+  //   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`)
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       const endIndex = 12;
+  //       if (json.drinks.length > endIndex) {
+  //         const twelveFirstDrinks = json.drinks.splice(0, endIndex);
+  //         // setDrinks(twelveFirstDrinks);
+  //         // setIsLoading(false);
+  //       } else {
+  //         // setDrinks(json.drinks);
+  //         // setIsLoading(false);
+  //       }
+  //     });
+  // };
 
   return (
     <>
@@ -65,7 +81,7 @@ export default function Bebidas({ history }) {
                   recipeImage={ drink.strDrinkThumb }
                   recipeName={ drink.strDrink }
                 />
-              ))}
+              )) }
             </>
           )
       }
@@ -74,6 +90,6 @@ export default function Bebidas({ history }) {
   );
 }
 
-Bebidas.propTypes = ({
-  history: PropTypes.objectOf(PropTypes.any),
-}).isRequired;
+Bebidas.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
