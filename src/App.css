@@ -1,6 +1,6 @@
 body {
- height: 100%;
- overflow: auto;
+  height: 100%;
+  overflow: auto;
 }
 
 .imageFood {
@@ -9,10 +9,10 @@ body {
 }
 
 .footer {
+  background-color: aqua;
+  bottom: 0;
   display: flex;
   justify-content: space-around;
-  width:100%;
   position: fixed;
-  bottom: 0px;
-  background-color: aqua;
+  width: 100%;
 }
