@@ -1,5 +1,4 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
@@ -16,7 +15,6 @@ import FoodsByLocal from './pages/FoodsByLocal';
 import ExploreByIngredients from './pages/ExplorerByIng';
 import Profile from './pages/Profile';
 import ContextAPIProvider from './ContextAPI/ContextAPI';
-import SearchBar from './Components/SearchBar';
 import MealDetails from './Pages/Foods';
 import CocktailDetails from './Pages/Drinks';
 
