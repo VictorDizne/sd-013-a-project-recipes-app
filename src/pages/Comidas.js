@@ -5,10 +5,12 @@ import recipeContext from '../context';
 import SearchInput from '../components/SearchInput';
 import ComponentFooter from '../components/ComponentFooter';
 import ComponentList from '../components/ComponentList';
+import ComponentLoading from '../components/ComponentLoading';
 
 function Comidas() {
   const currentContext = useContext(recipeContext).ContextComidas;
-  const { showInput, dataForFetch, handleCurrentPage, currentID } = currentContext;
+  const {
+    showInput, dataForFetch, handleCurrentPage, currentID, loading } = currentContext;
   const { redirectState } = dataForFetch;
 
   useEffect(handleCurrentPage, []);
@@ -17,9 +19,9 @@ function Comidas() {
     <div>
       <Header title="Comidas" hideSearch={ false } hideProfile={ false } />
       {showInput && <SearchInput />}
-      <ComponentList />
-      <ComponentFooter />
+      {loading ? <ComponentLoading /> : <ComponentList />}
       {redirectState && <Redirect to={ `/comidas/${currentID}` } /> }
+      <ComponentFooter />
     </div>
   );
 }
