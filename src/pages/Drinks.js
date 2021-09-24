@@ -10,10 +10,12 @@ import Footer from '../components/Footer';
 function Drinks() {
   const urlDrink = 'thecocktail';
   const { data, recipes, category } = useContext(Context);
+  // const [toggle, setToggle] = useState(false);
   const history = useHistory();
   const secondButton = true;
   useFetchRecipes(urlDrink);
   useRecipesSearch(data.search, data.text, urlDrink);
+
   const renderDrinks = () => {
     const magic = 12;
     if (recipes.drinks === null) {
@@ -51,6 +53,7 @@ function Drinks() {
       ))
     );
   };
+
   const renderButtons = () => {
     if (category.drinks !== undefined) {
       const magic2 = 5;
