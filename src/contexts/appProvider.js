@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import appContext from './appContext';
 
 const AppProvider = ({ children }) => {
-  const [state, setState] = useState({ foods: [], drinks: [] });
-  const [ recipesInProgress, setRecipes ] = useState([]);
+  const [state, setState] = useState({ foods: [], drinks: [], category: '', key: false });
+  const [recipesInProgress, setRecipes] = useState([]);
 
   const getIngredients = (arrFood) => {
     const ingredients = [];

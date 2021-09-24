@@ -13,7 +13,7 @@ function FoodDetails() {
 
   useEffect(() => {
     const getMeal = async () => {
-      const URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52908';
+      const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(URL);
       const { meals } = await response.json();
       setMeal(meals[0]);
@@ -26,7 +26,7 @@ function FoodDetails() {
       setRecomendations(drinks);
     };
     getRecomendations();
-  }, []);
+  }, [id]);
   /*  console.log(meal); */
   const startRecipe = () => {
     if (!recipesInProgress.includes(id)) {
