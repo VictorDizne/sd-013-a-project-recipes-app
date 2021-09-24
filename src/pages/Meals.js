@@ -1,22 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { MainContext } from '../context/Provider';
 import ReciperCard from '../components/RecipeCard';
+import { fetchRecipes } from '../services';
+
+const MAX_INDEX = 12;
 
 function Meals() {
-  const { recipesMeals } = useContext(MainContext);
-  const maxList = 12;
-  let recipesList = recipesMeals;
+  const { recipes, setRecipes } = useContext(MainContext);
+  const [isReady, setIsReady] = useState(false);
+  const initialRender = useRef(false);
 
-  if (recipesMeals.length > maxList) {
-    recipesList = recipesMeals.slice(1, maxList + 1);
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchRecipes('', 'name', '/comidas');
+      setRecipes(data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (initialRender.current) {
+      setIsReady(true);
+    } else {
+      initialRender.current = true;
+    }
+  }, [recipes]);
 
   return (
     <>
       <Header />
-      {recipesList.map((recipe, index) => (
+      {isReady && recipes.slice(0, MAX_INDEX).map((recipe, index) => (
         <ReciperCard
           key={ recipe.idMeal }
           index={ index }

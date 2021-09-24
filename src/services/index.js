@@ -12,7 +12,6 @@ export const fetchRecipes = async (query, type, path) => {
   if (type === 'ingredient') {
     const response = await fetch(`https://www.the${strUrl}db.com/api/json/v1/1/filter.php?i=${query}`);
     const json = await response.json();
-    console.log(json[dataKey]);
     return json[dataKey];
   }
   if (type === 'name') {
@@ -27,14 +26,4 @@ export const fetchRecipes = async (query, type, path) => {
   }
 };
 
-export const fetchRecipersMeals = async () => {
-  const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s');
-  const json = await response.json();
-  return json;
-};
-
-export const fetchRecipersDrinks = async () => {
-  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s');
-  const json = await response.json();
-  return json;
-};
+export const generic = () => null;
