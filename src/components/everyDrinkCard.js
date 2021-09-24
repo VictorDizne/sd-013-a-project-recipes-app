@@ -1,13 +1,20 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import recipesContext from '../context';
-import DrinkCard from './drinkCard';
+import SingleCard from './singleCard';
 
 function EveryDrinkCard() {
   const { drinks } = useContext(recipesContext);
   const maxResults = 12;
   const history = useHistory();
   let card;
+  function DrinkURL(id) {
+    const toDetails = {
+      pathname: `/bebidas/${id}`,
+      id,
+    };
+    return toDetails;
+  }
   // Checa se foi encontrado algum resultado na pesquisa
   if (drinks.drinks === null) {
     global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -20,12 +27,14 @@ function EveryDrinkCard() {
       const everyRecipe = Object.values(drinks.drinks).slice(0, maxResults);
       card = everyRecipe
         .map((recipe, index) => (
-          <DrinkCard
-            recipe={ recipe }
-            key={ index }
-            index={ index }
-            data-testid={ `${index}-recipe-card` }
-          />));
+          <Link to={ () => DrinkURL(recipe.idDrink) } key={ index }>
+            <SingleCard
+              imgsrc={ recipe.strDrinkThumb }
+              index={ index }
+              cardName={ recipe.strDrink }
+              data-testid={ `${index}-recipe-card` }
+            />
+          </Link>));
     } else if (resultsLenght === 1) {
       history.push(`/bebidas/${drinks.drinks[0].idDrink}`);
     }

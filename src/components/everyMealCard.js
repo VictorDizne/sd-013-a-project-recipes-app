@@ -1,14 +1,20 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import recipesContext from '../context';
-import MealCard from './MealCard';
+import SingleCard from './singleCard';
 
 function EveryMealCard() {
   const { meals } = useContext(recipesContext);
   const maxResults = 12;
   const history = useHistory();
   let card;
-  console.log(meals);
+  function MealURL(id) {
+    const toDetails = {
+      pathname: `/comidas/${id}`,
+      id,
+    };
+    return toDetails;
+  }
   // Checa se foi encontrado algum resultado na pesquisa
   if (meals.meals === null) {
     global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -21,12 +27,14 @@ function EveryMealCard() {
       const everyRecipe = Object.values(meals.meals).slice(0, maxResults);
       card = everyRecipe
         .map((recipe, index) => (
-          <MealCard
-            recipe={ recipe }
-            key={ index }
-            index={ index }
-            data-testid={ `${index}-recipe-card` }
-          />));
+          <Link to={ () => MealURL(recipe.idMeal) } key={ index }>
+            <SingleCard
+              imgsrc={ recipe.strMealThumb }
+              index={ index }
+              cardName={ recipe.strMeal }
+              data-testid={ `${index}-recipe-card` }
+            />
+          </Link>));
     } else if (resultsLenght === 1) {
       history.push(`/comidas/${meals.meals[0].idMeal}`);
     }
