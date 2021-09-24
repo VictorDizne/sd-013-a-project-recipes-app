@@ -2,7 +2,6 @@
 // import { screen } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 // import App from '../App';
-// import renderWithRouter from './renderWithRouter';
 
 // const btnTestId = 'login-submit-btn';
 // const correctEmail = 'alguem@alguem.com';
