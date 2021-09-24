@@ -31,6 +31,8 @@ const Login = () => {
   const redirectToFoods = () => {
     history.push('/comidas');
     localStorage.setItem('user', JSON.stringify(login.email));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
   };
 
   return (
@@ -53,6 +55,7 @@ const Login = () => {
       />
       <Button
         className="buttonLogin"
+        id="login-submit-btn"
         type="button"
         buttonText="Login"
         disabled={ disableButton }
