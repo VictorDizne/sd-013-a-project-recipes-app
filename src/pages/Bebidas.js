@@ -11,14 +11,16 @@ const NUM_FIVE = 5;
 
 function Bebidas() {
   const { drinks, setDrinks, drinksCategories,
-    setDrinksCategories } = useContext(Context);
+    setDrinksCategories, setFilteredDrinks, filteredDrinks } = useContext(Context);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [toggleOn, setToggleOn] = useState('');
 
   useEffect(() => {
     const getDrinks = async () => {
       const results = await fetchDrinks();
       setDrinks(results);
+      setFilteredDrinks(results);
     };
     getDrinks();
 
@@ -31,12 +33,15 @@ function Bebidas() {
   }, [setDrinks, setDrinksCategories]);
 
   const filteredByCategory = async (category) => {
+    const selected = category;
     const results = await fetchDrinksFilterCategories(category);
-    console.log(results);
-    setDrinks(results);
+    if(toggleOn === selected) {
+      setFilteredDrinks(drinks);
+    } else {
+      setToggleOn(selected);
+      setFilteredDrinks(results);
+    }
   };
-
-  // console.log(drinksCategories);
 
   const handleOnClick = (category) => {
     filteredByCategory(category);
@@ -61,7 +66,7 @@ function Bebidas() {
       <Header />
       <h1>Bebidas</h1>
 
-      {drinks.filter((drink, idx) => idx < NUM_DRINKS).map((drink, idx) => (
+      {filteredDrinks.filter((drink, idx) => idx < NUM_DRINKS).map((drink, idx) => (
         <section key={ drink.strDrink } data-testid={ `${idx}-recipe-card` }>
           <h2 data-testid={ `${idx}-card-name` }>{drink.strDrink}</h2>
           <img

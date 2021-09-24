@@ -10,14 +10,16 @@ const NUM_MEALS = 12;
 const NUM_FIVE = 5;
 
 function Comidas() {
-  const { meals, setMeals, mealsCategories, setMealsCategories } = useContext(Context);
+  const { meals, setMeals, mealsCategories, setMealsCategories, setFilteredMeals, filteredMeals } = useContext(Context);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [toggleOn, setToggleOn] = useState('');
 
   useEffect(() => {
     const getMeals = async () => {
       const results = await fetchMeals();
       setMeals(results);
+      setFilteredMeals(results);
     };
     getMeals();
     const getMealsCategories = async () => {
@@ -31,9 +33,14 @@ function Comidas() {
   if (isLoading) return <h1>Loading...</h1>;
 
   const filteredByCategory = async (category) => {
+    const selected = category;
     const results = await fetchMealsFilterCategories(category);
-    console.log(results);
-    setMeals(results);
+      if(toggleOn === selected) {
+        setFilteredMeals(meals);
+      } else {
+        setToggleOn(selected);
+        setFilteredMeals(results);
+      }
   };
 
   const handleOnClick = (category) => {
@@ -57,7 +64,7 @@ function Comidas() {
       <Header />
       <h1>Comidas</h1>
 
-      {meals.filter((meal, idx) => idx < NUM_MEALS).map((meal, idx) => (
+      {filteredMeals.filter((meal, idx) => idx < NUM_MEALS).map((meal, idx) => (
         <section key={ meal.strMeal } data-testid={ `${idx}-recipe-card` }>
           <h2 data-testid={ `${idx}-card-name` }>{meal.strMeal}</h2>
           <img
