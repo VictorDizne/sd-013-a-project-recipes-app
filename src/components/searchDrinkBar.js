@@ -27,7 +27,6 @@ function SearchDrinkBar() {
       apiResults = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchParameter.text}`);
       break;
     case 'firstLetter':
-      console.log(searchParameter.text);
       apiResults = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchParameter.text}`);
       break;
     default:

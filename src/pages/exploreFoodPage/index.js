@@ -11,7 +11,6 @@ function ExploreFoodPage() {
     async function fetchRandomMeal() {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
       const randomMeal = await response.json();
-      console.log(randomMeal.meals[0].idMeal);
       setRandomId(randomMeal.meals[0].idMeal);
       setLoading(false);
     }

@@ -1,30 +1,22 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
 import fetchAPI from '../../services/fetchAPI';
-import recipesContext from '../../context';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
-function DrinkDetails() {
-  const {
-    details,
-    setDetails,
-    setLoading,
-    medida,
-    setMedida,
-    loading,
-    ingredientes,
-    setIngredientes,
-  } = useContext(recipesContext);
-  const { id } = useParams();
+function DrinkDetails({ match: { params: { id } } }) {
+  const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState({});
+  const [ingredientes, setIngredientes] = useState([]);
+  const [medida, setMedida] = useState([]);
 
   const ingredientsList = (drinkInfo) => {
     const arr = Object.keys(drinkInfo);
+    console.log(Object.keys(drinkInfo));
     const ingredients = arr
       .filter((k) => (k.includes('strIngredient') ? k : null))
       .map((values) => drinkInfo[values])
-      .filter((ingredient) => ingredient);
+      .filter((ingredient) => (ingredient));
     setIngredientes(ingredients);
   };
 
@@ -33,23 +25,22 @@ function DrinkDetails() {
     const measures = arr
       .filter((k) => (k.includes('strMeasure') ? k : null))
       .map((values) => drinksInfo[values])
-      .filter((measure) => measure);
+      .filter((measure) => (measure));
     setMedida(measures);
   };
 
-  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const fetchByID = async () => {
-    setLoading(true);
-    const { drinks } = await fetchAPI(URL);
-    setDetails(drinks[0]);
-    setLoading(false);
-    ingredientsList(drinks[0]);
-    measureList(drinks[0]);
-  };
-
   useEffect(() => {
+    const fetchByID = async () => {
+      const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const { drinks } = await fetchAPI(URL);
+      setDetails(drinks[0]);
+      console.log(drinks[0]);
+      ingredientsList(drinks[0]);
+      measureList(drinks[0]);
+      setLoading(false);
+    };
     fetchByID();
-  }, []);
+  }, [id]);
 
   if (loading) return 'loading';
 
