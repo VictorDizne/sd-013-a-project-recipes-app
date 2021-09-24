@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function FoodCard({ index, data, thumb, name, id, route }) {
   return (
-    <Link style={ { width: '48%', height: '70px' } } to={`/${[route]}/${data[id]}`}>
+    <Link style={ { width: '48%', height: '70px' } } to={ `/${[route]}/${data[id]}` }>
       <div
         // style={ { width: '48%', height: '70px' } }
         data-testid={ `${index}-recipe-card` }
@@ -29,6 +29,8 @@ FoodCard.propTypes = {
   name: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
 };
 
 export default FoodCard; //
