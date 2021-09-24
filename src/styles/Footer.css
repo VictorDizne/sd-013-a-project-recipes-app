@@ -1,11 +1,12 @@
 .fixed-footer {
   background-color: rgb(145, 128, 179);
+  bottom: 0;
   box-shadow: -3px -3px 10px 1px rgb(46, 38, 59);
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
   padding: 10px;
-  position: relative;
+  position: fixed;
   width: 100%;
 }
 
