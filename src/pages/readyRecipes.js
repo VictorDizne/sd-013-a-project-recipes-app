@@ -1,9 +1,15 @@
 import React from 'react';
 import Header from '../components/header';
+import BttAllDrinksFood from '../components/BttAllDrinksFood';
+import ReadyReceipesCards from '../components/ReadyReceipesCards';
 
 function ReadyRecipes() {
   return (
-    <Header name="Receitas Feitas" search={ false } />
+    <section>
+      <Header name="Receitas Feitas" search={ false } />
+      <BttAllDrinksFood />
+      <ReadyReceipesCards />
+    </section>
   );
 }
 

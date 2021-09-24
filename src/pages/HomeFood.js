@@ -27,6 +27,22 @@ const HomeFood = () => {
       <SearchFoodCategories />
       { foods
         .filter((food, index) => index < MAX_FOODS)
+        .map((food, indexMap) => (
+          <div key={ food.idMeal } id="meals-label" className=".requisito32">
+            <Link
+              className=".requisito32"
+              to={ `/comidas/${food.idMeal}` }
+              data-testid={ `${indexMap}-recipe-card` }
+            >
+              <img
+                src={ food.strMealThumb }
+                data-testid={ `${indexMap}-card-img` }
+                alt={ food.strMeal }
+                style={ { width: '200px', height: '200px' } }
+              />
+            </Link>
+            <p data-testid={ `${indexMap}-card-name` }>{food.strMeal}</p>
+          </div>
         .map((food, index) => (
           <Link
             key={ food.idMeal }
