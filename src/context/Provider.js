@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useEffect, useState, useRef } from 'react';
-import { fetchRecipes, fetchRecipersMeals, fetchRecipersDrinks } from '../services';
+import { fetchRecipes } from '../services';
 
 export const MainContext = createContext();
+const erro = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 export function Provider({ children }) {
   const [searchSettings, setSearchSettings] = useState({
@@ -12,8 +13,6 @@ export function Provider({ children }) {
   });
 
   const [recipes, setRecipes] = useState(['teste']);
-  const [recipesMeals, setRecipesMeals] = useState([]);
-  const [recipesDrinks, setRecipesDrinks] = useState([]);
 
   const initialRender = useRef(false);
 
@@ -25,7 +24,11 @@ export function Provider({ children }) {
           searchSettings.type,
           searchSettings.path,
         );
-        setRecipes(data);
+        if (data === null) {
+          alert(erro);
+        } else {
+          setRecipes(data);
+        }
       };
       fetchData();
     } else {
@@ -33,31 +36,11 @@ export function Provider({ children }) {
     }
   }, [searchSettings]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchRecipersMeals();
-      setRecipesMeals(data.meals);
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchRecipersDrinks();
-      setRecipesDrinks(data.drinks);
-    };
-    fetchData();
-  }, []);
-
   const contextValue = {
     setSearchSettings,
     searchSettings,
     setRecipes,
     recipes,
-    setRecipesMeals,
-    recipesMeals,
-    setRecipesDrinks,
-    recipesDrinks,
   };
 
   return (
