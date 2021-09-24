@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './pages/Login';
 import SearchBar from './Components/SearchBar';
 import MealDetails from './Pages/Foods';
 import CocktailDetails from './Pages/Drinks';
@@ -12,7 +13,7 @@ function App() {
     <ContextAPIProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" />
+          <Route exact path="/" component={ Login }/>
           <Route exact path="/bebidas" component={ SearchBar } />
           <Route exact path="/bebidas/:id" component={ CocktailDetails } />
           <Route exact path="/comidas" component={ SearchBar } />
