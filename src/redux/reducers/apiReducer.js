@@ -12,8 +12,7 @@ function apiReducer(state = initState, { type, payload }) {
   case 'FETCHING':
     return {
       ...initState,
-      explore:
-      state.explore,
+      explore: state.explore,
       categories: state.categories,
       fetching: true,
     };
@@ -26,8 +25,7 @@ function apiReducer(state = initState, { type, payload }) {
   case 'RECIPES_SUCCESS':
     return {
       ...initState,
-      categories:
-      state.categories,
+      categories: state.categories,
       recipe: state.recipe,
       recipesList: payload,
       explore: state.explore,
@@ -40,8 +38,7 @@ function apiReducer(state = initState, { type, payload }) {
   case 'RECIPE_SUCCESS':
     return {
       ...initState,
-      recipesList:
-      state.recipesList,
+      recipesList: state.recipesList,
       recipe: payload,
     };
   case 'EXPLORE_SUCCESS':
