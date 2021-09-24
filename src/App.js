@@ -13,7 +13,7 @@ function App() {
     <ContextAPIProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={ Login }/>
+          <Route exact path="/" component={ Login } />
           <Route exact path="/bebidas" component={ SearchBar } />
           <Route exact path="/bebidas/:id" component={ CocktailDetails } />
           <Route exact path="/comidas" component={ SearchBar } />

@@ -3,12 +3,6 @@ import { useLocation } from 'react-router-dom';
 import Context from '../ContextAPI/Context';
 import RecipeCard from './RecipeCard';
 
-// import {
-//   fetchIngredient,
-//   fetchName,
-//   fetchFirstLetter,
-// } from '../services/fetchAPI';
-
 const SearchBar = () => {
   const [input, setInput] = useState({
     inputText: '',
