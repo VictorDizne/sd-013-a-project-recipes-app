@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import Button from '../components/Button';
 import Context from '../Context/Context';
 import useRecipesSearch from '../Hooks/useRecipesSearch';
 import useFetchRecipes from '../Hooks/useFetchRecipes';
@@ -8,7 +9,7 @@ import Footer from '../components/Footer';
 
 function Drinks() {
   const urlDrink = 'thecocktail';
-  const { data, recipes } = useContext(Context);
+  const { data, recipes, category } = useContext(Context);
   const history = useHistory();
   const secondButton = true;
   useFetchRecipes(urlDrink);
@@ -50,9 +51,33 @@ function Drinks() {
       ))
     );
   };
+  const renderButtons = () => {
+    if (category.drinks !== undefined) {
+      const magic2 = 5;
+      const list = category.drinks;
+      const listButton = list.slice(0, magic2);
+      return listButton.map((button) => (
+        <Button
+          key={ button.strCategory }
+          testID={ `${button.strCategory}-category-filter` }
+        >
+          {button.strCategory}
+        </Button>
+      ));
+    }
+  };
+
   return (
     <section>
       <Header text="Bebidas" secondButton={ secondButton } />
+      <section>
+        <Button
+          testID="all-category-filter"
+        >
+          All
+        </Button>
+        { category !== undefined ? renderButtons() : null}
+      </section>
       <h1>Drinks</h1>
       { recipes.drinks !== undefined ? renderDrinks() : null }
       <Footer />

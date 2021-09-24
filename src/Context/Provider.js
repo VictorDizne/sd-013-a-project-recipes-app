@@ -5,8 +5,9 @@ import Context from './Context';
 function Provider(props) {
   const [data, setData] = useState([]);
   const [recipes, setRecipes] = useState([]);
+  const [category, setCategory] = useState();
   const { children } = props;
-  const contextValue = { data, setData, recipes, setRecipes };
+  const contextValue = { data, setData, recipes, setRecipes, category, setCategory };
 
   return (
     <Context.Provider value={ contextValue }>

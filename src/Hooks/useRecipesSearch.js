@@ -16,10 +16,12 @@ const useRecipesSearch = (value, input, page) => {
 
     async function fetchResult() {
       const result = await (await fetch(url)).json();
+      console.log(result, 'result');
       setRecipes(result);
     }
-
-    fetchResult();
+    if (data.search && data.text) {
+      fetchResult();
+    }
   }, [data]);
 
   return recipes;

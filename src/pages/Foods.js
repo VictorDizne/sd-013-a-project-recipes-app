@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import Button from '../components/Button';
 import Context from '../Context/Context';
 import Header from '../components/Header';
 import useRecipesSearch from '../Hooks/useRecipesSearch';
@@ -7,11 +8,11 @@ import useFetchRecipes from '../Hooks/useFetchRecipes';
 import Footer from '../components/Footer';
 
 function Foods() {
-  const { recipes, data } = useContext(Context);
+  const { recipes, data, category } = useContext(Context);
   const history = useHistory();
   const urlFood = 'themeal';
   const secondButton = true;
-  useFetchRecipes(urlFood);
+  useFetchRecipes(urlFood, 'meals');
   useRecipesSearch(data.search, data.text, urlFood);
   const renderFoods = () => {
     const magic = 12;
@@ -50,9 +51,34 @@ function Foods() {
       ))
     );
   };
+  const renderButtons = () => {
+    if (category.meals !== undefined) {
+      const magic2 = 5;
+      const list = category.meals;
+      const listButton = list.slice(0, magic2);
+      return listButton.map((button) => (
+        <Button
+          key={ button.strCategory }
+          testID={ `${button.strCategory}-category-filter` }
+        >
+          {button.strCategory}
+        </Button>
+      ));
+    }
+  };
+
   return (
     <div>
       <Header text="Comidas" secondButton={ secondButton } />
+      <section>
+        <Button
+          testID="all-category-filter"
+        >
+          All
+        </Button>
+        { category !== undefined ? renderButtons() : null}
+      </section>
+      <h1>Foods</h1>
       { recipes.meals !== undefined ? renderFoods() : null }
       <Footer />
     </div>
