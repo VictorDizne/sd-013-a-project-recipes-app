@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 import SingleCard from '../../components/singleCard';
+import recipesContext from '../../context';
+import fetchAPI from '../../services/fetchAPI';
 
 function FoodIngredients() {
-  const [loading, setLoading] = useState(true);
+  const [loadingPage, setLoadingPage] = useState(true);
   const [ingredients, setIngredients] = useState([]);
+  const { setLoading, setMeals } = useContext(recipesContext);
+
   useEffect(() => {
     async function fetchIngredients() {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
@@ -14,28 +18,37 @@ function FoodIngredients() {
       const maxNumber = 12;
       console.log(Object.values(ingredientsMeal.meals).slice(0, maxNumber));
       setIngredients(Object.values(ingredientsMeal.meals).slice(0, maxNumber));
-      setLoading(false);
+      setLoadingPage(false);
     }
     fetchIngredients();
   }, []);
 
+  async function handleClick(name) {
+    setLoading(true);
+    const filterIngredients = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`);
+    setMeals(filterIngredients);
+    setLoading(false);
+  }
+
   function showCard() {
     const ingredientMap = ingredients.map((ingredient, index) => (
-      <Link key={ index } to="/comidas">
-        <SingleCard
-          data-testid={ `${index}-ingredient-card` }
-          cardName={ ingredient.strIngredient }
-          index={ index }
-          imgsrc={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` }
-        />
-      </Link>
+      <div data-testid={ `${index}-ingredient-card` } key={ index }>
+        <Link to="/comidas">
+          <SingleCard
+            cardName={ ingredient.strIngredient }
+            index={ index }
+            imgsrc={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` }
+            onclick={ () => handleClick(ingredient.strIngredient) }
+          />
+        </Link>
+      </div>
     ));
     return ingredientMap;
   }
   return (
     <>
       <Header title="Explorar ingredientes" />
-      { loading ? <p>CARREGANDO...</p> : showCard() }
+      { loadingPage ? <p>CARREGANDO...</p> : showCard() }
       <Footer />
     </>
   );
