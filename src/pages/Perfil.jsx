@@ -1,8 +1,9 @@
 import React from 'react';
+import Footer from '../components/Footer';
 
 const Perfil = () => (
   <div>
-    <h3>Oii</h3>
+    <Footer />
   </div>
 );
 

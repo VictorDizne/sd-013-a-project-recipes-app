@@ -4,6 +4,7 @@ import Loading from '../components/Loading';
 import MyContext from '../context/myContext';
 import { cocktailsAPIRequest } from '../services/APIrequest';
 import createCard from '../services/createCard';
+import Footer from '../components/Footer';
 
 const TelaBebidas = () => {
   const {
@@ -37,6 +38,7 @@ const TelaBebidas = () => {
       <Filters alimento={ categoryDrink } />
       { !categoryFilter ? createCard(dataDrink, 'Drink')
         : createCard(categoryFilter, 'Drink') }
+      <Footer />
     </>
   );
 };
