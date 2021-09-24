@@ -1,0 +1,37 @@
+body {
+  height: 100%;
+}
+
+.item-card {
+  background-color: lightblue;
+  border-color: lightcyan;
+  border-radius: 10px;
+  border-style: solid;
+  margin: 5% 0;
+  padding: 10px;
+  text-align: center;
+  width: 150px;
+}
+
+.item-card img {
+  width: 100%;
+}
+
+.item-card-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 50px;
+  padding-bottom: 60px;
+}
+
+.footer-style {
+  background-color: lightblue;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+}

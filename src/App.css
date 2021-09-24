@@ -1,3 +1,8 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 .explore-button {
   background-color: lightblue;
   border-color: lightcyan;
@@ -18,28 +23,6 @@
   margin-top: 40%;
 }
 
-.item-card {
-  background-color: lightblue;
-  border-color: lightcyan;
-  border-radius: 10px;
-  border-style: solid;
-  margin: 5% 0;
-  padding: 10px;
-  text-align: center;
-  width: 80%;
-}
-
-.item-card img {
-  width: 100%;
-}
-
-.item-card-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -57,15 +40,6 @@
   max-height: 80vh;
 }
 
-.footer-style {
-  background-color: lightblue;
-  bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  position: fixed;
-  width: 100%;
-}
 
 /*
 #iceLeft {

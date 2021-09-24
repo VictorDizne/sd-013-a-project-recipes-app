@@ -6,8 +6,8 @@
 
 .header {
   background-color: lightblue;
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 41% 50% 0%;
   padding: 10px;
   top: 0;
   width: 100%;
@@ -18,6 +18,6 @@
   border-style: none;
 }
 
-.header h3 {
+.header-title {
   margin-top: 3.5px;
 }

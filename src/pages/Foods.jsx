@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import ItemCard from '../components/ItemCard';
 import { fetchFoods } from '../services/requests';
+import '../styles/itemCard.css';
 
 const Foods = () => {
   const enableSearch = (

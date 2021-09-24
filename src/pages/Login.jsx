@@ -66,6 +66,7 @@ const Login = () => {
           data-testid="login-submit-btn"
           disabled={ !valid }
           onClick={ handleSubmit }
+          className="btn-login"
         >
           Entrar
         </button>
