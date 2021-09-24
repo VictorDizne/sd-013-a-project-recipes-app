@@ -9,7 +9,10 @@ const Card = ({ alimento, tipo, chave }) => {
   const rota = tipo === 'Meal' ? `/comidas/${idAlimento}` : `/bebidas/${idAlimento}`;
   return (
     <Link
-      to={ rota }
+      to={ {
+        pathname: rota,
+        state: { alimento },
+      } }
       data-testid={ `${chave}-recipe-card` }
     >
       <img

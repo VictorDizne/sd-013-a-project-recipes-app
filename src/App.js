@@ -20,12 +20,12 @@ function App() {
           <Route exact path="/receitas-favoritas" component={ pages.ReceitasFavoritas } />
           <Route
             exact
-            path="/comidas/{id-da-receita}"
+            path="/comidas/:id"
             component={ pages.DetalheComidas }
           />
           <Route
             exact
-            path="/bebidas/{id-da-receita}"
+            path="/bebidas/:id"
             component={ pages.DetalheBebidas }
           />
           <Route
@@ -35,12 +35,12 @@ function App() {
           />
           <Route
             exact
-            path="comidas/{id-da-receita}/in-progress"
+            path="comidas/:id/in-progress"
             component={ pages.ReceitasProcessoComidas }
           />
           <Route
             exact
-            path="bebidas/{id-da-receita}/in-progress"
+            path="bebidas/:id/in-progress"
             component={ pages.ReceitasProcessoBebidas }
           />
           <Route
