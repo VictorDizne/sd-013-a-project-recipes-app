@@ -1,48 +1,40 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
 import recipesContext from '../context';
 import fetchAPI from '../services/fetchAPI';
 
 // Quando for montar a SearchBar é necessário passar o título da página como props, conforme linha 98
 
-function SearchBar({ title }) {
+function SearchDrinkBar() {
   const {
-    setCardsToShow,
-    searchParameter,
-    setSearchParameter,
+    setDrinks,
     setLoading,
   } = useContext(recipesContext);
+  const [searchParameter, setSearchParameter] = useState();
 
   function handleSearchParameter({ target: { name, value } }) {
     setSearchParameter({ ...searchParameter, [name]: value });
   }
 
-  async function searchAPI(foodOrDrink) {
+  async function searchAPI() {
     setLoading(true);
-    let apiURL;
     let apiResults;
-    // Primeiro checa se iremos pesquisar por uma comida ou por um drink
-    if (foodOrDrink === 'Comidas' || foodOrDrink === 'Explorar origem') {
-      apiURL = 'themealdb';
-    } else {
-      apiURL = 'thecocktaildb';
-    }
     // Depois, com base no resultado acima, faz a requisição à API de acordo com o campo de texto
     switch (searchParameter.radio) {
     case 'ingredient':
-      apiResults = await fetchAPI(`https://www.${apiURL}.com/api/json/v1/1/filter.php?i=${searchParameter.text}`);
+      apiResults = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchParameter.text}`);
       break;
     case 'text':
-      apiResults = await fetchAPI(`https://www.${apiURL}.com/api/json/v1/1/search.php?s=${searchParameter.text}`);
+      apiResults = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchParameter.text}`);
       break;
     case 'firstLetter':
-      apiResults = await fetchAPI(`https://www.${apiURL}.com/api/json/v1/1/search.php?f=${searchParameter.text}`);
+      console.log(searchParameter.text);
+      apiResults = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchParameter.text}`);
       break;
     default:
       break;
     }
     // Seta os resultados na context para apresentar os cards ao usuário
-    setCardsToShow(apiResults);
+    setDrinks(apiResults);
     setLoading(false);
   }
 
@@ -52,7 +44,7 @@ function SearchBar({ title }) {
     if (searchParameter.radio === 'firstLetter' && searchParameter.text.length !== 1) {
       global.alert('Digite apenas uma letra');
     } else {
-      searchAPI(title);
+      searchAPI();
     }
   }
 
@@ -109,8 +101,4 @@ function SearchBar({ title }) {
   );
 }
 
-SearchBar.propTypes = {
-  title: PropTypes.string.isRequired,
-};
-
-export default SearchBar;
+export default SearchDrinkBar;
