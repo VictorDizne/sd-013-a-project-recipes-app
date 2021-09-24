@@ -27,8 +27,14 @@ export const fetchRecipes = async (query, type, path) => {
   }
 };
 
-export const fetchRecipersAll = async () => {
+export const fetchRecipersMeals = async () => {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s');
+  const json = await response.json();
+  return json;
+};
+
+export const fetchRecipersDrinks = async () => {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s');
   const json = await response.json();
   return json;
 };

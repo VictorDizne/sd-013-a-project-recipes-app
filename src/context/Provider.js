@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useEffect, useState, useRef } from 'react';
-import { fetchRecipes, fetchRecipersAll } from '../services';
+import { fetchRecipes, fetchRecipersMeals, fetchRecipersDrinks } from '../services';
 
 export const MainContext = createContext();
 
@@ -10,8 +10,11 @@ export function Provider({ children }) {
     type: '',
     path: '',
   });
+
   const [recipes, setRecipes] = useState(['teste']);
-  const [recipesAll, setRecipesAll] = useState([]);
+  const [recipesMeals, setRecipesMeals] = useState([]);
+  const [recipesDrinks, setRecipesDrinks] = useState([]);
+
   const initialRender = useRef(false);
 
   useEffect(() => {
@@ -30,21 +33,33 @@ export function Provider({ children }) {
     }
   }, [searchSettings]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchRecipersMeals();
+      setRecipesMeals(data.meals);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchRecipersDrinks();
+      setRecipesDrinks(data.drinks);
+    };
+    fetchData();
+  }, []);
+
   const contextValue = {
     setSearchSettings,
     searchSettings,
     setRecipes,
     recipes,
+    setRecipesMeals,
+    recipesMeals,
+    setRecipesDrinks,
+    recipesDrinks,
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchRecipersAll();
-      console.log(data);
-      setRecipesAll(data);
-    };
-    fetchData();
-  }, []);
   return (
     <MainContext.Provider value={ contextValue }>
       {children}
