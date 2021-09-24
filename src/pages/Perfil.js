@@ -10,7 +10,11 @@ const Perfil = () => {
 
   useEffect(() => {
     const userEmail = JSON.parse(localStorage.getItem('user'));
-    setEmail(userEmail.email);
+    if (userEmail === null) {
+      setEmail('Erro, email não encontrado');
+    } else {
+      setEmail(userEmail.email);
+    }
   }, []);
 
   function handleLogout() {
