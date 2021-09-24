@@ -1,4 +1,5 @@
 import React from 'react';
+import MenuInferior from '../Components/MenuInferior';
 import Header from './Header';
 
 export default function Profile() {
@@ -9,7 +10,8 @@ export default function Profile() {
   return (
     <div>
       <Header value={ pageTitle } />
-      FOODS
+      <h2>PROFILE</h2>
+      <MenuInferior />
     </div>
   );
 }
