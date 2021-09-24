@@ -4,13 +4,14 @@ import useApiId from '../hooks/useApiId';
 
 function DrinkDetails(props) {
   const { match: { params: { id } } } = props;
-
   const data = useApiId('thecocktaildb', id);
 
   console.log(data);
 
   return (
-    <h1>DrinkDetails</h1>
+    <div>
+      <h1>DrinkDetails</h1>
+    </div>
   );
 }
 

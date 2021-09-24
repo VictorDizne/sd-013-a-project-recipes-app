@@ -10,7 +10,9 @@ function FoodDetails(props) {
   console.log(data);
 
   return (
-    <h1>FoodDetails</h1>
+    <div>
+      <h1>FoodDetails</h1>
+    </div>
   );
 }
 
