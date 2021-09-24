@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import appContext from './appContext';
 
 const AppProvider = ({ children }) => {
-  const [state, setState] = useState({ foods: [], drinks: [] });
+  const [state, setState] = useState({ foods: [], drinks: [], category: '', key: false });
 
   return (
     <appContext.Provider value={ { state, setState } }>
