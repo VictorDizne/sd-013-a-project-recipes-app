@@ -8,11 +8,13 @@ export { default as FavoriteRecipes } from './FavoriteRecipes';
 export { default as ToExplorePage } from './ToExplorePage';
 export { default as ToExploreFoodsPage } from './ToExploreFoodsPage';
 export {
-  default as ToExploreFoodsIngredientsPage } from './ToExploreFoodsIngredientsPage';
+  default as ToExploreFoodsIngredientsPage,
+} from './ToExploreFoodsIngredientsPage';
 export { default as ToExploreFoodsInArea } from './ToExploreFoodsInArea';
 export { default as ToExploreDrinksPage } from './ToExploreDrinksPage';
 export { default as Login } from './Login';
 export {
-  default as ToExploreDrinksIngredientsPage } from './ToExploreDrinksIngredientsPage';
+  default as ToExploreDrinksIngredientsPage,
+} from './ToExploreDrinksIngredientsPage';
 export { default as Profile } from './Profile';
 export { default as RecipesMade } from './RecipesMade';

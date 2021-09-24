@@ -8,7 +8,7 @@ const Provider = ({ children }) => {
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
   const [myPage, setMyPage] = useState('');
-  const [recipe, setRecipe] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   const contextValue = {
     email,
@@ -18,9 +18,9 @@ const Provider = ({ children }) => {
     setPassword,
     setSearchInput,
     radioInput,
-    recipe,
+    recipes,
     setRadioInput,
-    setRecipe,
+    setRecipes,
     setMyPage,
     myPage,
   };

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import drinks from '../images/drinkIcon.svg';
 import explorar from '../images/exploreIcon.svg';
 import comidas from '../images/mealIcon.svg';
@@ -14,18 +13,20 @@ function Footer() {
         bottom: '0px',
         display: 'flex',
         justifyContent: 'space-between',
-        heigth: '100px' } }
+        heigth: '100px',
+        width: '360px',
+        padding: '10px' } }
       data-testid="footer"
     >
-      <Link to='/bebidas'>
+      <Link to="/bebidas">
         <img data-testid="drinks-bottom-btn" src={ drinks } alt="drinks" />
       </Link>
-      <Link to='/explorar'>
+      <Link to="/explorar">
         <img data-testid="explore-bottom-btn" src={ explorar } alt="explorar" />
       </Link>
-      <Link to='/comidas'>
+      <Link to="/comidas">
         <img data-testid="food-bottom-btn" src={ comidas } alt="comidas" />
-      </Link>  
+      </Link>
     </div>
   );
 }

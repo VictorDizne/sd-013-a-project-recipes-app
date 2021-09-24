@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
-import api from '../services/api';
+import * as myFunc from '../services/api';
 
 function SearchField() {
   const [redirect, setRedirect] = useState(false);
@@ -11,26 +11,36 @@ function SearchField() {
     searchInput,
     setSearchInput,
     setRadioInput,
-    setRecipe,
-    recipe,
+    setRecipes,
+    recipes,
     radioInput,
     myPage,
   } = useContext(MyContext);
 
   async function handleFetchClick() {
     if (myPage === 'themealdb') {
-      const { meals } = await api(searchInput, radioInput, myPage);
+      const { meals } = await myFunc.fetchSearchApi(searchInput, radioInput, myPage);
       setPage('comidas');
-      setRecipe(meals);
-      setIdType('idMeal');
-      return meals.length === 1 ? setRedirect(true) : setRedirect(false);
+      setRecipes(meals);
+      if (!meals) {
+        global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      } else {
+        setIdType('idMeal');
+        return meals.length === 1 ? setRedirect(true) : setRedirect(false);
+      }
+    } else {
+      const { drinks } = await myFunc.fetchSearchApi(searchInput, radioInput, myPage);
+      setPage('bebidas');
+      setRecipes(drinks);
+      if (!drinks) {
+        global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      } else {
+        setIdType('idDrink');
+        return drinks.length === 1 ? setRedirect(true) : setRedirect(false);
+      }
     }
-    const { drinks } = await api(searchInput, radioInput, myPage);
-    setPage('bebidas');
-    setRecipe(drinks);
-    setIdType('idDrink');
-    return drinks.length === 1 ? setRedirect(true) : setRedirect(false);
   }
+
   return (
     <div style={ { display: 'flex', flexFlow: 'column' } }>
       <input
@@ -78,7 +88,7 @@ function SearchField() {
       >
         Buscar
       </button>
-      { redirect && <Redirect to={ `/${page}/${recipe[0][idType]}` } /> }
+      { redirect && <Redirect to={ `/${page}/${recipes[0][idType]}` } /> }
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function FoodCard({ data, index, thumb }) {
+function FoodCard({ index, data, thumb, name }) {
   return (
     <div
       style={ { width: '48%', height: '70px' } }
@@ -13,7 +13,7 @@ function FoodCard({ data, index, thumb }) {
         src={ data[thumb] }
         style={ { heigth: '50px', width: '50px' } }
       />
-      <p data-testid={ `${index}-card-name` }>{ data.strCategory }</p>
+      <p data-testid={ `${index}-card-name` }>{ data[name] }</p>
     </div>
   );
 }
@@ -23,6 +23,7 @@ FoodCard.propTypes = {
     strCategory: PropTypes.string,
     strDrinkThumb: PropTypes.string,
   }).isRequired,
+  name: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };

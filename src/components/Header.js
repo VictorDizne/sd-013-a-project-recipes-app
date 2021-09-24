@@ -22,17 +22,22 @@ function Header({ title, search }) {
   );
 
   return (
-    <div style={ { display: 'flex', justifyContent: 'space-between', heigth: '100px' } }>
-      <Link to="/perfil">
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile"
-        />
-      </Link>
-      <h3 data-testid="page-title">{title}</h3>
-      { search && renderButtonSearch() }
-
+    <div style={ { display: 'flex', flexDirection: 'column' } }>
+      <div
+        style={ { display: 'flex',
+          justifyContent: 'space-between',
+          heigth: '100px' } }
+      >
+        <Link to="/perfil">
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="profile"
+          />
+        </Link>
+        <h3 data-testid="page-title">{title}</h3>
+        { search && renderButtonSearch() }
+      </div>
       { handleInput && <SearchField /> }
     </div>
   );
