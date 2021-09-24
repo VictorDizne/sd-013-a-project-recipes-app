@@ -24,6 +24,11 @@ export const fetchRecipes = async (query, type, path) => {
     const json = await response.json();
     return json[dataKey];
   }
+  if (type === 'list') {
+    const response = await fetch(`https://www.the${strUrl}db.com/api/json/v1/1/list.php?c=${query}`);
+    const json = await response.json();
+    return json;
+  }
 };
 
 export const generic = () => null;
