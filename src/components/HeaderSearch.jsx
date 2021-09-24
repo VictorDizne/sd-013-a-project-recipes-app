@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../context';
 
+const apologizeMsg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 function HeaderSearch({ tela }) {
   const { setMeals,
     setFilteredMeals, setDrinks, setFilteredDrinks } = useContext(Context);
@@ -44,6 +46,10 @@ function HeaderSearch({ tela }) {
     }
     const data = await fetch(API);
     const json = await data.json();
+    const type = (page === 'Bebidas') ? json.drinks : json.meals;
+    if (!type) {
+      return global.alert(apologizeMsg);
+    }
     if (page === 'Bebidas') {
       setDrinks(json.drinks);
       setFilteredDrinks(json.drinks);
@@ -51,7 +57,6 @@ function HeaderSearch({ tela }) {
       setMeals(json.meals);
       setFilteredMeals(json.meals);
     }
-    const type = (page === 'Bebidas') ? json.drinks : json.meals;
     const id = (page === 'Bebidas' ? json.drinks[0].idDrink : json.meals[0].idMeal);
     if (type.length === 1) {
       history.push(`/${page.toLowerCase()}/${id}`);
