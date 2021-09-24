@@ -11,9 +11,7 @@ function ContextAPIProvider({ children }) {
     try {
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/filter.php?i=${ingredient}`);
       const json = await result.json();
-      console.log(json);
-      console.log(json.meals);
-      console.log(json.drinks);
+
       if (type === 'themealdb') {
         setData(json.meals);
       } else {

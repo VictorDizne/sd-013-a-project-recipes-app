@@ -106,6 +106,8 @@ const SearchBar = () => {
           name={ recipe.strDrink || recipe.strMeal }
           img={ recipe.strDrinkThumb || recipe.strMealThumb }
           key={ index }
+          id={ recipe.idDrink || recipe.idMeal }
+          pathName={ pathname }
         />
       ))}
     </div>
