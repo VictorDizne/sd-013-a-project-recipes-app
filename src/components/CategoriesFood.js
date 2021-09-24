@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import RecipeContext from '../context/RecipeContext';
-
+// teste para o GIT
 function CategoriesFood() {
   // Importa do context o foodCategory para pegar as categorias de Comidas, o setIsDrinkOrMealLoading para indicar que as Comidas estão carregando e o setMealsOrDrinks para setar o novo array de Comidas
   const {
