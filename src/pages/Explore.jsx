@@ -1,33 +1,49 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
+import '../styles/explore.css';
 
 function Explore() {
   const enableSearch = (
     useSelector(({ functionsReducer }) => functionsReducer.enableSearch)
   );
+
+  const history = useHistory();
+
+  const handleExplore = ({ target }) => {
+    const text = target.innerHTML;
+    if (text === 'Explorar Comidas') {
+      history.push('/explorar/comidas');
+    }
+    if (text === 'Explorar Bebidas') {
+      history.push('/explorar/bebidas');
+    }
+  };
+
   return (
     <div>
       <Header />
       {enableSearch && <SearchBar />}
       <div className="explore-container">
-        <Link
-          to="/explorar/comidas"
+        <button
+          type="button"
           className="explore-button"
           data-testid="explore-food"
+          onClick={ handleExplore }
         >
           Explorar Comidas
-        </Link>
-        <Link
-          to="/explorar/bebidas"
+        </button>
+        <button
+          type="button"
           className="explore-button"
           data-testid="explore-drinks"
+          onClick={ handleExplore }
         >
           Explorar Bebidas
-        </Link>
+        </button>
       </div>
       <Footer />
     </div>

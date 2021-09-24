@@ -3,5 +3,27 @@
   flex-direction: column;
   justify-content: space-evenly;
   margin: 5px auto;
-  width: 80%;
+  width: 90%;
+}
+
+.search-bar label {
+  margin: 5px 3%;
+}
+
+.radio-btns {
+  margin: 3px 0;
+}
+
+.input-search {
+  text-align: center;
+  height: 25px;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.search-bar button {
+  border: 1px solid black;
+  height: 25px;
+  border-radius: 5px;
 }
