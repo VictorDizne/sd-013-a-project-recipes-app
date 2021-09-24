@@ -1,9 +1,16 @@
 import React from 'react';
+import Header from './Header';
 
-function FoodDetails() {
+export default function Foods() {
+  const pageTitle = {
+    pageName: 'Comidas',
+    setIcon: true,
+  };
+
   return (
-    <h1>FoodDetails</h1>
+    <div>
+      <Header value={ pageTitle } />
+      Foods
+    </div>
   );
 }
-
-export default FoodDetails;
