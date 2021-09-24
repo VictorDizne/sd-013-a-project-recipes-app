@@ -1,0 +1,28 @@
+.fixed-footer {
+  background-color: rgb(145, 128, 179);
+  bottom: 0;
+  box-shadow: -3px -3px 10px 1px rgb(46, 38, 59);
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+}
+
+.fixed-footer button {
+  background-color: rgb(235, 223, 255);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 1px 1px 10px 1px black;
+}
+
+.fixed-footer button:hover {
+  background-color: rgb(246, 241, 255);
+  transform: scale(1.05);
+}
+
+.fixed-footer img {
+  border-radius: 10%;
+  padding: 10px;
+}
