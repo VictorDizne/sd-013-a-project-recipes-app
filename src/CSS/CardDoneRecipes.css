@@ -1,0 +1,61 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.done-recipes-card-container {
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px black;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: space-evenly;
+  margin: 12px auto;
+  max-width: 90%;
+}
+
+.done-recipes-card-image img {
+  border-radius: 10px;
+  height: 250px;
+  margin-right: 5px;
+  width: 300px;
+}
+
+.done-recipes-card-category_share {
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+}
+
+.done-recipes-card-info {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+
+.done-recipes-card-info p {
+  margin-top: 12px;
+}
+
+.done-recipes-card-info h3 {
+  margin-top: 12px;
+}
+
+.done-recipes-card-category {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.done-recipes-card-category p {
+  background-color: red;
+  border-radius: 20px;
+  color: white;
+  margin-top: 22px;
+  padding: 10px;
+}
