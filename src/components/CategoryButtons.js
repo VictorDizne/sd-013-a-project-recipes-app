@@ -29,7 +29,7 @@ function CategoryButtons() {
 
   return (
     <>
-      {listCategory.slice(0, MAX_INDEX).map((category, index) => (
+      {listCategory.slice(0, MAX_INDEX).map((category) => (
         <button
           key={ category.strCategory }
           type="button"
