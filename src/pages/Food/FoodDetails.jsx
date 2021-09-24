@@ -8,7 +8,7 @@ import { DetailsImage, DetailsHeader, DetailsIngredients,
 import '../../CSS/Details.css';
 
 function FoodDetails() {
-  const { id } = useParams(); // pega o ID da receita na URL;
+  const { id } = useParams(); // Pega o ID da receita na URL;
   const dispatch = useDispatch();
   const fetching = useSelector((state) => state.api.fetching);
   const error = useSelector((state) => state.api.error);
