@@ -37,6 +37,20 @@
   font-weight: 900;
 }
 
+/* Wesley */
+.card {
+  border: solid 1px black;
+  max-width: 200px;
+}
+
+.imgThumb {
+  max-width: 100px;
+}
+
+header{
+  display: flex;
+}
+
 @keyframes shake {
 
   0% {
