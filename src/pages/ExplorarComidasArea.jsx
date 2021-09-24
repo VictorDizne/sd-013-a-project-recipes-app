@@ -1,5 +1,6 @@
 import React from 'react';
+import Footer from '../components/Footer';
 
-const ExplorarComidasArea = () => (<div>Hello World</div>);
+const ExplorarComidasArea = () => <Footer />;
 
 export default ExplorarComidasArea;

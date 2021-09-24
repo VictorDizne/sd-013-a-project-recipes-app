@@ -1,4 +1,18 @@
+body {
+  height: 100%;
+  overflow: auto;
+}
+
 .imageFood {
   height: 10vh;
   width: 10vw;
+}
+
+.footer {
+  background-color: aqua;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
 }
