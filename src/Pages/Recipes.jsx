@@ -1,4 +1,5 @@
 import React from 'react';
+import MenuInferior from '../Components/MenuInferior';
 import Header from './Header';
 
 export default function Recipes() {
@@ -9,7 +10,8 @@ export default function Recipes() {
   return (
     <div>
       <Header value={ pageTitle } />
-      FOODS
+      <h2>FOODS</h2>
+      <MenuInferior />
     </div>
   );
 }

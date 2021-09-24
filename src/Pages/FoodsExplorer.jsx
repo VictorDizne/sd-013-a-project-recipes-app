@@ -1,4 +1,5 @@
 import React from 'react';
+import MenuInferior from '../Components/MenuInferior';
 import Header from './Header';
 
 export default function FoodsExplorer() {
@@ -9,7 +10,8 @@ export default function FoodsExplorer() {
   return (
     <div>
       <Header value={ pageTitle } />
-      Explorar Comidas
+      <h2>Explorar Comidas</h2>
+      <MenuInferior />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import MenuInferior from '../Components/MenuInferior';
 import Header from './Header';
 
 export default function FoodsByLocal() {
@@ -9,7 +10,8 @@ export default function FoodsByLocal() {
   return (
     <div>
       <Header value={ pageTitle } />
-      FOODS LOCAL
+      <h2>FOODS LOCAL</h2>
+      <MenuInferior />
     </div>
   );
 }
