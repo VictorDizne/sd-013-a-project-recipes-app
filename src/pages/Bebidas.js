@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Card from '../components/Card';
@@ -15,14 +16,11 @@ export default function Bebidas({ history }) {
     getDrinksCategories,
     isLoading,
     setIsLoading,
+    setDrinks,
   } = useContext(RecipesContext);
 
   useEffect(() => {
-    // if (!drinks) {
-    //   global
-    //     .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    // }
-    if (drinks.length === 1) {
+    if (drinks.length === 1 && drinks[0].strCategory) {
       history.push(`/bebidas/${drinks[0].idDrink}`);
     }
   }, [drinks, history]);
@@ -41,21 +39,21 @@ export default function Bebidas({ history }) {
     if (drinks.length > 0 && drinksCategories) setIsLoading(false);
   }, [drinks, drinksCategories, setIsLoading]);
 
-  // const getDrinksByCategory = (categoryName) => {
-  //   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`)
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       const endIndex = 12;
-  //       if (json.drinks.length > endIndex) {
-  //         const twelveFirstDrinks = json.drinks.splice(0, endIndex);
-  //         // setDrinks(twelveFirstDrinks);
-  //         // setIsLoading(false);
-  //       } else {
-  //         // setDrinks(json.drinks);
-  //         // setIsLoading(false);
-  //       }
-  //     });
-  // };
+  const getDrinksByCategory = (categoryName) => {
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryName}`)
+      .then((res) => res.json())
+      .then((json) => {
+        const endIndex = 12;
+        if (json.drinks.length > endIndex) {
+          const twelveFirstDrinks = json.drinks.slice(0, endIndex);
+          setDrinks(twelveFirstDrinks);
+          setIsLoading(false);
+        } else {
+          setDrinks(json.drinks);
+          setIsLoading(false);
+        }
+      });
+  };
 
   return (
     <>
@@ -65,22 +63,42 @@ export default function Bebidas({ history }) {
           ? <Loading />
           : (
             <>
+              <button
+                type="button"
+                data-testid="All-category-filter"
+                onClick={ () => {
+                  handleBtnClick({
+                    input: '',
+                    isMeal: false,
+                    radio: 'Nome',
+                  });
+                } }
+              >
+                All
+              </button>
               {
                 drinksCategories.map((category) => (
                   <ButtonFilter
                     key={ category.strCategory }
                     categoryName={ category.strCategory }
+                    onClick={ getDrinksByCategory }
+                    isMeal="drink"
                   />))
               }
 
               { drinks.map((drink, index) => (
-                <Card
+                <Link
+                  data-testid={ `${index}-recipe-card` }
+                  to={ `/bebidas/${drink.idDrink}` }
                   key={ drink.idDrink }
-                  index={ index }
-                  recipe={ drink }
-                  recipeImage={ drink.strDrinkThumb }
-                  recipeName={ drink.strDrink }
-                />
+                >
+                  <Card
+                    index={ index }
+                    recipe={ drink }
+                    recipeImage={ drink.strDrinkThumb }
+                    recipeName={ drink.strDrink }
+                  />
+                </Link>
               )) }
             </>
           )

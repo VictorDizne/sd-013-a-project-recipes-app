@@ -25,6 +25,7 @@ const RecipesContextProvider = ({ children }) => {
           console.log('xablau');
           return alert();
         }
+
         if (json.meals.length > endIndex) {
           const twelveFirstMeals = json.meals.slice(0, endIndex);
           setMeals(twelveFirstMeals);
@@ -81,7 +82,7 @@ const RecipesContextProvider = ({ children }) => {
       .then((response) => response.json())
       .then((json) => {
         const endIndex = 5;
-        const fiveFirstCategories = json.meals.splice(0, endIndex);
+        const fiveFirstCategories = json.meals.slice(0, endIndex);
         setMealsCategories(fiveFirstCategories);
       })
       .catch((err) => console.log(err.message));
@@ -92,7 +93,7 @@ const RecipesContextProvider = ({ children }) => {
       .then((response) => response.json())
       .then((json) => {
         const endIndex = 5;
-        const fiveFirstCategories = json.drinks.splice(0, endIndex);
+        const fiveFirstCategories = json.drinks.slice(0, endIndex);
         setDrinksCategories(fiveFirstCategories);
       })
       .catch((err) => console.log(err.message));

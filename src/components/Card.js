@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Card({ index, recipeImage, recipeName }) {
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div>
       <img
         src={ recipeImage }
         alt={ recipeName }
@@ -21,8 +21,7 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   recipeImage: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
-  // key: PropTypes.string.isRequired,
-  // recipe: PropTypes.shape().isRequired,
+  // link: PropTypes.string.isRequired,
 };
 
 export default Card;
