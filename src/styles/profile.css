@@ -1,6 +1,6 @@
 .btns-profile {
   display: flex;
-  flex-flow: column , wrap;
+  flex-direction: column;
 }
 
 .btns-profile button {

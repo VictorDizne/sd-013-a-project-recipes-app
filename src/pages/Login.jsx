@@ -31,6 +31,10 @@ const Login = () => {
   };
 
   useEffect(() => {
+    document.title = 'Recipes App';
+  }, []);
+
+  useEffect(() => {
     const isValid = /\S+@\S+\.\S+/;
     const teste = isValid.test(state.email);
     const MIN_SIZE = 6;
