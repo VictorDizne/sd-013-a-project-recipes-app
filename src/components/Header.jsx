@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileImage from '../images/profileIcon.svg';
 import searchImage from '../images/searchIcon.svg';
 import HeaderSearch from './HeaderSearch';
@@ -33,5 +34,9 @@ function Header({ tela }) {
     </div>
   );
 }
+
+Header.propTypes = {
+  tela: PropTypes.string,
+}.isRequired;
 
 export default Header;

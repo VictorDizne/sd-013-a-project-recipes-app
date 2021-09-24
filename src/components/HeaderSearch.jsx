@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Context from '../context';
 
 function HeaderSearch({ tela }) {
+  const { setRecipes } = useContext(Context);
+
   const [radio, setRadio] = useState({
     input: '',
     search: '',
@@ -39,9 +43,9 @@ function HeaderSearch({ tela }) {
     }
     const data = await fetch(API);
     const json = await data.json();
+    setRecipes(json);
     const type = (page === 'Bebidas') ? json.drinks : json.meals;
     const id = (page === 'Bebidas' ? json.drinks[0].idDrink : json.meals[0].idMeal);
-    console.log(id);
     if (type.length === 1) {
       history.push(`/${page.toLowerCase()}/${id}`);
     }
@@ -98,5 +102,9 @@ function HeaderSearch({ tela }) {
     </div>
   );
 }
+
+HeaderSearch.propTypes = {
+  tela: PropTypes.string,
+}.isRequired;
 
 export default HeaderSearch;
