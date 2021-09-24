@@ -1,23 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
 import fetchAPI from '../../services/fetchAPI';
-import recipesContext from '../../context';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
-function MealDetails() {
-  const {
-    details,
-    setDetails,
-    setLoading,
-    medida,
-    setMedida,
-    loading,
-    ingredientes,
-    setIngredientes,
-  } = useContext(recipesContext);
-  const { id } = useParams();
+function MealDetails({ match: { params: { id } } }) {
+  const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState({});
+  const [ingredientes, setIngredientes] = useState([]);
+  const [medida, setMedida] = useState([]);
 
   const ingredientsList = (mealInfo) => {
     const arr = Object.keys(mealInfo);
@@ -37,19 +28,17 @@ function MealDetails() {
     setMedida(measures);
   };
 
-  const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const fetchByID = async () => {
-    setLoading(true);
-    const { meals } = await fetchAPI(URL);
-    setDetails(meals[0]);
-    setLoading(false);
-    ingredientsList(meals[0]);
-    measureList(meals[0]);
-  };
-
   useEffect(() => {
+    const fetchByID = async () => {
+      const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const { meals } = await fetchAPI(URL);
+      setDetails(meals[0]);
+      ingredientsList(meals[0]);
+      measureList(meals[0]);
+      setLoading(false);
+    };
     fetchByID();
-  }, []);
+  }, [id]);
 
   if (loading) return 'loading';
 

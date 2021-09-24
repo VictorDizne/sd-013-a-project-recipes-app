@@ -11,7 +11,6 @@ function ExploreDrinkPage() {
     async function fetchRandomDrink() {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
       const randomDrink = await response.json();
-      console.log(randomDrink);
       setRandomId(randomDrink.drinks[0].idDrink);
       setLoading(false);
     }
