@@ -31,14 +31,14 @@ function Profile() {
         <button
           type="button"
           data-testid="profile-done-btn"
-          onClick={ handleClickFavorite }
+          onClick={ () => handleClickFavorite() }
         >
           Receitas Feitas
         </button>
         <button
           type="button"
           data-testid="profile-favorite-btn"
-          onClick={ handleClickDone }
+          onClick={ () => handleClickDone() }
         >
           Receitas Favoritas
         </button>
