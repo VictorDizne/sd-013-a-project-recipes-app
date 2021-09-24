@@ -23,17 +23,33 @@ const Drinks = () => {
     fetchButtons();
   }, []);
 
+  const filterCategories = (value) => {
+    setDrinkCategories((currValue) => (currValue && currValue === value ? '' : value));
+    handleDrinksApisOnload();
+  };
+
+  const showAllDrinks = () => {
+    handleDrinksApisOnload();
+  };
+
   return (
     <div>
       <Header title="Bebidas" hasSearchIcon page="drinks" />
       <div>
         <div>
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ showAllDrinks }
+          >
+            All
+          </button>
           { buttons && buttons.slice(0, MAX_BUTTONS).map((b, index) => (
             <button
               key={ index }
               type="button"
               data-testid={ `${b.strCategory}-category-filter` }
-              onClick={ () => setDrinkCategories(b.strCategory) }
+              onClick={ () => filterCategories(b.strCategory) }
             >
               { b.strCategory }
             </button>

@@ -23,17 +23,33 @@ const Foods = () => {
     fetchButtons();
   }, []);
 
+  const filterCategories = (value) => {
+    setFoodCategories((currValue) => (currValue && currValue === value ? '' : value));
+    handleMealsApisOnLoad();
+  };
+
+  const showAllFoods = () => {
+    handleMealsApisOnLoad();
+  };
+
   return (
     <div>
       <Header title="Comidas" hasSearchIcon page="foods" />
       <div>
         <div>
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ showAllFoods }
+          >
+            All
+          </button>
           { buttons && buttons.slice(0, MAX_BUTTONS).map((b, index) => (
             <button
               key={ index }
               type="button"
               data-testid={ `${b.strCategory}-category-filter` }
-              onClick={ () => setFoodCategories(b.strCategory) }
+              onClick={ () => filterCategories(b.strCategory) }
             >
               { b.strCategory }
             </button>

@@ -69,7 +69,7 @@ function Provider({ children }) {
       const results = await comidasApi.fetchFoodByCategories(foodCategories);
       setMealData(results);
     };
-    fetchFoodByCategoryAPI();
+    if (foodCategories) fetchFoodByCategoryAPI();
   }, [foodCategories]);
 
   const handleMealsApisOnLoad = async () => {
@@ -115,7 +115,7 @@ function Provider({ children }) {
         setDrinkData(results);
       }
     };
-    fetchDrinkByCategoryAPI();
+    if (drinkCategories) fetchDrinkByCategoryAPI();
   }, [drinkCategories]);
 
   const handleDrinksApisOnload = async () => {

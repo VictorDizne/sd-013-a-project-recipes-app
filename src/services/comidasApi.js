@@ -31,6 +31,5 @@ export async function fetchFoodCategories() {
 export async function fetchFoodByCategories(category) {
   const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
   const json = await res.json();
-  console.log(json);
   return json.meals;
 }
