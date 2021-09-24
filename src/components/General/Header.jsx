@@ -148,5 +148,9 @@ export default Header;
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  search: PropTypes.bool.isRequired,
+  search: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  search: false,
 };

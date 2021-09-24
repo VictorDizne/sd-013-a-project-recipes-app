@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchMealByArea } from '../../services/API';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMealAreas, fetchMealByArea, fetchMealsByQuery } from '../../services/API';
 import { Header, Footer } from '../../components/General';
 
 function ExploreFoodsByArea() {
-  const [areaList, setAreaList] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const areas = useSelector((state) => state.api.explore);
+  const [selectedArea, setSelectedArea] = useState('All');
   const dispatch = useDispatch();
 
-  useEffect((area) => {
-    (fetchMealByArea(dispatch, area));
-    setLoading(false);
-  }, [setAreaList]);
+  useEffect(() => {
+    fetchMealAreas(dispatch);
+  }, [dispatch]);
 
-  const handleChange = (area) => {
-    fetchMealByArea(dispatch, area);
-    setLoading(false);
-  };
+  useEffect(() => {
+    if (selectedArea === 'All') {
+      fetchMealsByQuery('s', '', dispatch);
+    } else {
+      fetchMealByArea(dispatch, selectedArea);
+    }
+  }, [dispatch, selectedArea]);
 
-  if (loading) return <p>Loading...</p>;
   return (
     <>
       <Header title="Explorar Origem" search />
       <div>
-        <select onChange={ (e) => handleChange(e.target.value) }>
+        <select onChange={ (e) => setSelectedArea(e.target.value) }>
           <option value="All">All</option>
-          {areaList.map((area) => (
+          {areas.map((area) => (
             <option key={ area.strArea } value={ area.strArea }>
               { area.srtArea }
             </option>
