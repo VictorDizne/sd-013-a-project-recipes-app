@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Context from '../context/Context';
@@ -34,10 +35,11 @@ function Bebidas() {
 
   const filteredByCategory = async (category) => {
     const selected = category;
-    const results = await fetchDrinksFilterCategories(category);
-    if (toggleOn === selected) {
+    if (toggleOn === selected || selected === 'All') {
       setFilteredDrinks(drinks);
+      setToggleOn('All');
     } else {
+      const results = await fetchDrinksFilterCategories(category);
       setToggleOn(selected);
       setFilteredDrinks(results);
     }
@@ -62,19 +64,28 @@ function Bebidas() {
               {strCategory}
             </button>
           ))}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => handleOnClick('All') }
+        >
+          All
+        </button>
       </nav>
       <Header />
       <h1>Bebidas</h1>
 
       {filteredDrinks.filter((drink, idx) => idx < NUM_DRINKS).map((drink, idx) => (
-        <section key={ drink.strDrink } data-testid={ `${idx}-recipe-card` }>
-          <h2 data-testid={ `${idx}-card-name` }>{drink.strDrink}</h2>
-          <img
-            src={ drink.strDrinkThumb }
-            data-testid={ `${idx}-card-img` }
-            alt={ drink.strDrink }
-          />
-        </section>
+        <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
+          <section key={ drink.strDrink } data-testid={ `${idx}-recipe-card` }>
+            <h2 data-testid={ `${idx}-card-name` }>{drink.strDrink}</h2>
+            <img
+              src={ drink.strDrinkThumb }
+              data-testid={ `${idx}-card-img` }
+              alt={ drink.strDrink }
+            />
+          </section>
+        </Link>
       ))}
       <Footer />
     </>

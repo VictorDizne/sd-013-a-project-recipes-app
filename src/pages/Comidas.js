@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Context from '../context/Context';
@@ -35,10 +36,11 @@ function Comidas() {
 
   const filteredByCategory = async (category) => {
     const selected = category;
-    const results = await fetchMealsFilterCategories(category);
-    if (toggleOn === selected) {
+    if (toggleOn === selected || selected === 'All') {
       setFilteredMeals(meals);
+      setToggleOn('All');
     } else {
+      const results = await fetchMealsFilterCategories(category);
       setToggleOn(selected);
       setFilteredMeals(results);
     }
@@ -61,19 +63,28 @@ function Comidas() {
             {strCategory}
           </button>
         ))}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => handleOnClick('All') }
+        >
+          All
+        </button>
       </nav>
       <Header />
       <h1>Comidas</h1>
 
       {filteredMeals.filter((meal, idx) => idx < NUM_MEALS).map((meal, idx) => (
-        <section key={ meal.strMeal } data-testid={ `${idx}-recipe-card` }>
-          <h2 data-testid={ `${idx}-card-name` }>{meal.strMeal}</h2>
-          <img
-            src={ meal.strMealThumb }
-            data-testid={ `${idx}-card-img` }
-            alt={ meal.strMeal }
-          />
-        </section>
+        <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
+          <section key={ meal.strMeal } data-testid={ `${idx}-recipe-card` }>
+            <h2 data-testid={ `${idx}-card-name` }>{meal.strMeal}</h2>
+            <img
+              src={ meal.strMealThumb }
+              data-testid={ `${idx}-card-img` }
+              alt={ meal.strMeal }
+            />
+          </section>
+        </Link>
       ))}
       <Footer />
     </>
