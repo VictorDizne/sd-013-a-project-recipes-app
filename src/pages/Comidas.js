@@ -19,6 +19,7 @@ function Comidas() {
       setFilteredMeals(results);
     };
     getMeals();
+
     const getMealsCategories = async () => {
       const results = await fetchMealsCategories();
       setMealsCategories(results);
@@ -32,8 +33,8 @@ function Comidas() {
   return (
     <>
       <Header />
-      <MealsCategories />
       <h1>Comidas</h1>
+      <MealsCategories />
       <MealsList />
       <Footer />
     </>

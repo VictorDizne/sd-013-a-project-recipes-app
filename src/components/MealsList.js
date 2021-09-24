@@ -21,7 +21,8 @@ function MealsList() {
             />
           </section>
         </Link>
-      )));
+      ))
+  );
 }
 
 export default MealsList;

@@ -1,24 +1,24 @@
 import React, { useContext } from 'react';
 import Context from '../context/Context';
-import fetchMealsFilterCategories from '../services/fetchMealsFilterCategories';
+import fetchDrinksFilterCategories from '../services/fetchDrinksFilterCategories';
 
 const NUM_CATEGORIES = 5;
 
-function MealsCategories() {
+function DrinksCategories() {
   const {
-    meals,
-    mealsCategories,
-    toggleOn, setToggleOn, setFilteredMeals } = useContext(Context);
+    drinks,
+    drinksCategories,
+    toggleOn, setToggleOn, setFilteredDrinks } = useContext(Context);
 
   const filteredByCategory = async (category) => {
     const selected = category;
     if (toggleOn === selected || selected === 'All') {
-      setFilteredMeals(meals);
+      setFilteredDrinks(drinks);
       setToggleOn('All');
     } else {
-      const results = await fetchMealsFilterCategories(category);
+      const results = await fetchDrinksFilterCategories(category);
       setToggleOn(selected);
-      setFilteredMeals(results);
+      setFilteredDrinks(results);
     }
   };
 
@@ -28,7 +28,7 @@ function MealsCategories() {
 
   return (
     <nav>
-      {mealsCategories
+      {drinksCategories
         .filter((_cat, idx) => idx < NUM_CATEGORIES)
         .map(({ strCategory }) => (
           <button
@@ -51,4 +51,4 @@ function MealsCategories() {
   );
 }
 
-export default MealsCategories;
+export default DrinksCategories;
