@@ -20,6 +20,7 @@ function ExploreFoodsByArea() {
     }
   }, [dispatch, selectedArea]);
 
+  if (!areas) return null;
   return (
     <>
       <Header title="Explorar Origem" search />
@@ -28,7 +29,7 @@ function ExploreFoodsByArea() {
           <option value="All">All</option>
           {areas.map((area) => (
             <option key={ area.strArea } value={ area.strArea }>
-              { area.srtArea }
+              {area.strArea}
             </option>
           ))}
         </select>
