@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../Context/Context';
-import useFetchApi from '../Hooks/useFetchAPI';
+import useRecipesSearch from '../Hooks/useRecipesSearch';
+import useFetchRecipes from '../Hooks/useFetchRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -10,7 +11,8 @@ function Drinks() {
   const { data, recipes } = useContext(Context);
   const history = useHistory();
   const secondButton = true;
-  useFetchApi(data.search, data.text, urlDrink);
+  useFetchRecipes(urlDrink);
+  useRecipesSearch(data.search, data.text, urlDrink);
   const renderDrinks = () => {
     const magic = 12;
     if (recipes.drinks === null) {

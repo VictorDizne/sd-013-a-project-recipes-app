@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import Context from '../Context/Context';
 
-const useFetchAPI = (value, input, page) => {
+const useRecipesSearch = (value, input, page) => {
   const { data } = useContext(Context);
   const { recipes, setRecipes } = useContext(Context);
 
@@ -25,4 +25,4 @@ const useFetchAPI = (value, input, page) => {
   return recipes;
 };
 
-export default useFetchAPI;
+export default useRecipesSearch;

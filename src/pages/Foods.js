@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../Context/Context';
 import Header from '../components/Header';
-import useFetchApi from '../Hooks/useFetchAPI';
+import useRecipesSearch from '../Hooks/useRecipesSearch';
+import useFetchRecipes from '../Hooks/useFetchRecipes';
 import Footer from '../components/Footer';
 
 function Foods() {
@@ -10,7 +11,8 @@ function Foods() {
   const history = useHistory();
   const urlFood = 'themeal';
   const secondButton = true;
-  useFetchApi(data.search, data.text, urlFood);
+  useFetchRecipes(urlFood);
+  useRecipesSearch(data.search, data.text, urlFood);
   const renderFoods = () => {
     const magic = 12;
     if (recipes.meals === null) {
