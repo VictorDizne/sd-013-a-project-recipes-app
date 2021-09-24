@@ -16,3 +16,11 @@ body {
   position: fixed;
   width: 100%;
 }
+
+.header {
+  background-color: aqua;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+}
