@@ -5,8 +5,8 @@ import Footer from '../components/Footer';
 function Comidas() {
   return (
     <>
-      <Header />
-      <h1>Comidas</h1>
+      <Header tela="Comidas" />
+      <h1>Aqui é a page de Comidas</h1>
       <Footer />
     </>
   );
