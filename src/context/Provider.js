@@ -19,7 +19,6 @@ function Provider({ children }) {
     if (results && results.length === 1) {
       history.push(`/comidas/${results[0].idMeal}`);
     }
-    console.log(results, 'second');
   };
 
   const condicionalDrinkLenght = (results) => {
