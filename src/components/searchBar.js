@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import appContext from '../contexts/appContext';
 import { fetchByIngredient, fetchByName, fetchByLetter } from '../services/fetchs';
@@ -8,67 +8,81 @@ const SearchBar = () => {
 
   const [searchText, setSearchText] = useState('');
   const [option, setOption] = useState('ingredient');
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
   const history = useHistory();
 
-  const switchOptions = async (type) => {
-    if (type === 'themealdb') {
-      switch (option) {
-      case 'ingredient':
-        setMeals(await fetchByIngredient(type, searchText));
-        setState({ ...state, foods: [...meals] });
-        break;
-      case 'name':
-        setMeals(await fetchByName(type, searchText));
-        setState({ ...state, foods: [...meals] });
-        break;
-      case 'first-letter':
-        if (searchText.length > 1) {
-          global.alert('Sua busca deve conter somente 1 (um) caracter');
-        } else {
-          setMeals(await fetchByLetter(type, searchText));
-          setState({ ...state, foods: [...meals] });
-        }
-        break;
-      default:
-        break;
+  useEffect(() => {
+    const { foods, drinks } = state;
+    if (foods.length === 1) {
+      history.push(`/comidas/${foods[0].idMeal}`);
+    } else if (drinks.length === 1) {
+      history.push(`/bebidas/${drinks[0].idDrink}`);
+    }
+  }, [state, history]);
+
+  const switchDrinks = async (type) => {
+    switch (option) {
+    case 'ingredient':
+      setState({
+        ...state,
+        drinks: await fetchByIngredient(type, searchText),
+        key: true });
+      break;
+    case 'name':
+      setState({
+        ...state,
+        drinks: await fetchByName(type, searchText),
+        key: true });
+      break;
+    case 'first-letter':
+      if (searchText.length > 1) {
+        global.alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        setState({
+          ...state,
+          drinks: await fetchByLetter(type, searchText),
+          key: true });
       }
-    } else {
-      switch (option) {
-      case 'ingredient':
-        setDrinks(await fetchByIngredient(type, searchText));
-        setState({ ...state, drinks: [...drinks] });
-        break;
-      case 'name':
-        setDrinks(await fetchByName(type, searchText));
-        setState({ ...state, drinks: [...drinks] });
-        break;
-      case 'first-letter':
-        if (searchText.length > 1) {
-          global.alert('Sua busca deve conter somente 1 (um) caracter');
-        } else {
-          setDrinks(await fetchByLetter(type, searchText));
-          setState({ ...state, drinks: [...drinks] });
-        }
-        break;
-      default:
-        break;
-      }
+      break;
+    default:
+      break;
     }
   };
 
-  const onSearch = async () => {
-    if (history.location.pathname === '/comidas') {
-      switchOptions('themealdb');
-    } else {
-      switchOptions('thecocktaildb');
+  const switchMeals = async (type) => {
+    switch (option) {
+    case 'ingredient':
+      setState(await {
+        ...state,
+        foods: await fetchByIngredient(type, searchText),
+        key: true });
+      break;
+    case 'name':
+      setState({
+        ...state,
+        foods: await fetchByName(type, searchText),
+        key: true });
+      break;
+    case 'first-letter':
+      if (searchText.length > 1) {
+        global.alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        setState({
+          ...state,
+          foods: await fetchByLetter(type, searchText),
+          key: true });
+      }
+      break;
+    default:
+      break;
     }
-    console.log(meals.length);
-    if (meals.length === 1) {
-      history.push(`/comidas/${meals[0].idMeal}`);
-    } else if (drinks.length === 1) {
-      history.push(`/bebidas/${drinks[0].idDrink}`);
+  };
+
+  const onSearch = async (e) => {
+    e.preventDefault();
+    if (history.location.pathname === '/comidas') {
+      await switchMeals('themealdb');
+    } else {
+      await switchDrinks('thecocktaildb');
     }
   };
 
@@ -118,9 +132,9 @@ const SearchBar = () => {
       </label>
       <button
         id="button-login"
-        type="button"
+        type="submit"
         data-testid="exec-search-btn"
-        onClick={ onSearch }
+        onClick={ (e) => onSearch(e) }
       >
         Buscar
       </button>
