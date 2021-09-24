@@ -34,11 +34,18 @@ export const fetchCategoryApi = async (myPage, category) => {
   const result = await fetch(`https://www.${myPage}.com/api/json/v1/1/filter.php?c=${category}`)
     .then((resp) => resp.json());
   return result;
-}
+};
 
+export const fetchRecipesDetails = async (id, myPage) => {
+  const result = await fetch(`https://www.${myPage}.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((resp) => resp.json());
+  return result;
+};
 
-  // www.themealdb.com/api/json/v1/1/categories.php
-  // www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail
+// www.themealdb.com/api/json/v1/1/lookup.php?i=52772
+// www.thecockta.com/api/json/v1/1/lookup.php?i=11007
 
+// www.themealdb.com/api/json/v1/1/categories.php
+// www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail
 
-  //https://www.themealdb.com/api/json/v1/1/filter.php?c=All
+// https://www.themealdb.com/api/json/v1/1/filter.php?c=All

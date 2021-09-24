@@ -1,7 +1,7 @@
-import React, { useEffect, useContext } from "react";
-import MyContext from "../context/Context";
+import React, { useEffect, useContext } from 'react';
+import MyContext from '../context/Context';
 import * as myFunc from '../services/api';
-import { Header, Footer, FoodCard, ButtonsFilters } from "../components";
+import { Header, Footer, FoodCard, ButtonsFilters } from '../components';
 
 function DrinksPage() {
   const { recipes, setMyPage, myPage, setRecipes } = useContext(MyContext);
@@ -14,33 +14,31 @@ function DrinksPage() {
   };
 
   useEffect(() => {
-    setMyPage("thecocktaildb");
+    setMyPage('thecocktaildb');
     if (myPage !== '') {
       randonRecipes();
     }
   }, [setMyPage, myPage]);
-  
+
   const returnCard = (item, index) => (
     <FoodCard
-      key={index}
-      index={index}
+      key={ index }
+      index={ index }
       thumb="strDrinkThumb"
       name="strDrink"
       id="idDrink"
-      data={item}
+      data={ item }
       route="bebidas"
     />
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={ { display: 'flex', flexDirection: 'column' } }>
       <Header title="Bebidas" search />
       <ButtonsFilters page="drinks" />
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {recipes !== null &&
-          recipes.map((item, index) =>
-            index >= LIMITER_FOODS ? null : returnCard(item, index)
-          )}
+      <div style={ { display: 'flex', flexWrap: 'wrap' } }>
+        {recipes !== null
+          && recipes.map((item, index) => (index >= LIMITER_FOODS ? null : returnCard(item, index)))}
       </div>
       <Footer />
     </div>

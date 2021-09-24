@@ -21,16 +21,16 @@ function ButtonsFilters({ page }) {
     const LIMITER_MEALS = 12;
     if (controlFilter === item || item === 'All') {
       const result = await myFunc.fetchRandonRecipes(myPage);
-      const filterCategory = result[page].filter((item, index) => index < LIMITER_MEALS );
+      const filterCategory = result[page].filter((item, index) => index < LIMITER_MEALS);
       setRecipes(filterCategory);
       setControlFilter('');
     } else {
       const result = await myFunc.fetchCategoryApi(myPage, item);
-      const filterCategory = result[page].filter((item, index) => index < LIMITER_MEALS );
+      const filterCategory = result[page].filter((item, index) => index < LIMITER_MEALS);
       setRecipes(filterCategory);
       setControlFilter(item);
     }
-  }
+  };
 
   useEffect(() => {
     requestCategory();
@@ -44,7 +44,7 @@ function ButtonsFilters({ page }) {
           type="button"
           key={ index }
           data-testid={ `${item}-category-filter` }
-          onClick={() => requestCategorySelect(item) }
+          onClick={ () => requestCategorySelect(item) }
         >
           {item}
         </button>
