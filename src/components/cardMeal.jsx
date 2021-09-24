@@ -15,9 +15,9 @@ const CardMeal = () => {
             data-testid={ `${index}-recipe-card` }
             onClick={ () => history.push(`/comidas/${receita.idMeal}`) }
           >
-            <span data-testid={ `${index}-card-name` }>
+            <h3 data-testid={ `${index}-card-name` }>
               {receita.strMeal}
-            </span>
+            </h3>
             <img
               data-testid={ `${index}-card-img` }
               src={ receita.strMealThumb }
@@ -38,9 +38,9 @@ const CardMeal = () => {
           data-testid={ `${index}-recipe-card` }
           onClick={ () => history.push(`/comidas/${receita.idMeal}`) }
         >
-          <span data-testid={ `${index}-card-name` }>
+          <h3 data-testid={ `${index}-card-name` }>
             {receita.strMeal}
-          </span>
+          </h3>
           <img
             data-testid={ `${index}-card-img` }
             src={ receita.strMealThumb }

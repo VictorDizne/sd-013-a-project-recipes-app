@@ -16,9 +16,9 @@ const CardDrink = () => {
             data-testid={ `${index}-recipe-card` }
             onClick={ () => history.push(`/bebidas/${receita.idDrink}`) }
           >
-            <span data-testid={ `${index}-card-name` }>
+            <h3 data-testid={ `${index}-card-name` }>
               {receita.strDrink}
-            </span>
+            </h3>
             <img
               data-testid={ `${index}-card-img` }
               src={ receita.strDrinkThumb }
@@ -40,9 +40,9 @@ const CardDrink = () => {
           data-testid={ `${index}-recipe-card` }
           onClick={ () => history.push(`/bebidas/${receita.idDrink}`) }
         >
-          <span data-testid={ `${index}-card-name` }>
+          <h3 data-testid={ `${index}-card-name` }>
             {receita.strDrink}
-          </span>
+          </h3>
           <img
             data-testid={ `${index}-card-img` }
             src={ receita.strDrinkThumb }

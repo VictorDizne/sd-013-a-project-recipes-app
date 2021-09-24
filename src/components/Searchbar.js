@@ -106,6 +106,7 @@ const Searchbar = ({ bebidas }) => {
       >
         Fazer busca
       </button>
+      <br />
       <RedirectComponent fetchResult={ fetchResult } />
       <FilterResults fetchResult={ fetchResult } />
     </div>
