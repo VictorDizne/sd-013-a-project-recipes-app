@@ -7,14 +7,14 @@ const ExplorarComidasIng = () => {
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
-    async function fecthFilters() {
+    async function fecthIngredients() {
       const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
       const result = await fetch(endpoint).then((res) => res.json());
       const slicedResult = result.meals.slice(0, Number('12'));
       setIngredients(slicedResult);
       console.log(ingredients);
     }
-    fecthFilters();
+    fecthIngredients();
   }, []);
 
   return (
