@@ -19,7 +19,7 @@ const Login = (props) => {
   };
 
   return (
-    <div>
+    <div data-testid="login-test">
       <form>
         <label htmlFor="email">
           Email:
