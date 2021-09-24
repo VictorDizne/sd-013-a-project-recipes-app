@@ -34,6 +34,7 @@ function Meals() {
       {isReady && recipes.slice(0, MAX_INDEX).map((recipe, index) => (
         <ReciperCard
           key={ recipe.idMeal }
+          idRecipe={ recipe.idMeal }
           index={ index }
           name={ recipe.strMeal }
           img={ recipe.strMealThumb }
