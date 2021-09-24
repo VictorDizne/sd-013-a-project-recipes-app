@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { fetchForFirstLetter } from '../service/GetAPI';
 
 function Header() {
+  const fetchTest = (letter) => {
+    fetchForFirstLetter(letter);
+  };
+
+  useEffect(() => {
+    const letter = 'a';
+    fetchTest(letter);
+  }, []);
+
   return (
     <div>
+      <input
+        type="text"
+      />
       <input
         type="radio"
         value="ingrediente"
