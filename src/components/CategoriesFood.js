@@ -7,7 +7,7 @@ function CategoriesFood() {
     foodCategory,
     setIsDrinkOrMealLoading,
     setMealsOrDrinks,
-  } = useContext(RecipeContext);
+  } = useContext(RecipeContext); 
 
   // Pegar no máximo 5 categorias e colocar na tela
   const MIN_CATEG = 5;
