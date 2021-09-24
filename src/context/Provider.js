@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from './index';
@@ -8,7 +8,11 @@ import * as bebidasApi from '../services/bebidasApi';
 function Provider({ children }) {
   const [inputText, setInputText] = useState('');
   const [inputRadio, setInputRadio] = useState('');
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const [mealData, setMealData] = useState([]);
+  const [drinkData, setDrinkData] = useState([]);
+  const [foodCategories, setFoodCategories] = useState('');
+  const [drinkCategories, setDrinkCategories] = useState('');
   const history = useHistory();
 
   const condicionalFoodLenght = (results) => {
@@ -33,7 +37,7 @@ function Provider({ children }) {
   const handleMealsApis = async () => {
     if (inputRadio === 'ingredient') {
       const results = await comidasApi.fetchFoodByIngredients(inputText);
-      setData(results);
+      setMealData(results);
 
       condicionalMessageError(results);
       condicionalFoodLenght(results);
@@ -41,7 +45,7 @@ function Provider({ children }) {
 
     if (inputRadio === 'name') {
       const results = await comidasApi.fetchFoodByName(inputText);
-      setData(results);
+      setMealData(results);
 
       condicionalMessageError(results);
       condicionalFoodLenght(results);
@@ -49,7 +53,7 @@ function Provider({ children }) {
 
     if (inputRadio === 'letter' && inputText.length === 1) {
       const results = await comidasApi.fetchFoodByLetter(inputText);
-      setData(results);
+      setMealData(results);
 
       condicionalMessageError(results);
       condicionalFoodLenght(results);
@@ -60,15 +64,23 @@ function Provider({ children }) {
     }
   };
 
+  useEffect(() => {
+    const fetchFoodByCategoryAPI = async () => {
+      const results = await comidasApi.fetchFoodByCategories(foodCategories);
+      setMealData(results);
+    };
+    fetchFoodByCategoryAPI();
+  }, [foodCategories]);
+
   const handleMealsApisOnLoad = async () => {
     const results = await comidasApi.fetchFoodOnLoad();
-    setData(results);
+    setMealData(results);
   };
 
   const handleDrinksApis = async () => {
     if (inputRadio === 'ingredient') {
       const results = await bebidasApi.fetchDrinkByIngredients(inputText);
-      setData(results);
+      setDrinkData(results);
 
       condicionalMessageError(results);
       condicionalDrinkLenght(results);
@@ -76,7 +88,7 @@ function Provider({ children }) {
 
     if (inputRadio === 'name') {
       const results = await bebidasApi.fetchDrinkByName(inputText);
-      setData(results);
+      setDrinkData(results);
       console.log(results);
 
       condicionalMessageError(results);
@@ -85,7 +97,7 @@ function Provider({ children }) {
 
     if (inputRadio === 'letter' && inputText.length === 1) {
       const results = await bebidasApi.fetchDrinkByLetter(inputText);
-      setData(results);
+      setDrinkData(results);
 
       condicionalMessageError(results);
       condicionalDrinkLenght(results);
@@ -96,9 +108,19 @@ function Provider({ children }) {
     }
   };
 
+  useEffect(() => {
+    const fetchDrinkByCategoryAPI = async () => {
+      const results = await bebidasApi.fetchDrinkByCategories(drinkCategories);
+      if (results) {
+        setDrinkData(results);
+      }
+    };
+    fetchDrinkByCategoryAPI();
+  }, [drinkCategories]);
+
   const handleDrinksApisOnload = async () => {
     const results = await bebidasApi.fetchDrinkOnLoad();
-    setData(results);
+    setDrinkData(results);
   };
 
   const contextValue = {
@@ -106,12 +128,20 @@ function Provider({ children }) {
     setInputText,
     inputRadio,
     setInputRadio,
-    data,
-    setData,
+    // data,
+    // setData,
+    mealData,
+    setMealData,
+    drinkData,
+    setDrinkData,
     handleMealsApis,
     handleDrinksApis,
     handleMealsApisOnLoad,
     handleDrinksApisOnload,
+    setFoodCategories,
+    foodCategories,
+    setDrinkCategories,
+    drinkCategories,
   };
 
   return (

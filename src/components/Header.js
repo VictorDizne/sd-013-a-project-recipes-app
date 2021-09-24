@@ -36,7 +36,10 @@ function Header({ title, hasSearchIcon, page }) {
         </div>
       </header>
 
-      { showSearchBar && <HeaderSearchBar page={ page } /> }
+      { showSearchBar && <HeaderSearchBar
+        page={ page }
+        handleClickSearchBar={ handleClickSearchBar }
+      /> }
     </>
   );
 }

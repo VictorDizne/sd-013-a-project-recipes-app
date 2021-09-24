@@ -21,3 +21,16 @@ export async function fetchFoodOnLoad() {
   const json = await response.json();
   return json.meals;
 }
+
+export async function fetchFoodCategories() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const json = await response.json();
+  return json.meals;
+}
+
+export async function fetchFoodByCategories(category) {
+  const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  const json = await res.json();
+  console.log(json);
+  return json.meals;
+}
