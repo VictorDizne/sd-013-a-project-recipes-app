@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import Context from '../context';
 
 function HeaderSearch({ tela }) {
-  const { setRecipes } = useContext(Context);
+  const { setMeals,
+    setFilteredMeals, setDrinks, setFilteredDrinks } = useContext(Context);
 
   const [radio, setRadio] = useState({
     input: '',
@@ -43,7 +44,13 @@ function HeaderSearch({ tela }) {
     }
     const data = await fetch(API);
     const json = await data.json();
-    setRecipes(json);
+    if (page === 'Bebidas') {
+      setDrinks(json.drinks);
+      setFilteredDrinks(json.drinks);
+    } else {
+      setMeals(json.meals);
+      setFilteredMeals(json.meals);
+    }
     const type = (page === 'Bebidas') ? json.drinks : json.meals;
     const id = (page === 'Bebidas' ? json.drinks[0].idDrink : json.meals[0].idMeal);
     if (type.length === 1) {

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Context from '.';
 
 function Provider({ children }) {
-  const [recipes, setRecipes] = useState([]);
-
   const [meals, setMeals] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [filteredMeals, setFilteredMeals] = useState([]);
@@ -32,8 +30,6 @@ function Provider({ children }) {
 
     toggleOn,
     setToggleOn,
-    recipes,
-    setRecipes,
   };
 
   return (
