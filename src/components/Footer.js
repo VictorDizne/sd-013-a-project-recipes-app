@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/Footer.css';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import RecipesContext from '../context/RecipesContext';
 
 function Footer() {
+  const { setIsLoading } = useContext(RecipesContext);
+
   const history = useHistory();
-  const goToDrinks = () => history.push('/bebidas');
-  const goToExplore = () => history.push('/explorar');
-  const goToMeals = () => history.push('/comidas');
+
+  const goToDrinks = () => {
+    setIsLoading(true);
+    history.push('/bebidas');
+  };
+  const goToExplore = () => {
+    setIsLoading(true);
+    history.push('/explorar');
+  };
+  const goToMeals = () => {
+    setIsLoading(true);
+    history.push('/comidas');
+  };
 
   return (
     <div data-testid="footer" className="footer">
