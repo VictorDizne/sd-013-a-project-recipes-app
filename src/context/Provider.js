@@ -8,7 +8,6 @@ import * as bebidasApi from '../services/bebidasApi';
 function Provider({ children }) {
   const [inputText, setInputText] = useState('');
   const [inputRadio, setInputRadio] = useState('');
-  // const [data, setData] = useState([]);
   const [mealData, setMealData] = useState([]);
   const [drinkData, setDrinkData] = useState([]);
   const [foodCategories, setFoodCategories] = useState('');
