@@ -8,7 +8,7 @@ import fetchDrinksCategories from '../services/fetchDrinksCategories';
 import fetchDrinksFilterCategories from '../services/fetchDrinksFilterCategories';
 
 const NUM_DRINKS = 12;
-const NUM_FIVE = 5;
+const NUM_CATEGORIES = 5;
 
 function Bebidas() {
   const { drinks, setDrinks, drinksCategories,
@@ -53,7 +53,7 @@ function Bebidas() {
   return (
     <>
       <nav>
-        {drinksCategories.filter((cat, idx) => idx < NUM_FIVE)
+        {drinksCategories.filter((cat, idx) => idx < NUM_CATEGORIES)
           .map(({ strCategory }) => (
             <button
               data-testid={ `${strCategory}-category-filter` }

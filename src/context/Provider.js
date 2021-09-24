@@ -5,24 +5,31 @@ import Context from './Context';
 function Provider({ children }) {
   const [meals, setMeals] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
+  const [filteredMeals, setFilteredMeals] = useState([]);
+
   const [drinks, setDrinks] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
-  const [filteredMeals, setFilteredMeals] = useState([]);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
+
+  const [toggleOn, setToggleOn] = useState('');
 
   const context = {
     meals,
-    mealsCategories,
     setMeals,
+    mealsCategories,
     setMealsCategories,
+    filteredMeals,
+    setFilteredMeals,
+
     drinks,
     drinksCategories,
     setDrinks,
     setDrinksCategories,
-    setFilteredMeals,
-    filteredMeals,
     filteredDrinks,
     setFilteredDrinks,
+
+    toggleOn,
+    setToggleOn,
   };
 
   return (
