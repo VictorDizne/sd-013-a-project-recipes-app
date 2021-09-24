@@ -5,15 +5,16 @@ import recipesContext from '.';
 function Provider({ children }) {
   const [meals, setMeals] = useState({});
   const [drinks, setDrinks] = useState({});
-  const [searchParameter, setSearchParameter] = useState();
-  const [cardsToShow, setCardsToShow] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const baseResults = await response.json();
-      setCardsToShow(baseResults);
+      const mealsResponse = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      const baseMeals = await mealsResponse.json();
+      setMeals(baseMeals);
+      const drinksResponse = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      const baseDrinks = await drinksResponse.json();
+      setDrinks(baseDrinks);
       setLoading(false);
     }
     fetchData();
@@ -24,10 +25,6 @@ function Provider({ children }) {
     setMeals,
     drinks,
     setDrinks,
-    searchParameter,
-    setSearchParameter,
-    cardsToShow,
-    setCardsToShow,
     loading,
     setLoading,
   };

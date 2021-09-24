@@ -1,18 +1,18 @@
 import React, { useContext } from 'react';
-import EveryMealCard from '../../components/everyMealCard';
+import EveryDrinkCard from '../../components/everyDrinkCard';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 import recipesContext from '../../context';
 
-function Comidas() {
+function Bebidas() {
   const { loading } = useContext(recipesContext);
   return (
     <>
-      <Header title="Comidas" />
-      { loading ? <p>LOADING...</p> : <EveryMealCard />}
+      <Header title="Bebidas" />
+      { loading ? <p>LOADING...</p> : <EveryDrinkCard />}
       <Footer />
     </>
   );
 }
 
-export default Comidas;
+export default Bebidas;
