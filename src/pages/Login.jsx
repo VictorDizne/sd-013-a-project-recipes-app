@@ -13,10 +13,7 @@ const Login = () => {
     const MIN_LENGTH_PASSWORD = 6;
     const regex = /\S+@\S+\.\S+/;
 
-    const emailValidator = regex.test(email);
-    const passwordValidator = password.length > MIN_LENGTH_PASSWORD;
-
-    return emailValidator && passwordValidator;
+    return regex.test(email) && password.length > MIN_LENGTH_PASSWORD;
   };
 
   const handleChange = ({ target: { name, value } }) => {
