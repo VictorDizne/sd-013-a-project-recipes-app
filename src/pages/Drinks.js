@@ -6,7 +6,10 @@ import Footer from '../components/Footer';
 import { fetchDrinkCategories } from '../services/bebidasApi';
 
 const Drinks = () => {
-  const { data, handleDrinksApisOnload, setDrinkCategories } = useContext(RecipesContext);
+  const {
+    drinkData,
+    handleDrinksApisOnload,
+    setDrinkCategories } = useContext(RecipesContext);
   const [buttons, setButtons] = useState([]);
   const MAX_BUTTONS = 5;
   const MAX_RECIPES = 12;
@@ -36,7 +39,7 @@ const Drinks = () => {
         ))}
       </div>
       <div>
-        { data && data.slice(0, MAX_RECIPES).map(((recipe, index) => (
+        { drinkData && drinkData.slice(0, MAX_RECIPES).map(((recipe, index) => (
           <RecipeCard key={ index } index={ index } recipe={ recipe } page="drinks" />
         )))}
       </div>

@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { fetchFoodCategories } from '../services/comidasApi';
 
 const Foods = () => {
-  const { data,
+  const { mealData,
     handleMealsApisOnLoad,
     setFoodCategories } = useContext(RecipesContext);
   const [buttons, setButtons] = useState([]);
@@ -37,7 +37,7 @@ const Foods = () => {
           </button>
         ))}
       </div>
-      { data && data.slice(0, MAX_RECIPES).map(((recipe, index) => (
+      { mealData && mealData.slice(0, MAX_RECIPES).map(((recipe, index) => (
         <RecipeCard key={ index } index={ index } recipe={ recipe } page="foods" />
       )))}
       <Footer />
