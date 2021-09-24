@@ -32,7 +32,6 @@ function FoodDetails() {
     if (!recipesInProgress.includes(id)) {
       setRecipes([...recipesInProgress, id]);
     }
-
     history.push(`/comidas/${id}/in-progress`);
   };
 

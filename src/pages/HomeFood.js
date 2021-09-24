@@ -43,22 +43,7 @@ const HomeFood = () => {
             </Link>
             <p data-testid={ `${indexMap}-card-name` }>{food.strMeal}</p>
           </div>
-        .map((food, index) => (
-          <Link
-            key={ food.idMeal }
-            to={ `/comidas/${food.idMeal}` }
-            data-testid={ `${index}-recipe-card` }
-          >
-            <div id="meals-label" className={ { width: 240 } }>
-              <img
-                src={ food.strMealThumb }
-                data-testid={ `${index}-card-img` }
-                alt={ food.strMeal }
-              />
-              <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
-            </div>
-          </Link>
-        )) }
+        ))}
       <LowerMenu />
     </div>
   );
