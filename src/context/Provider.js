@@ -9,35 +9,50 @@ function Provider({ children }) {
   const [inputText, setInputText] = useState('');
   const [inputRadio, setInputRadio] = useState('');
   const [data, setData] = useState([]);
-
   const history = useHistory();
+
+  const condicionalFoodLenght = (results) => {
+    if (results && results.length === 1) {
+      history.push(`/comidas/${results[0].idMeal}`);
+    }
+    console.log(results, 'second');
+  };
+
+  const condicionalDrinkLenght = (results) => {
+    if (results && results.length === 1) {
+      history.push(`/bebidas/${results[0].idDrink}`);
+    }
+  };
+
+  const condicionalMessageError = (results) => {
+    if (!results) {
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  };
 
   const handleMealsApis = async () => {
     if (inputRadio === 'ingredient') {
       const results = await comidasApi.fetchFoodByIngredients(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/comidas/${results[0].idMeal}`);
-      }
+      condicionalMessageError(results);
+      condicionalFoodLenght(results);
     }
 
     if (inputRadio === 'name') {
       const results = await comidasApi.fetchFoodByName(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/comidas/${results[0].idMeal}`);
-      }
+      condicionalMessageError(results);
+      condicionalFoodLenght(results);
     }
 
     if (inputRadio === 'letter' && inputText.length === 1) {
       const results = await comidasApi.fetchFoodByLetter(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/comidas/${results[0].idMeal}`);
-      }
+      condicionalMessageError(results);
+      condicionalFoodLenght(results);
     }
 
     if (inputRadio === 'letter' && inputText.length > 1) {
@@ -45,37 +60,45 @@ function Provider({ children }) {
     }
   };
 
+  const handleMealsApisOnLoad = async () => {
+    const results = await comidasApi.fetchFoodOnLoad();
+    setData(results);
+  };
+
   const handleDrinksApis = async () => {
     if (inputRadio === 'ingredient') {
       const results = await bebidasApi.fetchDrinkByIngredients(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/bebidas/${results[0].idDrink}`);
-      }
+      condicionalMessageError(results);
+      condicionalDrinkLenght(results);
     }
 
     if (inputRadio === 'name') {
       const results = await bebidasApi.fetchDrinkByName(inputText);
       setData(results);
+      console.log(results);
 
-      if (results.length === 1) {
-        history.push(`/bebidas/${results[0].idDrink}`);
-      }
+      condicionalMessageError(results);
+      condicionalDrinkLenght(results);
     }
 
     if (inputRadio === 'letter' && inputText.length === 1) {
       const results = await bebidasApi.fetchDrinkByLetter(inputText);
       setData(results);
 
-      if (results.length === 1) {
-        history.push(`/bebidas/${results[0].idDrink}`);
-      }
+      condicionalMessageError(results);
+      condicionalDrinkLenght(results);
     }
 
     if (inputRadio === 'letter' && inputText.length > 1) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
+  };
+
+  const handleDrinksApisOnload = async () => {
+    const results = await bebidasApi.fetchDrinkOnLoad();
+    setData(results);
   };
 
   const contextValue = {
@@ -87,6 +110,8 @@ function Provider({ children }) {
     setData,
     handleMealsApis,
     handleDrinksApis,
+    handleMealsApisOnLoad,
+    handleDrinksApisOnload,
   };
 
   return (

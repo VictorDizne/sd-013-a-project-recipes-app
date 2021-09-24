@@ -1,31 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../context/index';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
+import Footer from '../components/Footer';
 
 const Foods = () => {
-  const { data } = useContext(RecipesContext);
-  const [newData, setNewData] = useState([]);
+  const { data, handleMealsApisOnLoad } = useContext(RecipesContext);
+  const MAX_RECIPES = 12;
 
   useEffect(() => {
-    const newArray = [];
-    const MAX_RECIPES = 11;
-    for (let i = 0; i <= MAX_RECIPES; i += 1) {
-      if (data[i]) {
-        newArray.push(data[i]);
-      }
-    }
-    setNewData(newArray);
-  }, [data]);
+    handleMealsApisOnLoad();
+  }, []);
 
   return (
     <div>
       <Header title="Comidas" hasSearchIcon page="foods" />
-      {
-        newData.map(((recipe, index) => (
+      <div>
+        { data && data.slice(0, MAX_RECIPES).map(((recipe, index) => (
           <RecipeCard key={ index } index={ index } recipe={ recipe } page="foods" />
-        )))
-      }
+        )))}
+      </div>
+      <Footer />
     </div>
   );
 };

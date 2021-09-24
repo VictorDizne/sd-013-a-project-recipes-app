@@ -15,3 +15,9 @@ export async function fetchDrinkByLetter(letter) {
   const json = await response.json();
   return json.drinks;
 }
+
+export async function fetchDrinkOnLoad() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const json = await response.json();
+  return json.drinks;
+}

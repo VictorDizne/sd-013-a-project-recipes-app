@@ -1,8 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const Profile = () => (
-  <Header title="Perfil" />
+  <div>
+    <Header title="Perfil" />
+    <Footer />
+  </div>
 );
 
 export default Profile;

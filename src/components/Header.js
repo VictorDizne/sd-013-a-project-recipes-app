@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import HeaderSearchBar from './HeaderSearchBar';
+import '../styles/Header.css';
 
 function Header({ title, hasSearchIcon, page }) {
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -14,7 +15,7 @@ function Header({ title, hasSearchIcon, page }) {
   };
 
   const renderButton = () => (
-    <button type="button" onClick={ handleClickSearchBar }>
+    <button type="button" onClick={ handleClickSearchBar } className="css_botton_2">
       <img src={ searchIcon } alt="search Icon" data-testid="search-top-btn" />
     </button>
   );
@@ -24,19 +25,19 @@ function Header({ title, hasSearchIcon, page }) {
   };
 
   return (
-    <div>
+    <>
       <header>
-        <button type="button" onClick={ handleClickProfile }>
-          <img src={ profileIcon } alt="search Icon" data-testid="profile-top-btn" />
-        </button>
-        <h1 data-testid="page-title">{ title }</h1>
-        {
-          hasSearchIcon && renderButton()
-        }
+        <div className="container_header">
+          <button type="button" onClick={ handleClickProfile } className="css_botton_1">
+            <img src={ profileIcon } alt="search Icon" data-testid="profile-top-btn" />
+          </button>
+          <h1 data-testid="page-title">{ title }</h1>
+          { hasSearchIcon && renderButton()}
+        </div>
       </header>
 
       { showSearchBar && <HeaderSearchBar page={ page } /> }
-    </div>
+    </>
   );
 }
 
