@@ -90,17 +90,10 @@ identificados pelas chaves mealsToken e cocktailsToken`, () => {
   });
 });
 
-<<<<<<< HEAD:tests/loginScreen.test.js
-describe(`7 - Salve o e-mail da pessoa usuária
-  no localStorage na chave user após a submissão`, () => {
-  it(`Após a submissão, o e-mail de pessoa usuária deve
-  ser salvo em localStorage na chave user no formato { email: email-da-pessoa }`, () => {
-=======
 describe(`7 - Salve o e-mail da pessoa usuária no 
   localStorage na chave user após a submissão`, () => {
   it(`Após a submissão, o e-mail de pessoa usuária deve ser salvo em
   localStorage na chave user no formato { email: email-da-pessoa }`, () => {
->>>>>>> 80ca2405d4df987d80719f9d6c517918fdd51a2c:src/tests/loginScreen.test.js
     renderWithRouter(<App />);
     const emailLabel = screen.getByLabelText(/Email:/i);
     userEvent.type(emailLabel, correctEmail);
@@ -113,13 +106,8 @@ describe(`7 - Salve o e-mail da pessoa usuária no
   });
 });
 
-<<<<<<< HEAD:tests/loginScreen.test.js
-describe(`8 - Redirecione a pessoa usuária para a tela principal
-  de receitas de comidas após a submissão e validação com sucesso do login`, () => {
-=======
 describe(`8 - Redirecione a pessoa usuária para a tela principal de receitas 
   de comidas após a submissão e validação com sucesso do login`, () => {
->>>>>>> 80ca2405d4df987d80719f9d6c517918fdd51a2c:src/tests/loginScreen.test.js
   it('A rota muda para a tela principal de receitas de comidas', () => {
     const { history } = renderWithRouter(<App />);
     const emailLabel = screen.getByLabelText(/Email:/i);
