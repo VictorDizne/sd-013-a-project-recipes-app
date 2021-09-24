@@ -10,7 +10,8 @@ const NUM_MEALS = 12;
 const NUM_FIVE = 5;
 
 function Comidas() {
-  const { meals, setMeals, mealsCategories, setMealsCategories, setFilteredMeals, filteredMeals } = useContext(Context);
+  const { meals, setMeals, mealsCategories, setMealsCategories,
+    setFilteredMeals, filteredMeals } = useContext(Context);
 
   const [isLoading, setIsLoading] = useState(true);
   const [toggleOn, setToggleOn] = useState('');
@@ -28,19 +29,19 @@ function Comidas() {
     };
     getMealsCategories();
     setIsLoading(false);
-  }, [setMeals, setMealsCategories]);
+  }, [setMeals, setMealsCategories, setFilteredMeals]);
 
   if (isLoading) return <h1>Loading...</h1>;
 
   const filteredByCategory = async (category) => {
     const selected = category;
     const results = await fetchMealsFilterCategories(category);
-      if(toggleOn === selected) {
-        setFilteredMeals(meals);
-      } else {
-        setToggleOn(selected);
-        setFilteredMeals(results);
-      }
+    if (toggleOn === selected) {
+      setFilteredMeals(meals);
+    } else {
+      setToggleOn(selected);
+      setFilteredMeals(results);
+    }
   };
 
   const handleOnClick = (category) => {

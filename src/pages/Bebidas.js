@@ -30,12 +30,12 @@ function Bebidas() {
     };
     getDrinksCategories();
     setIsLoading(false);
-  }, [setDrinks, setDrinksCategories]);
+  }, [setDrinks, setDrinksCategories, setFilteredDrinks]);
 
   const filteredByCategory = async (category) => {
     const selected = category;
     const results = await fetchDrinksFilterCategories(category);
-    if(toggleOn === selected) {
+    if (toggleOn === selected) {
       setFilteredDrinks(drinks);
     } else {
       setToggleOn(selected);
