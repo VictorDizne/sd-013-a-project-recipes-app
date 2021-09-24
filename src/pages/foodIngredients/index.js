@@ -18,19 +18,16 @@ function FoodIngredients() {
     }
     fetchIngredients();
   }, []);
-  function handleClick() {
-  }
+
   function showCard() {
     const ingredientMap = ingredients.map((ingredient, index) => (
       <Link key={ index } to="/comidas">
-        <button type="button" onClick={ handleClick }>
-          <SingleCard
-            data-testid={ `${index}-ingredient-card` }
-            cardName={ ingredient.strIngredient }
-            index={ index }
-            imgsrc={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` }
-          />
-        </button>
+        <SingleCard
+          data-testid={ `${index}-ingredient-card` }
+          cardName={ ingredient.strIngredient }
+          index={ index }
+          imgsrc={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` }
+        />
       </Link>
     ));
     return ingredientMap;
