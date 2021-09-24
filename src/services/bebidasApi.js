@@ -21,3 +21,15 @@ export async function fetchDrinkOnLoad() {
   const json = await response.json();
   return json.drinks;
 }
+
+export async function fetchDrinkCategories() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+  const json = await response.json();
+  return json.drinks;
+}
+
+export async function fetchDrinkByCategories(category) {
+  const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+  const json = await res.json();
+  return json.drinks;
+}
