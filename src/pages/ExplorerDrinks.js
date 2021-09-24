@@ -1,8 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { useHistory } from 'react-router-dom';
-
 
 function ExplorerDrinks() {
   const history = useHistory();
@@ -11,11 +10,13 @@ function ExplorerDrinks() {
     <div>
       <Header text="Explorar Bebidas" />
       <button
-         data-testid="explore-by-ingredient"
-         onClick={ () => history.push('/explorar/bebidas/ingredientes') }
-      >Por Ingredientes
+        type="button"
+        data-testid="explore-by-ingredient"
+        onClick={ () => history.push('/explorar/bebidas/ingredientes') }
+      >
+        Por Ingredientes
       </button>
-      <button data-testid="explore-surprise">Me Surpreenda!</button>
+      <button data-testid="explore-surprise" type="button">Me Surpreenda!</button>
       <Footer />
     </div>
   );

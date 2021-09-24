@@ -10,15 +10,24 @@ function ExplorerFoods() {
     <div>
       <Header text="Explorar Comidas" />
       <button
+        type="button"
         data-testid="explore-by-ingredient"
         onClick={ () => history.push('/explorar/comidas/ingredientes') }
-      > Por Ingredientes
+      >
+        Por Ingredientes
       </button>
       <button
-       data-testid="explore-by-area"
-       > Por Local de Origem
+        type="button"
+        data-testid="explore-by-area"
+      >
+        Por Local de Origem
       </button>
-      <button data-testid="explore-surprise">Me Surpreenda!</button>
+      <button
+        type="button"
+        data-testid="explore-surprise"
+      >
+        Me Surpreenda!
+      </button>
       <Footer />
     </div>
   );
