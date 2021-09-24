@@ -4,7 +4,10 @@ import appContext from '../redux/appcontext';
 
 const CardDrink = () => {
   const history = useHistory();
-  const { drinkApi, filterDrinkApi } = useContext(appContext);
+  const { drinkApi, filterDrinkApi, activeSearchbarFilter } = useContext(appContext);
+  if (activeSearchbarFilter) {
+    return null;
+  }
   if (filterDrinkApi.length !== 0) {
     console.log(filterDrinkApi);
     return (

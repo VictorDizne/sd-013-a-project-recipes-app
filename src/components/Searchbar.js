@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import RedirectComponent from './RedirectComponent';
 import FilterResults from './FilterResults';
+import appContext from '../redux/appcontext';
 
 const Searchbar = ({ bebidas }) => {
   const [ingredient, switchIngredient] = useState(false);
@@ -9,6 +10,7 @@ const Searchbar = ({ bebidas }) => {
   const [firstLetter, switchFirstLetter] = useState(false);
   const [fetchResult, updateFetch] = useState(false);
   const [filterInput, handleFilterChange] = useState('');
+  const { toggleSearchbarFilter } = useContext(appContext);
 
   let ingredientSearchApi = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${filterInput}`;
   let nameSearchApi = `https://www.themealdb.com/api/json/v1/1/search.php?s=${filterInput}`;
@@ -39,6 +41,7 @@ const Searchbar = ({ bebidas }) => {
   }
 
   async function handleClick() {
+    toggleSearchbarFilter(true);
     if (ingredient) {
       const fet = await fetch(ingredientSearchApi)
         .then((r) => r.json());

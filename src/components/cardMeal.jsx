@@ -4,7 +4,10 @@ import appContext from '../redux/appcontext';
 
 const CardMeal = () => {
   const history = useHistory();
-  const { mealsApi, filterDrinkApi } = useContext(appContext);
+  const { mealsApi, filterDrinkApi, activeSearchbarFilter } = useContext(appContext);
+  if (activeSearchbarFilter) {
+    return null;
+  }
   if (filterDrinkApi.length !== 0) {
     return (
       <div>
