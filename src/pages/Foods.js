@@ -11,7 +11,7 @@ const Foods = () => {
 
   useEffect(() => {
     handleMealsApisOnLoad();
-  }, []);
+  }, [handleMealsApisOnLoad]);
 
   return (
     <div>

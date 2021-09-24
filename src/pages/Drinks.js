@@ -9,7 +9,7 @@ const Drinks = () => {
 
   useEffect(() => {
     handleDrinksApisOnload();
-  }, []);
+  }, [handleDrinksApisOnload]);
 
   console.log(data);
   const MAX_RECIPES = 12;
