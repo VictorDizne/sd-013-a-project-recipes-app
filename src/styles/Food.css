@@ -1,0 +1,8 @@
+.Recipes-Container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  padding-bottom: 120px;
+  width: inherit;
+}
