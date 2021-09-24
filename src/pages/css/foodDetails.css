@@ -1,14 +1,14 @@
 .video-detail {
   height: 0;
-  position: relative;
   padding-bottom: 56.25%;
+  position: relative;
   width: 100%;
 }
 
 .video-detail iframe {
-  position: absolute;
-  left: 0;
-  top: 0;
   height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
   width: 100%;
 }
