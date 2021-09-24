@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import drinks from '../images/drinkIcon.svg';
 import explorar from '../images/exploreIcon.svg';
 import comidas from '../images/mealIcon.svg';
@@ -14,7 +13,9 @@ function Footer() {
         bottom: '0px',
         display: 'flex',
         justifyContent: 'space-between',
-        heigth: '100px' } }
+        heigth: '100px',
+        width: '360px',
+        padding: '10px' } }
       data-testid="footer"
     >
       <Link to="/bebidas">

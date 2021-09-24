@@ -1,45 +1,19 @@
 import React from 'react';
 
+const filters = ['All', 'Beef', 'Lamb', 'Chicken', 'BreakFast', 'Dessert'];
+
 function ButtonsFilters() {
-    return (
-        <div>
-            <button
-              type='button'
-            >
-                All
-            </button>
-
-             <button
-              type='button'
-            >
-                Beef
-            </button>
-
-             <button
-              type='button'
-            >
-                Lamb
-            </button>
-
-             <button
-              type='button'
-            >
-                Chicken
-            </button>
-
-            <button
-              type='button'
-            >
-                BreakFast
-            </button>
-               
-            <button
-              type='button'
-            >
-                Dessert
-            </button>
-        </div>
-    )
+  return (
+    <div>
+      { filters.map((item, index) => (
+        <button
+          type="button"
+          key={ index }
+        >
+          {item}
+        </button>)) }
+    </div>
+  );
 }
 
 export default ButtonsFilters;

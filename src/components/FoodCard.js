@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function FoodCard({index, data, thumb, name}) {
+function FoodCard({ index, data, thumb, name }) {
   return (
     <div
       style={ { width: '48%', height: '70px' } }
@@ -23,6 +23,7 @@ FoodCard.propTypes = {
     strCategory: PropTypes.string,
     strDrinkThumb: PropTypes.string,
   }).isRequired,
+  name: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };

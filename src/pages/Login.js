@@ -29,7 +29,6 @@ const Login = () => {
     const userObj = {
       email,
     };
-    // JSON.parse(localStorage('user', userObj));
     localStorage.setItem('user', JSON.stringify(userObj));
   };
 
