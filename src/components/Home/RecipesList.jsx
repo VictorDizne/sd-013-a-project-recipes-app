@@ -1,16 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import { fetchDrinksByCategory, fetchDrinksByQuery, fetchDrinksCategories,
+  fetchMealByIngredient,
   fetchMealsByCategory,
+  fetchDrinkByIngredient,
   fetchMealsByQuery, fetchMealsCategories } from '../../services/API';
 import RecipeCard from './RecipeCard';
 
 const handleCat = ({ currentTarget: { value } }, setCat) => {
   setCat((prevState) => (prevState === value ? 'All' : value));
 };
+function teste(type, cat, dispatch) {
+  if (type === 'Meal') {
+    if (cat === 'All') {
+      fetchMealsByQuery('s', '', dispatch);
+    } else {
+      fetchMealsByCategory(cat, dispatch);
+    }
+  } else if (cat === 'All') {
+    fetchDrinksByQuery('s', '', dispatch);
+  } else {
+    fetchDrinksByCategory(cat, dispatch);
+  }
+}
 
 function RecipesList({ type }) {
+  const location = useLocation();
   const lists = useSelector((state) => state.api.recipesList);
   const categories = useSelector((state) => state.api.categories);
   const [cat, setCat] = useState('All');
@@ -27,18 +44,16 @@ function RecipesList({ type }) {
   }, [dispatch, type]);
 
   useEffect(() => {
-    if (type === 'Meal') {
-      if (cat === 'All') {
-        fetchMealsByQuery('s', '', dispatch);
-      } else {
-        fetchMealsByCategory(cat, dispatch);
+    if (location.state) {
+      if (type === 'Meal') {
+        fetchMealByIngredient(dispatch, location.state.strIngredient);
+        return;
       }
-    } else if (cat === 'All') {
-      fetchDrinksByQuery('s', '', dispatch);
-    } else {
-      fetchDrinksByCategory(cat, dispatch);
+      fetchDrinkByIngredient(dispatch, location.state.strIngredient1);
+      return;
     }
-  }, [dispatch, type, cat]);
+    teste(type, cat, dispatch);
+  }, [dispatch, type, cat, location.state]);
 
   if (!lists || !categories) {
     return null;
