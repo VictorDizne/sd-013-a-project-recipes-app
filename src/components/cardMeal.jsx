@@ -4,7 +4,10 @@ import appContext from '../redux/appcontext';
 
 const CardMeal = () => {
   const history = useHistory();
-  const { mealsApi, filterDrinkApi } = useContext(appContext);
+  const { mealsApi, filterDrinkApi, activeSearchbarFilter } = useContext(appContext);
+  if (activeSearchbarFilter) {
+    return null;
+  }
   if (filterDrinkApi.length !== 0) {
     return (
       <div>
@@ -15,9 +18,9 @@ const CardMeal = () => {
             data-testid={ `${index}-recipe-card` }
             onClick={ () => history.push(`/comidas/${receita.idMeal}`) }
           >
-            <span data-testid={ `${index}-card-name` }>
+            <h3 data-testid={ `${index}-card-name` }>
               {receita.strMeal}
-            </span>
+            </h3>
             <img
               data-testid={ `${index}-card-img` }
               src={ receita.strMealThumb }
@@ -38,9 +41,9 @@ const CardMeal = () => {
           data-testid={ `${index}-recipe-card` }
           onClick={ () => history.push(`/comidas/${receita.idMeal}`) }
         >
-          <span data-testid={ `${index}-card-name` }>
+          <h3 data-testid={ `${index}-card-name` }>
             {receita.strMeal}
-          </span>
+          </h3>
           <img
             data-testid={ `${index}-card-img` }
             src={ receita.strMealThumb }
