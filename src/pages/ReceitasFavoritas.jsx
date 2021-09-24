@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const ReceitasFavoritas = () => (
   <div>
-    <h3>Oii</h3>
+    <Header hasLupa={ false } pageName="Receitas Favoritas" />
   </div>
 );
 

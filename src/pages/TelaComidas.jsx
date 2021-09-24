@@ -36,7 +36,7 @@ const TelaComidas = () => {
 
   return dataFood.length === 0 ? <Loading /> : (
     <>
-      <Header />
+      <Header hasLupa pageName="Comidas" />
       <Filters alimento={ categoryFood } />
       { categoryFilter === null ? createCard(dataFood, 'Meal')
         : createCard(categoryFilter, 'Meal') }
