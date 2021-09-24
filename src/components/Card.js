@@ -21,6 +21,7 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   recipeImage: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
+  // key: PropTypes.string.isRequired,
   // recipe: PropTypes.shape().isRequired,
 };
 

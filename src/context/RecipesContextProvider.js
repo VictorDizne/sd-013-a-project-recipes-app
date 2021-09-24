@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import RecipesContext from './RecipesContext';
 
 const RecipesContextProvider = ({ children }) => {
@@ -7,8 +7,58 @@ const RecipesContextProvider = ({ children }) => {
   const [drinks, setDrinks] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleBtnClick = ({ input, isMeal, radio }) => {
+  // const history = useHistory();
+
+  const alert = () => {
+    global
+      .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  };
+
+  const fetchMeals = useCallback(({ radioIdsObj, radio }) => {
+    fetch(radioIdsObj[radio])
+      .then((res) => res.json())
+      .then((json) => {
+        const endIndex = 12;
+        if (!json.meals) {
+          console.log('xablau');
+          return alert();
+        }
+        if (json.meals.length > endIndex) {
+          const twelveFirstMeals = json.meals.splice(0, endIndex);
+          setMeals(twelveFirstMeals);
+          setIsLoading(false);
+        } else {
+          setMeals(json.meals);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => console.log(err.message));
+  }, []);
+
+  const fetchDrinks = useCallback(({ radioIdsObj, radio }) => {
+    fetch(radioIdsObj[radio])
+      .then((res) => res.json())
+      .then((json) => {
+        const endIndex = 12;
+        if (!json.drinks) {
+          console.log('xablau bebidas');
+          return alert();
+        }
+        if (json.drinks.length > endIndex) {
+          const twelveFirstDrinks = json.drinks.splice(0, endIndex);
+          setDrinks(twelveFirstDrinks);
+          setIsLoading(false);
+        } else {
+          setDrinks(json.drinks);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => console.log(err.message));
+  }, []);
+
+  const handleBtnClick = useCallback(({ input, isMeal, radio }) => {
     const radioIdsObj = {
       Ingrediente: isMeal ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`
         : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`,
@@ -20,47 +70,33 @@ const RecipesContextProvider = ({ children }) => {
 
     if (radio === 'Primeira Letra' && input.length !== 1) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
-      return;
     }
 
-    if (isMeal) {
-      // console.log('tamo aqui hein');
-      fetch(radioIdsObj[radio])
-        .then((res) => res.json())
-        .then((json) => {
-          const endIndex = 12;
-          const twelveFirstMeals = json.meals.splice(0, endIndex);
-          setMeals(twelveFirstMeals);
-          return json.meals;
-        })
-        .catch((err) => console.log(err.message));
-    } else {
-      // console.log('tamo aqui nao');
-      fetch(radioIdsObj[radio])
-        .then((res) => res.json())
-        .then((json) => {
-          const endIndex = 12;
-          const twelveFirstDrinks = json.drinks.splice(0, endIndex);
-          setDrinks(twelveFirstDrinks);
-          return json.drinks;
-        })
-        .catch((err) => console.log(err.message));
-    }
-  };
+    if (isMeal) fetchMeals({ radioIdsObj, radio });
+    if (!isMeal) fetchDrinks({ radioIdsObj, radio });
+  }, [fetchDrinks, fetchMeals]);
 
-  const getMealsCategories = async (url) => {
+  const getMealsCategories = useCallback(async (url) => {
     fetch(url)
       .then((response) => response.json())
-      .then((json) => setMealsCategories(json.categories))
+      .then((json) => {
+        const endIndex = 5;
+        const fiveFirstCategories = json.meals.splice(0, endIndex);
+        setMealsCategories(fiveFirstCategories);
+      })
       .catch((err) => console.log(err.message));
-  };
+  }, []);
 
-  const getDrinksCategories = async (url) => {
+  const getDrinksCategories = useCallback(async (url) => {
     fetch(url)
       .then((response) => response.json())
-      .then((json) => setDrinksCategories(json.drinks))
+      .then((json) => {
+        const endIndex = 5;
+        const fiveFirstCategories = json.drinks.splice(0, endIndex);
+        setDrinksCategories(fiveFirstCategories);
+      })
       .catch((err) => console.log(err.message));
-  };
+  }, []);
 
   const contextValue = {
     meals,
@@ -72,6 +108,8 @@ const RecipesContextProvider = ({ children }) => {
     drinksCategories,
     getMealsCategories,
     getDrinksCategories,
+    isLoading,
+    setIsLoading,
   };
 
   return (

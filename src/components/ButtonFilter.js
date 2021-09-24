@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function ButtonFilter({ categoryName }) {
   return (
@@ -7,5 +8,9 @@ function ButtonFilter({ categoryName }) {
     </button>
   );
 }
+
+ButtonFilter.propTypes = {
+  categoryName: PropTypes.string.isRequired,
+};
 
 export default ButtonFilter;
