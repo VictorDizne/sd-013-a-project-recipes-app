@@ -11,19 +11,21 @@ function DrinkCard({ recipe, index }) {
     return toDetails;
   }
   return (
-    <Link to={ () => details(recipe.idDrink) }>
-      <button type="button">
-        <img
-          src={ recipe.strDrinkThumb }
-          alt="Recipe thumbnail"
-          width="150"
-          data-testid={ `${index}-card-img` }
-        />
-        <p data-testid={ `${index}-card-name` }>
-          { recipe.strDrink }
-        </p>
-      </button>
-    </Link>
+    <div data-test-id={ `${index}-recipe-card` }>
+      <Link to={ () => details(recipe.idDrink) }>
+        <button type="button">
+          <img
+            src={ recipe.strDrinkThumb }
+            alt="Recipe thumbnail"
+            width="150"
+            data-testid={ `${index}-card-img` }
+          />
+          <p data-testid={ `${index}-card-name` }>
+            { recipe.strDrink }
+          </p>
+        </button>
+      </Link>
+    </div>
   );
 }
 

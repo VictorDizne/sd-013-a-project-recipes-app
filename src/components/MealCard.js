@@ -10,20 +10,23 @@ function MealCard({ recipe, index }) {
     };
     return toDetails;
   }
+  console.log(`${index}-recipe-card`);
   return (
-    <Link to={ () => details(recipe.idMeal) }>
-      <button type="button">
-        <img
-          src={ recipe.strMealThumb }
-          alt="Recipe thumbnail"
-          width="150"
-          data-testid={ `${index}-card-img` }
-        />
-        <p data-testid={ `${index}-card-name` }>
-          { recipe.strMeal }
-        </p>
-      </button>
-    </Link>
+    <div data-test-id={ `${index}-recipe-card` }>
+      <Link to={ () => details(recipe.idMeal) }>
+        <button type="button" data-test-id={ `${index}-recipe-card` }>
+          <img
+            src={ recipe.strMealThumb }
+            alt="Recipe thumbnail"
+            width="150"
+            data-testid={ `${index}-card-img` }
+          />
+          <p data-testid={ `${index}-card-name` }>
+            { recipe.strMeal }
+          </p>
+        </button>
+      </Link>
+    </div>
   );
 }
 
