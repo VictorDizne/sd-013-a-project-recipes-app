@@ -1,27 +1,42 @@
 import PropTypes from 'prop-types';
-import React/* , { useContext } */ from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 /* import MyContext from '../context/myContext'; */
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 const Header = ({ pageName, hasLupa }) => {
+  const [hidden, setHidden] = useState(true);
+
+  const handleClick = () => {
+    setHidden(!hidden);
+  };
+
+  const searchInput = (
+    <input data-testid="search-input" type="text" />
+  );
+
   const withSearchIMG = (
-    <nav className="header">
-      <Link to="/perfil">
-        <img
-          src={ profileIcon }
-          alt="profile"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h2 data-testid="page-title">{ pageName }</h2>
-      <img
-        data-testid="search-top-btn"
-        src={ searchIcon }
-        alt="lupa"
-      />
-    </nav>
+    <>
+      <nav className="header">
+        <Link to="/perfil">
+          <img
+            src={ profileIcon }
+            alt="profile"
+            data-testid="profile-top-btn"
+          />
+        </Link>
+        <h2 data-testid="page-title">{ pageName }</h2>
+        <button type="button" onClick={ handleClick }>
+          <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="lupa"
+          />
+        </button>
+      </nav>
+      { hidden ? null : searchInput }
+    </>
   );
 
   const withoutSearchIMG = (
