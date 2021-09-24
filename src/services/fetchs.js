@@ -35,3 +35,24 @@ export const fetchByLetter = async (type, firstLetter) => {
   }
   return (type === 'themealdb' ? json.meals : json.drinks);
 };
+
+export const fetchByCategoryFood = async (category = 'list', filter = 'list') => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/${filter}.php?c=${category}`;
+  const res = await fetch(URL);
+  const json = await res.json();
+  return json.meals;
+};
+
+export const fetchByCategoryDrink = async (category = 'list', filter = 'list') => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/${filter}.php?c=${category}`;
+  const res = await fetch(URL);
+  const json = await res.json();
+  return json.drinks;
+};
+
+/* export const fetchAllCategories = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/categories.php';
+  const res = await fetch(URL);
+  const json = await res.json();
+  return json.categories;
+}; */
