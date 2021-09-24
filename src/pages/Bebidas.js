@@ -103,6 +103,7 @@ export default function Bebidas({ history }) {
             </>
           )
       }
+
       <Footer />
     </>
   );
