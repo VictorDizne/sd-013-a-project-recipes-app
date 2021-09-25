@@ -37,9 +37,11 @@ const TelaBebidas = () => {
   return !dataDrink ? <Loading /> : (
     <>
       <Header hasLupa pageName="Bebidas" />
-      <Filters alimento={ categoryDrink } />
-      { !categoryFilter ? createCard(dataDrink, 'Drink')
-        : createCard(categoryFilter, 'Drink') }
+      <div className="main">
+        <Filters alimento={ categoryDrink } />
+        { !categoryFilter ? createCard(dataDrink, 'Drink')
+          : createCard(categoryFilter, 'Drink') }
+      </div>
       <Footer />
     </>
   );

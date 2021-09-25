@@ -29,3 +29,8 @@ body {
   bottom: 0;
   position: fixed;
 }
+
+.main {
+  padding-top: 100px;
+  background-color: yellowgreen;
+}
