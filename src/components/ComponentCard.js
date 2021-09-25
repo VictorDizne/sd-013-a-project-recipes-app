@@ -14,6 +14,7 @@ function ComponentCard({ recipeIndex, recipeItem }) {
         src={ thumb }
         alt={ title }
         width="100px"
+        loading="lazy"
       />
     </div>
   );

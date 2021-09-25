@@ -29,7 +29,6 @@ function SearchInput() {
 
   const clickOrAlert = () => {
     const { searchState, letter } = componentState;
-
     if ((letter === 'f') && (searchState.length > 1)) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
     } else {

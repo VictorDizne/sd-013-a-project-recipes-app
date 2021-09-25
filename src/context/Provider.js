@@ -15,8 +15,10 @@ function Provider({ children }) {
 
   const [showInput, setShowInput] = useDebugState('ShowInput', false);
   const [dataForFetch, setDataForFetch] = useDebugState('DataForFetch', fetchData);
-  const [recipeList, setRecipeList] = useDebugState('RecipeList', []);
+  const [recipeList, setRecipeList] = useDebugState('RecipeList', '');
+  const [categoryList, setCategoryList] = useDebugState('CategoryList', '');
   const [currentID, setCurrentID] = useDebugState('CurentID', 0);
+  const [loading, setLoading] = useDebugState('Loading', true);
 
   const handleCurrentPage = () => {
     const { location: { pathname } } = history;
@@ -25,6 +27,24 @@ function Provider({ children }) {
     }
     if (pathname === '/bebidas') {
       setDataForFetch({ ...dataForFetch, currentPage: 'thecocktaildb' });
+    }
+  };
+
+  const handleFetch = (currentPage) => {
+    FetchAPI(currentPage, 'search', 's', '')
+      .then((response) => setRecipeList(response));
+    FetchAPI(currentPage, 'list', 'c', 'list')
+      .then((response) => setCategoryList(response));
+  };
+
+  const fetchFoodsOfCategory = (currentPage, foods, ref) => {
+    if (ref === true) {
+      FetchAPI(currentPage, 'filter', 'c', foods)
+        .then((response) => setRecipeList(response));
+    }
+    if (ref === false) {
+      FetchAPI(currentPage, 'search', 's', '')
+        .then((response) => setRecipeList(response));
     }
   };
 
@@ -44,31 +64,47 @@ function Provider({ children }) {
       .then((response) => {
         if (response !== null) {
           setRecipeList(response);
-          if (currentPage === 'themealdb') setCurrentID(response[0].idMeal);
-          if (currentPage === 'thecocktaildb') setCurrentID(response[0].idDrink);
+          if (response.length === 1) {
+            if (currentPage === 'themealdb') setCurrentID(response[0].idMeal);
+            if (currentPage === 'thecocktaildb') setCurrentID(response[0].idDrink);
+          }
         }
         if (response === null) global.alert(alert);
       });
   };
 
   useEffect(() => {
-    if (recipeList.length === 1) {
+    if (currentID !== 0) {
       setDataForFetch({ ...dataForFetch, redirectState: true });
     }
-  }, [recipeList]);
+  }, [currentID]);
 
-  const ContextCard = { recipeList, dataForFetch };
-  const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch };
-  const ContextComidas = { showInput, handleCurrentPage, dataForFetch, currentID };
-  const ContextBebidas = { showInput, handleCurrentPage, dataForFetch, currentID };
-  const ContextFooter = {};
+  useEffect(() => {
+    if ((recipeList !== '') && (recipeList !== null)) {
+      if (categoryList !== '') {
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
+    }
+  }, [recipeList, categoryList]);
+  const ContextCard = { recipeList,
+    dataForFetch,
+    loading,
+    categoryList,
+    fetchFoodsOfCategory,
+  };
+  const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
+  const ContextComidas = {
+    showInput, handleCurrentPage, dataForFetch, currentID, loading, handleFetch };
+  const ContextBebidas = {
+    showInput, handleCurrentPage, dataForFetch, currentID, loading, handleFetch };
 
   const context = {
     ContextCard,
     ContextComidas,
     ContextBebidas,
     ContextHeader,
-    ContextFooter,
   };
 
   return (
