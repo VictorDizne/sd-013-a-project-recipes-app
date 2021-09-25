@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from '../context/index';
 import '../styles/Header.css';
 
-function HeaderSearchBar({ page }) {
+function HeaderSearchBar({ page, handleClickSearchBar }) {
   const {
     inputText,
     setInputText,
@@ -20,6 +20,8 @@ function HeaderSearchBar({ page }) {
     if (page === 'drinks') {
       handleDrinksApis();
     }
+
+    handleClickSearchBar();
   }
 
   return (
@@ -83,7 +85,8 @@ function HeaderSearchBar({ page }) {
 }
 
 HeaderSearchBar.propTypes = {
-  page: PropTypes.string.isRequired,
-};
+  page: PropTypes.string,
+  handleClickSearchBar: PropTypes.func,
+}.isRequired;
 
 export default HeaderSearchBar;

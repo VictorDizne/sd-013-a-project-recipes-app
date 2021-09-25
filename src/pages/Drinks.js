@@ -1,25 +1,65 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import RecipesContext from '../context/index';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
+import { fetchDrinkCategories } from '../services/bebidasApi';
 
 const Drinks = () => {
-  const { data, handleDrinksApisOnload } = useContext(RecipesContext);
+  const {
+    drinkData,
+    handleDrinksApisOnload,
+    setDrinkCategories } = useContext(RecipesContext);
+  const [buttons, setButtons] = useState([]);
+  const MAX_BUTTONS = 5;
+  const MAX_RECIPES = 12;
 
   useEffect(() => {
     handleDrinksApisOnload();
-  }, [handleDrinksApisOnload]);
+    const fetchButtons = async () => {
+      const response = await fetchDrinkCategories();
+      setButtons(response);
+    };
+    fetchButtons();
+  }, []);
 
-  console.log(data);
-  const MAX_RECIPES = 12;
+  const filterCategories = (value) => {
+    setDrinkCategories((currValue) => (currValue && currValue === value ? '' : value));
+    handleDrinksApisOnload();
+  };
+
+  const showAllDrinks = () => {
+    handleDrinksApisOnload();
+  };
+
   return (
     <div>
       <Header title="Bebidas" hasSearchIcon page="drinks" />
       <div>
-        { data && data.slice(0, MAX_RECIPES).map(((recipe, index) => (
-          <RecipeCard key={ index } index={ index } recipe={ recipe } page="drinks" />
-        )))}
+        <div>
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ showAllDrinks }
+          >
+            All
+          </button>
+          { buttons && buttons.slice(0, MAX_BUTTONS).map((b, index) => (
+            <button
+              key={ index }
+              type="button"
+              data-testid={ `${b.strCategory}-category-filter` }
+              onClick={ () => filterCategories(b.strCategory) }
+            >
+              { b.strCategory }
+            </button>
+          ))}
+        </div>
+        <div>
+          { drinkData && drinkData.slice(0, MAX_RECIPES).map(((recipe, index) => (
+            <RecipeCard key={ index } index={ index } recipe={ recipe } page="drinks" />
+          )))}
+        </div>
       </div>
       <Footer />
     </div>
