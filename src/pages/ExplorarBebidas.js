@@ -31,7 +31,7 @@ const ExplorarBebidas = () => {
         </Link>
       </div>
       <div>
-        {/* <Link to="/explorar/bebidas/supreendabebidas"> */}
+        {/* <Link to="/explorar/bebidas/supreendabebidas"> teste */}
         <button
           type="submit"
           data-testid="explore-surprise"
