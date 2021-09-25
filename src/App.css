@@ -24,3 +24,8 @@ body {
   position: fixed;
   width: 100%;
 }
+
+.iniciar {
+  bottom: 0px;
+  position: fixed;
+}

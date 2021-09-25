@@ -1,33 +1,111 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { foodAPIRequest } from '../services/APIrequest';
+import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
 import Loading from '../components/Loading';
+import Share from '../images/shareIcon.svg';
+import Heart from '../images/whiteHeartIcon.svg';
 
 const DetalheComidas = ({ match: { params: { id } } }) => {
-  const [APIState, setAPIState] = useState([]);
+  const [foodDetail, setfoodDetail] = useState([]);
+  const [drinksDetails, setDrinkDetails] = useState([]);
 
   useEffect(() => {
     const getAPIdata = async () => {
       const APIRequest = await foodAPIRequest('lookup', `i=${id}`);
-      setAPIState(APIRequest);
+      setfoodDetail(...APIRequest);
     };
     getAPIdata();
   }, []);
 
-  // const keysOfApi = () => {
-  //   const APIStateKeys = Object.keys(APIState);
-  //   const ingredientsKeys = APIStateKeys
-  //     .filter((chaves) => chaves.includes('strIngredients'))
-  //     .map((ingredient) => APIState[ingredient]);
-  //   return ingredientsKeys;
-  // };
-  const obj = Object.keys(APIState)
-    .filter((keyIngredient) => keyIngredient.includes('strIngredients'));
+  useEffect(() => {
+    const SIX = 6;
+    const cocktailsRequest = async () => {
+      const drink = await cocktailsAPIRequest();
+      const drinkSix = drink.slice(0, SIX);
+      setDrinkDetails(drinkSix);
+    };
+    cocktailsRequest();
+  }, []);
 
-  return APIState.length === 0 ? <Loading /> : (
+  const keysOfApi = Object.keys(foodDetail);
+  const ingredientsKeys = keysOfApi.filter((chave) => chave.includes('strIngredient'));
+  const ingredientsValues = ingredientsKeys
+    .map((ingredient) => foodDetail[ingredient])
+    .filter((ingredient) => ingredient !== '');
+
+  const { strMeal, strCategory, strInstructions, strMealThumb, strYoutube } = foodDetail;
+
+  return (foodDetail.length === 0 && drinksDetails.length === 0) ? <Loading /> : (
     <div>
-      { console.log(obj) }
-      { obj.map((ingredient, i) => <p key={ i }>{APIState[ingredient]}</p>) }
+      { console.log(ingredientsValues) }
+      <img
+        data-testid="recipe-photo"
+        src={ strMealThumb }
+        alt={ strMeal }
+        width="320"
+        height="240"
+      />
+      <button
+        data-testid="share-btn"
+        type="button"
+      >
+        <img src={ Share } alt="btn share" />
+      </button>
+      <button
+        data-testid="favorite-btn"
+        type="button"
+      >
+        <img src={ Heart } alt="btn Fav" />
+      </button>
+      <p data-testid="recipe-title">{strMeal}</p>
+      <p data-testid="recipe-category">{strCategory}</p>
+      <section>
+        <p>Ingredients</p>
+        <ul>
+          {ingredientsValues
+            .map((ingredient, i) => (
+              <li
+                data-testid={ `${i}-ingredient-name-and-measure` }
+                key={ i }
+              >
+                { ingredient }
+              </li>))}
+        </ul>
+      </section>
+      <p data-testid="instructions">{strInstructions}</p>
+      <iframe
+        data-testid="video"
+        title="YouTube video player"
+        width="320"
+        height="240"
+        src={ `${strYoutube
+          .split('watch?v=')[0]}embed/${strYoutube
+          .split('watch?v=')[1]}` }
+        frameBorder="0"
+        allow="accelerometer; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+
+      {drinksDetails
+        .map(({ strDrinkThumb, strDrink, strCategory: strDrikCategory }, i) => (
+          <section key={ i } data-testid={ `${i}-recomendation-card` }>
+            <img
+              width="100"
+              height="100"
+              src={ strDrinkThumb }
+              alt={ strDrink }
+            />
+            <p>{strDrikCategory}</p>
+            <p>{strDrink}</p>
+          </section>
+        ))}
+      <button
+        className="iniciar"
+        data-testid="start-recipe-btn"
+        type="button"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 };
@@ -37,7 +115,7 @@ DetalheComidas.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
-  }).isRequired,
-};
+  }),
+}.isRequired;
 
 export default DetalheComidas;
