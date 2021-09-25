@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import recipeContext from '../context';
 
 function ComponentCategory() {
@@ -8,12 +8,27 @@ function ComponentCategory() {
 
   const quantity = 5;
   const controledList = categoryList.slice(0, quantity);
+
+  const activeFilter = useRef(false);
+
+  useEffect(() => {
+    console.log('componentDidMount');
+  }, []);
+
+  const handleClick = (item) => {
+    if (activeFilter.current === false) {
+      activeFilter.current = true;
+    } else {
+      activeFilter.current = false;
+    }
+    fetchFoodsOfCategory(currentPage, item.strCategory, activeFilter.current);
+  };
+
   return (
-    // PROBLEMA DE SINCRONIA NA VERIFICAÇÃO QUE HABILITA O MAP
     <div>
       {!loading && controledList.map((item, index) => (
         <button
-          onClick={ () => fetchFoodsOfCategory(currentPage, item.strCategory) }
+          onClick={ () => handleClick(item) }
           key={ index }
           data-testid={ `${item.strCategory}-category-filter` }
           type="button"
