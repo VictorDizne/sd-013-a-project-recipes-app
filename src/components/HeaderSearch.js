@@ -1,26 +1,34 @@
-import React, { useEffect } from 'react';
-import { fetchForFirstLetter } from '../service/GetAPI';
+import React, { useState } from 'react';
+import { handleAPI } from '../service/GetAPI';
 
-function Header() {
-  const fetchTest = (letter) => {
-    fetchForFirstLetter(letter);
+function HeaderSearch() {
+  const [inputRadio, setInputRadio] = useState('');
+  const [inputText, setInputText] = useState('');
+
+  const handleInputText = ({ target }) => {
+    setInputText(target.value);
   };
 
-  useEffect(() => {
-    const letter = 'a';
-    fetchTest(letter);
-  }, []);
+  const handleInputRadio = ({ target }) => {
+    setInputRadio(target.value);
+  };
+
+  const handleClickFetch = () => {
+    handleAPI(inputRadio, inputText);
+  };
 
   return (
     <div>
       <input
         type="text"
+        onChange={ handleInputText }
       />
       <input
         type="radio"
         value="ingrediente"
         name="select-search"
         data-testid="ingredient-search-radio"
+        onChange={ handleInputRadio }
       />
       ingrediente
       <input
@@ -28,6 +36,7 @@ function Header() {
         value="nome"
         name="select-search"
         data-testid="name-search-radio"
+        onChange={ handleInputRadio }
       />
       nome
       <input
@@ -35,11 +44,13 @@ function Header() {
         value="primeira letra"
         name="select-search"
         data-testid="first-letter-search-radio"
+        onChange={ handleInputRadio }
       />
       primeira letra
       <button
         type="submit"
         data-testid="exec-search-btn"
+        onClick={ handleClickFetch }
       >
         Buscar
       </button>
@@ -47,4 +58,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderSearch;
