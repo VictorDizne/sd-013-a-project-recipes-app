@@ -17,6 +17,7 @@ function ContextAPIProvider({ children }) {
       setLoading({ loading: true });
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/filter.php?i=${ingredient}`);
       const json = await result.json();
+
       if (json.meals === null || json.drinks === null) {
         global.alert(errorMessage);
         return [];
@@ -60,6 +61,7 @@ function ContextAPIProvider({ children }) {
     try {
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?f=${firstLetter}`);
       const json = await result.json();
+
       if (json.meals === null || json.drinks === null) {
         global.alert(errorMessage);
         return [];

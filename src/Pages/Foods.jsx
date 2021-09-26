@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import RecipeCard from '../Components/RecipeCard';
@@ -17,6 +17,8 @@ export default function Foods() {
 
   const DOZE = 12;
 
+  const { pathname } = useLocation();
+
   return (
     <div>
       <Header value={ pageTitle } />
@@ -29,6 +31,8 @@ export default function Foods() {
             img={ recipe.strMealThumb }
             key={ index }
             index={ index }
+            id={ recipe.idMeal }
+            pathName={ pathname }
           />))}
       <Footer />
     </div>

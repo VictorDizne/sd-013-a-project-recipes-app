@@ -110,6 +110,15 @@ const SearchBar = () => {
           </button>
         </div>
       </div>
+      {/* {data.map((recipe, index) => (
+        index < DOZE && <RecipeCard
+          name={ recipe.strDrink || recipe.strMeal }
+          img={ recipe.strDrinkThumb || recipe.strMealThumb }
+          key={ index }
+          id={ recipe.idDrink || recipe.idMeal }
+          pathName={ pathname }
+        />
+      ))} */}
     </div>
 
   );
