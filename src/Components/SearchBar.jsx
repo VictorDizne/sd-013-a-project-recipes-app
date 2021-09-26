@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Context from '../ContextAPI/Context';
-import RecipeCard from './RecipeCard';
 
 const SearchBar = () => {
   const [input, setInput] = useState({
     inputText: '',
   });
+  const [radio, setRadio] = useState('');
 
   const inputChange = ({ target: { id, value } }) => {
     setInput({ ...input, [id]: value });
@@ -15,7 +15,6 @@ const SearchBar = () => {
   const { fetchIngredient,
     fetchName,
     fetchFirstLetter,
-    data,
   } = useContext(Context);
 
   const { pathname } = useLocation();
@@ -45,14 +44,17 @@ const SearchBar = () => {
     }
   };
 
-  const onMouseClick = (event) => (verifyRadioValue(event.target.value));
+  const onMouseClick = (event) => {
+    setRadio(event.target.value);
+  };
 
-  const DOZE = 12;
+  const onButtonClick = () => {
+    verifyRadioValue(radio);
+  };
 
   const { inputText } = input;
   return (
     <div>
-
       <div>
         <input
           type="text"
@@ -99,9 +101,16 @@ const SearchBar = () => {
             />
             Primeira letra
           </label>
+          <button
+            type="button"
+            onClick={ onButtonClick }
+            data-testid="exec-search-btn"
+          >
+            Add
+          </button>
         </div>
       </div>
-      {data.map((recipe, index) => (
+      {/* {data.map((recipe, index) => (
         index < DOZE && <RecipeCard
           name={ recipe.strDrink || recipe.strMeal }
           img={ recipe.strDrinkThumb || recipe.strMealThumb }
@@ -109,7 +118,7 @@ const SearchBar = () => {
           id={ recipe.idDrink || recipe.idMeal }
           pathName={ pathname }
         />
-      ))}
+      ))} */}
     </div>
 
   );

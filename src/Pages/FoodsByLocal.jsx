@@ -1,6 +1,6 @@
 import React from 'react';
-import MenuInferior from '../Components/MenuInferior';
-import Header from './Header';
+import Footer from '../Components/Footer';
+import Header from '../Components/Header';
 
 export default function FoodsByLocal() {
   const pageTitle = {
@@ -11,7 +11,7 @@ export default function FoodsByLocal() {
     <div>
       <Header value={ pageTitle } />
       <h2>FOODS LOCAL</h2>
-      <MenuInferior />
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import MenuInferior from '../Components/MenuInferior';
-import Header from './Header';
+import Footer from '../Components/Footer';
+import Header from '../Components/Header';
 
 export default function Profile() {
   const pageTitle = {
@@ -11,7 +11,7 @@ export default function Profile() {
     <div>
       <Header value={ pageTitle } />
       <h2>PROFILE</h2>
-      <MenuInferior />
+      <Footer />
     </div>
   );
 }

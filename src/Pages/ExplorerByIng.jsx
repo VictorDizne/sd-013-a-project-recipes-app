@@ -1,6 +1,6 @@
 import React from 'react';
-import MenuInferior from '../Components/MenuInferior';
-import Header from './Header';
+import Footer from '../Components/Footer';
+import Header from '../Components/Header';
 
 export default function ExploreByIngredients() {
   const pageTitle = {
@@ -11,7 +11,7 @@ export default function ExploreByIngredients() {
     <div>
       <Header value={ pageTitle } />
       <h2>FOODS OR DRINKS</h2>
-      <MenuInferior />
+      <Footer />
     </div>
   );
 }
