@@ -2,8 +2,10 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import RecipesProvider from './Context/RecipesProvider';
 import Login from './Pages/Login';
+import FoodDetails from './Pages/FoodDetails';
+import ContextAPIProvider from './ContextAPI/ContextAPI';
+import RecipesProvider from './Context/RecipesProvider';
 import Foods from './Pages/Foods';
 import Drinks from './Pages/Drinks';
 import FoodsExplorer from './Pages/FoodsExplorer';
@@ -14,8 +16,6 @@ import FavoriteRecipes from './Pages/FavoritesRecipes';
 import FoodsByLocal from './Pages/FoodsByLocal';
 import ExploreByIngredients from './Pages/ExplorerByIng';
 import Profile from './Pages/Profile';
-import ContextAPIProvider from './ContextAPI/ContextAPI';
-import FoodDetails from './Pages/FoodDetails';
 import DrinkDetails from './Pages/DrinkDetails';
 
 function App() {

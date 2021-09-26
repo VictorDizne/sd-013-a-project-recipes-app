@@ -1,16 +1,27 @@
 import React from 'react';
-import Header from './Header';
+import PropTypes from 'prop-types';
+import useApiId from '../hooks/useApiId';
 
-export default function FoodDetails() {
-  const pageTitle = {
-    pageName: 'Comidas',
-    setIcon: true,
-  };
+function FoodDetails(props) {
+  const { match: { params: { id } } } = props;
+
+  const data = useApiId('themealdb', id);
+
+  console.log(data);
 
   return (
     <div>
-      <Header value={ pageTitle } />
-      FoodDetails
+      <h1>FoodDetails</h1>
     </div>
   );
 }
+
+FoodDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number,
+    }),
+  }).isRequired,
+};
+
+export default FoodDetails;
