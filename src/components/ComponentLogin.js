@@ -28,31 +28,39 @@ function ComponentLogin() {
   };
 
   return (
-    <div className="login-container">
-      <input
-        value={ emailComp }
-        data-testid="email-input"
-        id="email"
-        type="email"
-        placeholder="Email"
-        onChange={ handleChange }
-      />
-      <input
-        value={ passwordComp }
-        id="password"
-        type="password"
-        placeholder="Password"
-        data-testid="password-input"
-        onChange={ handleChange }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ handleClick }
-        disabled={ !(validEmail.test(emailComp) && passwordComp.length > six) }
-      >
-        Entrar
-      </button>
+    <div className="Login-container">
+      <div className="Login-title">
+        <h1>Foodeez</h1>
+      </div>
+      <div className="Login-form">
+        <input
+          className="Login-input"
+          value={ emailComp }
+          id="email"
+          type="email"
+          placeholder="Digite seu email"
+          onChange={ handleChange }
+          data-testid="email-input"
+        />
+        <input
+          className="Login-input"
+          value={ passwordComp }
+          id="password"
+          type="password"
+          placeholder="Digite sua senha"
+          onChange={ handleChange }
+          data-testid="password-input"
+        />
+        <button
+          className="Login-input"
+          type="button"
+          disabled={ !(validEmail.test(emailComp) && passwordComp.length > six) }
+          onClick={ handleClick }
+          data-testid="login-submit-btn"
+        >
+          Entrar
+        </button>
+      </div>
     </div>
   );
 }
