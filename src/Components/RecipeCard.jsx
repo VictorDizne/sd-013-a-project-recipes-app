@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function RecipeCard({ key, name, img }) {
+function RecipeCard({ index, name, img }) {
   return (
-    <div data-testid={ `${key}-recipe-card` }>
-      <img src={ img } data-testid={ `${key}-card-img` } alt={ `${key}` } />
-      <h2 data-testid={ `${key}-card-name` }>{ name }</h2>
+    <div data-testid={ `${index}-recipe-card` }>
+      <img src={ img } data-testid={ `${index}-card-img` } alt={ `${index}` } />
+      <h2 data-testid={ `${index}-card-name` }>{ name }</h2>
     </div>
   );
 }
 
 RecipeCard.propTypes = {
-  key: PropTypes.number,
+  id: PropTypes.number,
   name: PropTypes.string,
   img: PropTypes.string,
 }.isRequired;

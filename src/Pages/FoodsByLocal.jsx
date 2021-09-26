@@ -1,6 +1,6 @@
 import React from 'react';
 import MenuInferior from '../Components/MenuInferior';
-import Header from './Header';
+import Header from '../Components/Header';
 
 export default function FoodsByLocal() {
   const pageTitle = {

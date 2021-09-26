@@ -1,5 +1,9 @@
-import React from 'react';
-import Header from './Header';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import Header from '../Components/Header';
+import MenuInferior from '../Components/MenuInferior';
+import RecipeCard from '../Components/RecipeCard';
+import Context from '../ContextAPI/Context';
 
 export default function Foods() {
   const pageTitle = {
@@ -7,10 +11,26 @@ export default function Foods() {
     setIcon: true,
   };
 
+  const history = useHistory();
+
+  const { data, loading } = useContext(Context);
+
+  const DOZE = 12;
+
   return (
     <div>
       <Header value={ pageTitle } />
-      Foods
+      <h1>Foods</h1>
+      {loading && data.length === 1
+        ? history.push(`/comidas/${data[0].idMeal}`)
+        : data.map((recipe, index) => (
+          index < DOZE && <RecipeCard
+            name={ recipe.strMeal }
+            img={ recipe.strMealThumb }
+            key={ index }
+            index={ index }
+          />))}
+      <MenuInferior />
     </div>
   );
 }

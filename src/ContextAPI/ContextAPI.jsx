@@ -4,23 +4,33 @@ import Context from './Context';
 
 function ContextAPIProvider({ children }) {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState('');
 
-  const errorMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+  const errorMessage = (
+    'Sinto muito, não encontramos nenhuma receita para esses filtros.'
+  );
+  // Lógica para gerar mensagem de erro inspirada em código de colegas disponível no link a seguir:
+  // https://github.com/tryber/sd-013-a-project-recipes-app/pull/57;
 
   const fetchIngredient = async (type, ingredient) => {
     try {
+      setLoading({ loading: true });
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/filter.php?i=${ingredient}`);
       const json = await result.json();
-      console.log(json);
-      console.log(json.meals);
-      console.log(json.drinks);
+      if (json.meals === null || json.drinks === null) {
+        global.alert(errorMessage);
+        return [];
+      }
+
       if (type === 'themealdb') {
         setData(json.meals);
+        setLoading({ loading: false });
       } else {
         setData(json.drinks);
+        setLoading({ loading: false });
       }
     } catch (e) {
-      global.alert(errorMessage);
+      console.log(e);
     }
   };
 
@@ -29,12 +39,20 @@ function ContextAPIProvider({ children }) {
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?s=${name}`);
       const json = await result.json();
 
+      if (json.meals === null || json.drinks === null) {
+        global.alert(errorMessage);
+        return [];
+      }
+
       if (type === 'themealdb') {
         setData(json.meals);
+        setLoading({ loading: false });
+      } else {
+        setData(json.drinks);
+        setLoading({ loading: false });
       }
-      setData(json.drinks);
     } catch (e) {
-      global.alert(errorMessage);
+      console.log(e);
     }
   };
 
@@ -42,13 +60,20 @@ function ContextAPIProvider({ children }) {
     try {
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?f=${firstLetter}`);
       const json = await result.json();
+      if (json.meals === null || json.drinks === null) {
+        global.alert(errorMessage);
+        return [];
+      }
 
       if (type === 'themealdb') {
         setData(json.meals);
+        setLoading({ loading: false });
+      } else {
+        setData(json.drinks);
+        setLoading({ loading: false });
       }
-      setData(json.drinks);
     } catch (e) {
-      global.alert(errorMessage);
+      console.log(e);
     }
   };
 
@@ -57,6 +82,8 @@ function ContextAPIProvider({ children }) {
     fetchName,
     fetchFirstLetter,
     data,
+    loading,
+    setLoading,
   };
 
   return (
