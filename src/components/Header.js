@@ -4,6 +4,7 @@ import { MainContext } from '../context/Provider';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBox from './SearchBox';
+import CategoryButtons from './CategoryButtons';
 
 function Header() {
   const location = useLocation();
@@ -14,6 +15,7 @@ function Header() {
   const [title, setTitle] = useState('Comidas');
   const [buttonSearch, setButtonSearch] = useState(true);
   const [inputSearch, setInputSearch] = useState(false);
+  const [category, setCategory] = useState(true);
 
   const conditionalTitle = () => {
     switch (location.pathname) {
@@ -26,23 +28,28 @@ function Header() {
     case '/explorar':
       setTitle('Explorar');
       setButtonSearch(false);
+      setCategory(false);
       break;
     case '/explorar/bebidas':
       setTitle('Explorar Bebidas');
       setButtonSearch(false);
+      setCategory(false);
       break;
     case '/explorar/comidas':
       setTitle('Explorar Comidas');
       setButtonSearch(false);
+      setCategory(false);
       break;
     case '/explorar/comidas/ingredientes':
     case '/explorar/bebidas/ingredientes':
       setTitle('Explorar Ingredientes');
       setButtonSearch(false);
+      setCategory(false);
       break;
     case '/receitas-feitas':
       setTitle('Receitas Feitas');
       setButtonSearch(false);
+      setCategory(false);
       break;
     case '/receitas-favoritas':
       setTitle('Receitas Favoritas');
@@ -51,10 +58,12 @@ function Header() {
     case '/explorar/comidas/area':
       setTitle('Explorar Origem');
       setButtonSearch(true);
+      setCategory(false);
       break;
     case '/perfil':
       setTitle('Perfil');
       setButtonSearch(false);
+      setCategory(false);
       break;
     default:
       break;
@@ -81,7 +90,11 @@ function Header() {
 
   function handleClickBtnSearch() {
     setInputSearch(true);
-    if (inputSearch) return setInputSearch(false);
+    setCategory(false);
+    if (inputSearch) {
+      setInputSearch(false);
+      setCategory(true);
+    }
   }
 
   return (
@@ -102,6 +115,9 @@ function Header() {
           data-testid="search-top-btn"
           onClick={ handleClickBtnSearch }
         />
+      }
+      {
+        category && <CategoryButtons />
       }
       {
         inputSearch && <SearchBox />
