@@ -11,7 +11,7 @@ function RecipeCard({ index, name, img }) {
 }
 
 RecipeCard.propTypes = {
-  id: PropTypes.number,
+  index: PropTypes.number,
   name: PropTypes.string,
   img: PropTypes.string,
 }.isRequired;

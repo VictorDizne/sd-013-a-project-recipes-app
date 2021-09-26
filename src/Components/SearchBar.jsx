@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Context from '../ContextAPI/Context';
-// import RecipeCard from './RecipeCard';
 
 const SearchBar = () => {
   const [input, setInput] = useState({
@@ -16,11 +15,7 @@ const SearchBar = () => {
   const { fetchIngredient,
     fetchName,
     fetchFirstLetter,
-    // data,
-    // loading,
   } = useContext(Context);
-
-  // const DOZE = 12;
 
   const { pathname } = useLocation();
 
@@ -51,7 +46,6 @@ const SearchBar = () => {
 
   const onMouseClick = (event) => {
     setRadio(event.target.value);
-    // verifyRadioValue(event.target.value);
   };
 
   const onButtonClick = () => {
@@ -116,13 +110,6 @@ const SearchBar = () => {
           </button>
         </div>
       </div>
-      {/* {loading && data.length > 1 && data.map((recipe, index) => (
-        index < DOZE && <RecipeCard
-          name={ recipe.strDrink || recipe.strMeal }
-          img={ recipe.strDrinkThumb || recipe.strMealThumb }
-          key={ index }
-        />
-      ))} */}
     </div>
 
   );
