@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDebugState } from 'use-named-state';
+import '../pages/styles/Login.css';
 
 function ComponentLogin() {
   const history = useHistory();
@@ -29,30 +30,41 @@ function ComponentLogin() {
 
   return (
     <div className="login-container">
-      <input
-        value={ emailComp }
-        data-testid="email-input"
-        id="email"
-        type="email"
-        placeholder="Email"
-        onChange={ handleChange }
-      />
-      <input
-        value={ passwordComp }
-        id="password"
-        type="password"
-        placeholder="Password"
-        data-testid="password-input"
-        onChange={ handleChange }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ handleClick }
-        disabled={ !(validEmail.test(emailComp) && passwordComp.length > six) }
-      >
-        Entrar
-      </button>
+      <h1 className="login-title">Foodeez</h1>
+      <div className="login-sub-container">
+        <div className="label-float">
+          <input
+            value={ emailComp }
+            data-testid="email-input"
+            id="email"
+            type="email"
+            placeholder="Digite seu email"
+            onChange={ handleChange }
+          />
+          <p>Digite seu email</p>
+        </div>
+        <div className="label-float">
+          <input
+            value={ passwordComp }
+            className="login-inputs"
+            id="password"
+            type="password"
+            placeholder="Digite sua senha"
+            data-testid="password-input"
+            onChange={ handleChange }
+          />
+          <p>Digite sua senha</p>
+        </div>
+        <button
+          className="login-button"
+          type="button"
+          data-testid="login-submit-btn"
+          onClick={ handleClick }
+          disabled={ !(validEmail.test(emailComp) && passwordComp.length > six) }
+        >
+          Entrar
+        </button>
+      </div>
     </div>
   );
 }

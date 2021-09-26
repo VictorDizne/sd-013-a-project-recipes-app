@@ -1,0 +1,72 @@
+.login-container {
+  align-items: center;
+  background-color: #419d78;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.login-sub-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+}
+
+.login-title {
+  color: #222221;
+  font-family: Bangers , cursive;
+  font-size: 42px;
+}
+
+.label-float {
+  position: relative;
+}
+
+.label-float input {
+  align-items: center;
+  appearance: none;
+  background-color: #419d78;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 5px 0;
+  outline: none;
+  padding: 15px;
+  transition: all 0.3s ease-out;
+  width: 90%;
+}
+
+.label-float input::placeholder {
+  color: transparent;
+}
+
+.label-float p {
+  color: #e3e4db;
+  left: 0;
+  margin: 20px 5px;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transition: all 0.3s ease-out;
+}
+
+.label-float input:focus + p, .label-float input:not( :placeholder-shown ) + p {
+  color: #e3e4db;
+  font-size: 13px;
+  margin: 10px;
+}
+
+.login-button {
+  background-color: #171614;
+  border: none;
+  color: #e3e4db;
+  font-size: 18px;
+  padding: 15px;
+}
+
+.login-button:hover {
+  opacity: 0.8;
+}
