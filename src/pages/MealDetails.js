@@ -1,23 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchDetails } from '../services';
+import { fetchDetails, fetchRecipes } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import RecommendedCard from '../components/RecommendedCard';
 
+const MAX_RECOMENDATION = 6;
+
 function MealDetails({ match: { params: { id } } }) {
   const [isReady, setIsReady] = useState(false);
   const [recipe, setRecipe] = useState({});
+  const [recomendations, setRecomendations] = useState([]);
   const location = useLocation();
   const initialRender = useRef(false);
+  const loading = <p>Loading...</p>;
 
   useEffect(() => {
     const fetchRecipe = async () => {
       const data = await fetchDetails(location.pathname, id);
       setRecipe(data);
     };
+    const fetchRecomendations = async () => {
+      const data = await fetchRecipes('', 'name', '/bebidas');
+      setRecomendations(data.slice(0, MAX_RECOMENDATION));
+    };
     fetchRecipe();
+    fetchRecomendations();
   }, []);
 
   useEffect(() => {
@@ -28,7 +37,7 @@ function MealDetails({ match: { params: { id } } }) {
     }
   }, [recipe]);
 
-  if (!isReady) return <p>Loading...</p>;
+  if (!isReady) return loading;
 
   return (
     <div>
@@ -56,8 +65,10 @@ function MealDetails({ match: { params: { id } } }) {
                   htmlFor="ingredient"
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
-                  <input type="checkbox" id="ingredient" />
-                  {`${value} - ${recipe[`strMeasure${index}`]}`}
+                  {`${value} - ${recipe[`strMeasure${index + 1}`]}`}
+                  {/* <input type="checkbox" id="ingredient" /> */}
+                  {/* Podemos usar esse input checkbox quando
+                  estivermos na página de progresso da receita */}
                 </label>);
             }
             return null;
@@ -66,8 +77,16 @@ function MealDetails({ match: { params: { id } } }) {
       </div>
       <p data-testid="instructions">{recipe.strInstructions}</p>
       <iframe data-testid="video" src={ recipe.strYoutube } title="Video" />
-      { /* Recomendados não está pronto */}
-      <RecommendedCard testid="0-recomendation-card" />
+      <div>
+        {
+          recomendations.length > 0
+            ? recomendations
+              .map((recomended, index) => (
+                <RecommendedCard key={ index } testid={ `${index}-recomendation-card` } />
+              ))
+            : loading
+        }
+      </div>
       <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
     </div>
   );
