@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/ComponentHeader';
 import recipeContext from '../context';
 import SearchInput from '../components/SearchInput';
 import ComponentFooter from '../components/ComponentFooter';

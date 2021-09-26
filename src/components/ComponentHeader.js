@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
-import './Header.css';
+import './Styles/Header.css';
 import recipeContext from '../context';
 
 function Header({ title, hideProfile, hideSearch }) {

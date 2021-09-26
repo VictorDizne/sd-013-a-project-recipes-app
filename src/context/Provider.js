@@ -37,15 +37,9 @@ function Provider({ children }) {
       .then((response) => setCategoryList(response));
   };
 
-  const fetchFoodsOfCategory = (currentPage, foods, ref) => {
-    if (ref === true) {
-      FetchAPI(currentPage, 'filter', 'c', foods)
-        .then((response) => setRecipeList(response));
-    }
-    if (ref === false) {
-      FetchAPI(currentPage, 'search', 's', '')
-        .then((response) => setRecipeList(response));
-    }
+  const fetchFoodsOfCategory = (currentPage, variable, letter, foods) => {
+    FetchAPI(currentPage, variable, letter, foods)
+      .then((response) => setRecipeList(response));
   };
 
   const handleShowInput = () => {

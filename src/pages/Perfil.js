@@ -1,7 +1,7 @@
 // @ts-check
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/ComponentHeader';
 import ComponentFooter from '../components/ComponentFooter';
 
 function Perfil() {

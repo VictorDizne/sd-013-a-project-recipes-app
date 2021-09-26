@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useEffect } from 'react';
+import { useDebugState } from 'use-named-state';
 import recipeContext from '../context';
 
 function ComponentCategory() {
@@ -9,26 +10,31 @@ function ComponentCategory() {
   const quantity = 5;
   const controledList = categoryList.slice(0, quantity);
 
-  const activeFilter = useRef(false);
+  const currentButtonFilter = useRef('');
+  const [buttonFilter, setButtonFilter] = useDebugState('buttonFilter', '');
 
-  useEffect(() => {
-    console.log('componentDidMount');
-  }, []);
-
-  const handleClick = (item) => {
-    if (activeFilter.current === false) {
-      activeFilter.current = true;
-    } else {
-      activeFilter.current = false;
-    }
-    fetchFoodsOfCategory(currentPage, item.strCategory, activeFilter.current);
+  const setFilter = ({ target: { id } }) => {
+    setButtonFilter({ [id]: !buttonFilter[id] });
+    currentButtonFilter.current = id;
   };
+
+  const dynamicFetch = () => {
+    if (buttonFilter[currentButtonFilter.current] === true) {
+      fetchFoodsOfCategory(currentPage, 'filter', 'c', currentButtonFilter.current);
+    }
+    if (buttonFilter[currentButtonFilter.current] === false) {
+      fetchFoodsOfCategory(currentPage, 'search', 's', '');
+    }
+  };
+
+  useEffect(dynamicFetch, [buttonFilter]);
 
   return (
     <div>
       {!loading && controledList.map((item, index) => (
         <button
-          onClick={ () => handleClick(item) }
+          id={ item.strCategory }
+          onClick={ setFilter }
           key={ index }
           data-testid={ `${item.strCategory}-category-filter` }
           type="button"
