@@ -43,5 +43,5 @@ export const fetchDetails = async (path, id) => {
   }
   const response = await fetch(`https://www.the${strUrl}db.com/api/json/v1/1/lookup.php?i=${id}`);
   const json = await response.json();
-  return json[dataKey];
+  return json[dataKey][0];
 };
