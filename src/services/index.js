@@ -31,4 +31,17 @@ export const fetchRecipes = async (query, type, path) => {
   }
 };
 
-export const generic = () => null;
+export const fetchDetails = async (path, id) => {
+  let strUrl = '';
+  let dataKey = '';
+  if (path.includes('/comidas')) {
+    strUrl = 'meal';
+    dataKey = 'meals';
+  } else {
+    strUrl = 'cocktail';
+    dataKey = 'drinks';
+  }
+  const response = await fetch(`https://www.the${strUrl}db.com/api/json/v1/1/lookup.php?i=${id}`);
+  const json = await response.json();
+  return json[dataKey];
+};
