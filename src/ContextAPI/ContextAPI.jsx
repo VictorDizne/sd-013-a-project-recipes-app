@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 function ContextAPIProvider({ children }) {
-  const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState('');
 
   const errorMessage = (
@@ -25,10 +25,10 @@ function ContextAPIProvider({ children }) {
       }
 
       if (type === 'themealdb') {
-        setData(json.meals);
+        setSearchData(json.meals);
         setLoading({ loading: false });
       } else {
-        setData(json.drinks);
+        setSearchData(json.drinks);
         setLoading({ loading: false });
       }
     } catch (e) {
@@ -47,10 +47,10 @@ function ContextAPIProvider({ children }) {
       }
 
       if (type === 'themealdb') {
-        setData(json.meals);
+        setSearchData(json.meals);
         setLoading({ loading: false });
       } else {
-        setData(json.drinks);
+        setSearchData(json.drinks);
         setLoading({ loading: false });
       }
     } catch (e) {
@@ -69,10 +69,10 @@ function ContextAPIProvider({ children }) {
       }
 
       if (type === 'themealdb') {
-        setData(json.meals);
+        setSearchData(json.meals);
         setLoading({ loading: false });
       } else {
-        setData(json.drinks);
+        setSearchData(json.drinks);
         setLoading({ loading: false });
       }
     } catch (e) {
@@ -84,7 +84,7 @@ function ContextAPIProvider({ children }) {
     fetchIngredient,
     fetchName,
     fetchFirstLetter,
-    data,
+    searchData,
     loading,
     setLoading,
   };
