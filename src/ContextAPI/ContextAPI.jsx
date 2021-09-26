@@ -9,6 +9,7 @@ function ContextAPIProvider({ children }) {
   const errorMessage = (
     'Sinto muito, não encontramos nenhuma receita para esses filtros.'
   );
+
   // Lógica para gerar mensagem de erro inspirada em código de colegas disponível no link a seguir:
   // https://github.com/tryber/sd-013-a-project-recipes-app/pull/57;
 
