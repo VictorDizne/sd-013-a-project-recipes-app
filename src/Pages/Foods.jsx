@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../Components/Header';
-import MenuInferior from '../Components/MenuInferior';
+import Footer from '../Components/Footer';
 import RecipeCard from '../Components/RecipeCard';
 import Context from '../ContextAPI/Context';
 
@@ -30,7 +30,7 @@ export default function Foods() {
             key={ index }
             index={ index }
           />))}
-      <MenuInferior />
+      <Footer />
     </div>
   );
 }

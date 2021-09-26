@@ -5,7 +5,7 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-export default function MenuInferior() {
+export default function Footer() {
   const history = useHistory();
   const clickDrinks = () => history.push('/bebidas');
   const clickExplore = () => history.push('/explorar');
