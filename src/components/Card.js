@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Card({ index, recipeImage, recipeName }) {
   return (
-    <div>
+    <div className="recipe-card">
       <img
         src={ recipeImage }
         alt={ recipeName }

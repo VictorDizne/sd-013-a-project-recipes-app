@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import RecipeDetails from '../components/RecipeDetails';
+import RecipesContext from '../context/RecipesContext';
 
-export default function DetalhesComida({ match: { params: { recipeId } } }) {
+export default function DetalhesComida({ match: { params: { recipeId } }, history }) {
   const [meal, setMeal] = useState({});
+  const [startRecipeBtn, setStartRecipeBtn] = useState(true);
+  const { setBtnText } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetching = async () => {
@@ -16,9 +19,39 @@ export default function DetalhesComida({ match: { params: { recipeId } } }) {
     fetching();
   }, [recipeId]);
 
+  useEffect(() => {
+    const getRecipeStorage = localStorage.getItem('doneRecipes');
+
+    console.log(getRecipeStorage);
+    if (getRecipeStorage) {
+      const recipeExists = JSON.parse(getRecipeStorage).some((r) => (
+        r.idMeal === meal.idMeal));
+      if (recipeExists) {
+        setStartRecipeBtn(true);
+      } else {
+        setStartRecipeBtn(false);
+      }
+    }
+  }, [meal.idMeal]);
+
+  useEffect(() => {
+    const inProgressRecipe = localStorage.getItem('inProgressRecipes');
+
+    if (inProgressRecipe) {
+      const recipeExists = JSON.parse(inProgressRecipe);
+
+      if (recipeExists.meals[meal.idMeal]) setBtnText('Continuar Receita');
+    }
+  }, [meal.idMeal, setBtnText]);
+
   return (
     <div>
-      <RecipeDetails recipe={ meal } isMeal />
+      <RecipeDetails
+        history={ history }
+        showBtn={ startRecipeBtn }
+        recipe={ meal }
+        isMeal
+      />
     </div>
   );
 }
@@ -28,5 +61,8 @@ DetalhesComida.propTypes = {
     params: PropTypes.shape({
       recipeId: PropTypes.string,
     }),
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
