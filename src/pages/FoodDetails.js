@@ -1,15 +1,33 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import Image from 'react-bootstrap/Image';
+import FavoriteButton from '../components/favoriteButton';
 import CardRecomendations from '../components/recomendationCard';
+import ShareButton from '../components/shareButton';
 import appContext from '../contexts/appContext';
-import './css/foodDetails.css';
+import './css/details.css';
 
 function FoodDetails() {
   const [meal, setMeal] = useState({});
-  const { getIngredients, recipesInProgress, setRecipes } = useContext(appContext);
+  const { getIngredients } = useContext(appContext);
   const [recomendations, setRecomendations] = useState([]);
+  const [inProgress, setInProgress] = useState(false);
   const history = useHistory();
   const { id } = useParams();
+  const { ingredients, measures } = getIngredients(meal);
+
+  useEffect(() => {
+    // ao entrar na page, ele verifica se os localStorages estão setados ou n,
+    // se não estiver, será setado.
+    if (!JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {}, meals: {},
+      }));
+    }
+  }, []);
 
   useEffect(() => {
     const getMeal = async () => {
@@ -26,28 +44,46 @@ function FoodDetails() {
       setRecomendations(drinks);
     };
     getRecomendations();
-  }, [id]);
-  /*  console.log(meal); */
-  const startRecipe = () => {
-    if (!recipesInProgress.includes(id)) {
-      setRecipes([...recipesInProgress, id]);
-    }
-    history.push(`/comidas/${id}/in-progress`);
-  };
 
-  const { ingredients, measures } = getIngredients(meal);
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (meals[id]) { // verifica se a comida está em progresso.
+      return setInProgress(true);
+    }
+  }, [id]);
+
+  const buttonStartRecipe = () => {
+    // coloca a receita em progresso quando clicamos para iniciar progresso.
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes.meals[id]) {
+      setInProgress(true);
+      return history.push(`/comidas/${id}/in-progress`);
+    }
+
+    const meals = {
+      ...inProgressRecipes.meals,
+      [id]: ingredients,
+    };
+    console.log({ ...inProgressRecipes, meals });
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify({ ...inProgressRecipes, meals }));
+    setInProgress(false);
+    return history.push(`/comidas/${id}/in-progress`);
+  };
 
   const URL = meal.strYoutube ? meal.strYoutube.split('=') : '';
 
   return (
     <main>
-      <img
+      <Image
         src={ meal.strMealThumb }
         alt={ `${meal.trMeal}` }
         data-testid="recipe-photo"
+        fluid
       />
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
-      <p>{meal.strCategory}</p>
+      <p data-testid="recipe-category">{meal.strCategory}</p>
+      <ShareButton />
+      <FavoriteButton meal={ meal } />
       <h3>Ingredients</h3>
       <ul>
         {
@@ -59,7 +95,7 @@ function FoodDetails() {
         }
       </ul>
       <h3>Instructions</h3>
-      <p>{meal.strInstructions}</p>
+      <p data-testid="instructions">{meal.strInstructions}</p>
       <div data-testid="video" className="video-detail">
         <iframe
           width="360"
@@ -71,15 +107,17 @@ function FoodDetails() {
           allowFullScreen
         />
       </div>
-      <CardRecomendations name="bebidas" recomends={ recomendations } maxCards={ 6 } />
+      <div className="horizontal-scroll">
+        <CardRecomendations name="bebidas" recomends={ recomendations } maxCards={ 6 } />
+      </div>
       <div>
         <button
           type="button"
           style={ { position: 'fixed', bottom: '0' } }
-          onClick={ () => startRecipe() }
+          onClick={ () => buttonStartRecipe() }
+          data-testid="start-recipe-btn"
         >
-          { recipesInProgress.includes(id) ? 'Continuar Receita'
-            : 'Iniciar Receita'}
+          { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
       </div>
     </main>

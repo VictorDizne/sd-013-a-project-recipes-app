@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, CardGroup } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function CardRecomendations({ recomends, maxCards }) {
@@ -18,24 +19,26 @@ export default function CardRecomendations({ recomends, maxCards }) {
     for (let i = 0; i < maxCards; i += 1) {
       const { src, alt, to } = srcAltTo(i);
       carousel.push(
-        <Link
-          to={ to }
-          data-testid={ `${i}-recomendation-card` }
-        >
-          <div>
-            <img
-              src={ src }
-              alt={ alt }
-              key={ i }
-            />
-            <p>
-              {name ? recomends[i].strAlcoholic : recomends[i].strCategory}
-            </p>
-            <p>
-              {name ? recomends[i].strDrink : recomends[i].strMeal}
-            </p>
-          </div>
-        </Link>,
+        <CardGroup key={ i }>
+          <Link
+            to={ to }
+            data-testid={ `${i}-recomendation-card` }
+          >
+            <Card style={ { width: '14rem' } }>
+              <Card.Body>
+                <Card.Img variant="top" src={ src } key={ i } alt={ alt } />
+                <Card.Title data-testid={ `${i}-recomendation-title` }>
+                  {name === 'bebidas'
+                    ? recomends[i].strDrink : recomends[i].strMeal}
+                </Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {name === 'bebidas'
+                    ? recomends[i].strAlcoholic : recomends[i].strCategory}
+                </Card.Subtitle>
+              </Card.Body>
+            </Card>
+          </Link>
+        </CardGroup>,
       );
     }
   }
