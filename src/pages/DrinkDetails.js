@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import Image from 'react-bootstrap/Image';
 import FavoriteButton from '../components/favoriteButton';
 import CardRecomendations from '../components/recomendationCard';
 import ShareButton from '../components/shareButton';
@@ -71,10 +72,11 @@ function DrinkDetail() {
 
   return (
     <main>
-      <img
-        src={ drink.strDrinkThumb }
-        alt={ `${drink.trDrink}` }
+      <Image
+        src={ drink.strMealThumb }
+        alt={ `${drink.trMeal}` }
         data-testid="recipe-photo"
+        fluid
       />
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>
       <p data-testid="recipe-category">{drink.strAlcoholic}</p>
