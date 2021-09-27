@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchDetails, fetchRecipes } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import RecommendedCard from '../components/RecommendedCard';
+import Recomendations from '../components/Recomendations';
 
 const MAX_RECOMENDATION = 6;
 
@@ -16,6 +16,11 @@ function MealDetails({ match: { params: { id } } }) {
   const initialRender = useRef(false);
   const loading = <p>Loading.......</p>;
 
+  const styleBtn = {
+    position: 'fixed',
+    bottom: '0px',
+  };
+
   useEffect(() => {
     const fetchRecipe = async () => {
       const data = await fetchDetails(location.pathname, id);
@@ -24,6 +29,7 @@ function MealDetails({ match: { params: { id } } }) {
     const fetchRecomendations = async () => {
       const data = await fetchRecipes('', 'name', '/bebidas');
       setRecomendations(data.slice(0, MAX_RECOMENDATION));
+      console.log(data.slice(0, MAX_RECOMENDATION));
     };
     fetchRecipe();
     fetchRecomendations();
@@ -78,16 +84,15 @@ function MealDetails({ match: { params: { id } } }) {
       <p data-testid="instructions">{recipe.strInstructions}</p>
       <iframe data-testid="video" src={ recipe.strYoutube } title="Video" />
       <div>
-        {
-          recomendations.length > 0
-            ? recomendations
-              .map((recomended, index) => (
-                <RecommendedCard key={ index } testid={ `${index}-recomendation-card` } />
-              ))
-            : loading
-        }
+        <Recomendations recomendations={ recomendations } />
       </div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        style={ styleBtn }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchDetails, fetchRecipes } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import RecommendedCard from '../components/RecommendedCard';
+import Recomendations from '../components/Recomendations';
 
 const MAX_RECOMENDATION = 6;
 
@@ -15,6 +15,11 @@ function DrinkDetails({ match: { params: { id } } }) {
   const location = useLocation();
   const initialRender = useRef(false);
   const loading = <p>Loading...</p>;
+
+  const styleBtn = {
+    position: 'fixed',
+    bottom: '0px',
+  };
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -78,16 +83,15 @@ function DrinkDetails({ match: { params: { id } } }) {
       </div>
       <p data-testid="instructions">{recipe.strInstructions}</p>
       <div>
-        {
-          recomendations.length > 0
-            ? recomendations
-              .map((recomended, index) => (
-                <RecommendedCard key={ index } testid={ `${index}-recomendation-card` } />
-              ))
-            : loading
-        }
+        <Recomendations recomendations={ recomendations } />
       </div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        style={ styleBtn }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
