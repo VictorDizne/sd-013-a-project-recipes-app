@@ -1,15 +1,48 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
+// import { meals } from '../../cypress/mocks/meals';
 
-const RecipeDetails = ({ recipe, isMeal }) => {
+function RecipeInProgress({ recipe, isMeal }) {
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(
+      {
+        cocktails: {},
+        meals: {},
+      },
+    ));
+  }, []);
+
+  const verifyChecked = (event, indexIng, id) => {
+    console.log(event.target.checked);
+    console.log(id);
+
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (event.target.checked === true && isMeal) {
+      const updatedMeals = {
+        ...inProgressRecipes,
+        meals: { [id]: [...inProgressRecipes.meals[id], indexIng] },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(updatedMeals));
+    } else if (event.target.checked === false || !isMeal) {
+      const updatedCocktails = {
+        ...inProgressRecipes,
+        cocktails: { [id]: [...inProgressRecipes.cocktails[id], indexIng] },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(updatedCocktails));
+    }
+  };
+
   const recipeIngredients = [];
 
   const getIngredients = () => {
     const MAX_INGREDIENTS = 16;
+
     for (let i = 0; i < MAX_INGREDIENTS; i += 1) {
       const auxObj = { name: '', measure: '' };
+
       if (recipe[`strIngredient${i}`]) {
         auxObj.name = recipe[`strIngredient${i}`];
         auxObj.measure = recipe[`strMeasure${i}`];
@@ -20,12 +53,19 @@ const RecipeDetails = ({ recipe, isMeal }) => {
     return (
       <ul>
         {recipeIngredients.map((ingredient, i) => (
-          <li
+          <label
+            htmlFor={ `${i}-ingredient-step` }
             key={ `${ingredient.name} ${i}` }
-            data-testid={ `${i}-ingredient-name-and-measure` }
+            data-testid={ `${i}-ingredient-step` }
           >
+            <input
+              type="checkbox"
+              onClick={ (event) => {
+                verifyChecked(event, i, recipe.idMeal || recipe.idDrink);
+              } }
+            />
             {`${ingredient.name} ${ingredient.measure}`}
-          </li>
+          </label>
         ))}
       </ul>
     );
@@ -60,19 +100,19 @@ const RecipeDetails = ({ recipe, isMeal }) => {
         data-testid="recipe-category"
       >
         {`${recipe.strCategory} ${recipe.strAlcoholic}`}
-
       </h3>
 
       {getIngredients()}
+
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      {isMeal && <a data-testid="video" href={ recipe.strVideo }>Video</a>}
-      <p data-testid="0-recomendation-card">Ae</p>
-      <button type="button" data-testid="start-recipe-btn">Começar receita</button>
+
+      <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
+
     </div>
   );
-};
+}
 
-RecipeDetails.propTypes = {
+RecipeInProgress.propTypes = {
   recipe: PropTypes.shape({
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
@@ -83,8 +123,10 @@ RecipeDetails.propTypes = {
     strVideo: PropTypes.string,
     strIngredient: PropTypes.string,
     strAlcoholic: PropTypes.string,
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
   }).isRequired,
   isMeal: PropTypes.bool.isRequired,
 };
 
-export default RecipeDetails;
+export default RecipeInProgress;

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Card from '../components/Card';
@@ -88,10 +88,11 @@ export default function Comidas({ history }) {
               }
               {
                 meals.map((meal, index) => (
-                  <Link
+                  <a
                     data-testid={ `${index}-recipe-card` }
-                    to={ `/comidas/${meal.idMeal}` }
+                    href={ `/comidas/${meal.idMeal}` }
                     key={ meal.idMeal }
+                    style={ { width: '5px', height: '20px' } }
                   >
                     <Card
                       key={ meal.idMeal }
@@ -99,9 +100,9 @@ export default function Comidas({ history }) {
                       recipe={ meal }
                       recipeImage={ meal.strMealThumb }
                       recipeName={ meal.strMeal }
-                      link={ `/comidas/${meal.idMeal}` }
+                      // link={ `/comidas/${meal.idMeal}` }
                     />
-                  </Link>
+                  </a>
                 ))
               }
             </>
