@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import RecipeCard from '../Components/RecipeCard';
-import Button from '../Components/Button';
+import Buttons from '../Components/Buttons';
 import Context from '../ContextAPI/Context';
 
 export default function Foods() {
@@ -35,7 +35,7 @@ export default function Foods() {
     <div>
       <Header value={ pageTitle } />
       <h1>Foods</h1>
-      <Button />
+      <Buttons />
 
       {fetchMeals.map((recipe, index) => (
         <RecipeCard

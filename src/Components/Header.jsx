@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import profileIcon from '../Images/profileIcon.svg';
+import searchIcon from '../Images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
 function Header({ value }) {
