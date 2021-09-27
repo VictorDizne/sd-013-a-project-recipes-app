@@ -1,8 +1,8 @@
 .video-detail {
   height: 0;
   margin: 10px;
-  position: relative;
   padding-bottom: 56.25%;
+  position: relative;
   width: 94%;
 }
 
@@ -17,8 +17,8 @@
 .horizontal-scroll {
   border: 1px solid black;
   display: flex;
-  max-height: 300px;
   margin: 5px;
+  max-height: 300px;
   overflow-x: auto;
 }
 
