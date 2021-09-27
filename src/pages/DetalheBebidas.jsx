@@ -5,7 +5,7 @@ import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
 import Loading from '../components/Loading';
 import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
-import BlackHeart from '..'
+/* import BlackHeart from '../images/'; */
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -54,8 +54,7 @@ const DetalheBebidas = ({ match: { params: { id } }, history }) => {
     strCategory,
     strInstructions,
     strDrinkThumb,
-    strAlcoholic,
-    dateModified } = drinkDetail;
+    strAlcoholic } = drinkDetail;
 
   const handleClick = () => {
     const btn = document.getElementById(`${id}`);
@@ -74,7 +73,7 @@ const DetalheBebidas = ({ match: { params: { id } }, history }) => {
   const handleFavorite = () => {
     if (localStorage.getItem('favoriteRecipes') === null) {
       localStorage.setItem('favoriteRecipes', JSON
-        .stringify({
+        .stringify([{
           id,
           type: 'bebida',
           category: strCategory,
@@ -82,11 +81,19 @@ const DetalheBebidas = ({ match: { params: { id } }, history }) => {
           name: strDrink,
           image: strDrinkThumb,
           doneDate: 'quando-a-receita-foi-concluida',
-          tags: 'array - de - tags - da - receita - ou - array - vazio' }));
+          tags: 'array-de-tags-da-receita-ou-array-vazio' }]));
     }
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     localStorage.setItem('favoriteRecipes', JSON
-      .stringify({ ...recipes, cocktails: { ...recipes.cocktails, [id]: [] } }));
+      .stringify([...recipes, {
+        id,
+        type: 'bebida',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
+        doneDate: 'quando-a-receita-foi-concluida',
+        tags: 'array-de-tags-da-receita-ou-array-vazio' }]));
   };
 
   return (drinkDetail.length === 0 && foodsDetails.length === 0) ? <Loading /> : (

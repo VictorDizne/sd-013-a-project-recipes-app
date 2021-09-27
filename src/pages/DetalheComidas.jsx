@@ -7,6 +7,7 @@ import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import BlackHeart from './..images/blackHeartIcon.svg';
 
 const DetalheComidas = ({ match: { params: { id } }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
@@ -66,7 +67,7 @@ const DetalheComidas = ({ match: { params: { id } }, history }) => {
     history.push(`/comidas/${id}/in-progress`);
   };
 
-  const handleFavorite = () => {
+/*   const handleFavorite = () => {
     if (localStorage.getItem('favoriteRecipes') === null) {
       localStorage.setItem('favoriteRecipes', JSON
         .stringify({
@@ -84,7 +85,7 @@ const DetalheComidas = ({ match: { params: { id } }, history }) => {
     localStorage.setItem('favoriteRecipes', JSON
       .stringify({ ...recipes, cocktails: { ...recipes.cocktails, [id]: [] } }));
   };
-
+ */
   return (foodDetail.length === 0 && drinksDetails.length === 0) ? <Loading /> : (
     <div>
       { console.log(ingredientsValues) }
@@ -102,7 +103,7 @@ const DetalheComidas = ({ match: { params: { id } }, history }) => {
         <img src={ Share } alt="btn share" />
       </button>
       <button
-        onClick={ handleFavorite }
+        /* onClick={ handleFavorite } */
         data-testid="favorite-btn"
         type="button"
       >
