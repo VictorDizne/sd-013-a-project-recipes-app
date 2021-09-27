@@ -19,7 +19,6 @@ function Provider({ children }) {
   const [categoryList, setCategoryList] = useDebugState('CategoryList', '');
   const [currentID, setCurrentID] = useDebugState('CurentID', 0);
   const [loading, setLoading] = useDebugState('Loading', true);
-  const [details, setDetails] = useDebugState('Details', '');
 
   const handleCurrentPage = () => {
     const { location: { pathname } } = history;
@@ -41,11 +40,6 @@ function Provider({ children }) {
   const fetchFoodsOfCategory = (currentPage, buttonState, letter, foodsCategory) => {
     FetchAPI(currentPage, buttonState, letter, foodsCategory)
       .then((response) => setRecipeList(response));
-  };
-
-  const fetchDetails = (currentPage, buttonState, letter, foodsCategory) => {
-    FetchAPI(currentPage, buttonState, letter, foodsCategory)
-      .then((response) => setDetails(response));
   };
 
   const handleShowInput = () => {
@@ -75,9 +69,6 @@ function Provider({ children }) {
 
   useEffect(() => {
     if (currentID !== 0) {
-      const recipeDetails = recipeList.find((element) => (element.idMeal === currentID)
-      || (element.idDrink === currentID));
-      setDetails(recipeDetails);
       setDataForFetch({ ...dataForFetch, redirectState: true });
     }
   }, [currentID]);
@@ -92,24 +83,24 @@ function Provider({ children }) {
     }
   }, [recipeList, categoryList]);
 
-  const ContextCard = { recipeList,
+  const ContextCard = {
+    recipeList,
     dataForFetch,
     loading,
     categoryList,
     fetchFoodsOfCategory,
     setCurrentID,
   };
-  const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
   const ContextFoods = {
-    showInput, handleCurrentPage, dataForFetch, currentID, loading, handleFetch };
-  const ContextDetails = {
-    details,
+    showInput,
+    handleCurrentPage,
     dataForFetch,
     currentID,
-    handleCurrentPage,
-    recipeList,
-    fetchDetails,
+    loading,
+    handleFetch,
   };
+  const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
+  const ContextDetails = {};
 
   const context = {
     ContextCard,
