@@ -16,6 +16,7 @@ function Provider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
+  const [mealDetails, setMealDetails] = useState({});
 
   const [toggleOn, setToggleOn] = useState('');
 
@@ -54,6 +55,8 @@ function Provider({ children }) {
     setMealsCategories,
     filteredMeals,
     setFilteredMeals,
+    mealDetails,
+    setMealDetails,
 
     drinks,
     drinksCategories,
