@@ -35,13 +35,12 @@ function App() {
           />
           <Route
             exact
-            path="comidas/:id/in-progress"
-            component={ pages.ReceitasProcessoComidas }
+            path="/comidas/:id/in-progress"
+            component={ pages.ReceitasProcessosComidas }
           />
           <Route
-            exact
-            path="bebidas/:id/in-progress"
-            component={ pages.ReceitasProcessoBebidas }
+            path="/bebidas/:id/in-progress"
+            component={ pages.ReceitasProcessosBebidas }
           />
           <Route
             exact

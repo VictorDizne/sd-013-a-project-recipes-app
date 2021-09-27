@@ -8,7 +8,7 @@ import Heart from '../images/whiteHeartIcon.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const DetalheComidas = ({ match: { params: { id } } }) => {
+const DetalheComidas = ({ match: { params: { id } }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
   const [drinksDetails, setDrinkDetails] = useState([]);
   const settings = {
@@ -17,6 +17,7 @@ const DetalheComidas = ({ match: { params: { id } } }) => {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
+    arrows: true,
   };
 
   useEffect(() => {
@@ -38,12 +39,51 @@ const DetalheComidas = ({ match: { params: { id } } }) => {
   }, []);
 
   const keysOfApi = Object.keys(foodDetail);
+
+  const measurementKeys = keysOfApi.filter((chave) => chave.includes('strMeasure'))
+    .map((measure) => foodDetail[measure])
+    .filter((measure) => measure !== null || measure !== '');
+
   const ingredientsKeys = keysOfApi.filter((chave) => chave.includes('strIngredient'));
   const ingredientsValues = ingredientsKeys
     .map((ingredient) => foodDetail[ingredient])
     .filter((ingredient) => ingredient !== '');
 
   const { strMeal, strCategory, strInstructions, strMealThumb, strYoutube } = foodDetail;
+
+  const handleClick = () => {
+    const btn = document.getElementById(`${id}`);
+    btn.innerHTML = 'Continuar Receita';
+    console.log(btn);
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ meals: { [id]: [] } }));
+    }
+    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes', JSON
+      .stringify({ ...recipes, meals: { ...recipes.meals, [id]: [] } }));
+
+    history.push(`/comidas/${id}/in-progress`);
+  };
+
+  const handleFavorite = () => {
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      localStorage.setItem('favoriteRecipes', JSON
+        .stringify({
+          id,
+          type: 'comida',
+          area: strArea,
+          category: strCategory,
+          name: strMeal,
+          image: strMeakThumb,
+          doneDate: 'quando - a - receita - foi - concluida',
+          tags: 'array - de - tags - da - receita - ou - array - vazio',
+        }));
+    }
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    localStorage.setItem('favoriteRecipes', JSON
+      .stringify({ ...recipes, cocktails: { ...recipes.cocktails, [id]: [] } }));
+  };
 
   return (foodDetail.length === 0 && drinksDetails.length === 0) ? <Loading /> : (
     <div>
@@ -62,6 +102,7 @@ const DetalheComidas = ({ match: { params: { id } } }) => {
         <img src={ Share } alt="btn share" />
       </button>
       <button
+        onClick={ handleFavorite }
         data-testid="favorite-btn"
         type="button"
       >
@@ -71,16 +112,28 @@ const DetalheComidas = ({ match: { params: { id } } }) => {
       <p data-testid="recipe-category">{strCategory}</p>
       <section>
         <p>Ingredients</p>
-        <ul>
-          {ingredientsValues
-            .map((ingredient, i) => (
-              <li
-                data-testid={ `${i}-ingredient-name-and-measure` }
-                key={ i }
-              >
-                { ingredient }
-              </li>))}
-        </ul>
+        <div className="ingredients-measure">
+          <ul>
+            {ingredientsValues
+              .map((ingredient, i) => (
+                <li
+                  data-testid={ `${i}-ingredient-name-and-measure` }
+                  key={ i }
+                >
+                  { ingredient }
+                </li>))}
+          </ul>
+          <ul>
+            {measurementKeys
+              .map((measure, i) => (
+                <li
+                  data-testid={ `${i}-ingredient-name-and-measure` }
+                  key={ i }
+                >
+                  { measure }
+                </li>))}
+          </ul>
+        </div>
       </section>
       <p data-testid="instructions">{strInstructions}</p>
       <iframe
@@ -111,6 +164,8 @@ const DetalheComidas = ({ match: { params: { id } } }) => {
           ))}
       </Slider>
       <button
+        id={ id }
+        onClick={ handleClick }
         className="iniciar"
         data-testid="start-recipe-btn"
         type="button"

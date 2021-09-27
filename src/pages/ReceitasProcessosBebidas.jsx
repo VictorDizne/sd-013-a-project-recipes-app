@@ -1,4 +1,5 @@
 import React from 'react';
 
-const ReceitasProcessoBebidas = () => (<div>oi</div>);
-export default ReceitasProcessoBebidas;
+const ReceitasProcessosBebidas = () => (<p>BEBIDAS IN PROCESS</p>);
+
+export default ReceitasProcessosBebidas;
