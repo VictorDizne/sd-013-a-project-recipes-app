@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 
 function MealCard({ index, meal: { strMealThumb, strMeal, idMeal } }) {
   return (
-    <Link to={ `/comidas/${idMeal}` }>
+    <Link
+      to={ `/comidas/${idMeal}` }
+    >
       <div data-testid={ `${index}-recipe-card` } className="card">
         <img
           src={ strMealThumb }

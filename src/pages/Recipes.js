@@ -14,7 +14,6 @@ function Recipes() {
   const { searchBar: { query, endpoint } } = useContext(MyContext);
 
   const { meals } = useFetch(query, endpoint, true);
-  console.log(meals);
 
   const categoriesData = useFetch('list', 'categories', true);
 
