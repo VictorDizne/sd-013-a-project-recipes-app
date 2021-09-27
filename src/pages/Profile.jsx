@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Header, Footer, Button } from '../components/index';
+import { Button } from '../components/index';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Profile() {
   const getUserEmail = () => {
