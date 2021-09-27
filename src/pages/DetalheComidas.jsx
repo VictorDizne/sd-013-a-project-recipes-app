@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Slider from 'react-slick';
 import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
 import Loading from '../components/Loading';
 import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const DetalheComidas = ({ match: { params: { id } } }) => {
   const [foodDetail, setfoodDetail] = useState([]);
   const [drinksDetails, setDrinkDetails] = useState([]);
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+  };
 
   useEffect(() => {
     const getAPIdata = async () => {
@@ -85,20 +95,21 @@ const DetalheComidas = ({ match: { params: { id } } }) => {
         allow="accelerometer; gyroscope; picture-in-picture"
         allowFullScreen
       />
-
-      {drinksDetails
-        .map(({ strDrinkThumb, strDrink, strCategory: strDrikCategory }, i) => (
-          <section key={ i } data-testid={ `${i}-recomendation-card` }>
-            <img
-              width="100"
-              height="100"
-              src={ strDrinkThumb }
-              alt={ strDrink }
-            />
-            <p>{strDrikCategory}</p>
-            <p>{strDrink}</p>
-          </section>
-        ))}
+      <Slider { ...settings }>
+        {drinksDetails
+          .map(({ strDrinkThumb, strDrink, strCategory: strDrikCategory }, i) => (
+            <section key={ i } data-testid={ `${i}-recomendation-card` }>
+              <img
+                width="100"
+                height="100"
+                src={ strDrinkThumb }
+                alt={ strDrink }
+              />
+              <p>{strDrikCategory}</p>
+              <p data-testid={ `${i}-recomendation-title` }>{strDrink}</p>
+            </section>
+          ))}
+      </Slider>
       <button
         className="iniciar"
         data-testid="start-recipe-btn"
