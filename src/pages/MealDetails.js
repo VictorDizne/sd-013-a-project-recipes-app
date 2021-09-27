@@ -14,7 +14,7 @@ function MealDetails({ match: { params: { id } } }) {
   const [recomendations, setRecomendations] = useState([]);
   const location = useLocation();
   const initialRender = useRef(false);
-  const loading = <p>Loading...</p>;
+  const loading = <p>Loading.......</p>;
 
   useEffect(() => {
     const fetchRecipe = async () => {
