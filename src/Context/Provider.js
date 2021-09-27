@@ -1,0 +1,26 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import Context from './Context';
+
+function Provider(props) {
+  const [data, setData] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const [category, setCategory] = useState();
+  const { children } = props;
+  const contextValue = { data, setData, recipes, setRecipes, category, setCategory };
+
+  return (
+    <Context.Provider value={ contextValue }>
+      { children }
+    </Context.Provider>
+  );
+}
+
+Provider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
+
+export default Provider;
