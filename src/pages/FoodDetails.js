@@ -1,94 +1,117 @@
-import React, { useContext } from 'react';
-import RecipesContext from '../context/index';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { fetchFoodById } from '../services/comidasApi';
+import { fetchRecommendedDrinks } from '../services/bebidasApi';
+import RecomendationCard from '../components/RecomendationCard';
+import '../styles/Food.css';
+
+const INITIAL_VALUE = 9;
+const MAX_RECOMANDATION = 6;
 
 function FoodDetails() {
-  const { data, id } = useContext(RecipesContext);
-  const foodFiltered = data.filter((element) => element.idMeal === id);
-  // id 52771
-  const filterIngredient = [];
-  const filtersTrMeasure = [];
+  const [ingredients, setIngredients] = useState([]);
+  const [recipe, setRecipe] = useState([]);
+  const [recomendation, setRecomendation] = useState([]);
 
-  console.log(foodFiltered);
+  const history = useHistory();
+  const historyFilter = history.location.pathname;
+  const historyId = historyFilter.substr(INITIAL_VALUE);
 
-  for (let i = 1; i <= 100; i += 1) {
-    foodFiltered.filter((item) => {
-      if (item[`strIngredient${i}`]) filterIngredient.push(item[`strIngredient${i + 1}`]);
-      return null;
-    });
-  }
+  const fillIngredients = (meal) => {
+    const strMeal = Object.entries(meal[0]);
+    const strIngredient = strMeal.filter(([chave, valor]) => chave
+      .includes('strIngredient') && valor);
 
-  for (let i = 1; i <= 100; i += 1) {
-    foodFiltered.filter((item) => {
-      if (item[`strIngredient${i}`]) filtersTrMeasure.push(item[`strMeasure${i + 1}`]);
-      return null;
-    });
-  }
+    const strMeasure = strMeal.filter(([chave, valor]) => chave
+      .includes('strMeasure') && valor);
+
+    return strIngredient.map((item, index) => `${item[1]} - ${strMeasure[index][1]}`);
+  };
+
+  useEffect(() => {
+    const getRecipe = async () => {
+      const meal = await fetchFoodById(historyId);
+      setIngredients(fillIngredients(meal));
+      setRecipe(meal);
+    };
+    getRecipe();
+  }, [historyId]);
+
+  useEffect(() => {
+    console.log(recipe);
+  }, [recipe]);
+
+  useEffect(() => {
+    const getRecomendations = async () => {
+      const recomemendedRecipes = await fetchRecommendedDrinks();
+      setRecomendation(recomemendedRecipes);
+    };
+    getRecomendations();
+  }, []);
+
+  useEffect(() => {
+    console.log(recomendation, 'recomendation');
+  }, [recomendation]);
 
   return (
-    <div>
-      {
-        foodFiltered
-          .map(({
-            strMealThumb,
-            strArea,
-            strCategory,
-            idMeal,
-            strInstructions,
-            strYoutube,
-            strMeal,
-          }, i) => (
-            <div key={ idMeal }>
-              <img
-                src={ strMealThumb }
-                alt={ strMealThumb }
-                data-testid="recipe-photo"
-                width="50"
-              />
-              <div>
-                <p data-testid="recipe-title">{ strArea }</p>
-                <button type="button" data-testid="share-btn">Compartilhar</button>
-                <button type="button" data-testid="favorite-btn">Favoritos</button>
-              </div>
-              <p data-testid="recipe-category">{ strCategory }</p>
-              <h1>
-                Ingredients
-              </h1>
-              {
-                filterIngredient.map((item, t) => (
-                  <p data-testid={ `${i}-ingredient-name-and-measure` } key={ t }>
-                    { item }
-                  </p>
-                ))
-              }
-              <h1>
-                Instructions
-              </h1>
-              <p data-testid="instructions">{ strInstructions }</p>
-              <h1>
-                Video
-              </h1>
-              <iframe
-                width="425"
-                height="350"
-                src={ strYoutube.replace('watch?v=', 'embed/') }
-                title={ strMeal }
-              />
-              <h1>
-                Recomendadas
-              </h1>
-              {
-                filtersTrMeasure.map((item, c) => (
-                  <p data-testid={ `${i}-recomendation-card` } key={ c }>
-                    { item }
-                  </p>
-                ))
-              }
-              <button type="button" data-testid="start-recipe-btn">
-                Iniciar Receita
-              </button>
-            </div>
-          ))
-      }
+    <div className="food-container">
+      { (recipe.length === 1) && (
+        <div>
+          <img
+            src={ recipe[0].strMealThumb }
+            data-testid="recipe-photo"
+            alt="Imagem da receita"
+            width="200"
+          />
+
+          <h1 data-testid="recipe-title">{ recipe[0].strMeal }</h1>
+
+          <button type="button" data-testid="favorite-btn">Favoritar</button>
+          <button type="button" data-testid="share-btn">Compartilhar</button>
+
+          <p data-testid="recipe-category">{ recipe[0].strCategory }</p>
+        </div>
+      )}
+
+      <h3>Ingredientes</h3>
+      <ul>
+        { ingredients.map((ingredient, index) => (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            { ingredient }
+          </li>
+        )) }
+      </ul>
+
+      <h3>Instruções</h3>
+      { (recipe.length === 1)
+        && <p data-testid="instructions">{ recipe[0].strInstructions }</p> }
+
+      <h3>Video</h3>
+      { (recipe.length === 1)
+        && recipe[0].strYoutube
+        && (<iframe
+          width="425"
+          height="350"
+          src={ recipe[0].strYoutube.replace('watch?v=', 'embed/') }
+          title={ recipe[0].strMeal }
+          data-testid="video"
+        />)}
+
+      { recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
+        <RecomendationCard
+          key={ idx }
+          recipe={ rec }
+          idx={ idx }
+          page="meals"
+        />
+      ))}
+
+      <Link to={ `/comidas/${historyId}/in-progress` } data-testid="start-recipe-btn">
+        Iniciar Receita
+      </Link>
     </div>
   );
 }

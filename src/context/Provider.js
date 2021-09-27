@@ -122,6 +122,24 @@ function Provider({ children }) {
     setDrinkData(results);
   };
 
+  // const handleFoodGetId = async () => {
+  //   const results = await comidasApi.fetchFoodById(catchFoodId);
+  //   setFoodGetId(results);
+  // };
+
+  // const handleDrinkGetId = async () => {
+  //   const results = await bebidasApi.fetchDrinksById(catchDrinkId);
+  //   setDrinkGetId(results);
+  // };
+
+  // useEffect(() => {
+  //   if (catchFoodId) handleFoodGetId();
+  // }, [catchFoodId]);
+
+  // useEffect(() => {
+  //   if (catchDrinkId) handleDrinkGetId();
+  // }, [catchDrinkId]);
+
   const contextValue = {
     inputText,
     setInputText,
@@ -137,6 +155,10 @@ function Provider({ children }) {
     handleDrinksApis,
     handleMealsApisOnLoad,
     handleDrinksApisOnload,
+    // setCatchFoodId,
+    // setCatchDrinkId,
+    // DrinkGetId,
+    // foodGetId,
     setFoodCategories,
     foodCategories,
     setDrinkCategories,
