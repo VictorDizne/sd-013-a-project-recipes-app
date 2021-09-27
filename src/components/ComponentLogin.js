@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDebugState } from 'use-named-state';
+import view from '../images/view.png';
 
 function ComponentLogin() {
   const history = useHistory();
@@ -27,32 +28,58 @@ function ComponentLogin() {
     if (id === 'password') setPasswordComp(value);
   };
 
+  const showPassword = () => {
+    const input = document.querySelector('#password');
+    if (input.getAttribute('type') === 'password') {
+      input.setAttribute('type', 'text');
+    } else {
+      input.setAttribute('type', 'password');
+    }
+  };
+
   return (
-    <div className="login-container">
-      <input
-        value={ emailComp }
-        data-testid="email-input"
-        id="email"
-        type="email"
-        placeholder="Email"
-        onChange={ handleChange }
-      />
-      <input
-        value={ passwordComp }
-        id="password"
-        type="password"
-        placeholder="Password"
-        data-testid="password-input"
-        onChange={ handleChange }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ handleClick }
-        disabled={ !(validEmail.test(emailComp) && passwordComp.length > six) }
-      >
-        Entrar
-      </button>
+    <div className="Login-container">
+      <div className="Login-title">
+        <h1>Foodz</h1>
+      </div>
+      <div className="Login-form">
+        <div className="Login-div">
+          <input
+            className="Login-input"
+            value={ emailComp }
+            id="email"
+            type="email"
+            onChange={ handleChange }
+            data-testid="email-input"
+            required
+          />
+          <span>Email</span>
+        </div>
+        <div className="Login-div ">
+          <input
+            className="Login-input"
+            value={ passwordComp }
+            id="password"
+            type="password"
+            onChange={ handleChange }
+            data-testid="password-input"
+            required
+          />
+          <span>Password</span>
+          <button type="button" onClick={ showPassword } className="Login-eye">
+            <img src={ view } alt="" width="15px" />
+          </button>
+        </div>
+        <button
+          className="Login-input-button"
+          type="button"
+          disabled={ !(validEmail.test(emailComp) && passwordComp.length > six) }
+          onClick={ handleClick }
+          data-testid="login-submit-btn"
+        >
+          Entrar
+        </button>
+      </div>
     </div>
   );
 }

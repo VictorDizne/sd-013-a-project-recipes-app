@@ -37,15 +37,9 @@ function Provider({ children }) {
       .then((response) => setCategoryList(response));
   };
 
-  const fetchFoodsOfCategory = (currentPage, foods, ref) => {
-    if (ref === true) {
-      FetchAPI(currentPage, 'filter', 'c', foods)
-        .then((response) => setRecipeList(response));
-    }
-    if (ref === false) {
-      FetchAPI(currentPage, 'search', 's', '')
-        .then((response) => setRecipeList(response));
-    }
+  const fetchFoodsOfCategory = (currentPage, buttonState, letter, foodsCategory) => {
+    FetchAPI(currentPage, buttonState, letter, foodsCategory)
+      .then((response) => setRecipeList(response));
   };
 
   const handleShowInput = () => {
@@ -93,6 +87,7 @@ function Provider({ children }) {
     loading,
     categoryList,
     fetchFoodsOfCategory,
+    setCurrentID,
   };
   const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
   const ContextComidas = {

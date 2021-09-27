@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap') ;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.Login-main {
+  background-color: #242423;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.Login-container {
+  align-items: center;
+  background-color: #fbaf00;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+  width: 200px;
+}
+
+.Login-title {
+  font-family: Lobster , cursive;
+  position: absolute;
+  top: 20px;
+
+}
+
+.Login-form {
+  margin-top: 20px;
+}
+
+.Login-input {
+  border: 2px solid gray;
+  height: 30px;
+  margin: 10px;
+  outline: none;
+  padding: 5px;
+  width: 170px;
+}
+
+.Login-input-button {
+  background-color: #ffa3af;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: #242423;
+  cursor: pointer;
+  font-weight: 900;
+  height: 40px;
+  margin: 10px;
+  width: 180px;
+}
+
+.Login-input-button:disabled {
+  opacity: 0.5;
+}
+
+
+.Login-div {
+  position: relative;
+}
+
+.Login-eye {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 24px;
+}
+
+.Login-div span {
+  left: 15px;
+  opacity: 0.5;
+  pointer-events: none;
+  position: absolute;
+  top: 23px;
+  transition: 0.5s;
+}
+
+.Login-div input:focus ~ span, .Login-div input:valid ~ span {
+  font-size: 10px;
+  opacity: 1;
+  transform: translateY(-10px);
+}

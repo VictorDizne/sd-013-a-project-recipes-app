@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDebugState } from 'use-named-state';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/ComponentHeader';
 import ComponentFooter from '../components/ComponentFooter';
 
 function ExplorarBebidas() {
