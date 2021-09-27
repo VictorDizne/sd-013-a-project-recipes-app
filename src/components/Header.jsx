@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import HandleHeader from '../helpers/HandleHeader';
 
-function Header({ title, setSearchBarStatus }) {
+function Header({ title }) {
   return (
     <header>
       <HandleHeader title={ title } />
@@ -10,11 +10,10 @@ function Header({ title, setSearchBarStatus }) {
   );
 }
 
-const { string, func } = PropTypes;
+const { string } = PropTypes;
 
 Header.propTypes = {
   title: string,
-  setSearchBarStatus: func,
 }.isRequired;
 
 export default Header;
