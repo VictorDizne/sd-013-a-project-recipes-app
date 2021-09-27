@@ -33,9 +33,9 @@ function Routes() {
         path="/bebidas/:recipeId/in-progress"
         component={ BebidaProgress }
       />
-      <Route path="/explorar" component={ Explorar } />
-      <Route path="/explorar/comidas" component={ ExplorarComidas } />
-      <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
+      <Route exact path="/explorar" component={ Explorar } />
+      <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+      <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ ExplorarComidasIng }

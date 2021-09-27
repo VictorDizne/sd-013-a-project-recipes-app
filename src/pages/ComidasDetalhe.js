@@ -50,15 +50,9 @@ function ComidasDetalhes({ match }) {
       <iframe
         width="560"
         height="315"
-        src={ meal.strYoutube }
+        src={ String(meal.strYoutube).replace(/watch\?v=/, 'embed/') }
         title={ meal.strMeal }
         frameBorder="0"
-        allow="accelerometer;
-        autoplay;
-        clipboard-write;
-        encrypted-media;
-        gyroscope;
-        picture-in-picture"
         allowFullScreen
         data-testid="video"
       />

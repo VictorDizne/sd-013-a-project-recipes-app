@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Context from '../context';
 import DrinksList from '../components/DrinksList';
 import DrinksCategories from '../components/DrinksCategories';
+import Context from '../context';
 
 function Bebidas() {
   const { filteredDrinks } = useContext(Context);
@@ -13,7 +13,6 @@ function Bebidas() {
   return (
     <>
       <Header tela="Bebidas" />
-      <h1>Bebidas</h1>
       <DrinksCategories />
       <DrinksList />
       <Footer />
