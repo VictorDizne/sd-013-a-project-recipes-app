@@ -4,10 +4,37 @@ import appContext from '../redux/appcontext';
 
 const CardDrink = () => {
   const history = useHistory();
-  const { drinkApi, filterDrinkApi, activeSearchbarFilter } = useContext(appContext);
+  const { drinkApi, filterDrinkApi, activeSearchbarFilter,
+    pageIngredients, fetchIngredients } = useContext(appContext);
   if (activeSearchbarFilter) {
     return null;
   }
+
+  if (pageIngredients) {
+    return (
+      <div>
+        {fetchIngredients.map((drink, index) => (
+          <button
+            type="button"
+            key={ drink.strDrink }
+            data-testid={ `${index}-recipe-card` }
+            onClick={ () => history.push(`/bebidas/${drink.idDrink}`) }
+          >
+            <h3 data-testid={ `${index}-card-name` }>
+              {drink.strDrink}
+            </h3>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ drink.strDrinkThumb }
+              alt={ drink.strDrink }
+              width="150px"
+            />
+          </button>
+        ))}
+      </div>
+    );
+  }
+
   if (filterDrinkApi.length !== 0) {
     console.log(filterDrinkApi);
     return (
