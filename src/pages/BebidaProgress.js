@@ -7,6 +7,7 @@ function BebidasProgress({ match }) {
 
   const [drink, setDrink] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [ingredientList, setIngredientList] = useState([]);
 
   useEffect(() => {
     const getDrink = async (id) => {
@@ -15,6 +16,7 @@ function BebidasProgress({ match }) {
     };
     getDrink(recipeId);
     setIsLoading(false);
+    // loadPage();
   }, [setDrink, recipeId]);
 
   const ingredients = [
@@ -40,16 +42,42 @@ function BebidasProgress({ match }) {
     drink.strIngredient20,
   ];
 
-  const handleCheckbox = ({ target }) => {
-    console.log(target.parentElement.innerText);
+  const handleCheckbox = ({ target }, index) => {
     if (target.checked === true) {
       target.parentElement.style.textDecorationLine = 'line-through';
       target.parentElement.style.textDecorationStyle = 'solid';
+      setIngredientList([...ingredientList, target.value]);
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {
+          [recipeId]: [...ingredientList, target.value],
+        },
+      }));
     } else if (target.checked === false) {
       target.parentElement.style.textDecorationLine = '';
       target.parentElement.style.textDecorationStyle = '';
+      ingredientList.splice(index, 1);
+      setIngredientList(ingredientList);
     }
   };
+
+  /* const loadPage = () => {
+    const listRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const checked = document.getElementsByTagName('input');
+    const teste = Object.keys(listRecipe.cocktails);
+
+    if (Number(teste) === Number(recipeId)) {
+      console.log('teste');
+      checked.forEach((check, index) => {
+        console.log(check);
+        if (checked.value === Object.values(listRecipe.cocktails)[index]) {
+          checked.checked = true;
+        }
+      });
+    }
+    // console.log(teste);
+    // console.log(Object.keys(listRecipe.cocktails))
+    // console.log(Object.values(listRecipe.cocktails)[0])
+  }; */
 
   if (isLoading) return <h1>Loading...</h1>;
 
@@ -86,7 +114,7 @@ function BebidasProgress({ match }) {
                   value={ ingredient }
                   id={ index }
                   type="checkbox"
-                  onClick={ handleCheckbox }
+                  onClick={ ({ target }) => handleCheckbox({ target }, index) }
                 />
                 {ingredient}
               </label>

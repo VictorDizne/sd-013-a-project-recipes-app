@@ -7,6 +7,7 @@ function ComidaProgress({ match }) {
 
   const [meal, setMeal] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [ingredientList, setIngredientList] = useState([]);
 
   useEffect(() => {
     const getMeal = async (id) => {
@@ -40,14 +41,23 @@ function ComidaProgress({ match }) {
     meal.strIngredient20,
   ];
 
-  const handleCheckbox = ({ target }) => {
-    console.log(target.parentElement.innerText);
+  const handleCheckbox = ({ target }, index) => {
+    const teste = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(teste);
     if (target.checked === true) {
       target.parentElement.style.textDecorationLine = 'line-through';
       target.parentElement.style.textDecorationStyle = 'solid';
+      setIngredientList([...ingredientList, target.value]);
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        meals: {
+          [recipeId]: [...ingredientList, target.value],
+        },
+      }));
     } else if (target.checked === false) {
       target.parentElement.style.textDecorationLine = '';
       target.parentElement.style.textDecorationStyle = '';
+      ingredientList.splice(index, 1);
+      setIngredientList(ingredientList);
     }
   };
 
@@ -86,7 +96,7 @@ function ComidaProgress({ match }) {
                   value={ ingredient }
                   id={ index }
                   type="checkbox"
-                  onClick={ handleCheckbox }
+                  onClick={ ({ target }) => handleCheckbox({ target }, index) }
                 />
                 {ingredient}
               </label>
