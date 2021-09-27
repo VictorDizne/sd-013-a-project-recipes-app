@@ -5,8 +5,10 @@ import appContext from '../contexts/appContext';
 
 function ProcessFood({ props }) {
   const [meal, setMeal] = useState({});
+  const [render, setRender] = useState(true);
   const { getIngredients } = useContext(appContext);
   const { id } = useParams();
+  const { ingredients } = getIngredients(meal);
 
   useEffect(() => {
     const getMeal = async () => {
@@ -16,6 +18,11 @@ function ProcessFood({ props }) {
       setMeal(meals[0]);
     };
     getMeal();
+    if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        meals: { [id]: [] }, cocktails: {},
+      }));
+    }
   }, []);
 
   // localStorage.inProgressRecipes = JSON.stringify({
@@ -47,11 +54,37 @@ function ProcessFood({ props }) {
     console.log(allCheckBox);
   };
 
-  const onChangeIngredient = (ingredientName) => {
-    console.log(ingredientName);
+  const isChecked = (ingredientName) => {
+    const NOT_FOUND = -1;
+    const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (ingredientsLocal.meals[id] && ingredientsLocal.meals[id]
+      .indexOf(ingredientName) === NOT_FOUND) {
+      return true;
+    }
+    return false;
   };
 
-  const { ingredients } = getIngredients(meal);
+  const onChangeIngredient = (isMarked, ingredientName) => {
+    const input = document.getElementById(ingredientName);
+    input.checked = isMarked;
+    const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const oldMeals = ingredientsLocal.meals;
+    if (isMarked) {
+      const ingredientsNotChecked = ingredientsLocal.meals[id]
+        .filter((ingredient) => ingredient !== ingredientName);
+      const newObject = { ...ingredientsLocal,
+        meals: { ...oldMeals, [id]: ingredientsNotChecked } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
+      setRender(!render);
+    } else {
+      const oldIngredients = ingredientsLocal.meals[id];
+      const newObject = { ...ingredientsLocal,
+        meals: { ...oldMeals, [id]: [...oldIngredients, ingredientName] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
+      setRender(!render);
+    }
+  };
+
   return (
     <div>
       <h1>comida em processo</h1>
@@ -75,6 +108,7 @@ function ProcessFood({ props }) {
             id={ ingredient }
             value={ ingredient }
             name="ingredients"
+            checked={ isChecked(ingredient) }
             onChange={ (e) => onChangeIngredient(e.target.value) }
           />
         </label>
