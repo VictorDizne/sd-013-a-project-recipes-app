@@ -73,7 +73,7 @@ function DrinkDetail() {
   return (
     <main>
       <Image
-        src={ drink.strMealThumb }
+        src={ drink.strDrinkThumb }
         alt={ `${drink.trMeal}` }
         data-testid="recipe-photo"
         fluid

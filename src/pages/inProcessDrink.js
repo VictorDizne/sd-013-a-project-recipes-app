@@ -1,10 +1,25 @@
-import React, { useState, useContext, useParams } from 'react';
+import PropTypes from 'prop-types';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import appContext from '../contexts/appContext';
+import FavoriteButton from '../components/favoriteButton';
+import ShareButton from '../components/shareButton';
 
 function ProcessDrink({ props }) {
   const [drink, setDrink] = useState({});
   const { getIngredients } = useContext(appContext);
   const { id } = useParams();
+
+  useEffect(() => {
+    const getDrink = async () => {
+      const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const response = await fetch(URL);
+      const { drinks } = await response.json();
+      setDrink(drinks[0]);
+      console.log(drinks);
+    };
+    getDrink();
+  }, [id]);
 
   const finishRecipe = () => {
     props.history.push('/receitas-feitas');
@@ -25,7 +40,7 @@ function ProcessDrink({ props }) {
       <h1>bebida em processo</h1>
       <img
         data-testid="recipe-photo"
-        src={ drink.strD }
+        src={ drink.strDrinkThumb }
         alt=""
       />
       <h2 data-testid="recipe-title">{ drink.strDrink }</h2>
@@ -56,24 +71,18 @@ function ProcessDrink({ props }) {
       >
         Finalizar Receita
       </button>
-      <button
-        type="button"
-        data-testid="share-btn"
-        disabled=""
-        onClick=""
-      >
-        Compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        disabled=""
-        onClick=""
-      >
-        Favoritar
-      </button>
+      <ShareButton data-testid="share-btn" />
+      <FavoriteButton data-testid="favorite-btn" drink={ drink } />
     </div>
   );
 }
+
+ProcessDrink.propTypes = {
+  props: PropTypes.shape({
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+  }).isRequired,
+};
 
 export default ProcessDrink;
