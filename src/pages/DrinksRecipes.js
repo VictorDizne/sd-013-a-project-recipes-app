@@ -21,15 +21,23 @@ function DrinksRecipies(props) {
     if (details !== undefined) {
       return (
         <section>
-          <img src={ details.srtDrinkThumb } alt="" data-testid="recipe-photo" />
-          <h2 data-testid="recipe-title">{ details.srtDrink }</h2>
+          <img src={ details.strDrinkThumb } alt="" data-testid="recipe-photo" />
+          <h2 data-testid="recipe-title">{ details.strDrink }</h2>
           <Button testID="share-btn">Compartilhar</Button>
           <Button testID="favorite-btn">Favoritar</Button>
           <ul data-testid="0-ingredient-name-and-measure">
-            <li>boa</li>
+            {Object.keys(details)
+              .filter((detail) => detail.includes('strIngredient'))
+              .filter((ing) => details[ing] !== null)
+              .map((ingredient, i) => (
+                <li key={ i }>
+                  {details[`strMeasure${i + 1}`]}
+                  {details[`strMeasure${i + 1}`] ? ' of ' : null}
+                  {details[ingredient]}
+                </li>))}
           </ul>
-          <h4 data-testid="recipe-category">{ details.srtCategory }</h4>
-          <p data-testid="instructions">{ details.srtInstructions }</p>
+          <h4 data-testid="recipe-category">{ details.strCategory }</h4>
+          <p data-testid="instructions">{ details.strInstructions }</p>
           <p data-testid="0-recomendation-card">Card</p>
           <Button
             testID="start-recipe-btn"
@@ -38,7 +46,9 @@ function DrinksRecipies(props) {
           >
             Iniciar Receita
           </Button>
+          {console.log(details.strDrinkThumb)}
           {console.log(details)}
+
         </section>
       );
     }

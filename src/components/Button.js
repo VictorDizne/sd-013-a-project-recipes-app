@@ -24,6 +24,7 @@ Button.propTypes = {
   disabled: bool,
   children: oneOfType(string, node).isRequired,
   image: string.isRequired,
+  className: string.isRequired,
 };
 
 Button.defaultProps = {

@@ -19,26 +19,30 @@ function FoodsRecipies(props) {
 
   const renderDetails = () => {
     if (details !== undefined) {
+      const video = details.strYoutube;
+      const youtube = video.replace('watch?v=', 'embed/');
+      // https://qastack.com.br/programming/20498831/refused-to-display-in-a-frame-because-it-set-x-frame-options-to-sameorigin
       return (
         <section>
           <img src={ details.strMealThumb } alt="" data-testid="recipe-photo" />
           <h2 data-testid="recipe-title">{details.strMeal}</h2>
           <Button testID="share-btn">Compartilhar</Button>
           <Button testID="favorite-btn">Favoritar</Button>
-          <ul data-testid="0-ingredient-name-and-measure">
+          <ul>
+            <h3>Ingredientes</h3>
             {Object.keys(details)
               .filter((detail) => detail.includes('strIngredient'))
               .filter((ing) => details[ing] !== '')
               .map((ingredient, i) => (
-                <li key={ i }>
+                <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
                   {details[`strMeasure${i + 1}`]}
-                  {' of '}
+                  {details[`strMeasure${i + 1}`] ? ' of ' : null}
                   {details[ingredient]}
                 </li>))}
           </ul>
           <h4 data-testid="recipe-category">{ details.strCategory }</h4>
           <p data-testid="instructions">{ details.strInstructions }</p>
-          <iframe src={ details.strYoutube } data-testid="video" title=" video teste" />
+          <iframe src={ youtube } data-testid="video" title=" video teste" />
           <p data-testid="0-recomendation-card">card</p>
           <Button
             testID="start-recipe-btn"
