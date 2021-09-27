@@ -33,3 +33,19 @@ body {
 .main {
   padding-top: 100px;
 }
+
+.recipes {
+  display: flex;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.recomendation-card {
+  flex: none;
+  height: 150px;
+  margin-right: 10%;
+  scroll-snap-align: start;
+  width: 40%;
+}
