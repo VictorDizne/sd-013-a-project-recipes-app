@@ -28,15 +28,20 @@ function Bebidas() {
     setIsLoading(false);
   }, [setDrinks, setDrinksCategories, setFilteredDrinks]);
 
-  if (isLoading) return <h1>Loading...</h1>;
-
   return (
     <>
       <Header tela="Bebidas" />
-      <h1>Bebidas</h1>
-      <DrinksCategories />
-      <DrinksList />
-      <Footer />
+      {
+        isLoading
+          ? <h1>Loading...</h1>
+          : (
+            <div>
+              <DrinksCategories />
+              <DrinksList />
+              <Footer />
+            </div>
+          )
+      }
     </>
   );
 }

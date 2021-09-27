@@ -28,15 +28,20 @@ function Comidas() {
     setIsLoading(false);
   }, [setMeals, setMealsCategories, setFilteredMeals]);
 
-  if (isLoading) return <h1>Loading...</h1>;
-
   return (
     <>
       <Header tela="Comidas" />
-      <h1>Comidas</h1>
-      <MealsCategories />
-      <MealsList />
-      <Footer />
+      {
+        isLoading
+          ? <h1>Loading...</h1>
+          : (
+            <div>
+              <MealsCategories />
+              <MealsList />
+              <Footer />
+            </div>
+          )
+      }
     </>
   );
 }
