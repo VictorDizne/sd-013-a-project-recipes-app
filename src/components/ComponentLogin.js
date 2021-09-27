@@ -40,7 +40,7 @@ function ComponentLogin() {
   return (
     <div className="Login-container">
       <div className="Login-title">
-        <h1>Foodeez</h1>
+        <h1>Foodz</h1>
       </div>
       <div className="Login-form">
         <div className="Login-div">

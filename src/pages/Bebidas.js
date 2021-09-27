@@ -7,6 +7,7 @@ import ComponentFooter from '../components/ComponentFooter';
 import ComponentList from '../components/ComponentList';
 import ComponentLoading from '../components/ComponentLoading';
 import ComponentCategory from '../components/ComponentCategory';
+import './Styles/RecipeList.css';
 
 function Bebidas() {
   const currentContext = useContext(recipeContext).ContextBebidas;

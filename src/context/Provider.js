@@ -87,6 +87,7 @@ function Provider({ children }) {
     loading,
     categoryList,
     fetchFoodsOfCategory,
+    setCurrentID,
   };
   const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
   const ContextComidas = {

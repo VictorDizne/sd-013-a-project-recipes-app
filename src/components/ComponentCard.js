@@ -4,27 +4,30 @@ import recipeContext from '../context';
 
 function ComponentCard({ recipeIndex, recipeItem }) {
   const currentContext = useContext(recipeContext).ContextCard;
-  const { dataForFetch: { currentPage } } = currentContext;
+  const { setCurrentID, dataForFetch: { currentPage } } = currentContext;
 
-  const renderCard = (title, thumb) => (
-    <div data-testid={ `${recipeIndex}-recipe-card` }>
-      <p data-testid={ `${recipeIndex}-card-name` }>{title}</p>
-      <img
-        data-testid={ `${recipeIndex}-card-img` }
-        src={ thumb }
-        alt={ title }
-        width="100px"
-        loading="lazy"
-      />
-    </div>
+  const renderCard = (title, thumb, id) => (
+    <button className="button-card" type="button" onClick={ () => setCurrentID(id) }>
+      <div data-testid={ `${recipeIndex}-recipe-card` }>
+        <p data-testid={ `${recipeIndex}-card-name` }>{title}</p>
+        <img
+          data-testid={ `${recipeIndex}-card-img` }
+          src={ thumb }
+          alt={ title }
+          width="100px"
+          loading="lazy"
+        />
+      </div>
+    </button>
   );
 
   const conditionalCardsRender = () => {
     if (currentPage === 'themealdb') {
-      return renderCard(recipeItem.strMeal, recipeItem.strMealThumb);
+      return renderCard(recipeItem.strMeal, recipeItem.strMealThumb, recipeItem.idMeal);
     }
     if (currentPage === 'thecocktaildb') {
-      return renderCard(recipeItem.strDrink, recipeItem.strDrinkThumb);
+      return renderCard(recipeItem.strDrink,
+        recipeItem.strDrinkThumb, recipeItem.idDrink);
     }
   };
 
