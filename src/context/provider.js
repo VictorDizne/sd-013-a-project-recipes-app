@@ -6,6 +6,11 @@ function Provider({ children }) {
   const [meals, setMeals] = useState({});
   const [drinks, setDrinks] = useState({});
   const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState({});
+  const [ingredientes, setIngredientes] = useState([]);
+  const [medida, setMedida] = useState([]);
+  const [favorita, setFavorita] = useState(false);
+  const [favRecipes, setFavRecipes] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -22,8 +27,18 @@ function Provider({ children }) {
 
   const context = {
     meals,
+    favRecipes,
+    setFavRecipes,
     setMeals,
     drinks,
+    details,
+    favorita,
+    setFavorita,
+    ingredientes,
+    medida,
+    setDetails,
+    setIngredientes,
+    setMedida,
     setDrinks,
     loading,
     setLoading,

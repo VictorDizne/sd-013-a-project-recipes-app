@@ -1,23 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import fetchAPI from '../../services/fetchAPI';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import Footer from '../../components/footer';
+import recipesContext from '../../context';
+
+const copy = require('clipboard-copy');
 
 function DrinkDetails({ match: { params: { id } } }) {
-  const [loading, setLoading] = useState(true);
-  const [details, setDetails] = useState({});
-  const [ingredientes, setIngredientes] = useState([]);
-  const [medida, setMedida] = useState([]);
+  const { details,
+    loading,
+    setLoading,
+    ingredientes,
+    medida,
+    setDetails,
+    setIngredientes,
+    setMedida,
+    favorita,
+    setFavorita,
+    setFavRecipes,
+    favRecipes } = useContext(recipesContext);
 
   const ingredientsList = (drinkInfo) => {
     const arr = Object.keys(drinkInfo);
-    console.log(Object.keys(drinkInfo));
     const ingredients = arr
       .filter((k) => (k.includes('strIngredient') ? k : null))
       .map((values) => drinkInfo[values])
       .filter((ingredient) => (ingredient));
     setIngredientes(ingredients);
+  };
+
+  const favoritar = () => {
+    setFavorita(!favorita);
+    const obj = {
+      id: details.idDrink,
+      type: 'Drink',
+      area: null,
+      category: details.strCategory,
+      alcoholicOrNot: details.strAlcoholic,
+      name: details.strDrink,
+      image: details.strDrinkThumb,
+    };
+    setFavRecipes([...favRecipes, JSON.stringify(obj)]);
+  };
+
+  const compartilhar = () => {
+    copy(window.location);
+    global.alert('Link copiado!');
   };
 
   const measureList = (drinksInfo) => {
@@ -34,13 +65,13 @@ function DrinkDetails({ match: { params: { id } } }) {
       const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const { drinks } = await fetchAPI(URL);
       setDetails(drinks[0]);
-      console.log(drinks[0]);
       ingredientsList(drinks[0]);
       measureList(drinks[0]);
       setLoading(false);
     };
+    localStorage.favoriteRecipes = favRecipes;
     fetchByID();
-  }, [id]);
+  }, [id, favRecipes]);
 
   if (loading) return 'loading';
 
@@ -55,6 +86,7 @@ function DrinkDetails({ match: { params: { id } } }) {
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ compartilhar }
       >
         <img
           src={ shareIcon }
@@ -64,9 +96,10 @@ function DrinkDetails({ match: { params: { id } } }) {
       <button
         type="button"
         data-testid="favorite-btn"
+        onClick={ favoritar }
       >
         <img
-          src={ whiteHeartIcon }
+          src={ favorita ? blackHeartIcon : whiteHeartIcon }
           alt="Favoritar"
         />
       </button>
@@ -88,6 +121,7 @@ function DrinkDetails({ match: { params: { id } } }) {
       >
         Iniciar Receita
       </button>
+      <Footer />
     </>
   );
 }
