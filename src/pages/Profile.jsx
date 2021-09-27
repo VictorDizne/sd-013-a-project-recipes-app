@@ -15,16 +15,27 @@ function Profile{
   return (
     <div>
       <Header title="Perfil" />
+      <h1></h1>
       <Button
         className="doneRecipes"
         type="button"
-         
+        buttonText="Receitas Feitas"
+        onClick={ history.push('/receitas-feitas') } 
       />
-      <h1></h1>
-      <Button />
+      <Button
+        className="favoriteRecipes"
+        type="button"
+        buttonText="Receitas Favoritas"
+        onClick={ history.push('/receitas-favoritas') } 
+      />   
+      <Button
+        className="logoutButton"
+        type="button"
+        buttonText="Sair"
+        onClick={ history.push('/') } 
+      />
     </div>
   );
-
 }
 
 export default Profile;
