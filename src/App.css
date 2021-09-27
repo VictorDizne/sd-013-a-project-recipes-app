@@ -10,6 +10,59 @@
   width: 100%;
 }
 
+.meal-pic {
+  display: flex;
+  box-shadow: 10px 10px 10px;
+  width: 10%;
+}
+
+.email-input {
+  margin: 0;
+  position: absolute;
+  top: 29%;
+  left: 15%;
+  align-content: center;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: column;
+  block-size: 6%;
+  font-size: larger;
+  text-align: center;
+}
+
+.password-input {
+  margin: 0;
+  position: absolute;
+  top: 36%;
+  left: 15%;
+  align-content: center;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: column;
+  block-size: 6%;
+  font-size: larger;
+  text-align: center;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0%;
+}
+
+.login-button {
+  margin: 0;
+  position: absolute;
+  top: 48%;
+  left: 40%;
+  align-content: center;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: column;
+  block-size: 6%;
+  font-size: larger;
+  text-align: center;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;

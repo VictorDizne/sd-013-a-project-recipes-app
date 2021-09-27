@@ -47,6 +47,7 @@ function MealDetails({ match: { params: { id } } }) {
       <img
         data-testid="recipe-photo"
         src={ details.strMealThumb }
+        className="meal-pic"
         alt="Meal"
       />
       <h2 data-testid="recipe-title">{details.strMeal}</h2>
@@ -66,6 +67,7 @@ function MealDetails({ match: { params: { id } } }) {
         <img
           src={ whiteHeartIcon }
           alt="Favoritar"
+          meal-pic
         />
       </button>
       <ul data-testid={ `${id}-ingredient-name-and-measure` }>
