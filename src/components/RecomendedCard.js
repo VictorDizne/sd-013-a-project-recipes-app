@@ -1,27 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function FoodCard({ index, data, thumb, name, id, route }) {
+function RecomendedCard({ index, data, thumb, name, id, route, testid }) {
   return (
-    <Link style={ { width: '48%', height: '70px' } } to={ `/${[route]}/${data[id]}` }>
+    <Link style={ { width: '170px', height: '200px', margin: '10px' } } to={ `/${[route]}/${data[id]}` }>
       <div
-        // style={ { width: '48%', height: '70px' } }
-        data-testid={ `${index}-recipe-card` }
+        data-testid={testid}
       >
         <img
           data-testid={ `${index}-card-img` }
           alt={ data.strCategory }
           src={ data[thumb] }
-          style={ { heigth: '50px', width: '50px' } }
+          style={ { heigth: '50px', width: '150px' } }          
         />
-        <p data-testid={ `${index}-card-name` }>{ data[name] }</p>
+        <p data-testid={ `${index}-recomendation-title` }>{ data[name] }</p>
       </div>
     </Link>
   );
 }
 
-FoodCard.propTypes = {
+RecomendedCard.propTypes = {
   data: PropTypes.shape({
     strCategory: PropTypes.string,
     strDrinkThumb: PropTypes.string,
@@ -31,4 +30,4 @@ FoodCard.propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-export default FoodCard;
+export default RecomendedCard;

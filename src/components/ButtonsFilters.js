@@ -33,7 +33,9 @@ function ButtonsFilters({ page }) {
   };
 
   useEffect(() => {
-    requestCategory();
+    if ( myPage !== '' ) {
+      requestCategory();
+    }
   }, [myPage]);
 
   return (
