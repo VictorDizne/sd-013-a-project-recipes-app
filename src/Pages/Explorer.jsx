@@ -1,5 +1,6 @@
 import React from 'react';
-import Footer from '../Components/Footer';
+import { useHistory } from 'react-router-dom';
+import FooterMenu from '../Components/Footer';
 import Header from '../Components/Header';
 
 export default function Explorer() {
@@ -7,11 +8,31 @@ export default function Explorer() {
     pageName: 'Explorar',
     setIcon: false,
   };
+  const history = useHistory();
+  const explorerComidas = () => history.push('/explorar/comidas');
+  const explorerBebidas = () => history.push('/explorar/bebidas');
+
   return (
     <div>
       <Header value={ pageTitle } />
-      <h2>Explorar</h2>
-      <Footer />
+      <button
+        onClick={ explorerComidas }
+        type="button"
+        data-testid="explore-food"
+        name="Explorar Comidas"
+      >
+        Explorar Comidas
+      </button>
+
+      <button
+        onClick={ explorerBebidas }
+        type="button"
+        data-testid="explore-drinks"
+        name="Explorar bebidas"
+      >
+        Explorar Bebidas
+      </button>
+      <FooterMenu />
     </div>
   );
 }
