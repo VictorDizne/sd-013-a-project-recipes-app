@@ -15,10 +15,11 @@ function Provider({ children }) {
 
   const [showInput, setShowInput] = useDebugState('ShowInput', false);
   const [dataForFetch, setDataForFetch] = useDebugState('DataForFetch', fetchData);
-  const [recipeList, setRecipeList] = useDebugState('RecipeList', '');
+  const [recipeList, setRecipeList] = useDebugState('RecipeList', []);
   const [categoryList, setCategoryList] = useDebugState('CategoryList', '');
   const [currentID, setCurrentID] = useDebugState('CurentID', 0);
   const [loading, setLoading] = useDebugState('Loading', true);
+  const [details, setDetails] = useDebugState('Details', '');
 
   const handleCurrentPage = () => {
     const { location: { pathname } } = history;
@@ -69,6 +70,9 @@ function Provider({ children }) {
 
   useEffect(() => {
     if (currentID !== 0) {
+      const recipeDetails = recipeList.find((element) => (element.idMeal === currentID)
+      || (element.idDrink === currentID));
+      setDetails(recipeDetails);
       setDataForFetch({ ...dataForFetch, redirectState: true });
     }
   }, [currentID]);
@@ -90,16 +94,15 @@ function Provider({ children }) {
     setCurrentID,
   };
   const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
-  const ContextComidas = {
+  const ContextFoods = {
     showInput, handleCurrentPage, dataForFetch, currentID, loading, handleFetch };
-  const ContextBebidas = {
-    showInput, handleCurrentPage, dataForFetch, currentID, loading, handleFetch };
+  const ContextDetails = { details };
 
   const context = {
     ContextCard,
-    ContextComidas,
-    ContextBebidas,
+    ContextFoods,
     ContextHeader,
+    ContextDetails,
   };
 
   return (
