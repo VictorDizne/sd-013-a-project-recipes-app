@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RecipesContext from '../context/index';
 import Header from '../components/Header';
-import RecipeCard from '../components/RecipeCard';
+import MealCard from '../components/MealCard';
 import Footer from '../components/Footer';
 import { fetchFoodCategories } from '../services/comidasApi';
 import '../styles/Food.css';
@@ -56,7 +56,7 @@ const Foods = () => {
           ))}
           <div className="Recipes-Container">
             { mealData && mealData.slice(0, MAX_RECIPES).map(((recipe, index) => (
-              <RecipeCard key={ index } index={ index } recipe={ recipe } page="foods" />
+              <MealCard key={ index } index={ index } recipe={ recipe } page="foods" />
             )))}
           </div>
         </div>

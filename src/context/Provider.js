@@ -8,7 +8,6 @@ import * as bebidasApi from '../services/bebidasApi';
 function Provider({ children }) {
   const [inputText, setInputText] = useState('');
   const [inputRadio, setInputRadio] = useState('');
-  // const [data, setData] = useState([]);
   const [mealData, setMealData] = useState([]);
   const [drinkData, setDrinkData] = useState([]);
   const [foodCategories, setFoodCategories] = useState('');
@@ -122,31 +121,11 @@ function Provider({ children }) {
     setDrinkData(results);
   };
 
-  // const handleFoodGetId = async () => {
-  //   const results = await comidasApi.fetchFoodById(catchFoodId);
-  //   setFoodGetId(results);
-  // };
-
-  // const handleDrinkGetId = async () => {
-  //   const results = await bebidasApi.fetchDrinksById(catchDrinkId);
-  //   setDrinkGetId(results);
-  // };
-
-  // useEffect(() => {
-  //   if (catchFoodId) handleFoodGetId();
-  // }, [catchFoodId]);
-
-  // useEffect(() => {
-  //   if (catchDrinkId) handleDrinkGetId();
-  // }, [catchDrinkId]);
-
   const contextValue = {
     inputText,
     setInputText,
     inputRadio,
     setInputRadio,
-    // data,
-    // setData,
     mealData,
     setMealData,
     drinkData,
@@ -155,10 +134,6 @@ function Provider({ children }) {
     handleDrinksApis,
     handleMealsApisOnLoad,
     handleDrinksApisOnload,
-    // setCatchFoodId,
-    // setCatchDrinkId,
-    // DrinkGetId,
-    // foodGetId,
     setFoodCategories,
     foodCategories,
     setDrinkCategories,

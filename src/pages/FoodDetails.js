@@ -38,20 +38,12 @@ function FoodDetails() {
   }, [historyId]);
 
   useEffect(() => {
-    console.log(recipe);
-  }, [recipe]);
-
-  useEffect(() => {
     const getRecomendations = async () => {
       const recomemendedRecipes = await fetchRecommendedDrinks();
       setRecomendation(recomemendedRecipes);
     };
     getRecomendations();
   }, []);
-
-  useEffect(() => {
-    console.log(recomendation, 'recomendation');
-  }, [recomendation]);
 
   return (
     <div className="food-container">

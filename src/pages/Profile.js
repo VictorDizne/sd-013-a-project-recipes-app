@@ -19,8 +19,7 @@ function Profile() {
     history.push('/');
   };
 
-  const save = JSON.parse(localStorage.getItem('user'));
-  const { email } = save;
+  const { email } = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
       <Header title="Perfil" />

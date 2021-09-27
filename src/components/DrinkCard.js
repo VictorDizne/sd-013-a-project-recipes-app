@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function DrinkCard({ index, recipe }) {
-  const history = useHistory();
   const { strDrink, idDrink, strDrinkThumb } = recipe;
 
-  const hadleChange = () => {
-    history.push(`/bebidas/${idDrink}`);
-  };
-
   return (
-    <button type="button" onClick={ hadleChange }>
+    <Link to={ `/bebidas/${idDrink}` }>
       <div
         className="contente"
       >
@@ -29,7 +24,7 @@ function DrinkCard({ index, recipe }) {
           </div>
         </div>
       </div>
-    </button>
+    </Link>
   );
 }
 
