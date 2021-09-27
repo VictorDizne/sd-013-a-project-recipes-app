@@ -23,10 +23,10 @@ function Provider({ children }) {
 
   const handleCurrentPage = () => {
     const { location: { pathname } } = history;
-    if (pathname === '/comidas') {
+    if (pathname.includes('/comidas')) {
       setDataForFetch({ ...dataForFetch, currentPage: 'themealdb' });
     }
-    if (pathname === '/bebidas') {
+    if (pathname.includes('/bebidas')) {
       setDataForFetch({ ...dataForFetch, currentPage: 'thecocktaildb' });
     }
   };
@@ -41,6 +41,11 @@ function Provider({ children }) {
   const fetchFoodsOfCategory = (currentPage, buttonState, letter, foodsCategory) => {
     FetchAPI(currentPage, buttonState, letter, foodsCategory)
       .then((response) => setRecipeList(response));
+  };
+
+  const fetchDetails = (currentPage, buttonState, letter, foodsCategory) => {
+    FetchAPI(currentPage, buttonState, letter, foodsCategory)
+      .then((response) => setDetails(response));
   };
 
   const handleShowInput = () => {
@@ -86,6 +91,7 @@ function Provider({ children }) {
       }
     }
   }, [recipeList, categoryList]);
+
   const ContextCard = { recipeList,
     dataForFetch,
     loading,
@@ -96,7 +102,14 @@ function Provider({ children }) {
   const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
   const ContextFoods = {
     showInput, handleCurrentPage, dataForFetch, currentID, loading, handleFetch };
-  const ContextDetails = { details };
+  const ContextDetails = {
+    details,
+    dataForFetch,
+    currentID,
+    handleCurrentPage,
+    recipeList,
+    fetchDetails,
+  };
 
   const context = {
     ContextCard,
