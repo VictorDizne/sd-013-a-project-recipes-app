@@ -6,7 +6,7 @@ export default function useCategories() {
 
   const foodFilter = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const drinkFilter = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-  const LENGTH_LIMIT = 5;
+  const LENGTH_LIMIT = 6;
 
   useEffect(() => {
     const fetchApiCategories = async (url, length) => {
