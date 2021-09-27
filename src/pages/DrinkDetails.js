@@ -16,6 +16,11 @@ function DrinkDetails({ match: { params: { id } } }) {
   const initialRender = useRef(false);
   const loading = <p>Loading...</p>;
 
+  const styleBtn = {
+    position: 'fixed',
+    bottom: '0px',
+  };
+
   useEffect(() => {
     const fetchRecipe = async () => {
       const data = await fetchDetails(location.pathname, id);
@@ -80,7 +85,13 @@ function DrinkDetails({ match: { params: { id } } }) {
       <div>
         <Recomendations recomendations={ recomendations } />
       </div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        style={ styleBtn }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
