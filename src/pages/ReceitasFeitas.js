@@ -39,7 +39,9 @@ function ReceitasFeitas() {
       <div>
         {
           doneRecipes
-            .map(({ image, area, category, name, tags, doneDate, type, alcoholicOrNot }, index) => (
+            .map(({
+              image, area, category, name, tags, doneDate, type, alcoholicOrNot,
+            }, index) => (
               <div key={ index }>
                 <img
                   src={ image }
