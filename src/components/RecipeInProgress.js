@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
-// import { meals } from '../../cypress/mocks/meals';
+import Ingredients from './Ingredients';
 
 function RecipeInProgress({ recipe, isMeal }) {
   useEffect(() => {
@@ -13,63 +13,6 @@ function RecipeInProgress({ recipe, isMeal }) {
       },
     ));
   }, []);
-
-  const verifyChecked = (event, indexIng, id) => {
-    console.log(event.target.checked);
-    console.log(id);
-
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (event.target.checked === true && isMeal) {
-      const updatedMeals = {
-        ...inProgressRecipes,
-        meals: { [id]: [...inProgressRecipes.meals[id], indexIng] },
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(updatedMeals));
-    } else if (event.target.checked === false || !isMeal) {
-      const updatedCocktails = {
-        ...inProgressRecipes,
-        cocktails: { [id]: [...inProgressRecipes.cocktails[id], indexIng] },
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(updatedCocktails));
-    }
-  };
-
-  const recipeIngredients = [];
-
-  const getIngredients = () => {
-    const MAX_INGREDIENTS = 16;
-
-    for (let i = 0; i < MAX_INGREDIENTS; i += 1) {
-      const auxObj = { name: '', measure: '' };
-
-      if (recipe[`strIngredient${i}`]) {
-        auxObj.name = recipe[`strIngredient${i}`];
-        auxObj.measure = recipe[`strMeasure${i}`];
-        recipeIngredients.push(auxObj);
-      }
-    }
-
-    return (
-      <ul>
-        {recipeIngredients.map((ingredient, i) => (
-          <label
-            htmlFor={ `${i}-ingredient-step` }
-            key={ `${ingredient.name} ${i}` }
-            data-testid={ `${i}-ingredient-step` }
-          >
-            <input
-              type="checkbox"
-              onClick={ (event) => {
-                verifyChecked(event, i, recipe.idMeal || recipe.idDrink);
-              } }
-            />
-            {`${ingredient.name} ${ingredient.measure}`}
-          </label>
-        ))}
-      </ul>
-    );
-  };
 
   return (
     <div>
@@ -102,7 +45,7 @@ function RecipeInProgress({ recipe, isMeal }) {
         {`${recipe.strCategory} ${recipe.strAlcoholic}`}
       </h3>
 
-      {getIngredients()}
+      <Ingredients recipe={ recipe } isMeal={ isMeal } />
 
       <p data-testid="instructions">{recipe.strInstructions}</p>
 
