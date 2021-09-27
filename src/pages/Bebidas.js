@@ -10,7 +10,7 @@ import ComponentCategory from '../components/ComponentCategory';
 import './Styles/RecipeList.css';
 
 function Bebidas() {
-  const currentContext = useContext(recipeContext).ContextBebidas;
+  const currentContext = useContext(recipeContext).ContextFoods;
 
   const { showInput, dataForFetch, handleCurrentPage, currentID,
     loading, handleFetch } = currentContext;
