@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import { Button, Input } from '.';
 
-function SearchBar({ setSearchBarStatus, setFoodRecipes }) {
+function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
   const [textInput, setTextInput] = useState('');
   const [radioButton, setRadioButton] = useState('');
   const [loneFood, setLoneFood] = useState('');
@@ -106,9 +106,9 @@ function SearchBar({ setSearchBarStatus, setFoodRecipes }) {
 
 const { func } = PropTypes;
 
-SearchBar.propTypes = {
+FoodSearchBar.propTypes = {
   setSearchBarStatus: func,
   setFoodRecipes: func,
 }.isRequired;
 
-export default SearchBar;
+export default FoodSearchBar;
