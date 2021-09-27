@@ -7,8 +7,11 @@ function Perfil() {
   const history = useHistory();
 
   const storageUserEmail = localStorage.getItem('user');
-  const userEmail = JSON.parse(storageUserEmail);
-  console.log(userEmail.email);
+  let userEmail = JSON.parse(storageUserEmail);
+
+  if (!userEmail) {
+    userEmail = { email: '' };
+  }
 
   const logout = () => {
     localStorage.clear();
