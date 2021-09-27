@@ -6,8 +6,10 @@ function Provider(props) {
   const [data, setData] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [category, setCategory] = useState();
+  const [id, setId] = useState('');
   const { children } = props;
-  const contextValue = { data, setData, recipes, setRecipes, category, setCategory };
+  const contextValue = {
+    data, setData, recipes, setRecipes, category, setCategory, id, setId };
 
   return (
     <Context.Provider value={ contextValue }>

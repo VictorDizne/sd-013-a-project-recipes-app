@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import Context from '../Context/Context';
 import useRecipesSearch from '../Hooks/useRecipesSearch';
@@ -9,7 +10,7 @@ import Footer from '../components/Footer';
 
 function Drinks() {
   const urlDrink = 'thecocktail';
-  const { data, recipes, category } = useContext(Context);
+  const { data, recipes, category, setId } = useContext(Context);
   // const [toggle, setToggle] = useState(false);
   const history = useHistory();
   const secondButton = true;
@@ -30,26 +31,38 @@ function Drinks() {
     if (recipes.drinks.length > magic) {
       const cooktail = recipes.drinks.slice(0, magic);
       return cooktail.map((recipe, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <h3 data-testid={ `${index}-card-name` }>{ recipe.strDrink }</h3>
-          <img
-            src={ recipe.strDrinkThumb }
-            alt={ recipe.strDrink }
-            data-testid={ `${index}-card-img` }
-          />
-        </div>
+        <Link
+          key={ index }
+          to={ `/bebidas/${recipe.idDrink}` }
+          onClick={ () => setId(recipe.idDrink) }
+        >
+          <div data-testid={ `${index}-recipe-card` }>
+            <h3 data-testid={ `${index}-card-name` }>{ recipe.strDrink }</h3>
+            <img
+              src={ recipe.strDrinkThumb }
+              alt={ recipe.strDrink }
+              data-testid={ `${index}-card-img` }
+            />
+          </div>
+        </Link>
       ));
     }
     return (
       recipes.drinks.map((drink, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <h3 data-testid={ `${index}-card-name` }>{ drink.strMeal }</h3>
-          <img
-            src={ drink.strMealThumb }
-            alt={ drink.strMeal }
-            data-testid={ `${index}-card-img` }
-          />
-        </div>
+        <Link
+          key={ index }
+          to={ `/bebidas/${drink.idDrink}` }
+          onClick={ () => setId(drink.idDrink) }
+        >
+          <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <h3 data-testid={ `${index}-card-name` }>{ drink.strMeal }</h3>
+            <img
+              src={ drink.strDrinkThumb }
+              alt={ drink.strDrink }
+              data-testid={ `${index}-card-img` }
+            />
+          </div>
+        </Link>
       ))
     );
   };

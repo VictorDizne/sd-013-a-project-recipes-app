@@ -5,14 +5,22 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Profile() {
-  // const emailUser = localStorage.getItem(JSON.parse(user));
+  function showEmail() {
+    const emailUser = localStorage.getItem('user');
+    const emailObject = JSON.parse(emailUser);
+    return emailObject.email;
+  }
+
+  function handleClick() {
+    return localStorage.clear();
+  }
 
   return (
     <div>
       <Header text="Perfil" />
       <section>
         <div>
-          <h1 data-testid="profile-email">Email</h1>
+          <h1 data-testid="profile-email">{showEmail()}</h1>
         </div>
         <Link to="/receitas-feitas">
           <Button testID="profile-done-btn">
@@ -25,7 +33,7 @@ function Profile() {
           </Button>
         </Link>
         <Link to="/">
-          <Button testID="profile-logout-btn">
+          <Button handleClick={ handleClick } testID="profile-logout-btn">
             Sair
           </Button>
         </Link>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Button({ image, children, handleClick, testID, disabled }) {
+function Button({ image, children, handleClick, testID, disabled, className }) {
   return (
     <button
       type="button"
@@ -9,6 +9,7 @@ function Button({ image, children, handleClick, testID, disabled }) {
       data-testid={ testID }
       disabled={ disabled }
       src={ image }
+      className={ className }
     >
       {children}
     </button>

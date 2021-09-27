@@ -1,50 +1,72 @@
-import React from 'react';
-// import { Button } from '../components';
-// import Context from '../Context/Context';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import Button from '../components/Button';
 
-function FoodsRecipies() {
-  // const { idFood } = useContext(Context);
-  // const [food, setFood] = useState();
+function FoodsRecipies(props) {
+  const [details, setDetails] = useState();
+  const history = useHistory();
+  const { match: { params: { id } } } = props;
+  useEffect(() => {
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    async function fetchResult() {
+      const result = await (await fetch(url)).json();
+      const obj = result.meals;
+      setDetails(obj[0]);
+    }
+    fetchResult();
+  }, []);
 
-  // useEffect(() => {
-  //   const fetchFood = async () => {
-  //     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
-  //     const result = await (await fetch(url)).json();
-  //     setFood(result.meals[0]);
-  //   }
-  // }, [])
+  const renderDetails = () => {
+    if (details !== undefined) {
+      return (
+        <section>
+          <img src={ details.strMealThumb } alt="" data-testid="recipe-photo" />
+          <h2 data-testid="recipe-title">{details.strMeal}</h2>
+          <Button testID="share-btn">Compartilhar</Button>
+          <Button testID="favorite-btn">Favoritar</Button>
+          <ul data-testid="0-ingredient-name-and-measure">
+            {Object.keys(details)
+              .filter((detail) => detail.includes('strIngredient'))
+              .filter((ing) => details[ing] !== '')
+              .map((ingredient, i) => (
+                <li key={ i }>
+                  {details[`strMeasure${i + 1}`]}
+                  {' of '}
+                  {details[ingredient]}
+                </li>))}
+          </ul>
+          <h4 data-testid="recipe-category">{ details.strCategory }</h4>
+          <p data-testid="instructions">{ details.strInstructions }</p>
+          <iframe src={ details.strYoutube } data-testid="video" title=" video teste" />
+          <p data-testid="0-recomendation-card">card</p>
+          <Button
+            testID="start-recipe-btn"
+            className="initRecipes"
+            handleClick={ () => history.push(`/comidas/${id}/in-progress`) }
+          >
+            Iniciar Receita
+          </Button>
+          {console.log(details.strInstructions)}
+          {console.log(details)}
+        </section>
+      );
+    }
+  };
 
   return (
-    <main>
-      <h2 data-testid="recipe-title">strMeal</h2>
-      {/* <img data-testid="recipe-photo" alt="imagem da receita" />
-      <Button testID="share-btn">Compartilhar</Button>
-      <Button testID="favorite-btn">Favorito</Button>
-      <p data-testid="recipe-category">category</p>
-      <ul>
-        {
-        lista.map((item, idx) => (
-          <li data-testid={`${idx}-ingredient-name-and-measure`} key={ idx }>
-            {item}
-          </li>)
-        }
-      </ul>
-      <p data-testid="instructions">instructions</p>
-      <source data-testid="video" />
-      <Button data-testid="start-recipe-btn">Iniciar Receita</Button> */}
-    </main>
+    <div>
+      { renderDetails() }
+    </div>
   );
 }
 
-// * A foto deve possuir o atributo data-testid="recipe-photo";
-// * O título deve possuir o atributo data-testid="recipe-title";
-// * O botão de compartilhar deve possuir o atributo data-testid="share-btn";
-// * O botão de favoritar deve possuir o atributo data-testid="favorite-btn";
-// * O texto da categoria deve possuir o atributo data-testid="recipe-category";
-// Os ingredientes devem possuir o atributo data-testid="${index}-ingredient-name-and-measure";
-// * O texto de instruções deve possuir o atributo data-testid="instructions";
-// * O vídeo, presente somente na tela de comidas, deve possuir o atributo data-testid="video";
-// O card de receitas recomendadas deve possuir o atributo data-testid="${index}-recomendation-card";
-// * O botão de iniciar receita deve possuir o atributo data-testid="start-recipe-btn";
+FoodsRecipies.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default FoodsRecipies;
