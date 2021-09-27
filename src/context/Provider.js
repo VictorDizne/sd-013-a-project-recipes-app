@@ -7,8 +7,6 @@ import fetchDrinks from '../services/fetchDrinks';
 import fetchDrinksCategories from '../services/fetchDrinksCategories';
 
 function Provider({ children }) {
-  const [recipes, setRecipes] = useState([]);
-
   const [meals, setMeals] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [filteredMeals, setFilteredMeals] = useState([]);
@@ -64,8 +62,6 @@ function Provider({ children }) {
 
     toggleOn,
     setToggleOn,
-    recipes,
-    setRecipes,
   };
 
   return (
