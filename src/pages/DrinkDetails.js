@@ -4,7 +4,7 @@ import FavoriteButton from '../components/favoriteButton';
 import CardRecomendations from '../components/recomendationCard';
 import ShareButton from '../components/shareButton';
 import appContext from '../contexts/appContext';
-import './css/foodDetails.css';
+import './css/details.css';
 
 function DrinkDetail() {
   const [drink, setDrink] = useState({});
@@ -103,7 +103,9 @@ function DrinkDetail() {
           allowFullScreen
         />
       </div>
-      <CardRecomendations name="bebidas" recomends={ recomendations } maxCards={ 6 } />
+      <div className="horizontal-scroll">
+        <CardRecomendations name="bebidas" recomends={ recomendations } maxCards={ 6 } />
+      </div>
       <div>
         <button
           type="button"

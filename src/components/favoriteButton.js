@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Proptypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import appContext from '../contexts/appContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -29,6 +30,11 @@ const FavoriteButton = ({ drink, meal }) => {
       />
     </button>
   );
+};
+
+FavoriteButton.propTypes = {
+  drink: Proptypes.shape(Object).isRequired,
+  meal: Proptypes.shape(Object).isRequired,
 };
 
 export default FavoriteButton;

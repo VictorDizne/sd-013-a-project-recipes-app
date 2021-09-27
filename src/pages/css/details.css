@@ -1,0 +1,27 @@
+.video-detail {
+  position: relative;
+  width: 94%;
+  padding-bottom: 56.25%;
+  margin: 10px;
+  height: 0;
+}
+
+.video-detail iframe{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.horizontal-scroll {
+  max-height: 300px;
+  border: 1px solid black;
+  display: flex;
+  overflow-x: auto;
+  margin: 5px;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  width: 0;
+}

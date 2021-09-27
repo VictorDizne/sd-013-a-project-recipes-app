@@ -4,9 +4,11 @@ import appContext from './appContext';
 
 const AppProvider = ({ children }) => {
   const [state, setState] = useState({ foods: [], drinks: [], category: '', key: false });
-  const [recipesInProgress, setRecipes] = useState([]);
+  // const [recipesInProgress, setRecipes] = useState([]);
 
   const getIngredients = (arrFood) => {
+    // serve para extrair somente os ingredientes e quantidades da receita.
+    // arrFood = recebe a receita requisitada pela API.
     const ingredients = [];
     const measures = [];
     const TWENTY_NUMBER = 20;
@@ -20,6 +22,9 @@ const AppProvider = ({ children }) => {
   };
 
   const removeFavRecipe = (drinkDetail, mealDetail) => {
+    // serve para remover uma receita que está favoritada (função está sendo usada no componente
+    // favoriteButton)
+    // drinkDetail / mealDetail são os objetos requisitados pela API.
     const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (drinkDetail) {
       const { idDrink } = drinkDetail;
@@ -32,6 +37,10 @@ const AppProvider = ({ children }) => {
   };
 
   const verify = (setFavorited, drink, meal) => {
+    // verifica se a receita está favoritada ou não.
+    // setFavorited = função que altera o estado, está no componente FavoriteButton.
+    // drink / meal são os objetos requisitados pela api. será verificado se ele está ou não
+    // no localStorage
     const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (drink) {
       const { idDrink } = drink;
@@ -44,6 +53,8 @@ const AppProvider = ({ children }) => {
   };
 
   const favoriteRecipe = (drinkDetail, mealDetail) => {
+    // essa função favorita e salva a receita no localStorage.
+    // recebe o objeto requisitado pela API.
     const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (drinkDetail) {
       const { idDrink, strCategory, strDrink, strAlcoholic, strDrinkThumb } = drinkDetail;
@@ -79,8 +90,6 @@ const AppProvider = ({ children }) => {
     state,
     setState,
     getIngredients,
-    setRecipes,
-    recipesInProgress,
     favoriteRecipe,
     removeFavRecipe,
     verify,

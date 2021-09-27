@@ -4,11 +4,11 @@ import FavoriteButton from '../components/favoriteButton';
 import CardRecomendations from '../components/recomendationCard';
 import ShareButton from '../components/shareButton';
 import appContext from '../contexts/appContext';
-import './css/foodDetails.css';
+import './css/details.css';
 
 function FoodDetails() {
   const [meal, setMeal] = useState({});
-  const { getIngredients, recipesInProgress, setRecipes } = useContext(appContext);
+  const { getIngredients } = useContext(appContext);
   const [recomendations, setRecomendations] = useState([]);
   const [inProgress, setInProgress] = useState(false);
   const history = useHistory();
@@ -16,6 +16,8 @@ function FoodDetails() {
   const { ingredients, measures } = getIngredients(meal);
 
   useEffect(() => {
+    // ao entrar na page, ele verifica se os localStorages estão setados ou n,
+    // se não estiver, será setado.
     if (!JSON.parse(localStorage.getItem('favoriteRecipes'))) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
@@ -41,9 +43,15 @@ function FoodDetails() {
       setRecomendations(drinks);
     };
     getRecomendations();
+
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (meals[id]) { // verifica se a comida está em progresso.
+      return setInProgress(true);
+    }
   }, [id]);
 
-  const buttonStartRecipe = () => { // desenvolver essa função
+  const buttonStartRecipe = () => {
+    // coloca a receita em progresso quando clicamos para iniciar progresso.
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (inProgressRecipes.meals[id]) {
       setInProgress(true);
@@ -97,7 +105,9 @@ function FoodDetails() {
           allowFullScreen
         />
       </div>
-      <CardRecomendations name="bebidas" recomends={ recomendations } maxCards={ 6 } />
+      <div className="horizontal-scroll">
+        <CardRecomendations name="bebidas" recomends={ recomendations } maxCards={ 6 } />
+      </div>
       <div>
         <button
           type="button"
