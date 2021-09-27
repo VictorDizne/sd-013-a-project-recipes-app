@@ -14,6 +14,7 @@ function FoodsProcess() {
     fetchResult();
   }, []);
 
+  if (!details) return <h3>Loading...</h3>;
   return (
     <section>
       <img src={ details.srtMealThumb } alt="" data-testid="recipe-photo" />
