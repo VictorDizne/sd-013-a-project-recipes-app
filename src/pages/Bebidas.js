@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Context from '../context';
 import DrinksList from '../components/DrinksList';
 import DrinksCategories from '../components/DrinksCategories';
 
