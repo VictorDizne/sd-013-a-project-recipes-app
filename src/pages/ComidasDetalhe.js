@@ -6,6 +6,7 @@ function ComidasDetalhes({ match }) {
   const { recipeId } = match.params;
 
   const [meal, setMeal] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getMeal = async (id) => {
@@ -13,7 +14,10 @@ function ComidasDetalhes({ match }) {
       setMeal(result);
     };
     getMeal(recipeId);
+    setIsLoading(false);
   }, [setMeal, recipeId]);
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
     <div>
@@ -45,10 +49,9 @@ function ComidasDetalhes({ match }) {
       <iframe
         width="560"
         height="315"
-        src={ meal.strYoutube }
+        src={ String(meal.strYoutube).replace(/watch\?v=/, 'embed/') }
         title={ meal.strMeal }
         frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         data-testid="video"
       />
