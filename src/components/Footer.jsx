@@ -19,6 +19,28 @@ function Footer() {
           />
         }
       />
+      <Button
+        id="explore-bottom-btn"
+        onClick={ history.push('/explorar') }
+        buttonText={
+          <img
+            src={ exploreIcon }
+            alt="Compass Icon"
+            className="foodsBtnIcon"
+          />
+        }
+      />
+      <Button
+        id="drinks-bottom-btn"
+        onClick={ history.push('/bebidas') }
+        buttonText={
+          <img
+            src={ drinkIcon }
+            alt="Drink Icon"
+            className="foodsBtnIcon"
+          />
+        }
+      />
     </footer>
   );
 }
