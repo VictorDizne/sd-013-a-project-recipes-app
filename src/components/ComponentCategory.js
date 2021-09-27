@@ -33,14 +33,21 @@ function ComponentCategory() {
     <div>
       {!loading && controledList.map((item, index) => (
         <button
+          key={ index }
           id={ item.strCategory }
           onClick={ setFilter }
-          key={ index }
           data-testid={ `${item.strCategory}-category-filter` }
           type="button"
         >
           { item.strCategory }
         </button>))}
+      <button
+        onClick={ () => fetchFoodsOfCategory(currentPage, 'search', 's', '') }
+        data-testid="All-category-filter"
+        type="button"
+      >
+        All
+      </button>
     </div>
   );
 }

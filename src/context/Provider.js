@@ -37,8 +37,8 @@ function Provider({ children }) {
       .then((response) => setCategoryList(response));
   };
 
-  const fetchFoodsOfCategory = (currentPage, variable, letter, foods) => {
-    FetchAPI(currentPage, variable, letter, foods)
+  const fetchFoodsOfCategory = (currentPage, buttonState, letter, foodsCategory) => {
+    FetchAPI(currentPage, buttonState, letter, foodsCategory)
       .then((response) => setRecipeList(response));
   };
 
