@@ -38,37 +38,41 @@ function ReceitasFeitas() {
       </div>
       <div>
         {
-          doneRecipes.map(({ image, tags }, index) => (
-            <div key={ index }>
-              <img
-                src={ image }
-                alt="Imagem Horizontal"
-                data-testid={ `${index}-horizontal-image` }
-              />
-              <p data-testid={ `${index}-horizontal-top-text` }>Blablabla</p>
-              <p data-testid={ `${index}-horizontal-name` }>Blablabla</p>
-              <p data-testid={ `${index}-horizontal-done-date` }>Blablabla</p>
-              <p data-testid={ `${index}-horizontal-share-btn` }>Blablabla</p>
-              <input
-                data-testid={ `${index}-horizontal-share-btn` }
-                type="image"
-                alt="Ícone de compartilhar"
-                src={ shareIcon }
-              />
-              <div>
-                {
-                  tags.map((tag, i) => (
-                    <p
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                      key={ i }
-                    >
-                      {tag}
-                    </p>
-                  ))
-                }
+          doneRecipes
+            .map(({ image, area, category, name, tags, doneDate, type, alcoholicOrNot }, index) => (
+              <div key={ index }>
+                <img
+                  src={ image }
+                  alt="Imagem Horizontal"
+                  data-testid={ `${index}-horizontal-image` }
+                />
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  { type === 'bebida' ? alcoholicOrNot : `${area} - ${category}`}
+                </p>
+                <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+                <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
+                <input
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  type="image"
+                  alt="Ícone de compartilhar"
+                  src={ shareIcon }
+                />
+                <div>
+                  {
+                    tags.map((tag, i) => (
+                      <p
+                        data-testid={ `${index}-${tag}-horizontal-tag` }
+                        key={ i }
+                      >
+                        {tag}
+                      </p>
+                    ))
+                  }
+                </div>
               </div>
-            </div>
-          ))
+            ))
         }
       </div>
     </div>
