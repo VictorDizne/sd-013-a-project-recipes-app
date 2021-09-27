@@ -18,7 +18,7 @@ function FoodDetails() {
     fetchDrinksByQuery('s', '', dispatch); // Faz o fetch pra gerar as bebidas recomendadas;
   }, [id, dispatch]);
 
-  if (fetching) return <h3>Buscando detalhes da receita ...</h3>;
+  if (fetching) return <h3>Buscando detalhes da receita...</h3>;
   if (error) return <h3>Hmm, Algo deu errado, por favor tente novamente</h3>;
 
   return ( // 'spec' serve para sinalizar ao componente se é comida ou bebida;
