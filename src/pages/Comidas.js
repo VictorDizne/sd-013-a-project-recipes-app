@@ -14,7 +14,6 @@ function Comidas() {
 
   const { showInput, dataForFetch, handleCurrentPage, currentID,
     loading, handleFetch } = currentContext;
-
   const { redirectState } = dataForFetch;
 
   useEffect(() => {
