@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import DrinkCategories from '../../components/drinkCategories';
 import EveryDrinkCard from '../../components/everyDrinkCard';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
@@ -9,6 +10,7 @@ function Bebidas() {
   return (
     <>
       <Header title="Bebidas" />
+      <DrinkCategories />
       { loading ? <p>LOADING...</p> : <EveryDrinkCard />}
       <Footer />
     </>
