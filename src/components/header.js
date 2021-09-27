@@ -48,7 +48,7 @@ function Header({ title }) {
           data-testid="profile-top-btn"
         />
       </Link>
-      <h1 data-testeid="page-title">{ title }</h1>
+      <h1 data-testid="page-title">{ title }</h1>
       {}
       { showSearchButton() }
       { searchBar() }
