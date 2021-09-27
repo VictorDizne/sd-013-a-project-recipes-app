@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMealAreas, fetchMealByArea, fetchMealsByQuery } from '../../services/API';
 import { Header, Footer } from '../../components/General';
+import RecipesList from '../../components/ExploreByArea/RecipesList';
 
 function ExploreFoodsByArea() {
   const areas = useSelector((state) => state.api.explore);
@@ -25,14 +26,24 @@ function ExploreFoodsByArea() {
     <>
       <Header title="Explorar Origem" search />
       <div>
-        <select onChange={ (e) => setSelectedArea(e.target.value) }>
-          <option value="All">All</option>
+        <select
+          data-testid="explore-by-area-dropdown"
+          onChange={ (e) => setSelectedArea(e.target.value) }
+        >
+          <option data-testid="All-option" value="All">All</option>
           {areas.map((area) => (
-            <option key={ area.strArea } value={ area.strArea }>
+            <option
+              data-testid={ `${area.strArea}-option` }
+              key={ area.strArea }
+              value={ area.strArea }
+            >
               {area.strArea}
             </option>
           ))}
         </select>
+      </div>
+      <div>
+        <RecipesList type="Meal" />
       </div>
       <Footer />
     </>
