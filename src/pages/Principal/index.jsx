@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router-dom';
 import { Card, Footer, Header, Button } from '../../components';
 import Context from '../../context/Context';
-import style from './Bebidas.module.css';
+import style from './Principal.module.css';
 import fetchCategories from '../../services/fetchCategories';
 
 // LINK https://ihsavru.medium.com/react-paginate-implementing-pagination-in-react-f199625a5c8e
@@ -12,32 +12,29 @@ const Bebidas = () => {
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const location = useLocation();
 
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
   };
 
-  const location = useLocation();
+  const verifyPath = location.pathname.includes('comida');
 
   useEffect(() => {
-    const searchObj = { query: '', typeSearch: 'byName', location };
-    handleSearch(searchObj);
-  }, []);
+    handleSearch({ query: '', typeSearch: 'byName', location });
+  }, [searchObj, handleSearch]);
 
   useEffect(() => {
-    const getUrlLocation = () => {
-      if (location.pathname.includes('comida')) {
-        return 'meal';
-      } if (location.pathname.includes('bebida')) {
-        return 'cocktail';
-      }
-    };
     const updateCategories = async () => {
-      const categoriesBtn = await fetchCategories(getUrlLocation());
+      const categoriesBtn = await fetchCategories(
+        verifyPath
+          ? 'meal'
+          : 'cocktail',
+      );
       setCategories(categoriesBtn);
     };
     updateCategories();
-  }, []);
+  }, [verifyPath]);
 
   useEffect(() => {
     const updateRecipes = async (globalRecipes) => {
@@ -64,6 +61,7 @@ const Bebidas = () => {
   );
 
   const renderRecipes = (recipesArr) => {
+    console.log(recipesArr);
     const PER_PAGE = 12;
     const offset = currentPage * PER_PAGE;
     const pageCount = Math.ceil(recipes.length / PER_PAGE);
@@ -75,8 +73,8 @@ const Bebidas = () => {
             <Card
               key={ i }
               index={ i }
-              name={ recipe.strDrink }
-              img={ recipe.strDrinkThumb }
+              name={ verifyPath ? recipe.strMeal : recipe.strDrink }
+              img={ verifyPath ? recipe.strMealThumb : recipe.strDrinkThumb }
             />
           ))}
         <ReactPaginate

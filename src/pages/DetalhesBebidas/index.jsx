@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router';
 import { HeaderRecipes, IngredientList } from '../../components';
 import Context from '../../context/Context';
@@ -9,8 +9,8 @@ const DetalhesBebidas = () => {
   const { handleSearchById, appState: { recipe } } = useContext(Context);
 
   useEffect(() => {
-    handleSearchById({ location, id });
-  }, [handleSearchById, location, id, recipe]);
+    handleSearchById({ path: location.pathname, id });
+  }, []);
 
   if (Object.keys(recipe).length === 0) return (<div>Carregando...</div>);
 

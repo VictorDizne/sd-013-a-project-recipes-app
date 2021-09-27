@@ -6,7 +6,7 @@ import Context from '../../context/Context';
 const DetalhesComidas = () => {
   const { id } = useParams();
   const location = useLocation();
-  const { handleSearchById, appState: { recipe } } = useContext(Context);
+  const { handleSearchById } = useContext(Context);
 
   useEffect(() => {
     handleSearchById({ id, location });

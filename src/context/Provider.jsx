@@ -91,13 +91,15 @@ const Provider = ({ children }) => {
     }
   };
 
-  const handleSearchById = async ({ location, id }) => {
+  const handleSearchById = async ({ path, id }) => {
     const data = await fetchAPI(
-      location.pathname.includes('comidas')
+      path.includes('comidas')
         ? 'fetchMealById'
         : 'fetchCocktailById',
       id,
     );
+    // console.log(data);
+    // return data[0];
     dispatch({ type: 'recipe-detail', payload: data[0] });
   };
 

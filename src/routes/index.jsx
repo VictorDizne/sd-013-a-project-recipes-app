@@ -1,8 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
-  Bebidas,
-  Comidas,
+  Principal,
   ComidasArea,
   DetalhesBebidas,
   DetalhesBebidasInProgress,
@@ -29,12 +28,12 @@ const Routes = () => (
     <Route
       exact
       path="/bebidas"
-      component={ Bebidas }
+      component={ Principal }
     />
     <Route
       exact
       path="/comidas"
-      component={ Comidas }
+      component={ Principal }
     />
     <Route
       exact

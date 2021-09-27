@@ -1,5 +1,4 @@
-export { default as Bebidas } from './Bebidas';
-export { default as Comidas } from './Comidas';
+export { default as Principal } from './Principal';
 export { default as ComidasArea } from './ComidasArea';
 export { default as DetalhesBebidas } from './DetalhesBebidas';
 export { default as DetalhesBebidasInProgress } from './DetalhesBebidasInProgress';
