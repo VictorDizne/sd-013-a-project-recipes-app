@@ -1,25 +1,25 @@
 .video-detail {
-  position: relative;
-  width: 94%;
-  padding-bottom: 56.25%;
-  margin: 10px;
   height: 0;
+  margin: 10px;
+  position: relative;
+  padding-bottom: 56.25%;
+  width: 94%;
 }
 
-.video-detail iframe{
-  position: absolute;
-  top:0;
-  left: 0;
-  width: 100%;
+.video-detail iframe {
   height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .horizontal-scroll {
-  max-height: 300px;
   border: 1px solid black;
   display: flex;
-  overflow-x: auto;
+  max-height: 300px;
   margin: 5px;
+  overflow-x: auto;
 }
 
 .horizontal-scroll::-webkit-scrollbar {
