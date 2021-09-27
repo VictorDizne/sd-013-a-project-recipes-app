@@ -27,7 +27,13 @@ export const fetchRecipes = async (query, type, path) => {
   if (type === 'list') {
     const response = await fetch(`https://www.the${strUrl}db.com/api/json/v1/1/list.php?c=${query}`);
     const json = await response.json();
-    return json;
+    return json[dataKey];
+  }
+  if (type === 'category') {
+    // www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink
+    const response = await fetch(`https://www.the${strUrl}db.com/api/json/v1/1/filter.php?c=${query}`);
+    const json = await response.json();
+    return json[dataKey];
   }
 };
 
