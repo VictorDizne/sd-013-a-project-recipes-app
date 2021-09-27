@@ -5,7 +5,7 @@ import { BsArrowReturnLeft } from 'react-icons/bs';
 import { Button } from '../components';
 import { profileIcon, searchIcon } from '../images';
 
-function HandleHeader({ title }) {
+function HandleHeader({ title, setSearchBarStatus }) {
   const history = useHistory();
 
   const onClickBack = () => history.goBack();
@@ -26,9 +26,9 @@ function HandleHeader({ title }) {
     />
   );
 
-  if (title !== 'Bebidas' || title !== 'Comidas' || title !== 'Explorar Orígem') {
+  if (title !== 'Bebidas' && title !== 'Comidas' && title !== 'Explorar Orígem') {
     return (
-      <div>
+      <nav>
         { profileButton }
         <h1
           className="headerTitle"
@@ -46,12 +46,12 @@ function HandleHeader({ title }) {
             className="BackBtn"
           />
         </button>
-      </div>
+      </nav>
     );
   }
 
   return (
-    <div>
+    <nav>
       { profileButton }
       <h1
         className="headerTitle"
@@ -62,7 +62,7 @@ function HandleHeader({ title }) {
       <button
         type="button"
         data-testid="search-top-btn"
-        onClick={ onClickSearch }
+        onClick={ () => setSearchBarStatus((prevState) => !prevState) }
       >
         <img
           src={ searchIcon }
@@ -70,14 +70,15 @@ function HandleHeader({ title }) {
           className="searchBarBtn"
         />
       </button>
-    </div>
+    </nav>
   );
 }
 
-const { string } = PropTypes;
+const { string, func } = PropTypes;
 
 HandleHeader.propTypes = {
   title: string,
+  setSearchBarStatus: func,
 }.isRequired;
 
 export default HandleHeader;
