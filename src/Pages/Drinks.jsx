@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
@@ -12,23 +12,22 @@ export default function Drinks() {
     setIcon: true,
   };
 
-  const { searchData, loading } = useContext(Context);
-
   const history = useHistory();
 
-  const [fetchCocktails, setFetchCocktails] = useState([]);
+  const { searchData, pathnameCheck, fetchAPI, loading } = useContext(Context);
 
   const DOZE = 12;
 
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const fetchAPI = async () => {
-      const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-      const json = await result.json();
-      setFetchCocktails(json.drinks.slice(0, DOZE));
-    };
-    fetchAPI();
+    // Requisição inicial para renderizar cards ao carregar a página.
+    // const fetchAPI = async () => {
+    //   const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    //   const json = await result.json();
+    //   setSearchData(json.drinks.slice(0, DOZE));
+    // };
+    fetchAPI(pathnameCheck());
   }, []);
 
   return (
@@ -36,16 +35,6 @@ export default function Drinks() {
       <Header value={ pageTitle } />
       <h1>Drinks</h1>
       <Buttons />
-
-      {fetchCocktails.map((recipe, index) => (
-        <RecipeCard
-          name={ recipe.strDrink }
-          img={ recipe.strDrinkThumb }
-          key={ index }
-          index={ index }
-          id={ recipe.idDrink }
-          pathName={ pathname }
-        />))}
 
       {loading && searchData.length === 1
         ? history.push(`/bebidas/${searchData[0].idDrink}`)

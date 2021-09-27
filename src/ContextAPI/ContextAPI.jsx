@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
 function ContextAPIProvider({ children }) {
   const [searchData, setSearchData] = useState([]);
-  const [loading, setLoading] = useState('');
+  const [loading, setLoading] = useState(false);
+  const DOZE = 12;
 
   const errorMessage = (
     'Sinto muito, não encontramos nenhuma receita para esses filtros.'
@@ -15,7 +17,7 @@ function ContextAPIProvider({ children }) {
 
   const fetchIngredient = async (type, ingredient) => {
     try {
-      setLoading({ loading: true });
+      setLoading(true);
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/filter.php?i=${ingredient}`);
       const json = await result.json();
 
@@ -26,10 +28,10 @@ function ContextAPIProvider({ children }) {
 
       if (type === 'themealdb') {
         setSearchData(json.meals);
-        setLoading({ loading: false });
+        setLoading(false);
       } else {
         setSearchData(json.drinks);
-        setLoading({ loading: false });
+        setLoading(false);
       }
     } catch (e) {
       console.log(e);
@@ -38,6 +40,7 @@ function ContextAPIProvider({ children }) {
 
   const fetchName = async (type, name) => {
     try {
+      setLoading(true);
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?s=${name}`);
       const json = await result.json();
 
@@ -48,10 +51,10 @@ function ContextAPIProvider({ children }) {
 
       if (type === 'themealdb') {
         setSearchData(json.meals);
-        setLoading({ loading: false });
+        setLoading(false);
       } else {
         setSearchData(json.drinks);
-        setLoading({ loading: false });
+        setLoading(false);
       }
     } catch (e) {
       console.log(e);
@@ -60,6 +63,7 @@ function ContextAPIProvider({ children }) {
 
   const fetchFirstLetter = async (type, firstLetter) => {
     try {
+      setLoading(true);
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?f=${firstLetter}`);
       const json = await result.json();
 
@@ -70,13 +74,49 @@ function ContextAPIProvider({ children }) {
 
       if (type === 'themealdb') {
         setSearchData(json.meals);
-        setLoading({ loading: false });
+        setLoading(false);
       } else {
         setSearchData(json.drinks);
-        setLoading({ loading: false });
+        setLoading(false);
       }
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const fetchCategories = async (type, category) => {
+    setLoading(false);
+    const result = await fetch(`https://www.${type}.com/api/json/v1/1/filter.php?c=${category}`);
+    const json = await result.json();
+    if (type === 'themealdb') {
+      setSearchData(json.meals);
+      setLoading(false);
+    } else {
+      setSearchData(json.drinks);
+      setLoading(false);
+    }
+  };
+
+  const fetchAPI = async (type) => {
+    const result = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?s=`);
+    const json = await result.json();
+    if (type === 'themealdb') {
+      setSearchData(json.meals);
+    } else {
+      setSearchData(json.drinks);
+    }
+  };
+
+  const { pathname } = useLocation();
+
+  const pathnameCheck = () => {
+    switch (pathname) {
+    case '/comidas':
+      return 'themealdb';
+    case '/bebidas':
+      return 'thecocktaildb';
+    default:
+      return null;
     }
   };
 
@@ -84,7 +124,11 @@ function ContextAPIProvider({ children }) {
     fetchIngredient,
     fetchName,
     fetchFirstLetter,
+    fetchCategories,
+    fetchAPI,
+    pathnameCheck,
     searchData,
+    setSearchData,
     loading,
     setLoading,
   };

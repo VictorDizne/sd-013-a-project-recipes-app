@@ -106,7 +106,7 @@ const SearchBar = () => {
             onClick={ onButtonClick }
             data-testid="exec-search-btn"
           >
-            Add
+            Buscar
           </button>
         </div>
       </div>
