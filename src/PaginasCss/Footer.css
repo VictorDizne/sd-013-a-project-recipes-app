@@ -1,7 +1,5 @@
 .Footer {
   bottom: 0;
-  display:-webkit-inline-flex;
-  position: -webkit-sticky;
   position: fixed;
   width: 100%;
 }
