@@ -12,7 +12,6 @@ export default function Provider({ children }) {
   const [pageIngredients, setPageIngredients] = useState(false);
   const [fetchIngredients, setFetchIngredients] = useState(false);
 
-
   useEffect(() => {
     async function fetchMeals() {
       const endpointMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
