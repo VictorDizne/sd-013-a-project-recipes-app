@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import fetchMealById from '../services/fetchMealById';
 
 function ComidasDetalhes({ match }) {
@@ -59,9 +60,12 @@ function ComidasDetalhes({ match }) {
       <h4>Recomendações</h4>
       <p data-testid="0-recomendation-card">Ver o que é isso.</p>
 
-      <button type="button" data-testid="start-recipe-btn">
-        Iniciar
-      </button>
+      <Link to={ `/comidas/${recipeId}/in-progress` }>
+
+        <button type="button" data-testid="start-recipe-btn">
+          Iniciar Receita
+        </button>
+      </Link>
     </div>
   );
 }
