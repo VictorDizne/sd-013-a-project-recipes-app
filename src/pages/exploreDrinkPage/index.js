@@ -47,7 +47,7 @@ function ExploreDrinkPage() {
   }
   return (
     <>
-      <Header />
+      <Header title="Explorar Bebidas" />
       { loading ? <p>CARREGANDO...</p> : showButtons() }
       <Footer />
     </>
