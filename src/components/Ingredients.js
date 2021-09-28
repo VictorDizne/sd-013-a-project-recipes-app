@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 function Ingredients({ recipe, isMeal }) {
   const verifyChecked = (event, indexIng, id) => {
-    console.log(event.target.checked);
-    console.log(id);
+    // console.log(event.target.checked);
+    // console.log(id);
 
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
@@ -33,30 +33,28 @@ function Ingredients({ recipe, isMeal }) {
 
   useEffect(() => {
     const getIngredients = () => {
-      const MAX_INGREDIENTS = 16;
-      console.log(recipe, 'recipe');
-
+      // console.log(recipe, 'recipe');
       const entries = Object.entries(recipe);
 
       if (entries.length) {
         const ingredients = entries
           .filter(([chave, valor]) => chave.includes('strIngredient') && valor)
-          .map(([chave, valor]) => (
-            { [chave]: valor }
+          .map(([, valor]) => (
+            { name: valor }
           ));
 
-        console.log(ingredients, 'marcação!!!');
+        const measures = entries
+          .filter(([chave, valor]) => chave.includes('strMeasure') && valor)
+          .map(([, valor]) => (
+            { measure: valor }
+          ));
 
+        const ingredientsAndMeasures = ingredients
+          .map((ingredient, index) => ({ ...ingredient, ...measures[index] }));
+
+        // console.log(ingredientsAndMeasures, 'marcação!!!');
+        setRecipeIngredients(ingredientsAndMeasures);
       }
-      // for (let i = 0; i < MAX_INGREDIENTS; i += 1) {
-      //   const auxObj = { name: '', measure: '' };
-
-      //   if (recipe[`strIngredient${i}`]) {
-      //     auxObj.name = recipe[`strIngredient${i}`];
-      //     auxObj.measure = recipe[`strMeasure${i}`];
-      //     setRecipeIngredients([...recipeIngredients, auxObj]);
-      //   }
-      // }
     };
     getIngredients();
   }, [recipe]);
@@ -65,15 +63,15 @@ function Ingredients({ recipe, isMeal }) {
     <ul>
       {recipeIngredients.map((ingredient, i) => (
         <label
-          htmlFor={`${i}-ingredient-step`}
-          key={`${ingredient.name} ${i}`}
-          data-testid={`${i}-ingredient-step`}
+          htmlFor={ `${i}-ingredient-step` }
+          key={ `${ingredient.name} ${i}` }
+          data-testid={ `${i}-ingredient-step` }
         >
           <input
             type="checkbox"
-            onClick={(event) => {
+            onClick={ (event) => {
               verifyChecked(event, i, recipe.idMeal || recipe.idDrink);
-            }}
+            } }
           />
           {`${ingredient.name} ${ingredient.measure}`}
         </label>
