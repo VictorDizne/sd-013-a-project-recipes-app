@@ -1,0 +1,56 @@
+.form_bar {
+  align-items: center;
+  background-color: rgb(124, 111, 151);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 0;
+  position: absolute;
+  top: 59px;
+  width: 100%;
+  z-index: 2;
+}
+
+.input_pesquisa {
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  outline: none;
+  padding: 5px;
+  width: 80%;
+}
+
+.radio-container {
+  margin: 20px 0;
+}
+
+.label {
+  font-size: 20px;
+}
+
+.label:not( :last-child ) {
+  margin-right: 20px;
+}
+
+.radio-button {
+  margin-right: 5px;
+}
+
+.button_pesquisa {
+  background-color: rgb(9, 134, 156);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  height: 35px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  outline: none;
+  width: 80%;
+}
+
+.button_pesquisa:hover {
+  background-color: rgb(48, 160, 48);
+  cursor: pointer;
+}

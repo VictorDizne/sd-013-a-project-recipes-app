@@ -8,7 +8,6 @@ import * as bebidasApi from '../services/bebidasApi';
 function Provider({ children }) {
   const [inputText, setInputText] = useState('');
   const [inputRadio, setInputRadio] = useState('');
-  // const [data, setData] = useState([]);
   const [mealData, setMealData] = useState([]);
   const [drinkData, setDrinkData] = useState([]);
   const [foodCategories, setFoodCategories] = useState('');
@@ -19,7 +18,6 @@ function Provider({ children }) {
     if (results && results.length === 1) {
       history.push(`/comidas/${results[0].idMeal}`);
     }
-    console.log(results, 'second');
   };
 
   const condicionalDrinkLenght = (results) => {
@@ -128,8 +126,6 @@ function Provider({ children }) {
     setInputText,
     inputRadio,
     setInputRadio,
-    // data,
-    // setData,
     mealData,
     setMealData,
     drinkData,

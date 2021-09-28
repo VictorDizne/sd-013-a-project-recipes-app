@@ -33,3 +33,16 @@ export async function fetchDrinkByCategories(category) {
   const json = await res.json();
   return json.drinks;
 }
+
+export function fetchDrinksById(id) {
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((results) => results.json()
+      .then((data) => (results
+        .ok ? Promise.resolve(data.drinks) : Promise.reject(data.drinks))));
+}
+
+export async function fetchRecommendedDrinks() {
+  const res = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const json = await res.json();
+  return json.drinks;
+}

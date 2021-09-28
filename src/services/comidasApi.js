@@ -33,3 +33,16 @@ export async function fetchFoodByCategories(category) {
   const json = await res.json();
   return json.meals;
 }
+
+export function fetchFoodById(id) {
+  return fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((results) => results.json()
+      .then((data) => (results
+        .ok ? Promise.resolve(data.meals) : Promise.reject(data.meals))));
+}
+
+export async function fetchRecommendedMeals() {
+  const res = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const json = await res.json();
+  return json.meals;
+}

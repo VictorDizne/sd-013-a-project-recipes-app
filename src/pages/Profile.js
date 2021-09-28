@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/Profile.css';
 
 function Profile() {
   const history = useHistory();
@@ -19,15 +20,15 @@ function Profile() {
     history.push('/');
   };
 
-  const save = JSON.parse(localStorage.getItem('user'));
-  const { email } = save;
+  const { email } = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div>
       <Header title="Perfil" />
       <div>
         <p data-testid="profile-email">{ email }</p>
       </div>
-      <div>
+      <div className="container">
         <button
           type="button"
           data-testid="profile-done-btn"
