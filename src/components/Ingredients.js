@@ -26,14 +26,8 @@ function Ingredients({ recipe, isMeal }) {
             ? [...inProgressRecipes.meals[id], indexIng] : [indexIng],
         },
       };
-      // const teste50 = recipeIngredients.map((ingredient) => (checked ===
-      //   ? ({
-      //     ...ingredient,
-      //     checked: true,
-      //   })
-      //   : ingredient));
+
       setCheckedItems(updatedMeals);
-      // setRecipeIngredients(teste50);
     } else {
       const removedIngredient = inProgressRecipes.meals[id]
         .filter((ingredient) => ingredient !== indexIng);
@@ -100,22 +94,27 @@ function Ingredients({ recipe, isMeal }) {
           .map((ingredient, index) => ({ ...ingredient, ...measures[index] }));
 
         const checkedIngredients = ingredientsAndMeasures.map((ingredient, index) => {
-          const isChecked = checkedItems.meals[recipe.idMeal]
-            .find((item) => item === index);
+          if (checkedItems.meals[recipe.idMeal]) {
+            const isChecked = checkedItems.meals[recipe.idMeal]
+              .some((item) => item === index);
 
-          if (isChecked) {
             return {
               ...ingredient,
-              checked: true,
+              checked: isChecked,
             };
           }
-          return {
-            ...ingredient,
-            checked: false,
-          };
+          if (checkedItems.cocktails[recipe.idDrink]) {
+            const isChecked = checkedItems.cocktails[recipe.idDrink]
+              .some((item) => item === index);
+
+            return {
+              ...ingredient,
+              checked: isChecked,
+            };
+          }
+          return ingredient;
         });
 
-        console.log(checkedIngredients);
         setRecipeIngredients(checkedIngredients);
 
         // setRecipeIngredients(ingredientsAndMeasures);
