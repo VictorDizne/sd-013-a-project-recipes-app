@@ -16,7 +16,11 @@ function Header({ title }) {
       // Caso esteja na página com título de Comidas ou Explorar Origem, aparece um botão para ser
       // clicado.
       return (
-        <button className="header-button" type="button" onClick={ () => setShowSearchBar(!showSearchBar) }>
+        <button
+          className="header-button"
+          type="button"
+          onClick={ () => setShowSearchBar(!showSearchBar) }
+        >
           <img
             src={ searchIcon }
             alt="searchIcon"
@@ -43,6 +47,7 @@ function Header({ title }) {
     <header className="header">
       <Link to="/perfil">
         <img
+          className="iconprofile"
           src={ profileIcon }
           alt="profileIcon"
           data-testid="profile-top-btn"

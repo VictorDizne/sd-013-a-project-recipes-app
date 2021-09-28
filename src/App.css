@@ -1,14 +1,14 @@
-*{
+* {
+  border: none;
   margin: 0;
   padding: 0;
-  /* border: none; */
 }
 
 body {
-  width: 360px 640px !important;
+  width: 360px 640px;
 }
 
-.meals {
+/* .meals {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -18,104 +18,130 @@ body {
   height: 100vh;
   justify-content: center;
   width: 100%;
-}
+} */
 
 .meal-pic {
-  display: flex;
   box-shadow: 10px 10px 10px;
+  display: flex;
   width: 10%;
 }
 
+/* .profile {
+  display: flex;
+  flex-direction: column;
+} */
+
+.email {
+  display: block;
+}
+
+.button-category {
+  background-color: rgba(221, 221, 221);
+}
+
+.every-category-button {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 20px;
+  gap: 10px 10px;
+  justify-content: center;
+  margin-left: 10px;
+}
+
 .div-cards {
-  max-width: 360px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  max-width: 360px;
 }
 
 .eachFood {
-  border-radius: 25px;
-  width: 150px;
-  font-size: larger;
-  text-align: center;
-  border: #464646;
-  box-shadow: 1px 1px 15px;
-  justify-content: space-around;
   align-content: space-between;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  border: #ecdfdf1a;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px;
+  font-size: larger;
+  margin-bottom: 6px;
+  margin-top: 15px;
+  text-align: center;
+  width: 150px;
 }
 
 .foodImage {
-  width: 120px ;
   margin-top: 20px;
+  width: 120px;
+}
+
+.titlelogin {
+  display: flex;
+  font-size: 60px;
+  justify-content: center;
+  margin-top: 50px;
 }
 
 .email-input {
-  margin: 0;
-  position: absolute;
-  top: 29%;
-  left: 15%;
-  align-content: center;
-  display: flex;
-  border-radius: 5px;
-  flex-direction: column;
   block-size: 6%;
+  border: 1px solid black;
   font-size: larger;
+  left: 15%;
+  position: absolute;
   text-align: center;
+  top: 29%;
+}
+
+.password-input {
+  block-size: 6%;
+  border: 1px solid black;
+  display: flex;
+  font-size: larger;
+  left: 15%;
+  margin-top: 10px;
+  position: absolute;
+  text-align: center;
+  top: 36%;
+}
+
+.login-button {
+  align-content: center;
+  background-color: rgba(62, 218, 62, 0.63);
+  block-size: 6%;
+  display: flex;
+  font-size: larger;
+  justify-content: center;
+  left: 54.5px;
+  margin-top: 50px;
+  position: absolute;
+  text-align: center;
+  top: 48%;
+  width: 249px;
 }
 
 .search-metods {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  font-size: 20px;
+  justify-content: space-around;
 }
 
 .header {
+  background-color: rgba(221, 221, 221);
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  margin: 5px 0px 20px 7.5px;
-  width: 345px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.iconprofile {
+  margin: 5px;
 }
 
 .header-button {
-  /* Apenas para diferenciar */
-  background-color: slateblue;
+  background-color: rgba(221, 221, 221);
   border: none;
-}
-
-.password-input {
-  margin: 0;
-  position: absolute;
-  top: 36%;
-  left: 15%;
-  align-content: center;
-  display: flex;
-  border-radius: 5px;
-  flex-direction: column;
-  block-size: 6%;
-  font-size: larger;
-  text-align: center;
 }
 
 .meal-img {
   width: 360px;
-}
-
-.login-button {
-  margin: 0;
-  position: absolute;
-  top: 48%;
-  left: 40%;
-  align-content: center;
-  display: flex;
-  border-radius: 5px;
-  flex-direction: column;
-  block-size: 6%;
-  font-size: larger;
-  text-align: center;
 }
 
 .rocksGlass {
@@ -124,16 +150,16 @@ body {
 }
 
 .footer {
-  display: flex;
-  position: fixed;
-  padding: 10px;
   background-color: rgba(221, 221, 221);
-  bottom: 0px;
+  bottom: 0;
+  display: flex;
+  padding: 10px;
+  position: fixed;
 }
 
 .footerButtons {
-  border: none;
   background-color: rgba(221, 221, 221);
+  border: none;
   justify-content: space-evenly;
   width: 120px;
 }

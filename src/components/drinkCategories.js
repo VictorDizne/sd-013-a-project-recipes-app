@@ -37,6 +37,7 @@ function DrinkCategories() {
   const categoryButtons = Object.values(categories).slice(0, maxResults)
     .map((category, index) => (
       <button
+        className="button-category"
         type="button"
         key={ index }
         onClick={ () => fetchByCategory(category.strCategory) }
@@ -47,6 +48,7 @@ function DrinkCategories() {
   // Botão com a opção de mostrar todas a categorias
   const allButton = (
     <button
+      className="button-category"
       type="button"
       onClick={ () => fetchByCategory(currentCategory) }
       data-testid="All-category-filter"

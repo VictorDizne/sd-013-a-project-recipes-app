@@ -47,7 +47,7 @@ function EveryDrinkCard() {
     }
   }
   return (
-    <div>
+    <div className="div-cards">
       { card }
     </div>
   );
