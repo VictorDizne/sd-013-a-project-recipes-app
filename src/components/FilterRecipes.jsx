@@ -9,26 +9,36 @@ function FilterRecipes({ pageTitle, handleFilter }) {
   const { foodCategories, drinkCategories } = useCategories();
 
   useEffect(() => {
-    const options = {
-      comidas: foodCategories,
-      bebidas: drinkCategories,
-      both: ['All', 'Food', 'Drink'],
+    const setFoodCategories = async () => {
+      const options = {
+        Comidas: [{ strCategory: 'All' }, ...(await foodCategories)],
+        Bebidas: [{ strCategory: 'All' }, ...(await drinkCategories)],
+        both: [
+          { strCategory: 'All' },
+          { strCategory: 'Food' },
+          { strCategory: 'Drink' },
+        ],
+      };
+      setCategories(options[pageTitle]);
     };
-
-    setCategories(options[pageTitle]);
+    setFoodCategories();
   }, [drinkCategories, foodCategories, pageTitle]);
 
   return (
-    categories.map((category, index) => (
-      <Button
-        name={ category }
-        key={ index }
-        type="button"
-        id={ `${category.strCategory}-category-filter` }
-        buttonText={ category.strCategory }
-        onClick={ handleFilter }
-      />
-    ))
+    <section>
+      {
+        categories.map((category, index) => (
+          <Button
+            name={ category.strCategory }
+            key={ index }
+            type="button"
+            id={ `${category.strCategory}-category-filter` }
+            buttonText={ category.strCategory }
+            onClick={ handleFilter }
+          />
+        ))
+      }
+    </section>
   );
 }
 

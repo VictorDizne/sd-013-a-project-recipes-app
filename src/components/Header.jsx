@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import HandleHeader from '../helpers/HandleHeader';
 
-function Header({ title }) {
+function Header({ title, setSearchBarStatus }) {
   return (
     <header>
-      <HandleHeader title={ title } />
+      <HandleHeader title={ title } setSearchBarStatus={ setSearchBarStatus } />
     </header>
   );
 }

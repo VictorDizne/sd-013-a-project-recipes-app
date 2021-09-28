@@ -25,22 +25,24 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
       return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${textInput}`;
     case 'name':
       return `https://www.themealdb.com/api/json/v1/1/search.php?s=${textInput}`;
-    case 'searchInput':
+    case 'firstLetter':
       return `https://www.themealdb.com/api/json/v1/1/search.php?f=${textInput}`;
     default:
       break;
     }
   };
 
-  const getFoodRecipes = async () => {
+  const getFoodRecipes = async (event) => {
+    event.preventDefault();
     const ENDPOINT = handleEndPoints();
     const RETURN_LENGTH = 12;
     const response = await (await fetch(ENDPOINT)).json();
+    console.log(response);
 
     if (!response.meals) return searchBarAlert();
 
     if (response.meals.length === 1) {
-      setLoneFood(response.meal.idMeal);
+      setLoneFood(response.meals[0].idMeal);
       setRedirect(true);
     } else {
       setFoodRecipes(response.meals.slice(0, RETURN_LENGTH));
@@ -95,18 +97,11 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
           searchQuery={ radioButton }
         />
         <Button
-          type="sumbit"
+          type="submit"
           id="exec-search-btn"
           className="searchBarButton"
           buttonText="Buscar"
         />
-        <button
-          type="submit"
-          data-testid="exec-search-btn"
-          className="searchBarButton"
-        >
-          Buscar
-        </button>
       </form>
     </section>
   );

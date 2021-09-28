@@ -53,7 +53,6 @@ function HandleHeader({ title, setSearchBarStatus }) {
             <BsArrowReturnLeft />
           }
         />
-        {/* <BsArrowReturnLeft onClick={ onClickBack } /> */}
       </Nav>
     );
   }

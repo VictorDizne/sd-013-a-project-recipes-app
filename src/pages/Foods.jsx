@@ -34,14 +34,14 @@ const Foods = () => {
   }, []);
 
   const handleFilter = ({ target: { name } }) => (
-    name === 'ALL'
+    name === 'All'
       ? fetchAllFoodRecipes(setFoodRecipes)
       : fetchFoodRecipesByCategory(name, setFoodRecipes)
   );
 
   const filterRecipes = (
     <FilterRecipes
-      pageTitle="comidas"
+      pageTitle="Comidas"
       handleFilter={ handleFilter }
     />
   );
@@ -56,9 +56,9 @@ const Foods = () => {
 
   return (
     <Main>
-      <Header title="Comidas" />
+      <Header title="Comidas" setSearchBarStatus={ setSearchBarStatus } />
       {
-        searchBarStatus ? filterRecipes : foodSearchBar
+        searchBarStatus ? foodSearchBar : filterRecipes
       }
       <CardList className="recipeList">
         {
