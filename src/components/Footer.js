@@ -22,13 +22,13 @@ function Footer() {
 
   return (
     <footer data-testid="footer" className="fixed-footer">
-      <button type="button" onClick={ handleClickMeal }>
+      <button type="button" onClick={ handleClickMeal } className="footer-buttons">
         <img src={ mealIcon } alt="Meal Icon" data-testid="food-bottom-btn" />
       </button>
-      <button type="button" onClick={ handleClickExplore }>
+      <button type="button" onClick={ handleClickExplore } className="footer-buttons">
         <img src={ exploreIcon } alt="Explore Icon" data-testid="explore-bottom-btn" />
       </button>
-      <button type="button" onClick={ handleClickDrink }>
+      <button type="button" onClick={ handleClickDrink } className="footer-buttons">
         <img src={ drinkIcon } alt="Drink Icon" data-testid="drinks-bottom-btn" />
       </button>
     </footer>

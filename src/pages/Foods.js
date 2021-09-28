@@ -35,7 +35,7 @@ const Foods = () => {
   return (
     <div>
       <Header title="Comidas" hasSearchIcon page="foods" />
-      <div>
+      <div className="recipes-list">
         <div>
           <button
             type="button"
@@ -60,8 +60,8 @@ const Foods = () => {
             )))}
           </div>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };

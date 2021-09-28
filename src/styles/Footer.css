@@ -1,6 +1,24 @@
 .fixed-footer {
+  align-items: center;
+  background-color: honeydew;
   bottom: 0;
+  box-shadow: 10px 10px 15px black;
+  display: flex;
+  justify-content: space-around;
   left: 0;
+  margin: 0 auto;
+  padding: 10px 0;
   position: fixed;
   width: 100%;
+}
+
+.footer-buttons {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.footer-buttons:hover {
+  transform: scale(0.9);
 }

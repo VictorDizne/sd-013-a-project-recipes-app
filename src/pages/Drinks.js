@@ -36,7 +36,7 @@ const Drinks = () => {
   return (
     <div>
       <Header title="Bebidas" hasSearchIcon page="drinks" />
-      <div>
+      <div className="recipes-list">
         <div>
           <button
             type="button"
