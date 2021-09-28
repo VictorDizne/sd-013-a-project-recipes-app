@@ -15,10 +15,11 @@ function Provider({ children }) {
 
   const [showInput, setShowInput] = useDebugState('ShowInput', false);
   const [dataForFetch, setDataForFetch] = useDebugState('DataForFetch', fetchData);
-  const [recipeList, setRecipeList] = useDebugState('RecipeList', []);
+  const [recipeList, setRecipeList] = useDebugState('RecipeList', '');
   const [categoryList, setCategoryList] = useDebugState('CategoryList', '');
   const [currentID, setCurrentID] = useDebugState('CurentID', 0);
   const [loading, setLoading] = useDebugState('Loading', true);
+  const [details, setDetails] = useDebugState('Details', '');
 
   const handleCurrentPage = () => {
     const { location: { pathname } } = history;
@@ -67,6 +68,11 @@ function Provider({ children }) {
       });
   };
 
+  const fetchDetails = (currentPage, lookup, letter, id) => {
+    FetchAPI(currentPage, lookup, letter, id)
+      .then((response) => setDetails(response));
+  };
+
   useEffect(() => {
     if (currentID !== 0) {
       setDataForFetch({ ...dataForFetch, redirectState: true });
@@ -100,7 +106,7 @@ function Provider({ children }) {
     handleFetch,
   };
   const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
-  const ContextDetails = {};
+  const ContextDetails = { details, fetchDetails, dataForFetch, handleCurrentPage };
 
   const context = {
     ContextCard,
