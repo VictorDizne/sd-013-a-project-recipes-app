@@ -9,6 +9,9 @@ export default function Provider({ children }) {
   const [filterDrinkApi, saveFilteredItens] = useState([]);
   const [mealsApi, setMeals] = useState([]);
   const [activeSearchbarFilter, toggleSearchbarFilter] = useState(false);
+  const [pageIngredients, setPageIngredients] = useState(false);
+  const [fetchIngredients, setFetchIngredients] = useState(false);
+
   useEffect(() => {
     async function fetchMeals() {
       const endpointMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -37,6 +40,10 @@ export default function Provider({ children }) {
     saveFilteredItens,
     activeSearchbarFilter,
     toggleSearchbarFilter,
+    pageIngredients,
+    setPageIngredients,
+    fetchIngredients,
+    setFetchIngredients,
   };
 
   return (
