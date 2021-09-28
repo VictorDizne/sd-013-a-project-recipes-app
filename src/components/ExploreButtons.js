@@ -6,7 +6,9 @@ function ExploreButtons() {
   const location = useLocation();
   console.log(location);
   const handleExploreIngredient = () => history.push(`${location.pathname}/ingredientes`);
-  const handleExploreArea = () => history.push(`${location.pathname}/area`);
+  const handleExploreArea = () => {
+    history.push(`${location.pathname}/area`);
+  };
   const handleExploreSurprise = () => history.push(`${location.pathname}`);
   const [buttonArea, setButtonArea] = useState();
 
