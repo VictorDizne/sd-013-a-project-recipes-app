@@ -7,11 +7,12 @@ import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import BlackHeart from './..images/blackHeartIcon.svg';
+// import BlackHeart from './..images/blackHeartIcon.svg';
 
 const DetalheComidas = ({ match: { params: { id } }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
   const [drinksDetails, setDrinkDetails] = useState([]);
+  const [btnState, setBtnState] = useState('Iniciar Receita');
   const settings = {
     dots: true,
     infinite: false,
@@ -27,9 +28,6 @@ const DetalheComidas = ({ match: { params: { id } }, history }) => {
       setfoodDetail(...APIRequest);
     };
     getAPIdata();
-  }, []);
-
-  useEffect(() => {
     const SIX = 6;
     const cocktailsRequest = async () => {
       const drink = await cocktailsAPIRequest();
@@ -37,7 +35,17 @@ const DetalheComidas = ({ match: { params: { id } }, history }) => {
       setDrinkDetails(drinkSix);
     };
     cocktailsRequest();
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ meals: { } }));
+    }
+    const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const chaves = Object.keys(test.meals).some((chave) => chave === id);
+    if (chaves) {
+      setBtnState('Continuar Receita');
+    }
   }, []);
+
 
   const keysOfApi = Object.keys(foodDetail);
 
@@ -53,9 +61,6 @@ const DetalheComidas = ({ match: { params: { id } }, history }) => {
   const { strMeal, strCategory, strInstructions, strMealThumb, strYoutube } = foodDetail;
 
   const handleClick = () => {
-    const btn = document.getElementById(`${id}`);
-    btn.innerHTML = 'Continuar Receita';
-    console.log(btn);
     if (localStorage.getItem('inProgressRecipes') === null) {
       localStorage.setItem('inProgressRecipes', JSON
         .stringify({ meals: { [id]: [] } }));
@@ -67,7 +72,7 @@ const DetalheComidas = ({ match: { params: { id } }, history }) => {
     history.push(`/comidas/${id}/in-progress`);
   };
 
-/*   const handleFavorite = () => {
+  /*   const handleFavorite = () => {
     if (localStorage.getItem('favoriteRecipes') === null) {
       localStorage.setItem('favoriteRecipes', JSON
         .stringify({
@@ -171,7 +176,7 @@ const DetalheComidas = ({ match: { params: { id } }, history }) => {
         data-testid="start-recipe-btn"
         type="button"
       >
-        Iniciar Receita
+        {btnState}
       </button>
     </div>
   );

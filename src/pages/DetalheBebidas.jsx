@@ -12,6 +12,7 @@ import 'slick-carousel/slick/slick-theme.css';
 const DetalheBebidas = ({ match: { params: { id } }, history }) => {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [foodsDetails, setFoodsDetails] = useState([]);
+  const [btnState, setBtnState] = useState('Iniciar Receita');
   const settings = {
     dots: true,
     infinite: false,
@@ -56,10 +57,19 @@ const DetalheBebidas = ({ match: { params: { id } }, history }) => {
     strDrinkThumb,
     strAlcoholic } = drinkDetail;
 
+  useEffect(() => {
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ cocktails: { } }));
+    }
+    const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const chaves = Object.keys(test.cocktails).some((chave) => chave === id);
+    if (chaves) {
+      setBtnState('Continuar Receita');
+    }
+  }, []);
+
   const handleClick = () => {
-    const btn = document.getElementById(`${id}`);
-    btn.innerHTML = 'Continuar Receita';
-    console.log(btn);
     if (localStorage.getItem('inProgressRecipes') === null) {
       localStorage.setItem('inProgressRecipes', JSON
         .stringify({ cocktails: { [id]: [] } }));
@@ -170,7 +180,7 @@ const DetalheBebidas = ({ match: { params: { id } }, history }) => {
         data-testid="start-recipe-btn"
         type="button"
       >
-        Iniciar Receita
+        {btnState}
       </button>
     </div>
   );
