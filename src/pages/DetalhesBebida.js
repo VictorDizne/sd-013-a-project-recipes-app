@@ -6,8 +6,7 @@ import RecipesContext from '../context/RecipesContext';
 function DetalhesBebida({ match: { params: { recipeId } }, history }) {
   const [drink, setDrink] = useState({});
   const [showDoneBtn, setShowDoneBtn] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const { setBtnText } = useContext(RecipesContext);
+  const { setBtnText, setIsFavorite } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetching = async () => {
@@ -22,7 +21,6 @@ function DetalhesBebida({ match: { params: { recipeId } }, history }) {
 
   useEffect(() => {
     const getRecipeStorage = localStorage.getItem('doneRecipes');
-    console.log(getRecipeStorage);
     if (getRecipeStorage) {
       const recipeExists = JSON.parse(getRecipeStorage).some((r) => (
         r.idDrink === drink.idDrink));
@@ -48,7 +46,7 @@ function DetalhesBebida({ match: { params: { recipeId } }, history }) {
         setIsFavorite(false);
       }
     }
-  }, [drink.idDrink]);
+  }, [drink.idDrink, setIsFavorite]);
 
   useEffect(() => {
     const inProgressRecipe = localStorage.getItem('inProgressRecipes');
@@ -67,7 +65,6 @@ function DetalhesBebida({ match: { params: { recipeId } }, history }) {
         showBtn={ showDoneBtn }
         recipe={ drink }
         isMeal={ false }
-        isFavorite={ isFavorite }
       />
     </div>
   );
