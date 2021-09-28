@@ -15,6 +15,29 @@
   max-height: 80vh;
 }
 
+ul.scrollMenuRecomendation {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+button.start-recipe-btn {
+  bottom: 0px;
+  left: 0px;
+  position: fixed;
+}
+
+ul.scrollMenuRecomendation li {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+.container {
+  padding-bottom: 200px;
+}
 /*
 #iceLeft {
   animation: clink .8s infinite ease;

@@ -14,12 +14,38 @@ import ExplorarComidasIng from './pages/ExplorarComidasIng';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
 import ExplorarBebidasAr from './pages/ExplorarBebidasAr';
 import ExplorarComidasAr from './pages/ExplorarComidasAr';
+import CardDetailsMeal from './components/cardDetailsMeal';
+import CardDetailsDrinks from './components/cardDetailsDrinks';
+import CardMealsInProgress from './pages/CardMealsInProgress';
+import CardDrinksInProgress from './pages/CardDrinksInProgress';
 
 function App() {
   return (
     <Provider>
       <BrowserRouter>
         <Switch>
+          <Route
+            exact
+            path="/comidas/:id"
+            render={ ({ match: { params: { id } } }) => <CardDetailsMeal props={ id } /> }
+          />
+          <Route
+            exact
+            path="/comidas/:id/in-progress"
+            component={ CardMealsInProgress }
+          />
+          <Route
+            exact
+            path="/bebidas/:id"
+            render={ ({ match: { params: { id } } }) => (
+              <CardDetailsDrinks props={ id } />
+            ) }
+          />
+          <Route
+            exact
+            path="/bebidas/:id/in-progress"
+            component={ CardDrinksInProgress }
+          />
           <Route exact path="/comidas" component={ Comidas } />
           <Route exact path="/bebidas" component={ Bebidas } />
           <Route exact path="/explorar" component={ Explorar } />

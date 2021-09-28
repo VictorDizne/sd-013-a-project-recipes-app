@@ -8,18 +8,28 @@ export default function Provider({ children }) {
   const [drinkApi, setDrinks] = useState([]);
   const [filterDrinkApi, saveFilteredItens] = useState([]);
   const [mealsApi, setMeals] = useState([]);
+  const [drinkApiRecomendationCard, setDrinkApiRecomendationCard] = useState([]);
+  const [mealsApiRecomendationCard, setMealsApiRecomendationCard] = useState([]);
   useEffect(() => {
     async function fetchMeals() {
       const endpointMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
       const { meals } = await fetch(endpointMeals).then((res) => res.json());
       const filterMeals = meals.slice(Number('0'), Number('12'));
+      const filterMealsRecomendationCard = meals.slice(Number('0'), Number('6'));
       setMeals(filterMeals);
+      setMealsApiRecomendationCard(filterMealsRecomendationCard);
+      // localStorage.setItem('inProgressRecipes', JSON.stringify({
+      //   cocktails: {},
+      //   meals: {},
+      // }));
     }
     async function fetchDrinks() {
       const endpointDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
       const { drinks } = await fetch(endpointDrink).then((res) => res.json());
       const filterDrinks = drinks.slice(Number('0'), Number('12'));
+      const filterDrinksRecomendationCard = drinks.slice(Number('0'), Number('6'));
       setDrinks(filterDrinks);
+      setDrinkApiRecomendationCard(filterDrinksRecomendationCard);
     }
     fetchDrinks();
     fetchMeals();
@@ -34,6 +44,8 @@ export default function Provider({ children }) {
     mealsApi,
     filterDrinkApi,
     saveFilteredItens,
+    mealsApiRecomendationCard,
+    drinkApiRecomendationCard,
   };
 
   return (
