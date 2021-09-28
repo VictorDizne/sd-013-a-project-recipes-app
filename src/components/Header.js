@@ -76,7 +76,9 @@ function Header() {
     if (initialRender.current) {
       const { path } = searchSettings;
       const { idMeal, idDrink } = recipes[0];
-      if (recipes.length === 1) {
+
+      // Path vazio pela busca por categoria
+      if (recipes.length === 1 && path) {
         history.push(`${path}/${idMeal || idDrink}`);
       }
     } else {

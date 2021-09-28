@@ -14,6 +14,9 @@ export function Provider({ children }) {
 
   const [recipes, setRecipes] = useState(['teste']);
 
+  // const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState('');
+
   const initialRender = useRef(false);
 
   useEffect(() => {
@@ -41,6 +44,8 @@ export function Provider({ children }) {
     searchSettings,
     setRecipes,
     recipes,
+    setToggle,
+    toggle,
   };
 
   return (
