@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import Context from '../context';
 import fetchRecipesByCategories from '../services/fetchRecipesByCategories';
 
@@ -61,5 +62,9 @@ function Categories({ isMeal }) {
     </nav>
   );
 }
+
+Categories.propTypes = {
+  isMeal: PropTypes.bool.isRequired,
+};
 
 export default Categories;

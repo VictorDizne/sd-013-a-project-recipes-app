@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeList from '../components/RecipeList';
@@ -22,5 +23,11 @@ function Recipes({ match }) {
     </>
   );
 }
+
+Recipes.propTypes = {
+  match: PropTypes.shape({
+    path: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default Recipes;
