@@ -51,17 +51,3 @@ export function getRecomendationsDrinks() {
     .then((result) => result.json())
     .then((resolve) => resolve.drinks);
 }
-
-export async function getRandomDrink() {
-  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
-  const result = await fetch(endpoint);
-  const resultJson = await result.json();
-  return resultJson;
-}
-
-export async function getRandomMeal() {
-  const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
-  const result = await fetch(endpoint);
-  const resultJson = await result.json();
-  return resultJson;
-}

@@ -1,43 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getRandomDrink } from '../services/Api';
+import ButtonsExplorer from '../components/ButtonsExplorer';
 
 function ExploreDrinks() {
-  const [randomMeal, setRandomMeal] = useState();
-  const history = useHistory();
-
-  const handleClick = async () => {
-    const result = await getRandomDrink();
-    setRandomMeal(result.drinks[0].idDrink);
-  };
-
-  useEffect(() => {
-    if (randomMeal) history.push(`/bebidas/${randomMeal}`);
-  }, [randomMeal]);
-
   return (
     <div>
-      Pagina SearchDrinks
-      <Header title="Explorar Bebidas" />
-      <div>
-        <Link to="/explorar/bebidas/ingredientes">
-          <button
-            type="button"
-            data-testid="explore-by-ingredient"
-          >
-            Por Ingredientes
-          </button>
-        </Link>
-        <button
-          type="button"
-          data-testid="explore-surprise"
-          onClick={ handleClick }
-        >
-          Me Surpreenda!
-        </button>
-      </div>
+      <Header title="Explorar Bebidas" withSearchButton={ false } />
+      <h1>Explorar Bebidas</h1>
+      <ButtonsExplorer page="drink" />
       <Footer />
     </div>
   );
