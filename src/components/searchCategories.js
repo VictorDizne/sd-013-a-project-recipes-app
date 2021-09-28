@@ -1,6 +1,6 @@
-/* import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const S = () => {
+const SearchFoodCategories = () => {
   const [foodCategories, setFoodCategories] = useState([]);
   useEffect(() => {
     const fetchData = async () => setFoodCategories(await fetchByCategoryFood());
@@ -26,4 +26,4 @@ const S = () => {
   );
 };
 
-export default SearchFoodCategories; */
+export default SearchFoodCategories;

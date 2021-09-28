@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import appContext from '../contexts/appContext';
 
 function AllDrinksFood() {
+  const { state, setState } = useContext(appContext);
   return (
     <span>
-      <button type="button" data-testid="filter-by-all-btn">All</button>
-      <button type="button" data-testid="filter-by-food-btn">Food</button>
-      <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ () => setState({ ...state, filterDoneFood: 'all' }) }
+      >
+        All
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ () => setState({ ...state, filterDoneFood: 'bebida' }) }
+      >
+        Foods
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ () => setState({ ...state, filterDoneFood: 'comida' }) }
+      >
+        Drinks
+      </button>
     </span>
   );
 }

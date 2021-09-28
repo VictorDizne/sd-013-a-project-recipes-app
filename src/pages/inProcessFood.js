@@ -40,7 +40,32 @@ function ProcessFood() {
     return (currentIngredients.length === ingredients.length);
   };
 
-  const finishRecipe = () => history.push('/receitas-feitas');
+  const finishRecipe = () => {
+    const currentDate = new Date();
+    const createDate = `${currentDate
+      .getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`;
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = meal;
+    const mealFinished = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: createDate,
+      tags: [strTags],
+    };
+    if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
+      localStorage.setItem('doneRecipes', JSON.stringify([mealFinished]));
+    } else {
+      const oldDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      localStorage.setItem(
+        'doneRecipes', JSON.stringify([...oldDoneRecipes, mealFinished]),
+      );
+    }
+    return history.push('/receitas-feitas');
+  };
 
   const isChecked = (ingredientName) => {
     const NOT_FOUND = -1;

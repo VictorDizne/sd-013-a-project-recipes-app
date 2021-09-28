@@ -41,7 +41,38 @@ function ProcessDrink() {
     return (currentIngredients.length === ingredients.length);
   };
 
-  const finishRecipe = () => history.push('/receitas-feitas');
+  const finishRecipe = () => {
+    const currentDate = new Date();
+    const createDate = `${currentDate.getDate()}
+    /${currentDate.getMonth()}/${currentDate.getFullYear()}`;
+    const { idDrink, strAlcoholic, strGlass, strCategory, strDrinkThumb,
+    } = drink;
+    if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
+      localStorage.setItem('doneRecipes', JSON.stringify([
+        { id: idDrink,
+          type: 'bebida',
+          area: '',
+          category: strCategory,
+          alcoholicOrNot: '',
+          name: strGlass,
+          image: strDrinkThumb,
+          doneDate: createDate,
+          tags: strAlcoholic }]));
+    } else {
+      const oldDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      localStorage.setItem('doneRecipes', JSON.stringify([...oldDoneRecipes, {
+        id: idDrink,
+        type: 'bebida',
+        area: '',
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strGlass,
+        image: strDrinkThumb,
+        doneDate: createDate,
+        tags: '' }]));
+    }
+    return history.push('/receitas-feitas');
+  };
 
   const isChecked = (ingredientName) => {
     const NOT_FOUND = -1;

@@ -9,6 +9,7 @@ const AppProvider = ({ children }) => {
     category: '',
     key: false,
     mealInProgress: {},
+    filterDoneFood: 'all',
   });
 
   // const [recipesInProgress, setRecipes] = useState([]);
