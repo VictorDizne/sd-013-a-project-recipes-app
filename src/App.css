@@ -21,12 +21,14 @@ body {
 }
 
 .div-cards {
+  max-width: 355px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-content: space-between;
   align-items: flex-end;
   justify-content: space-around;
+  margin-bottom: 70px;
 }
 
 .eachFood {
@@ -106,6 +108,19 @@ body {
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
+}
+
+.footer {
+  display: flex;
+  position: fixed;
+  bottom: 2px;
+}
+
+.footerButtons {
+  /* display: flex; */
+  justify-content: space-evenly;
+  width: 120px;
+  /* position: fixed; */
 }
 
 /*
