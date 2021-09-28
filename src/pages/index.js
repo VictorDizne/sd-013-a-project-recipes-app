@@ -3,8 +3,6 @@ export { default as Meals } from './Meals';
 export { default as Drinks } from './Drinks';
 export { default as MealDetails } from './MealDetails';
 export { default as DrinkDetails } from './DrinkDetails';
-export { default as MealProgress } from './MealProgress';
-export { default as DrinkProgress } from './DrinkProgress';
 export { default as Explore } from './Explore';
 export { default as ExploreMeals } from './ExploreMeals';
 export { default as ExploreDrinks } from './ExploreDrinks';

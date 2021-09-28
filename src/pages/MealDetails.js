@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchDetails, fetchRecipes } from '../services';
 import shareIcon from '../images/shareIcon.svg';
@@ -8,18 +8,61 @@ import Recomendations from '../components/Recomendations';
 
 const MAX_RECOMENDATION = 6;
 
+const usedIngredient = { textDecoration: 'line-through' };
+
+function checkProgress(id, recipes) {
+  const recipesIds = Object.keys(recipes);
+  if (recipesIds.includes(id)) return true;
+  return false;
+}
+
+function getStorage() {
+  const payload = localStorage.getItem('inProgressRecipes');
+  if (payload === null) {
+    localStorage
+      .setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
+  }
+  return JSON.parse(localStorage.getItem('inProgressRecipes'));
+}
+
+function saveOnStorage(number, id) {
+  const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const { meals } = payload;
+  if (!meals[id]) {
+    meals[id] = [];
+  }
+  meals[id] = [...meals[id], number];
+
+  const updated = { ...payload, meals };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(updated));
+  return meals;
+}
+
 function MealDetails({ match: { params: { id } } }) {
   const [isReady, setIsReady] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [recomendations, setRecomendations] = useState([]);
+  const [inProgressRecipes, setInProgressRecipes] = useState({});
   const location = useLocation();
+  const history = useHistory();
   const initialRender = useRef(false);
   const loading = <p>Loading.......</p>;
-
+  const isInProgress = location.pathname.includes('in-progress');
   const styleBtn = {
     position: 'fixed',
     bottom: '0px',
   };
+
+  function startRecipe() {
+    history.push(`/comidas/${id}/in-progress`);
+  }
+
+  function handleCheckBox({ target }) {
+    const { name, checked } = target;
+    if (checked) {
+      setInProgressRecipes(saveOnStorage(name, id));
+    }
+  }
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -29,10 +72,17 @@ function MealDetails({ match: { params: { id } } }) {
     const fetchRecomendations = async () => {
       const data = await fetchRecipes('', 'name', '/bebidas');
       setRecomendations(data.slice(0, MAX_RECOMENDATION));
-      console.log(data.slice(0, MAX_RECOMENDATION));
     };
     fetchRecipe();
     fetchRecomendations();
+  }, []);
+
+  useEffect(() => {
+    const checkStorage = async () => {
+      const data = await getStorage();
+      setInProgressRecipes(data.meals);
+    };
+    checkStorage();
   }, []);
 
   useEffect(() => {
@@ -66,15 +116,22 @@ function MealDetails({ match: { params: { id } } }) {
           Object.entries(recipe).map(([key, value]) => {
             if (key.includes('strIngredient') && value) {
               const index = Number(key.split('strIngredient')[1]) - 1;
+              console.log(inProgressRecipes[id].includes(`${index + 1}`));
               return (
                 <label
                   htmlFor="ingredient"
                   data-testid={ `${index}-ingredient-name-and-measure` }
+                  style={ { textDecoration: inProgressRecipes[id].includes(`${index + 1}`) ? 'line-through' : '' } }
                 >
+                  {isInProgress
+                    && <input
+                      name={ index + 1 }
+                      type="checkbox"
+                      id="ingredient"
+                      onChange={ handleCheckBox }
+                      checked={ inProgressRecipes[id].includes(`${index + 1}`) }
+                    />}
                   {`${value} - ${recipe[`strMeasure${index + 1}`]}`}
-                  {/* <input type="checkbox" id="ingredient" /> */}
-                  {/* Podemos usar esse input checkbox quando
-                  estivermos na página de progresso da receita */}
                 </label>);
             }
             return null;
@@ -82,17 +139,34 @@ function MealDetails({ match: { params: { id } } }) {
         }
       </div>
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      <iframe data-testid="video" src={ recipe.strYoutube } title="Video" />
-      <div>
-        <Recomendations recomendations={ recomendations } />
-      </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        style={ styleBtn }
-      >
-        Iniciar Receita
-      </button>
+      { !isInProgress
+        && (
+          <>
+            <iframe data-testid="video" src={ recipe.strYoutube } title="Video" />
+            <div>
+              <Recomendations recomendations={ recomendations } />
+            </div>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              style={ styleBtn }
+              onClick={ startRecipe }
+            >
+              {checkProgress(id, inProgressRecipes)
+                ? 'Continuar Receita' : 'Iniciar Receita'}
+            </button>
+          </>
+        )}
+      { isInProgress && (
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          style={ styleBtn }
+          onClick={ startRecipe }
+        >
+          Finalizar Receita
+        </button>
+      )}
     </div>
   );
 }
