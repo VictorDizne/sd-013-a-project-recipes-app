@@ -51,7 +51,7 @@ const Form = () => {
       <label htmlFor="email">
         Email
         <input
-          type="text"
+          type="email"
           name="email"
           id="email"
           value={ userEmail }
@@ -63,7 +63,7 @@ const Form = () => {
       <label htmlFor="senha">
         Senha
         <input
-          type="text"
+          type="password"
           name="senha"
           id="senha"
           value={ userPassword }

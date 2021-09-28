@@ -10,6 +10,12 @@ export default function Provider({ children }) {
   const [mealsApi, setMeals] = useState([]);
   const [drinkApiRecomendationCard, setDrinkApiRecomendationCard] = useState([]);
   const [mealsApiRecomendationCard, setMealsApiRecomendationCard] = useState([]);
+  const [activeSearchbarFilter, toggleSearchbarFilter] = useState(false);
+  const [pageIngredients, setPageIngredients] = useState(false);
+  const [fetchIngredients, setFetchIngredients] = useState([]);
+  const [pageAreas, setPageAreas] = useState(false);
+  const [area, setArea] = useState([]);
+
   useEffect(() => {
     async function fetchMeals() {
       const endpointMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -46,6 +52,16 @@ export default function Provider({ children }) {
     saveFilteredItens,
     mealsApiRecomendationCard,
     drinkApiRecomendationCard,
+    activeSearchbarFilter,
+    toggleSearchbarFilter,
+    pageIngredients,
+    setPageIngredients,
+    fetchIngredients,
+    setFetchIngredients,
+    area,
+    setArea,
+    pageAreas,
+    setPageAreas,
   };
 
   return (

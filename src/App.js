@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import Bebidas from './pages/Bebidas';
 import Provider from './redux/Context';
@@ -12,12 +11,15 @@ import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarComidasIng from './pages/ExplorarComidasIng';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
-import ExplorarBebidasAr from './pages/ExplorarBebidasAr';
+import NotFound from './pages/NotFound';
 import ExplorarComidasAr from './pages/ExplorarComidasAr';
 import CardDetailsMeal from './components/cardDetailsMeal';
 import CardDetailsDrinks from './components/cardDetailsDrinks';
 import CardMealsInProgress from './pages/CardMealsInProgress';
 import CardDrinksInProgress from './pages/CardDrinksInProgress';
+import SurpreendaComidas from './pages/SurpreendaComidas';
+import SurpreendaBebidas from './pages/SurpreendaBebidas';
+import Comidas from './pages/Comidas';
 
 function App() {
   return (
@@ -51,10 +53,18 @@ function App() {
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
           <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />
-          <Route path="/explorar/comidas/area" component={ ExplorarBebidasAr } />
+          <Route path="/explorar/comidas/area" component={ ExplorarComidasAr } />
+          <Route
+            path="/comidas/:id"
+            component={ SurpreendaComidas }
+          />
           <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
           <Route path="/explorar/comidas/ingredientes" component={ ExplorarComidasIng } />
-          <Route path="/explorar/bebidas/area" component={ ExplorarComidasAr } />
+          <Route path="/explorar/bebidas/area" component={ NotFound } />
+          <Route
+            path="/bebidas/:id"
+            component={ SurpreendaBebidas }
+          />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
