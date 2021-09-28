@@ -47,6 +47,7 @@ function DrinkDetails({ match: { params: { id } } }) {
   return (
     <>
       <img
+        className="meal-img"
         data-testid="recipe-photo"
         src={ details.strDrinkThumb }
         alt="Meal"

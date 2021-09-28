@@ -48,7 +48,7 @@ function SearchDrinkBar() {
   }
 
   return (
-    <div>
+    <div className="search-metods">
       <label htmlFor="filter_radio">
         Ingrediente
         <input
@@ -83,6 +83,7 @@ function SearchDrinkBar() {
       </label>
 
       <input
+        placeholder="Buscar"
         type="text"
         data-testid="search-input"
         name="text"

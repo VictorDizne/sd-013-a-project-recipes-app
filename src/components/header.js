@@ -40,7 +40,7 @@ function Header({ title }) {
   }
 
   return (
-    <header>
+    <header className="header">
       <Link to="/perfil">
         <img
           src={ profileIcon }

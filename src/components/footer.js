@@ -9,6 +9,7 @@ function Footer() {
   return (
     <footer data-testid="footer" className="footer">
       <button
+        className="footerButtons"
         onClick={ () => history.push('/bebidas') }
         type="button"
         data-testid="drinks-bottom-btn"
@@ -19,6 +20,7 @@ function Footer() {
         />
       </button>
       <button
+        className="footerButtons"
         type="button"
         data-testid="food-bottom-btn"
         onClick={ () => history.push('/comidas') }
@@ -29,6 +31,7 @@ function Footer() {
         />
       </button>
       <button
+        className="footerButtons"
         type="button"
         data-testid="explore-bottom-btn"
         onClick={ () => history.push('/explorar') }

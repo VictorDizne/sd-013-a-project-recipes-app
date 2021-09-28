@@ -40,7 +40,7 @@ function EveryMealCard() {
     }
   }
   return (
-    <div>
+    <div className="div-cards">
       { card }
     </div>
   );

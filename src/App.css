@@ -1,3 +1,7 @@
+body {
+  width: 360px 640px !important;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -16,6 +20,30 @@
   width: 10%;
 }
 
+.div-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: space-between;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.eachFood {
+  border-radius: 15px;
+  font-size: larger;
+  text-align: center;
+  border: #464646;
+  box-shadow: 1px 1px 10px;
+  justify-content: space-around;
+  align-content: space-between;
+  align-items: flex-end;
+}
+
+.foodImage {
+  width: 150px ;
+}
+
 .email-input {
   margin: 0;
   position: absolute;
@@ -28,6 +56,19 @@
   block-size: 6%;
   font-size: larger;
   text-align: center;
+}
+
+.search-metods {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  font-size: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .password-input {
@@ -44,9 +85,8 @@
   text-align: center;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0%;
+.meal-img {
+  width: 360px;
 }
 
 .login-button {
