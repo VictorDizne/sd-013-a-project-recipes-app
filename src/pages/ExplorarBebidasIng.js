@@ -31,7 +31,7 @@ const ExplorarBebidasIng = () => {
 
   return (
     <div>
-      <HeaderWithoutSearch page="Explorar Bebidas" />
+      <HeaderWithoutSearch page="Explorar Ingredientes" />
       { ingredientsDrinks.map((drink, index) => (
         <button
           type="submit"
