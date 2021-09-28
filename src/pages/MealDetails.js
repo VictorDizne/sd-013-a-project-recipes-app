@@ -8,14 +8,6 @@ import Recomendations from '../components/Recomendations';
 
 const MAX_RECOMENDATION = 6;
 
-const usedIngredient = { textDecoration: 'line-through' };
-
-function checkProgress(id, recipes) {
-  const recipesIds = Object.keys(recipes);
-  if (recipesIds.includes(id)) return true;
-  return false;
-}
-
 function getStorage() {
   const payload = localStorage.getItem('inProgressRecipes');
   if (payload === null) {
@@ -25,17 +17,24 @@ function getStorage() {
   return JSON.parse(localStorage.getItem('inProgressRecipes'));
 }
 
-function saveOnStorage(number, id) {
+function checkProgress(id, recipes) {
+  const recipesIds = Object.keys(recipes);
+  if (recipesIds.includes(id)) return true;
+  return false;
+}
+
+function saveOnStorage(id) {
+  if (localStorage.getItem('inProgressRecipes') === null) {
+    localStorage.setItem(
+      'inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }),
+    );
+  }
   const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const { meals } = payload;
-  if (!meals[id]) {
-    meals[id] = [];
-  }
-  meals[id] = [...meals[id], number];
+  meals[id] = [];
 
   const updated = { ...payload, meals };
   localStorage.setItem('inProgressRecipes', JSON.stringify(updated));
-  return meals;
 }
 
 function MealDetails({ match: { params: { id } } }) {
@@ -47,21 +46,14 @@ function MealDetails({ match: { params: { id } } }) {
   const history = useHistory();
   const initialRender = useRef(false);
   const loading = <p>Loading.......</p>;
-  const isInProgress = location.pathname.includes('in-progress');
   const styleBtn = {
     position: 'fixed',
     bottom: '0px',
   };
 
   function startRecipe() {
+    saveOnStorage(id);
     history.push(`/comidas/${id}/in-progress`);
-  }
-
-  function handleCheckBox({ target }) {
-    const { name, checked } = target;
-    if (checked) {
-      setInProgressRecipes(saveOnStorage(name, id));
-    }
   }
 
   useEffect(() => {
@@ -116,21 +108,12 @@ function MealDetails({ match: { params: { id } } }) {
           Object.entries(recipe).map(([key, value]) => {
             if (key.includes('strIngredient') && value) {
               const index = Number(key.split('strIngredient')[1]) - 1;
-              console.log(inProgressRecipes[id].includes(`${index + 1}`));
+              console.log(JSON.stringify(inProgressRecipes));
               return (
                 <label
                   htmlFor="ingredient"
                   data-testid={ `${index}-ingredient-name-and-measure` }
-                  style={ { textDecoration: inProgressRecipes[id].includes(`${index + 1}`) ? 'line-through' : '' } }
                 >
-                  {isInProgress
-                    && <input
-                      name={ index + 1 }
-                      type="checkbox"
-                      id="ingredient"
-                      onChange={ handleCheckBox }
-                      checked={ inProgressRecipes[id].includes(`${index + 1}`) }
-                    />}
                   {`${value} - ${recipe[`strMeasure${index + 1}`]}`}
                 </label>);
             }
@@ -139,34 +122,19 @@ function MealDetails({ match: { params: { id } } }) {
         }
       </div>
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      { !isInProgress
-        && (
-          <>
-            <iframe data-testid="video" src={ recipe.strYoutube } title="Video" />
-            <div>
-              <Recomendations recomendations={ recomendations } />
-            </div>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              style={ styleBtn }
-              onClick={ startRecipe }
-            >
-              {checkProgress(id, inProgressRecipes)
-                ? 'Continuar Receita' : 'Iniciar Receita'}
-            </button>
-          </>
-        )}
-      { isInProgress && (
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          style={ styleBtn }
-          onClick={ startRecipe }
-        >
-          Finalizar Receita
-        </button>
-      )}
+      <iframe data-testid="video" src={ recipe.strYoutube } title="Video" />
+      <div>
+        <Recomendations recomendations={ recomendations } />
+      </div>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        style={ styleBtn }
+        onClick={ startRecipe }
+      >
+        {checkProgress(id, inProgressRecipes)
+          ? 'Continuar Receita' : 'Iniciar Receita'}
+      </button>
     </div>
   );
 }
