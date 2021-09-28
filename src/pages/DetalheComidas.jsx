@@ -62,12 +62,12 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
 
   const measurementKeys = keysOfApi.filter((chave) => chave.includes('strMeasure'))
     .map((measure) => foodDetail[measure])
-    .filter((measure) => measure !== null || measure !== '');
+    .filter((measure) => measure !== ' ' && measure !== null);
 
   const ingredientsKeys = keysOfApi.filter((chave) => chave.includes('strIngredient'));
   const ingredientsValues = ingredientsKeys
     .map((ingredient) => foodDetail[ingredient])
-    .filter((ingredient) => ingredient !== '');
+    .filter((ingredient) => ingredient !== '' && ingredient !== null);
 
   const {
     strMeal,
@@ -146,7 +146,11 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
         onClick={ handleFavorite }
         type="button"
       >
-        <img data-testid="favorite-btn" src={ btnFavorite === 'isFavorite' ? BlackHeart : Heart } alt="btn Fav" />
+        <img
+          data-testid="favorite-btn"
+          src={ btnFavorite === 'isFavorite' ? BlackHeart : Heart }
+          alt="btn Fav"
+        />
       </button>
       <p data-testid="recipe-title">{strMeal}</p>
       <p data-testid="recipe-category">{strCategory}</p>
