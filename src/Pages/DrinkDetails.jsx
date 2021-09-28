@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useApiId from '../hooks/useApiId';
+import useApiId from '../Hooks/useApiId';
 
 function DrinkDetails(props) {
   const { match: { params: { id } } } = props;
