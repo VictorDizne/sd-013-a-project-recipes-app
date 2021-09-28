@@ -47,6 +47,31 @@ function FoodDetails() {
     getRecomendations();
   }, []);
 
+  const createList = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const date = `${day}/${month}/${year}`;
+
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = recipe;
+    const doneRecipes = [{
+      id: idMeal,
+      type: 'meal',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: date,
+      tags: strTags || [],
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+    // btnStartRecipe.style.display = 'none';
+    btnStartRecipe.hidden = true;
+  };
+
   return (
     <div className="food-container">
       { (recipe.length === 1) && (
@@ -109,6 +134,8 @@ function FoodDetails() {
         to={ `/comidas/${historyId}/in-progress` }
         data-testid="start-recipe-btn"
         className="iniciar-receita"
+        id="btn-iniciar-receita"
+        onClick={ createList }
       >
         Iniciar Receita
       </Link>

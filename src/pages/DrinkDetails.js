@@ -49,6 +49,32 @@ function DrinkDetails() {
     getRecomendations();
   }, []);
 
+  const createList = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const date = `${day}/${month}/${year}`;
+
+    const { idDrink,
+      strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe;
+    const doneRecipes = [{
+      id: idDrink,
+      type: 'meal',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: date,
+      tags: strTags || [],
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+    // btnStartRecipe.style.display = 'none';
+    btnStartRecipe.hidden = true;
+  };
+
   return (
     <div className="food-container">
       { (recipe.length === 1) && (
@@ -85,16 +111,6 @@ function DrinkDetails() {
       { (recipe.length === 1)
         && <p data-testid="instructions">{ recipe[0].strInstructions }</p> }
 
-      {/* <h3>Video</h3>
-      { (recipe.length === 1)
-        && recipe[0].strVideo
-        && (<iframe
-          width="425"
-          height="350"
-          src={ recipe[0].strVideo }
-          title={ recipe[0].strDrink }
-          data-testid="video"
-        />)} */}
       <h3>Recomendadas</h3>
       <div className="recomandation-container">
         { recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
@@ -110,6 +126,8 @@ function DrinkDetails() {
         to={ `/comidas/${historyId}/in-progress` }
         data-testid="start-recipe-btn"
         className="iniciar-receita"
+        id="btn-iniciar-receita"
+        onClick={ createList }
       >
         Iniciar Receita
       </Link>
@@ -118,107 +136,3 @@ function DrinkDetails() {
 }
 
 export default DrinkDetails;
-
-// import React, { useContext, useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
-// import RecipesContext from '../context/index';
-
-// const INITIAL_VALUE = 9;
-// const INITIAL_LOOP = 50;
-
-// function DrinkDetails() {
-//   const { DrinkGetId, setCatchDrinkId } = useContext(RecipesContext);
-
-//   const history = useHistory();
-//   const historyFilter = history.location.pathname;
-//   const historyId = historyFilter.substr(INITIAL_VALUE);
-
-//   useEffect(() => {
-//     setCatchDrinkId(historyId);
-//   }, []);
-
-//   const filterIngredient = [];
-//   const filtersTrMeasure = [];
-
-//   DrinkGetId.filter((item) => {
-//     for (let i = 1; i <= INITIAL_LOOP; i += 1) {
-//       if (item[`strIngredient${i}`]) filterIngredient.push(item[`strIngredient${i + 1}`]);
-//     }
-//     return null;
-//   });
-
-//   DrinkGetId.filter((item) => {
-//     for (let i = 1; i <= INITIAL_LOOP; i += 1) {
-//       if (item[`strIngredient${i}`]) filtersTrMeasure.push(item[`strMeasure${i + 1}`]);
-//     }
-//     return null;
-//   });
-
-//   return (
-//     <div>
-//       {
-//         DrinkGetId
-//           .map(({
-//             strDrinkThumb,
-//             strCategory,
-//             idDrink,
-//             strInstructions,
-//             strDrink,
-//             strVideo,
-//           }, i) => (
-//             <div key={ idDrink }>
-//               <img
-//                 src={ strDrinkThumb }
-//                 alt={ strDrinkThumb }
-//                 data-testid="recipe-photo"
-//                 width="50"
-//               />
-//               <p data-testid="recipe-title">{ strMeal }</p>
-//               <button type="button" data-testid="share-btn">Compartilhar</button>
-//               <button type="button" data-testid="favorite-btn">Favoritos</button>
-//               <p data-testid="recipe-category">{ strCategory }</p>
-//               <h1>
-//                 Ingredients
-//               </h1>
-//               {
-//                 filterIngredient.map((item, t) => (
-//                   <p data-testid={ `${i}-ingredient-name-and-measure` } key={ t }>
-//                     { item }
-//                   </p>
-//                 ))
-//               }
-//               <h1>
-//                 Instructions
-//               </h1>
-//               <p data-testid="instructions">{ strInstructions }</p>
-//               <h1>
-//                 Video
-//               </h1>
-//               <iframe
-//                 title={ strVideo }
-//                 width="420"
-//                 height="345"
-//                 src={ strVideo ? strVideo.replace('watch?v=', 'embed/') : '' }
-//                 data-testid="video"
-//               />
-//               <h1>
-//                 Recomendadas
-//               </h1>
-//               {
-//                 filtersTrMeasure.map((item, c) => (
-//                   <p data-testid={ `${i}-recomendation-card` } key={ c }>
-//                     { item }
-//                   </p>
-//                 ))
-//               }
-//               <button type="button" data-testid="start-recipe-btn">
-//                 Iniciar Receita
-//               </button>
-//             </div>
-//           ))
-//       }
-//     </div>
-//   );
-// }
-
-// export default DrinkDetails;

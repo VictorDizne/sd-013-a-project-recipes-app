@@ -1,8 +1,8 @@
 .recomandation-container {
-  width: 90%;
-  margin: 10px auto;
   display: flex;
+  margin: 10px auto;
   overflow-y: hidden;
+  width: 90%;
 }
 
 /* .button-container {
@@ -12,21 +12,21 @@
 } */
 
 .iniciar-receita {
-  position: fixed;
-  bottom: 0;
-  left: 10%;
   background-color: rgb(9, 134, 156);
   border: none;
   border-radius: 5px;
+  bottom: 0;
   color: white;
   font-size: 15px;
   font-weight: 600;
   height: 35px;
+  left: 10%;
   margin-top: 5px;
   outline: none;
-  width: 80%;
+  padding-top: 10px;
+  position: fixed;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  padding-top: 10px;
+  width: 80%;
 }
