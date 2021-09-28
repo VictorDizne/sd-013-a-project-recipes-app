@@ -29,6 +29,7 @@ function EveryMealCard() {
         .map((recipe, index) => (
           <Link to={ () => MealURL(recipe.idMeal) } key={ index }>
             <SingleCard
+              className="single-card"
               imgsrc={ recipe.strMealThumb }
               index={ index }
               cardName={ recipe.strMeal }

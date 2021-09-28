@@ -16,7 +16,7 @@ function Header({ title }) {
       // Caso esteja na página com título de Comidas ou Explorar Origem, aparece um botão para ser
       // clicado.
       return (
-        <button type="button" onClick={ () => setShowSearchBar(!showSearchBar) }>
+        <button className="header-button" type="button" onClick={ () => setShowSearchBar(!showSearchBar) }>
           <img
             src={ searchIcon }
             alt="searchIcon"
