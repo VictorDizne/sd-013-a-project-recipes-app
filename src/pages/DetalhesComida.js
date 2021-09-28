@@ -6,7 +6,7 @@ import RecipesContext from '../context/RecipesContext';
 function DetalhesComida({ match: { params: { recipeId } }, history }) {
   const [meal, setMeal] = useState({});
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
-  const { setBtnText } = useContext(RecipesContext);
+  const { setBtnText, setIsFavorite } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetching = async () => {
@@ -21,7 +21,6 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
 
   useEffect(() => {
     const getRecipeStorage = localStorage.getItem('doneRecipes');
-    console.log(getRecipeStorage);
     if (getRecipeStorage) {
       const recipeExists = JSON.parse(getRecipeStorage).some((r) => (
         r.idMeal === meal.idMeal));
@@ -32,6 +31,22 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
       }
     }
   }, [meal.idMeal]);
+
+  useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+
+    if (favoriteRecipes) {
+      const favoriteRecipesExists = JSON.parse(favoriteRecipes).some((r) => (
+        r.id === meal.idMeal
+      ));
+
+      if (favoriteRecipesExists) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    }
+  }, [meal.idMeal, setIsFavorite]);
 
   useEffect(() => {
     const inProgressRecipe = localStorage.getItem('inProgressRecipes');
