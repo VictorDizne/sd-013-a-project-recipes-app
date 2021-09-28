@@ -8,7 +8,9 @@ function Profile() {
   function showEmail() {
     const emailUser = localStorage.getItem('user');
     const emailObject = JSON.parse(emailUser);
-    return emailObject.email;
+    if (emailObject !== null) {
+      return emailObject.email;
+    }
   }
 
   function handleClick() {
