@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Login from './Pages/Login';
-import FoodDetails from './Pages/FoodDetails';
+// import FoodDetails from './Pages/FoodDetails';
 import ContextAPIProvider from './ContextAPI/ContextAPI';
 import RecipesProvider from './Context/RecipesProvider';
 import Foods from './Pages/Foods';
@@ -16,7 +16,8 @@ import FavoriteRecipes from './Pages/FavoritesRecipes';
 import FoodsByLocal from './Pages/FoodsByLocal';
 import ExploreByIngredients from './Pages/ExplorerByIng';
 import Profile from './Pages/Profile';
-import DrinkDetails from './Pages/DrinkDetails';
+// import DrinkDetails from './Pages/DrinkDetails';
+import RecipeDetails from './Pages/RecipeDetails';
 
 function App() {
   return (
@@ -26,9 +27,9 @@ function App() {
           <Switch>
             <Route exact path="/" component={ Login } />
             <Route exact path="/comidas" component={ Foods } />
-            <Route exact path="/comidas/:id" component={ FoodDetails } />
             <Route exact path="/bebidas" component={ Drinks } />
-            <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+            <Route exact path="/comidas/:id" component={ RecipeDetails } />
+            <Route exact path="/bebidas/:id" component={ RecipeDetails } />
             <Route exact path="/explorar/comidas" component={ FoodsExplorer } />
             <Route exact path="/receitas-feitas" component={ DoneRecipes } />
             <Route exact path="/explorar/bebidas" component={ DrinksExplorer } />

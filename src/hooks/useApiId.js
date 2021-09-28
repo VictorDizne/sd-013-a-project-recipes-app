@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
 
 const useApiId = (type, id) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
+  const [isMeal, setIsMeal] = useState(false);
   useEffect(() => {
     const fetchId = async () => {
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/lookup.php?i=${id}`);
       const json = await result.json();
       if (type === 'themealdb') {
-        setData(json.meals);
+        setData(json.meals[0]);
+        setIsMeal(true);
+      } else {
+        setData(json.drinks[0]);
+        setIsMeal(false);
       }
-      setData(json.drinks);
     };
     fetchId();
   }, [id, type]);
 
-  return data;
+  return [data, isMeal];
 };
 
 export default useApiId;
