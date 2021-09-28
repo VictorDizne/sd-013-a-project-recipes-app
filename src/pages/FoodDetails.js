@@ -63,7 +63,6 @@ function FoodDetails() {
       ...inProgressRecipes.meals,
       [id]: ingredients,
     };
-    console.log({ ...inProgressRecipes, meals });
     localStorage
       .setItem('inProgressRecipes', JSON.stringify({ ...inProgressRecipes, meals }));
     setInProgress(false);
