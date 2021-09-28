@@ -75,6 +75,7 @@ function ReceitaDetalhes({ match }) {
 
 ReceitaDetalhes.propTypes = {
   match: PropTypes.shape({
+    path: PropTypes.string.isRequired,
     params: PropTypes.shape({
       recipeId: PropTypes.string.isRequired,
     }).isRequired,
