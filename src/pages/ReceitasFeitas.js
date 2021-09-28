@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+import FilterTypesButtons from '../components/FilterTypesButtons';
+import FilteredCards from '../components/FilteredCards';
 
 const doneRecipes = [
   {
@@ -47,76 +47,8 @@ function ReceitasFeitas() {
   return (
     <div>
       <Header tela="Receitas Feitas" showSearch={ false } />
-      <div>
-        <button
-          onClick={ () => filterType() }
-          type="button"
-          data-testid="filter-by-all-btn"
-        >
-          All
-        </button>
-        <button
-          onClick={ () => filterType('comida') }
-          type="button"
-          data-testid="filter-by-food-btn"
-        >
-          Food
-        </button>
-        <button
-          onClick={ () => filterType('bebida') }
-          type="button"
-          data-testid="filter-by-drink-btn"
-        >
-          Drink
-        </button>
-      </div>
-      <div>
-        {
-          recipes
-            .map(({
-              image, area, category, name, tags, doneDate, type, alcoholicOrNot, id,
-            }, index) => (
-              <div key={ index }>
-                <Link to={ `./${type}s/${id}` }>
-                  <input
-                    width="300px"
-                    src={ image }
-                    type="image"
-                    alt="Imagem Horizontal"
-                    data-testid={ `${index}-horizontal-image` }
-                  />
-                </Link>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  { type === 'bebida' ? alcoholicOrNot : `${area} - ${category}`}
-                </p>
-                <Link to={ `./${type}s/${id}` }>
-                  <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
-                </Link>
-                <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
-                <input
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  type="image"
-                  alt="Ícone de compartilhar"
-                  src={ shareIcon }
-                />
-                <div>
-                  {
-                    tags.map((tag, i) => (
-                      <p
-                        data-testid={ `${index}-${tag}-horizontal-tag` }
-                        key={ i }
-                      >
-                        {tag}
-                      </p>
-                    ))
-                  }
-                </div>
-              </div>
-            ))
-        }
-      </div>
+      <FilterTypesButtons filterType={ filterType } />
+      <FilteredCards recipes={ recipes } />
     </div>
   );
 }
