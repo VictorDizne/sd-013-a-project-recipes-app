@@ -6,8 +6,6 @@ import {
   Drinks,
   MealDetails,
   DrinkDetails,
-  MealProgress,
-  DrinkProgress,
   Explore,
   ExploreMeals,
   ExploreDrinks,
@@ -17,6 +15,8 @@ import {
   Perfil,
   MadeRecipes,
   FavoriteRecipes,
+  MealInProgress,
+  DrinkInProgress,
 } from './pages';
 
 const Routes = () => (
@@ -49,13 +49,13 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/comidas/{id-da-receita}/in-progress"
-        component={ MealProgress }
+        path="/comidas/:id/in-progress"
+        component={ MealInProgress }
       />
       <Route
         exact
-        path="/bebidas/{id-da-receita}/in-progress"
-        component={ DrinkProgress }
+        path="/bebidas/:id/in-progress"
+        component={ DrinkInProgress }
       />
       <Route
         exact

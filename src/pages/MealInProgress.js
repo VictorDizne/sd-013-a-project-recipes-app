@@ -1,12 +1,20 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchDetails, fetchRecipes } from '../services';
+import { fetchDetails } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import Recomendations from '../components/Recomendations';
+// import Recomendations from '../components/Recomendations';
 
-const MAX_RECOMENDATION = 6;
+// const MAX_RECOMENDATION = 6;
+
+// const usedIngredient = { textDecoration: 'line-through' };
+
+// function checkProgress(id, recipes) {
+//   const recipesIds = Object.keys(recipes);
+//   if (recipesIds.includes(id)) return true;
+//   return false;
+// }
 
 function getStorage() {
   const payload = localStorage.getItem('inProgressRecipes');
@@ -17,44 +25,41 @@ function getStorage() {
   return JSON.parse(localStorage.getItem('inProgressRecipes'));
 }
 
-function checkProgress(id, recipes) {
-  const recipesIds = Object.keys(recipes);
-  if (recipesIds.includes(id)) return true;
-  return false;
-}
-
-function saveOnStorage(id) {
-  if (localStorage.getItem('inProgressRecipes') === null) {
-    localStorage.setItem(
-      'inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }),
-    );
-  }
+function saveOnStorage(number, id) {
   const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const { cocktails } = payload;
-  cocktails[id] = [];
+  const { meals } = payload;
+  if (!meals[id]) {
+    meals[id] = [];
+  }
+  meals[id] = [...meals[id], number];
 
-  const updated = { ...payload, cocktails };
+  const updated = { ...payload, meals };
   localStorage.setItem('inProgressRecipes', JSON.stringify(updated));
+  return meals;
 }
 
-function DrinkDetails({ match: { params: { id } } }) {
+function MealInProgress({ match: { params: { id } } }) {
   const [isReady, setIsReady] = useState(false);
   const [recipe, setRecipe] = useState({});
-  const [recomendations, setRecomendations] = useState([]);
   const [inProgressRecipes, setInProgressRecipes] = useState({});
   const location = useLocation();
   const history = useHistory();
   const initialRender = useRef(false);
-  const loading = <p>Loading...</p>;
-
+  const loading = <p>Loading.......</p>;
   const styleBtn = {
     position: 'fixed',
     bottom: '0px',
   };
 
   function startRecipe() {
-    saveOnStorage(id);
-    history.push(`/bebidas/${id}/in-progress`);
+    history.push(`/comidas/${id}/in-progress`);
+  }
+
+  function handleCheckBox({ target }) {
+    const { name, checked } = target;
+    if (checked) {
+      setInProgressRecipes(saveOnStorage(name, id));
+    }
   }
 
   useEffect(() => {
@@ -62,18 +67,13 @@ function DrinkDetails({ match: { params: { id } } }) {
       const data = await fetchDetails(location.pathname, id);
       setRecipe(data);
     };
-    const fetchRecomendations = async () => {
-      const data = await fetchRecipes('', 'name', '/comidas');
-      setRecomendations(data.slice(0, MAX_RECOMENDATION));
-    };
     fetchRecipe();
-    fetchRecomendations();
   }, []);
 
   useEffect(() => {
     const checkStorage = async () => {
       const data = await getStorage();
-      setInProgressRecipes(data.cocktails);
+      setInProgressRecipes(data.meals);
     };
     checkStorage();
   }, []);
@@ -92,10 +92,10 @@ function DrinkDetails({ match: { params: { id } } }) {
     <div>
       <img
         data-testid="recipe-photo"
-        src={ `${recipe.strDrinkThumb}/preview` }
-        alt={ recipe.strDrink }
+        src={ `${recipe.strMealThumb}/preview` }
+        alt={ recipe.strMeal }
       />
-      <h3 data-testid="recipe-title">{recipe.strDrink}</h3>
+      <h3 data-testid="recipe-title">{recipe.strMeal}</h3>
       <input type="image" data-testid="share-btn" src={ shareIcon } alt="Share" />
       <input
         type="image"
@@ -103,7 +103,7 @@ function DrinkDetails({ match: { params: { id } } }) {
         src={ whiteHeartIcon }
         alt="Favorite Icon"
       />
-      <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
+      <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
       <div>
         {
           Object.entries(recipe).map(([key, value]) => {
@@ -114,7 +114,15 @@ function DrinkDetails({ match: { params: { id } } }) {
                 <label
                   htmlFor="ingredient"
                   data-testid={ `${index}-ingredient-name-and-measure` }
+                  // style={ { textDecoration: inProgressRecipes[id].includes(`${index + 1}`) ? 'line-through' : '' } }
                 >
+                  <input
+                    name={ index + 1 }
+                    type="checkbox"
+                    id="ingredient"
+                    onChange={ handleCheckBox }
+                    // checked={ inProgressRecipes[id].includes(`${index + 1}`) }
+                  />
                   {`${value} - ${recipe[`strMeasure${index + 1}`]}`}
                 </label>);
             }
@@ -123,23 +131,19 @@ function DrinkDetails({ match: { params: { id } } }) {
         }
       </div>
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      <div>
-        <Recomendations recomendations={ recomendations } />
-      </div>
       <button
         type="button"
-        data-testid="start-recipe-btn"
+        data-testid="finish-recipe-btn"
         style={ styleBtn }
         onClick={ startRecipe }
       >
-        {checkProgress(id, inProgressRecipes)
-          ? 'Continuar Receita' : 'Iniciar Receita'}
+        Finalizar Receita
       </button>
     </div>
   );
 }
 
-DrinkDetails.propTypes = {
+MealInProgress.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -147,4 +151,4 @@ DrinkDetails.propTypes = {
   }).isRequired,
 };
 
-export default DrinkDetails;
+export default MealInProgress;
