@@ -5,6 +5,7 @@ import Button from '../components/Button';
 
 function FoodsRecipies(props) {
   const [details, setDetails] = useState();
+  const [message, setMessage] = useState(false);
   const history = useHistory();
   const { match: { params: { id } } } = props;
   useEffect(() => {
@@ -18,6 +19,7 @@ function FoodsRecipies(props) {
   }, []);
 
   const renderDetails = () => {
+    const urlShare = window.location.href;
     if (details !== undefined) {
       const video = details.strYoutube;
       const youtube = video.replace('watch?v=', 'embed/');
@@ -26,7 +28,16 @@ function FoodsRecipies(props) {
         <section>
           <img src={ details.strMealThumb } alt="" data-testid="recipe-photo" />
           <h2 data-testid="recipe-title">{details.strMeal}</h2>
-          <Button testID="share-btn">Compartilhar</Button>
+          <Button
+            testID="share-btn"
+            handleClick={ () => {
+              navigator.clipboard.writeText(urlShare);
+              setMessage(true);
+            } }
+          >
+            Compartilhar
+          </Button>
+          { message ? <h5>Link copiado!</h5> : null }
           <Button testID="favorite-btn">Favoritar</Button>
           <ul>
             <h3>Ingredientes</h3>

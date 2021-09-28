@@ -5,6 +5,7 @@ import Button from '../components/Button';
 
 function DrinksRecipies(props) {
   const [details, setDetails] = useState();
+  const [message, setMessage] = useState(false);
   const history = useHistory();
   const { match: { params: { id } } } = props;
   useEffect(() => {
@@ -18,12 +19,23 @@ function DrinksRecipies(props) {
   }, []);
 
   const renderDetails = () => {
+    const urlShare = window.location.href;
+    console.log(urlShare, 'pedro');
     if (details !== undefined) {
       return (
         <section>
           <img src={ details.strDrinkThumb } alt="" data-testid="recipe-photo" />
           <h2 data-testid="recipe-title">{ details.strDrink }</h2>
-          <Button testID="share-btn">Compartilhar</Button>
+          <Button
+            testID="share-btn"
+            handleClick={ () => {
+              navigator.clipboard.writeText(urlShare);
+              setMessage(true);
+            } }
+          >
+            Compartilhar
+          </Button>
+          { message ? <h4>Link copiado!</h4> : null }
           <Button testID="favorite-btn">Favoritar</Button>
           <ul data-testid="0-ingredient-name-and-measure">
             {Object.keys(details)
