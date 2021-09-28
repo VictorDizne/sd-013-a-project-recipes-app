@@ -13,6 +13,8 @@ function Footer() {
         onClick={ () => history.push('/bebidas') }
         type="button"
         data-testid="drinks-bottom-btn"
+        src={ drinkIcon }
+        alt="drink Icon"
       >
         <img
           src={ drinkIcon }
@@ -24,6 +26,8 @@ function Footer() {
         type="button"
         data-testid="food-bottom-btn"
         onClick={ () => history.push('/comidas') }
+        src={ mealIcon }
+        alt="Meal Icon"
       >
         <img
           src={ mealIcon }
@@ -35,6 +39,8 @@ function Footer() {
         type="button"
         data-testid="explore-bottom-btn"
         onClick={ () => history.push('/explorar') }
+        src={ exploreIcon }
+        alt="Explore Icon"
       >
         <img
           src={ exploreIcon }

@@ -113,7 +113,7 @@ body {
 .footer {
   display: flex;
   position: fixed;
-  bottom: 2px;
+  bottom: 0px;
 }
 
 .footerButtons {
