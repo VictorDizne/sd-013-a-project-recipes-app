@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import { handleAPI } from '../service/GetAPI';
 import '../PaginasCss/Header.css';
+import Context from '../Context/Context';
 
 function Header() {
+  const { clickLoading } = useContext(Context);
+
   const [showInput, setShowInput] = useState(true);
   const [inputRadio, setInputRadio] = useState('');
   const [inputText, setInputText] = useState('');
@@ -107,6 +110,15 @@ function Header() {
           Buscar
         </button>
       </div>
+
+      <button
+        className="botão-test-context"
+        type="button"
+        onClick={ clickLoading }
+      >
+        loading Context Test
+      </button>
+
     </div>
   );
 }

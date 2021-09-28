@@ -15,42 +15,45 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import NotFound from './pages/NotFound';
 import ProgressRecipes from './pages/ProgressRecipes';
+import Provider from './Store/Store';
 
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ Foods } />
-        <Route exact path="/bebidas" component={ Drinks } />
+      <Provider>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ Foods } />
+          <Route exact path="/bebidas" component={ Drinks } />
 
-        <Route exact path="/comidas/:id" component={ FoodDetails } />
-        <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+          <Route exact path="/comidas/:id" component={ FoodDetails } />
+          <Route exact path="/bebidas/:id" component={ DrinkDetails } />
 
-        <Route exact path="/comidas/:id/in-progress" component={ ProgressRecipes } />
-        <Route exact path="/bebidas/:id/in-progress" component={ ProgressRecipes } />
+          <Route exact path="/comidas/:id/in-progress" component={ ProgressRecipes } />
+          <Route exact path="/bebidas/:id/in-progress" component={ ProgressRecipes } />
 
-        <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/explorar" component={ Explore } />
 
-        <Route exact path="/explorar/comidas" component={ ExploreFood } />
-        <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
-        <Route
-          exact
-          path="/explorar/comidas/ingredientes"
-          component={ ExploreIngredient }
-        />
-        <Route
-          exact
-          path="/explorar/bebidas/ingredientes"
-          component={ ExploreIngredient }
-        />
-        <Route exact path="/explorar/comidas/area" component={ ExploreOrigin } />
-        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
-        <Route exact path="/perfil" component={ Profile } />
-        <Route exact path="/receitas-feitas" component={ DoneRecipes } />
-        <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+          <Route exact path="/explorar/comidas" component={ ExploreFood } />
+          <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExploreIngredient }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExploreIngredient }
+          />
+          <Route exact path="/explorar/comidas/area" component={ ExploreOrigin } />
+          <Route exact path="/explorar/bebidas/area" component={ NotFound } />
+          <Route exact path="/perfil" component={ Profile } />
+          <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+          <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
 
-      </Switch>
+        </Switch>
+      </Provider>
     </BrowserRouter>
   );
 }
