@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import './receitas-feitas.css';
 
 const doneRecipes = [
   {
@@ -28,32 +30,73 @@ const doneRecipes = [
 ];
 
 function ReceitasFeitas() {
+  const [recipes, setRecipes] = useState(doneRecipes);
+  const history = useHistory();
+
+  const filterType = (type) => {
+    let newRecipes = doneRecipes;
+    if (type === 'comida') {
+      newRecipes = doneRecipes.filter((recipe) => recipe.type === type);
+      return setRecipes(newRecipes);
+    }
+    if (type === 'bebida') {
+      newRecipes = doneRecipes.filter((recipe) => recipe.type === type);
+      return setRecipes(newRecipes);
+    }
+    return setRecipes(newRecipes);
+  };
+
   return (
     <div>
       <Header tela="Receitas Feitas" showSearch={ false } />
       <div>
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">Food</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drink</button>
+        <button
+          onClick={ () => filterType() }
+          type="button"
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          onClick={ () => filterType('comida') }
+          type="button"
+          data-testid="filter-by-food-btn"
+        >
+          Food
+        </button>
+        <button
+          onClick={ () => filterType('bebida') }
+          type="button"
+          data-testid="filter-by-drink-btn"
+        >
+          Drink
+        </button>
       </div>
       <div>
         {
-          doneRecipes
+          recipes
             .map(({
-              image, area, category, name, tags, doneDate, type, alcoholicOrNot,
+              image, area, category, name, tags, doneDate, type, alcoholicOrNot, id,
             }, index) => (
               <div key={ index }>
-                <img
-                  src={ image }
-                  alt="Imagem Horizontal"
-                  data-testid={ `${index}-horizontal-image` }
-                />
+                <Link to={ `./${type}s/${id}` }>
+                  <input
+                    className="img-recipe"
+                    width="300px"
+                    src={ image }
+                    type="image"
+                    alt="Imagem Horizontal"
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                </Link>
                 <p
                   data-testid={ `${index}-horizontal-top-text` }
                 >
                   { type === 'bebida' ? alcoholicOrNot : `${area} - ${category}`}
                 </p>
-                <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+                <Link to={ `./${type}s/${id}` }>
+                  <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
+                </Link>
                 <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
                 <input
                   data-testid={ `${index}-horizontal-share-btn` }
