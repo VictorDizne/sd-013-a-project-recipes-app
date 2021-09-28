@@ -32,8 +32,11 @@ function DrinkDetails() {
   useEffect(() => {
     const getRecipe = async () => {
       const drink = await fetchDrinksById(historyId);
-      setIngredients(getIngredients(drink));
-      setRecipe(drink);
+      console.log(drink);
+      if (drink) {
+        setIngredients(getIngredients(drink));
+        setRecipe(drink);
+      }
     };
     getRecipe();
   }, [historyId]);
@@ -92,17 +95,22 @@ function DrinkDetails() {
           title={ recipe[0].strDrink }
           data-testid="video"
         />)} */}
-
-      { recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
-        <RecomendationCard
-          key={ idx }
-          recipe={ rec }
-          idx={ idx }
-          page="drinks"
-        />
-      ))}
-
-      <Link to={ `/comidas/${historyId}/in-progress` } data-testid="start-recipe-btn">
+      <h3>Recomendadas</h3>
+      <div className="recomandation-container">
+        { recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
+          <RecomendationCard
+            key={ idx }
+            recipe={ rec }
+            idx={ idx }
+            page="drinks"
+          />
+        ))}
+      </div>
+      <Link
+        to={ `/comidas/${historyId}/in-progress` }
+        data-testid="start-recipe-btn"
+        className="iniciar-receita"
+      >
         Iniciar Receita
       </Link>
     </div>
