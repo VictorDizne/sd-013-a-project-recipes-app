@@ -6,13 +6,13 @@ function RecomendedCard({ index, data, thumb, name, id, route, testid }) {
   return (
     <Link style={ { width: '170px', height: '200px', margin: '10px' } } to={ `/${[route]}/${data[id]}` }>
       <div
-        data-testid={testid}
+        data-testid={ testid }
       >
         <img
           data-testid={ `${index}-card-img` }
           alt={ data.strCategory }
           src={ data[thumb] }
-          style={ { heigth: '50px', width: '150px' } }          
+          style={ { heigth: '50px', width: '150px' } }
         />
         <p data-testid={ `${index}-recomendation-title` }>{ data[name] }</p>
       </div>

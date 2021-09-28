@@ -33,7 +33,7 @@ function ButtonsFilters({ page }) {
   };
 
   useEffect(() => {
-    if ( myPage !== '' ) {
+    if (myPage !== '') {
       requestCategory();
     }
   }, [myPage]);

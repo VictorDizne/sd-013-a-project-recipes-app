@@ -13,11 +13,35 @@ function FoodsPage() {
     setRecipes(meals);
   };
 
+  const setInProgressRecipeLocalStorage = () => {
+    const progressRecipe = {
+      cocktails: {},
+      meals: {}
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressRecipe));
+  }
+
+  const setFavoriteRecipeLocalStorage = () => {
+    const favoriteRecipe = []
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipe));
+  }
+
   useEffect(() => {
+    const progressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if ( !progressRecipe ) {
+      setInProgressRecipeLocalStorage()
+    }
+
+    const favoriteRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if ( !favoriteRecipe ) {
+      setFavoriteRecipeLocalStorage()
+    }
+
     setMyPage('themealdb');
     if (myPage !== '') {
       randonRecipes();
     }
+
   }, [setMyPage, myPage]);
 
   const returnCard = (item, index) => (

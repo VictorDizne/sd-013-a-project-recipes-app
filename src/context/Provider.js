@@ -10,7 +10,6 @@ const Provider = ({ children }) => {
   const [myPage, setMyPage] = useState('');
   const [recipes, setRecipes] = useState([]);
 
-
   const contextValue = {
     email,
     setEmail,
