@@ -30,13 +30,13 @@ function DrinksRecipies(props) {
               .filter((detail) => detail.includes('strIngredient'))
               .filter((ing) => details[ing] !== null)
               .map((ingredient, i) => (
-                <li key={ i }>
+                <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
                   {details[`strMeasure${i + 1}`]}
                   {details[`strMeasure${i + 1}`] ? ' of ' : null}
                   {details[ingredient]}
                 </li>))}
           </ul>
-          <h4 data-testid="recipe-category">{ details.strCategory }</h4>
+          <h4 data-testid="recipe-category">{ details.strAlcoholic }</h4>
           <p data-testid="instructions">{ details.strInstructions }</p>
           <p data-testid="0-recomendation-card">Card</p>
           <Button
