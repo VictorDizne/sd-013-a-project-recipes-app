@@ -30,29 +30,25 @@ function FilteredCards({ recipes, favoriteOrDone = 'done' }) {
               <Link to={ `./${type}s/${id}` }>
                 <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
               </Link>
-              {
-                favoriteOrDone === 'done'
-                  && (
-                    <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
-                  )
-              }
+              { favoriteOrDone === 'done'
+              && (
+                <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
+              )}
               <input
                 data-testid={ `${index}-horizontal-share-btn` }
                 type="image"
                 alt="Ícone de compartilhar"
                 src={ shareIcon }
               />
-              {
-                favoriteOrDone === 'favorite'
-                  && (
-                    <input
-                      data-testid={ `${index}-horizontal-favorite-btn` }
-                      type="image"
-                      alt="Ícone de compartilhar"
-                      src={ favoriteIcon }
-                    />
-                  )
-              }
+              { favoriteOrDone === 'favorite'
+              && (
+                <input
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  type="image"
+                  alt="Ícone de compartilhar"
+                  src={ favoriteIcon }
+                />
+              )}
               { favoriteOrDone === 'done'
               && (
                 <div>
