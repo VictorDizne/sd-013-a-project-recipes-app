@@ -12,7 +12,7 @@ import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarComidasIng from './pages/ExplorarComidasIng';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
-import ExplorarBebidasAr from './pages/ExplorarBebidasAr';
+import NotFound from './pages/NotFound';
 import ExplorarComidasAr from './pages/ExplorarComidasAr';
 import SurpreendaComidas from './pages/SurpreendaComidas';
 import SurpreendaBebidas from './pages/SurpreendaBebidas';
@@ -27,14 +27,14 @@ function App() {
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
           <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />
-          <Route path="/explorar/comidas/area" component={ ExplorarBebidasAr } />
+          <Route path="/explorar/comidas/area" component={ ExplorarComidasAr } />
           <Route
             path="/comidas/:id"
             component={ SurpreendaComidas }
           />
           <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
           <Route path="/explorar/comidas/ingredientes" component={ ExplorarComidasIng } />
-          <Route path="/explorar/bebidas/area" component={ ExplorarComidasAr } />
+          <Route path="/explorar/bebidas/area" component={ NotFound } />
           <Route
             path="/bebidas/:id"
             component={ SurpreendaBebidas }

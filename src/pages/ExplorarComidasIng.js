@@ -18,6 +18,7 @@ const ExplorarComidasIng = () => {
 
   useEffect(() => {
     ingredientsAPI();
+    setPageIngredients(false);
   }, []);
 
   const handleClick = async (ingredient) => {
