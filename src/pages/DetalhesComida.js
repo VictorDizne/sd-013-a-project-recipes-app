@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipeDetails from '../components/RecipeDetails';
 import RecipesContext from '../context/RecipesContext';
 
-export default function DetalhesComida({ match: { params: { recipeId } }, history }) {
+function DetalhesComida({ match: { params: { recipeId } }, history }) {
   const [meal, setMeal] = useState({});
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
   const { setBtnText } = useContext(RecipesContext);
@@ -21,7 +21,6 @@ export default function DetalhesComida({ match: { params: { recipeId } }, histor
 
   useEffect(() => {
     const getRecipeStorage = localStorage.getItem('doneRecipes');
-
     console.log(getRecipeStorage);
     if (getRecipeStorage) {
       const recipeExists = JSON.parse(getRecipeStorage).some((r) => (
@@ -66,3 +65,5 @@ DetalhesComida.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+export default DetalhesComida;
