@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipeDetails from '../components/RecipeDetails';
 import RecipesContext from '../context/RecipesContext';
 
-function DetalhesBebida({ match: { params: { recipeId } } }) {
+function DetalhesBebida({ match: { params: { recipeId } }, history }) {
   const [drink, setDrink] = useState({});
   const [showDoneBtn, setShowDoneBtn] = useState(true);
   const { setBtnText } = useContext(RecipesContext);
@@ -46,6 +46,7 @@ function DetalhesBebida({ match: { params: { recipeId } } }) {
   return (
     <div>
       <RecipeDetails
+        history={ history }
         showBtn={ showDoneBtn }
         recipe={ drink }
         isMeal={ false }
@@ -59,6 +60,9 @@ DetalhesBebida.propTypes = {
     params: PropTypes.shape({
       recipeId: PropTypes.string,
     }),
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
