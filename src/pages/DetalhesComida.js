@@ -6,6 +6,7 @@ import RecipesContext from '../context/RecipesContext';
 function DetalhesComida({ match: { params: { recipeId } }, history }) {
   const [meal, setMeal] = useState({});
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { setBtnText } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -34,6 +35,22 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
   }, [meal.idMeal]);
 
   useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+
+    if (favoriteRecipes) {
+      const favoriteRecipesExists = JSON.parse(favoriteRecipes).some((r) => (
+        r.id === meal.idMeal
+      ));
+
+      if (favoriteRecipesExists) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    }
+  }, [meal.idMeal]);
+
+  useEffect(() => {
     const inProgressRecipe = localStorage.getItem('inProgressRecipes');
 
     if (inProgressRecipe) {
@@ -49,6 +66,7 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
         history={ history }
         showBtn={ startRecipeBtn }
         recipe={ meal }
+        isFavorite={ isFavorite }
         isMeal
       />
     </div>

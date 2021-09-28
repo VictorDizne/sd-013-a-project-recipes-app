@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/blackHeartIcon.svg';
+import favoritedIcon from '../images/blackHeartIcon.svg';
+import unfavoritedIcon from '../images/whiteHeartIcon.svg';
 import RecipeRecomendations from './RecipeRecomendations';
 import './css/RecipeDetails.css';
 import StartRecipeBtn from './StartRecipeBtn';
 
 const copy = require('clipboard-copy');
 
-const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
+const RecipeDetails = ({ recipe, isMeal, showBtn, history, isFavorite }) => {
   const recipeIngredients = [];
 
   const geraArrayProFilhoDaPutaQueNaoFez = () => {
@@ -64,7 +65,7 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
       />
       <input
         type="image"
-        src={ favoriteIcon }
+        src={ isFavorite ? favoritedIcon : unfavoritedIcon }
         alt="favoritar receita"
         data-testid="favorite-btn"
       />
@@ -112,6 +113,7 @@ RecipeDetails.propTypes = {
       pathname: PropTypes.string,
     }),
   }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
 };
 
 export default RecipeDetails;
