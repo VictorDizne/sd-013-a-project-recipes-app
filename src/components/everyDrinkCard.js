@@ -27,21 +27,27 @@ function EveryDrinkCard() {
       const everyRecipe = Object.values(drinks.drinks).slice(0, maxResults);
       card = everyRecipe
         .map((recipe, index) => (
-          <Link to={ () => DrinkURL(recipe.idDrink) } key={ index }>
-            <SingleCard
-              className="single-card"
-              imgsrc={ recipe.strDrinkThumb }
-              index={ index }
-              cardName={ recipe.strDrink }
-              data-testid={ `${index}-recipe-card` }
-            />
-          </Link>));
+          <div
+            className="every-card"
+            data-testid={ `${index}-recipe-card` }
+            key={ index }
+          >
+            <Link to={ () => DrinkURL(recipe.idDrink) }>
+              <SingleCard
+                className="single-card"
+                imgsrc={ recipe.strDrinkThumb }
+                index={ index }
+                cardName={ recipe.strDrink }
+                data-testid={ `${index}-recipe-card` }
+              />
+            </Link>
+          </div>));
     } else if (resultsLenght === 1) {
       history.push(`/bebidas/${drinks.drinks[0].idDrink}`);
     }
   }
   return (
-    <div className="div-cards">
+    <div>
       { card }
     </div>
   );

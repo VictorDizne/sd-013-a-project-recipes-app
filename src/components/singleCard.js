@@ -21,7 +21,11 @@ SingleCard.propTypes = {
   imgsrc: PropTypes.string.isRequired,
   cardName: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  onclick: PropTypes.func.isRequired,
+  onclick: PropTypes.func,
+};
+
+SingleCard.defaultProps = {
+  onclick: () => {},
 };
 
 export default SingleCard;

@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 import recipesContext from '../context';
 import fetchAPI from '../services/fetchAPI';
-
-// Quando for montar a SearchBar é necessário passar o título da página como props, conforme linha 98
 
 function SearchDrinkBar() {
   const {
     setDrinks,
     setLoading,
   } = useContext(recipesContext);
+  const history = useHistory();
   const [searchParameter, setSearchParameter] = useState();
 
   function handleSearchParameter({ target: { name, value } }) {
@@ -31,6 +31,10 @@ function SearchDrinkBar() {
       break;
     default:
       break;
+    }// Checa se achou apenas um resultado, se for o caso redireciona para os detalhes
+    const { drinks } = apiResults;
+    if (Object.keys(drinks).length === 1) {
+      history.push(`/bebidas/${drinks[0].idDrink}`);
     }
     // Seta os resultados na context para apresentar os cards ao usuário
     setDrinks(apiResults);
