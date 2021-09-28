@@ -31,7 +31,7 @@ function RecommendedCard({ iterator, recommended }) {
       data-testid={ `${iterator}-recomendation-card` }
       style={ styleLi }
     >
-      <img src={ recipes.image } width="100px" alt={ recipes.title } />
+      <img src={ `${recipes.image}/preview` } width="100px" alt={ recipes.title } />
       <p>{recipes.category}</p>
       <h3 data-testid={ `${iterator}-recomendation-title` }>{recipes.title}</h3>
     </li>
