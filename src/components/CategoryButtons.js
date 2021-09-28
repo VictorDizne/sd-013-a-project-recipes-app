@@ -76,6 +76,22 @@ function CategoryButtons() {
     fetchData();
   }, []);
 
+  async function getAllCategorys() {
+    // console.log('Okkk!');
+    switch (location.pathname) {
+    case '/bebidas':
+      data = await fetchRecipes('', 'name', '/bebidas');
+      setRecipes(data);
+      break;
+    case '/comidas':
+      data = await fetchRecipes('', 'name', '/comidas');
+      setRecipes(data);
+      break;
+    default:
+      break;
+    }
+  }
+
   return (
     <>
       {listCategory.slice(0, MAX_INDEX).map((category) => (
@@ -90,6 +106,13 @@ function CategoryButtons() {
         </button>
 
       ))}
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ getAllCategorys }
+      >
+        All
+      </button>
     </>
   );
 }
