@@ -1,46 +1,55 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import { Button } from '../components/index';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+const Main = styled.main`
+  margin-top: 68px;
+`;
+
 function Profile() {
-  const getUserEmail = () => {
-    if (localStorage.getItm('user')) {
-      return JSON.parse(localStorage.getItem('user'));
-    }
-  };
+  const getUserEmail = JSON.parse(localStorage.getItem('user')).email;
 
   const history = useHistory();
 
+  const logout = () => {
+    localStorage.clear();
+    history.push('/');
+  };
+
   return (
-    <div>
+    <Main>
       <Header title="Perfil" />
-      <h1
+      <h2
         data-testid="profile-email"
       >
-        { getUserEmail() }
-      </h1>
+        { getUserEmail }
+      </h2>
       <Button
         className="doneRecipes"
         type="button"
+        id="profile-done-btn"
         buttonText="Receitas Feitas"
-        onClick={ history.push('/receitas-feitas') }
+        onClick={ () => history.push('/receitas-feitas') }
       />
       <Button
         className="favoriteRecipes"
         type="button"
+        id="profile-favorite-btn"
         buttonText="Receitas Favoritas"
-        onClick={ history.push('/receitas-favoritas') }
+        onClick={ () => history.push('/receitas-favoritas') }
       />
       <Button
         className="logoutButton"
         type="button"
+        id="profile-logout-btn"
         buttonText="Sair"
-        onClick={ history.push('/') }
+        onClick={ logout }
       />
       <Footer />
-    </div>
+    </Main>
   );
 }
 

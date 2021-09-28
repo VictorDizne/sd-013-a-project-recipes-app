@@ -28,16 +28,27 @@ const Main = styled.main`
 const Foods = () => {
   const [searchBarStatus, setSearchBarStatus] = useState(false);
   const [foodRecipes, setFoodRecipes] = useState([]);
+  const [prevCategory, setCategory] = useState('All');
 
   useEffect(() => {
     fetchAllFoodRecipes(setFoodRecipes);
   }, []);
 
-  const handleFilter = ({ target: { name } }) => (
-    name === 'All'
-      ? fetchAllFoodRecipes(setFoodRecipes)
-      : fetchFoodRecipesByCategory(name, setFoodRecipes)
-  );
+  const handleFilter = ({ target: { name } }) => {
+    switch (name) {
+    case 'All':
+      fetchAllFoodRecipes(setFoodRecipes);
+      break;
+    case prevCategory:
+      fetchAllFoodRecipes(setFoodRecipes);
+      setCategory('All');
+      break;
+    default:
+      fetchFoodRecipesByCategory(name, setFoodRecipes);
+      setCategory(name);
+      break;
+    }
+  };
 
   const filterRecipes = (
     <FilterRecipes

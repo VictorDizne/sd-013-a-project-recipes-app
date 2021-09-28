@@ -47,10 +47,10 @@ function Routes() {
         component={ DrinksByIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ FoodsExplorerByOrigin } />
-      <Route exact path="*" component={ NotFound } />
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavoritedRecipes } />
+      <Route path="*" component={ NotFound } />
     </Switch>
   );
 }

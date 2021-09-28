@@ -30,8 +30,9 @@ function HandleHeader({ title, setSearchBarStatus }) {
       className="profileIconBtn"
       buttonType="BackgroundButton"
       onClick={ onClickProfile }
-      data-testid="profile-top-btn"
-      icon={ profileIcon }
+      buttonText={
+        <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
+      }
     />
   );
 
@@ -69,8 +70,9 @@ function HandleHeader({ title, setSearchBarStatus }) {
       <Button
         type="button"
         buttonType="BackgroundButton"
-        icon={ searchIcon }
-        data-testid="search-top-btn"
+        buttonText={
+          <img data-testid="search-top-btn" src={ searchIcon } alt="search-icon" />
+        }
         onClick={ () => setSearchBarStatus((prevState) => !prevState) }
       />
     </Nav>

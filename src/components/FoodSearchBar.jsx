@@ -26,7 +26,9 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
     case 'name':
       return `https://www.themealdb.com/api/json/v1/1/search.php?s=${textInput}`;
     case 'firstLetter':
-      return `https://www.themealdb.com/api/json/v1/1/search.php?f=${textInput}`;
+      return textInput.length > 1
+        ? searchBarAlert()
+        : `https://www.themealdb.com/api/json/v1/1/search.php?f=${textInput}`;
     default:
       break;
     }
@@ -37,7 +39,6 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
     const ENDPOINT = handleEndPoints();
     const RETURN_LENGTH = 12;
     const response = await (await fetch(ENDPOINT)).json();
-    console.log(response);
 
     if (!response.meals) return searchBarAlert();
 
@@ -69,7 +70,7 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
         <Input
           labelText="Ingrediente"
           type="radio"
-          id="name-search-radio"
+          id="ingredient-search-radio"
           className="searchRadio"
           name="ingredient"
           value="ingredient"
@@ -89,7 +90,7 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
         <Input
           labelText="Primeira Letra"
           type="radio"
-          id="name-search-radio"
+          id="first-letter-search-radio"
           className="searchRadio"
           name="firstLetter"
           value="firstLetter"

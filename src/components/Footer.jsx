@@ -7,7 +7,7 @@ import { drinkIcon, exploreIcon, mealIcon } from '../images';
 const StyledFooter = styled.footer`
   background: #C4C4C4;
   display: flex;
-  position: absolute;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
   width: 100vw;
@@ -25,11 +25,11 @@ function Footer() {
   return (
     <StyledFooter className="footer" data-testid="footer">
       <Button
-        id="food-bottom-btn"
         onClick={ () => history.push('/comidas') }
         buttonType="BackgroundButton"
         buttonText={
           <img
+            data-testid="food-bottom-btn"
             src={ mealIcon }
             alt="Fork and spoon Icon"
             className="foodsBtnIcon"
@@ -37,11 +37,11 @@ function Footer() {
         }
       />
       <Button
-        id="explore-bottom-btn"
         onClick={ () => history.push('/explorar') }
         buttonType="BackgroundButton"
         buttonText={
           <img
+            data-testid="explore-bottom-btn"
             src={ exploreIcon }
             alt="Compass Icon"
             className="foodsBtnIcon"
@@ -49,11 +49,11 @@ function Footer() {
         }
       />
       <Button
-        id="drinks-bottom-btn"
         onClick={ () => history.push('/bebidas') }
         buttonType="BackgroundButton"
         buttonText={
           <img
+            data-testid="drinks-bottom-btn"
             src={ drinkIcon }
             alt="Drink Icon"
             className="foodsBtnIcon"
