@@ -1,3 +1,9 @@
+*{
+  margin: 0;
+  padding: 0;
+  /* border: none; */
+}
+
 body {
   width: 360px 640px !important;
 }
@@ -21,29 +27,28 @@ body {
 }
 
 .div-cards {
-  max-width: 355px;
+  max-width: 360px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  align-content: space-between;
-  align-items: flex-end;
-  justify-content: space-around;
-  margin-bottom: 70px;
 }
 
 .eachFood {
-  border-radius: 15px;
+  border-radius: 25px;
+  width: 150px;
   font-size: larger;
   text-align: center;
   border: #464646;
-  box-shadow: 1px 1px 10px;
+  box-shadow: 1px 1px 15px;
   justify-content: space-around;
   align-content: space-between;
-  align-items: flex-end;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .foodImage {
-  width: 150px ;
+  width: 120px ;
+  margin-top: 20px;
 }
 
 .email-input {
@@ -71,6 +76,14 @@ body {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin: 5px 0px 20px 7.5px;
+  width: 345px;
+}
+
+.header-button {
+  /* Apenas para diferenciar */
+  background-color: slateblue;
+  border: none;
 }
 
 .password-input {
@@ -113,14 +126,16 @@ body {
 .footer {
   display: flex;
   position: fixed;
+  padding: 10px;
+  background-color: rgba(221, 221, 221);
   bottom: 0px;
 }
 
 .footerButtons {
-  /* display: flex; */
+  border: none;
+  background-color: rgba(221, 221, 221);
   justify-content: space-evenly;
   width: 120px;
-  /* position: fixed; */
 }
 
 /*
