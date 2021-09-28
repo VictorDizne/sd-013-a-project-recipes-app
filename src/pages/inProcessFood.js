@@ -5,7 +5,7 @@ import appContext from '../contexts/appContext';
 import ShareButton from '../components/shareButton';
 import FavoriteButton from '../components/favoriteButton';
 
-function ProcessFood(props) {
+function ProcessFood() {
   const [meal, setMeal] = useState({});
   const [check, setCheck] = useState(true);
   const { getIngredients } = useContext(appContext);
@@ -40,9 +40,7 @@ function ProcessFood(props) {
     return (currentIngredients.length === ingredients.length);
   };
 
-  const finishRecipe = () => {
-    return history.push('/receitas-feitas');
-  };
+  const finishRecipe = () => history.push('/receitas-feitas');
 
   const isChecked = (ingredientName) => {
     const NOT_FOUND = -1;
@@ -120,12 +118,9 @@ function ProcessFood(props) {
 }
 
 ProcessFood.propTypes = {
-  props: PropTypes.shape({
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }),
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
-  history: PropTypes.shape().isRequired,
 };
 
 export default ProcessFood;

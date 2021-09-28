@@ -41,9 +41,7 @@ function ProcessDrink() {
     return (currentIngredients.length === ingredients.length);
   };
 
-  const finishRecipe = () => {
-    return history.push('/receitas-feitas');
-  };
+  const finishRecipe = () => history.push('/receitas-feitas');
 
   const isChecked = (ingredientName) => {
     const NOT_FOUND = -1;
@@ -75,6 +73,7 @@ function ProcessDrink() {
       setRender(!render);
     }
   };
+
   return (
     <div>
       <h1>bebida em processo</h1>
@@ -119,12 +118,9 @@ function ProcessDrink() {
 }
 
 ProcessDrink.propTypes = {
-  props: PropTypes.shape({
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }),
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
-  history: PropTypes.shape().isRequired,
 };
 
 export default ProcessDrink;
