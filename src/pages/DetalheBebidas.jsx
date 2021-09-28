@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import copy from 'clipboard-copy';
 import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
 import Loading from '../components/Loading';
 import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
-/* import BlackHeart from '../images/'; */
+import BlackHeart from '../images/blackHeartIcon.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const DetalheBebidas = ({ match: { params: { id } }, history }) => {
+const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [foodsDetails, setFoodsDetails] = useState([]);
   const [btnState, setBtnState] = useState('Iniciar Receita');
+  const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
+  const [isHidden, setIsHidden] = useState(true);
   const settings = {
     dots: true,
     infinite: false,
@@ -60,12 +63,21 @@ const DetalheBebidas = ({ match: { params: { id } }, history }) => {
   useEffect(() => {
     if (localStorage.getItem('inProgressRecipes') === null) {
       localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ cocktails: { } }));
+        .stringify({ cocktails: {}, meals: {} }));
     }
     const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const chaves = Object.keys(test.cocktails).some((chave) => chave === id);
     if (chaves) {
       setBtnState('Continuar Receita');
+    }
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      localStorage.setItem('favoriteRecipes', JSON
+        .stringify([]));
+    }
+    const testFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const chavesFav = testFav.some((chave) => chave.id === id);
+    if (chavesFav) {
+      setBtnFavorite('isFavorite');
     }
   }, []);
 
@@ -80,30 +92,39 @@ const DetalheBebidas = ({ match: { params: { id } }, history }) => {
     history.push(`/bebidas/${id}/in-progress`);
   };
 
+  const obj = {
+    id,
+    type: 'bebida',
+    area: '',
+    category: strCategory,
+    alcoholicOrNot: strAlcoholic,
+    name: strDrink,
+    image: strDrinkThumb,
+  };
   const handleFavorite = () => {
     if (localStorage.getItem('favoriteRecipes') === null) {
-      localStorage.setItem('favoriteRecipes', JSON
-        .stringify([{
-          id,
-          type: 'bebida',
-          category: strCategory,
-          alcoholicOrNot: strAlcoholic,
-          name: strDrink,
-          image: strDrinkThumb,
-          doneDate: 'quando-a-receita-foi-concluida',
-          tags: 'array-de-tags-da-receita-ou-array-vazio' }]));
+      localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
     }
-    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    localStorage.setItem('favoriteRecipes', JSON
-      .stringify([...recipes, {
-        id,
-        type: 'bebida',
-        category: strCategory,
-        alcoholicOrNot: strAlcoholic,
-        name: strDrink,
-        image: strDrinkThumb,
-        doneDate: 'quando-a-receita-foi-concluida',
-        tags: 'array-de-tags-da-receita-ou-array-vazio' }]));
+
+    const favs = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const unFav = favs.filter((element) => element.id !== id);
+
+    if (btnFavorite === 'isNotFavorite') {
+      copy('isFavorite');
+      localStorage.setItem('favoriteRecipes', JSON
+        .stringify([...favs, obj]));
+    } else {
+      copy('isNotFavorite');
+      localStorage.setItem('favoriteRecipes', JSON.stringify(unFav));
+    }
+    navigator.clipboard.readText().then(
+      (clipText) => setBtnFavorite(clipText),
+    );
+  };
+
+  const handleShare = () => {
+    copy(`http://localhost:3000${url}`);
+    setIsHidden(false);
   };
 
   return (drinkDetail.length === 0 && foodsDetails.length === 0) ? <Loading /> : (
@@ -117,17 +138,17 @@ const DetalheBebidas = ({ match: { params: { id } }, history }) => {
         height="240"
       />
       <button
-        data-testid="share-btn"
+        onClick={ handleShare }
         type="button"
       >
-        <img src={ Share } alt="btn share" />
+        <img data-testid="share-btn" src={ Share } alt="btn share" />
       </button>
+      <p hidden={ isHidden }>Link copiado!</p>
       <button
         onClick={ handleFavorite }
-        data-testid="favorite-btn"
         type="button"
       >
-        <img src={ Heart } alt="btn Fav" />
+        <img data-testid="favorite-btn" src={ btnFavorite === 'isFavorite' ? BlackHeart : Heart } alt="btn Fav" />
       </button>
       <p data-testid="recipe-title">{strDrink}</p>
       <p data-testid="recipe-category">{strCategory}</p>

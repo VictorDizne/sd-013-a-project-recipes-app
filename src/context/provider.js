@@ -29,10 +29,6 @@ const Provider = ({ children }) => {
     categoryDrinkRequest();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
-  }, []);
-
   const contextValue = {
     dataFood,
     setDataFood,
