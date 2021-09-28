@@ -10,8 +10,8 @@ import IngredienteBebidas from './IngredienteBebidas';
 import Perfil from './Perfil';
 import ReceitasFavoritas from './ReceitasFavoritas';
 import ReceitasFeitas from './ReceitasFeitas';
-import ReceitasProcessoComidas from './ReceitasProcessoComidas';
-import ReceitasProcessoBebidas from './ReceitasProcessosBebidas';
+import ReceitasProcessosComidas from './ReceitasProcessosComidas';
+import ReceitasProcessosBebidas from './ReceitasProcessosBebidas';
 import TelaBebidas from './TelaBebidas';
 import TelaComidas from './TelaComidas';
 
@@ -28,8 +28,8 @@ const pages = {
   Perfil,
   ReceitasFavoritas,
   ReceitasFeitas,
-  ReceitasProcessoBebidas,
-  ReceitasProcessoComidas,
+  ReceitasProcessosBebidas,
+  ReceitasProcessosComidas,
   TelaBebidas,
   TelaComidas,
 };
