@@ -148,7 +148,11 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
         onClick={ handleFavorite }
         type="button"
       >
-        <img data-testid="favorite-btn" src={ btnFavorite === 'isFavorite' ? BlackHeart : Heart } alt="btn Fav" />
+        <img
+          data-testid="favorite-btn"
+          src={ btnFavorite === 'isFavorite' ? BlackHeart : Heart }
+          alt="btn Fav"
+        />
       </button>
       <p data-testid="recipe-title">{strDrink}</p>
       <p data-testid="recipe-category">{strCategory}</p>

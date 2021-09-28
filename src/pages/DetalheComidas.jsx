@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import copy from 'clipboard-copy';
 import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
+import { btnContinuar,
+  btnFavoritar,
+  ingredientMeasures } from '../services/funcAuxDetails';
 import Loading from '../components/Loading';
 import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
@@ -37,37 +40,17 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
       const drinkSix = drink.slice(0, SIX);
       setDrinkDetails(drinkSix);
     };
+
     cocktailsRequest();
-    if (localStorage.getItem('inProgressRecipes') === null) {
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ meals: {}, cocktails: {} }));
-    }
-    const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const chaves = Object.keys(test.meals).some((chave) => chave === id);
-    if (chaves) {
+
+    if (btnContinuar()) {
       setBtnState('Continuar Receita');
     }
-    if (localStorage.getItem('favoriteRecipes') === null) {
-      localStorage.setItem('favoriteRecipes', JSON
-        .stringify([]));
-    }
-    const testFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const chavesFav = testFav.some((chave) => chave.id === id);
-    if (chavesFav) {
+
+    if (btnFavoritar) {
       setBtnFavorite('isFavorite');
     }
   }, []);
-
-  const keysOfApi = Object.keys(foodDetail);
-
-  const measurementKeys = keysOfApi.filter((chave) => chave.includes('strMeasure'))
-    .map((measure) => foodDetail[measure])
-    .filter((measure) => measure !== ' ' && measure !== null);
-
-  const ingredientsKeys = keysOfApi.filter((chave) => chave.includes('strIngredient'));
-  const ingredientsValues = ingredientsKeys
-    .map((ingredient) => foodDetail[ingredient])
-    .filter((ingredient) => ingredient !== '' && ingredient !== null);
 
   const {
     strMeal,
@@ -127,7 +110,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
 
   return (foodDetail.length === 0 && drinksDetails.length === 0) ? <Loading /> : (
     <div>
-      { console.log(ingredientsValues) }
+      {console.log(ingredientes)}
       <img
         data-testid="recipe-photo"
         src={ strMealThumb }
@@ -158,7 +141,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
         <p>Ingredients</p>
         <div className="ingredients-measure">
           <ul>
-            {ingredientsValues
+            {ingredientMeasures(foodDetail, 'ingredientes')
               .map((ingredient, i) => (
                 <li
                   data-testid={ `${i}-ingredient-name-and-measure` }
@@ -168,7 +151,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
                 </li>))}
           </ul>
           <ul>
-            {measurementKeys
+            {ingredientMeasures(foodDetail, 'medida')
               .map((measure, i) => (
                 <li
                   data-testid={ `${i}-ingredient-name-and-measure` }
