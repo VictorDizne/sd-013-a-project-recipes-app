@@ -25,14 +25,17 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
       return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${textInput}`;
     case 'name':
       return `https://www.themealdb.com/api/json/v1/1/search.php?s=${textInput}`;
-    case 'searchInput':
-      return `https://www.themealdb.com/api/json/v1/1/search.php?f=${textInput}`;
+    case 'firstLetter':
+      return textInput.length > 1
+        ? searchBarAlert()
+        : `https://www.themealdb.com/api/json/v1/1/search.php?f=${textInput}`;
     default:
       break;
     }
   };
 
-  const getFoodRecipes = async () => {
+  const getFoodRecipes = async (event) => {
+    event.preventDefault();
     const ENDPOINT = handleEndPoints();
     const RETURN_LENGTH = 12;
     const response = await (await fetch(ENDPOINT)).json();
@@ -40,7 +43,7 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
     if (!response.meals) return searchBarAlert();
 
     if (response.meals.length === 1) {
-      setLoneFood(response.meal.idMeal);
+      setLoneFood(response.meals[0].idMeal);
       setRedirect(true);
     } else {
       setFoodRecipes(response.meals.slice(0, RETURN_LENGTH));
@@ -67,7 +70,7 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
         <Input
           labelText="Ingrediente"
           type="radio"
-          id="name-search-radio"
+          id="ingredient-search-radio"
           className="searchRadio"
           name="ingredient"
           value="ingredient"
@@ -87,7 +90,7 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
         <Input
           labelText="Primeira Letra"
           type="radio"
-          id="name-search-radio"
+          id="first-letter-search-radio"
           className="searchRadio"
           name="firstLetter"
           value="firstLetter"
@@ -95,9 +98,10 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
           searchQuery={ radioButton }
         />
         <Button
-          type="sumbit"
+          type="submit"
           id="exec-search-btn"
           className="searchBarButton"
+          buttonText="Buscar"
         />
       </form>
     </section>
