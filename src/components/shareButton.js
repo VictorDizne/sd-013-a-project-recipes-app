@@ -10,7 +10,6 @@ const ShareButton = () => {
   const copy = () => {
     const SIX = 6000;
     copytoclipboard(`http://localhost:3000${pathname}`);
-    console.log(pathname);
     setClipped(true);
     setTimeout(() => setClipped(false), SIX);
   };
