@@ -100,6 +100,13 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
           className="searchBarButton"
           buttonText="Buscar"
         />
+        <button
+          type="submit"
+          data-testid="exec-search-btn"
+          className="searchBarButton"
+        >
+          Buscar
+        </button>
       </form>
     </section>
   );

@@ -1,9 +1,23 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { BsArrowReturnLeft } from 'react-icons/bs';
 import { Button } from '../components';
 import { profileIcon, searchIcon } from '../images';
+
+const Nav = styled.nav`
+  background: #C4C4C4;
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100vw;
+  height: 58px;
+  left: 0px;
+  top: 0px;
+`;
 
 function HandleHeader({ title, setSearchBarStatus }) {
   const history = useHistory();
@@ -14,21 +28,16 @@ function HandleHeader({ title, setSearchBarStatus }) {
   const profileButton = (
     <Button
       className="profileIconBtn"
+      buttonType="BackgroundButton"
       onClick={ onClickProfile }
-      buttonText={
-        <img
-          data-testid="profile-top-btn"
-          className="profileIcon"
-          src={ profileIcon }
-          alt="Profile Icon"
-        />
-      }
+      data-testid="profile-top-btn"
+      icon={ profileIcon }
     />
   );
 
   if (title !== 'Bebidas' && title !== 'Comidas' && title !== 'Explorar Orígem') {
     return (
-      <nav>
+      <Nav>
         { profileButton }
         <h1
           className="headerTitle"
@@ -36,22 +45,21 @@ function HandleHeader({ title, setSearchBarStatus }) {
         >
           { title }
         </h1>
-        <button
+        <Button
           type="button"
           onClick={ onClickBack }
-        >
-          <div
-            className="BackBtn"
-          >
+          buttonType="BackgroundButton"
+          buttonText={
             <BsArrowReturnLeft />
-          </div>
-        </button>
-      </nav>
+          }
+        />
+        {/* <BsArrowReturnLeft onClick={ onClickBack } /> */}
+      </Nav>
     );
   }
 
   return (
-    <nav>
+    <Nav>
       { profileButton }
       <h1
         className="headerTitle"
@@ -59,18 +67,14 @@ function HandleHeader({ title, setSearchBarStatus }) {
       >
         { title }
       </h1>
-      <button
+      <Button
         type="button"
+        buttonType="BackgroundButton"
+        icon={ searchIcon }
         data-testid="search-top-btn"
         onClick={ () => setSearchBarStatus((prevState) => !prevState) }
-      >
-        <img
-          src={ searchIcon }
-          alt="Search Icon"
-          className="searchBarBtn"
-        />
-      </button>
-    </nav>
+      />
+    </Nav>
   );
 }
 
