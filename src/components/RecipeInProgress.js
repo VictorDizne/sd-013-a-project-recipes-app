@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import Ingredients from './Ingredients';
 
 function RecipeInProgress({ recipe, isMeal }) {
+  const [allChecked, setAllChecked] = useState(false);
+
+  const isAllChecked = (ingredients) => {
+    const isChecked = ingredients.every((ingredient) => ingredient.checked);
+    setAllChecked(isChecked);
+  };
+
+  const history = useHistory();
+  const goToRecipesDone = () => {
+    history.push('/receitas-feitas');
+  };
+
   return (
     <div>
 
@@ -36,11 +49,18 @@ function RecipeInProgress({ recipe, isMeal }) {
         {`${recipe.strCategory} ${recipe.strAlcoholic}`}
       </h3>
 
-      <Ingredients recipe={ recipe } isMeal={ isMeal } />
+      <Ingredients recipe={ recipe } isMeal={ isMeal } isAllChecked={ isAllChecked } />
 
       <p data-testid="instructions">{recipe.strInstructions}</p>
 
-      <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        onClick={ goToRecipesDone }
+        disabled={ !allChecked }
+      >
+        Finalizar receita
+      </button>
 
     </div>
   );

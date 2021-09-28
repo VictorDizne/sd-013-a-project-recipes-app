@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Ingredients({ recipe, isMeal }) {
+function Ingredients({ recipe, isMeal, isAllChecked }) {
   const [recipeIngredients, setRecipeIngredients] = useState([]);
 
   const [
@@ -117,11 +117,13 @@ function Ingredients({ recipe, isMeal }) {
 
         setRecipeIngredients(checkedIngredients);
 
+        isAllChecked(checkedIngredients);
+
         // setRecipeIngredients(ingredientsAndMeasures);
       }
     };
     getIngredients();
-  }, [checkedItems, recipe]);
+  }, [checkedItems, isAllChecked, recipe]);
 
   return (
     <ul>
@@ -149,6 +151,7 @@ function Ingredients({ recipe, isMeal }) {
 
 Ingredients.propTypes = {
   recipe: PropTypes.shape(),
+  isAllChecked: PropTypes.func,
 }.isRequired;
 
 export default Ingredients;
