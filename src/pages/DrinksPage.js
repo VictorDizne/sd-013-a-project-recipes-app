@@ -1,7 +1,7 @@
-import React, { useEffect, useContext } from "react";
-import MyContext from "../context/Context";
+import React, { useEffect, useContext } from 'react';
+import MyContext from '../context/Context';
 import * as myFunc from '../services/api';
-import { Header, Footer, FoodCard, ButtonsFilters } from "../components";
+import { Header, Footer, FoodCard, ButtonsFilters } from '../components';
 
 function DrinksPage() {
   const { recipes, setMyPage, myPage, setRecipes } = useContext(MyContext);
@@ -13,34 +13,55 @@ function DrinksPage() {
     setRecipes(drinks);
   };
 
+  const setInProgressRecipeLocalStorage = () => {
+    const progressRecipe = {
+      cocktails: {},
+      meals: {}
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressRecipe));
+  }
+
+  const setFavoriteRecipeLocalStorage = () => {
+    const favoriteRecipe = []
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipe));
+  }
+
   useEffect(() => {
-    setMyPage("thecocktaildb");
+    const progressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if ( !progressRecipe ) {
+      setInProgressRecipeLocalStorage()
+    }
+
+    const favoriteRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if ( !favoriteRecipe ) {
+      setFavoriteRecipeLocalStorage()
+    }
+
+    setMyPage('thecocktaildb');
     if (myPage !== '') {
       randonRecipes();
     }
   }, [setMyPage, myPage]);
-  
+
   const returnCard = (item, index) => (
     <FoodCard
-      key={index}
-      index={index}
+      key={ index }
+      index={ index }
       thumb="strDrinkThumb"
       name="strDrink"
       id="idDrink"
-      data={item}
+      data={ item }
       route="bebidas"
     />
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={ { display: 'flex', flexDirection: 'column' } }>
       <Header title="Bebidas" search />
       <ButtonsFilters page="drinks" />
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {recipes !== null &&
-          recipes.map((item, index) =>
-            index >= LIMITER_FOODS ? null : returnCard(item, index)
-          )}
+      <div style={ { display: 'flex', flexWrap: 'wrap' } }>
+        {recipes !== null
+          && recipes.map((item, index) => (index >= LIMITER_FOODS ? null : returnCard(item, index)))}
       </div>
       <Footer />
     </div>
