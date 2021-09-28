@@ -15,7 +15,9 @@ function Card({ index, card }) {
     const { strDrink, strDrinkThumb, idDrink } = card;
 
     return (
-      <Link to={ `/bebidas/${idDrink}` }>
+      <Link
+        to={ `/bebidas/${idDrink}` }
+      >
         <div className="card">
           <h1 className="food-title" data-testid={ `${index}-card-name` }>{strDrink}</h1>
           <img

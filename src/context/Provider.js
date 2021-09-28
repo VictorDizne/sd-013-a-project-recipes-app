@@ -27,6 +27,10 @@ function Provider({ children }) {
   const [copied, setCopied] = useState(false);
   // Getter e setter de controle do checkbox de Ingredientes
   const [verifyCheckbox, setVerifyCheckbox] = useState([false]);
+  // estado criado para controlar a renderização do requisito 77, renderização filtrada por ingredientes(caso seja true);
+  const [displayByIngredients, setDisplayByingredients] = useState(false);
+
+  const [selectedIngredient, setSelectedIngredient] = useState([]);
 
   // Função assíncrona que recebe como parametro a informação do RadioButton(searchType) e o texto do usuário(searchInputValue)
   const searchBarRequestFood = async (type, inputValue) => {
@@ -117,6 +121,14 @@ function Provider({ children }) {
     // Retorna os valores do result
     setDrinkCategory(result.drinks);
   };
+  // Função auxiliar para buscar as bebidas que contem o ingrediente especifico, passado como parametro
+  const requestDrinksByIngredient = async (i) => {
+    const ingredient = document.getElementsByClassName('ingredientName')[i].innerText;
+    const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    const response = await request.json();
+    const { drinks } = response;
+    setSelectedIngredient(drinks);
+  };
 
   // Comportamento de ComponentDidUpdate, e toda vez que o mealsOrDrinks for alterado, o ShouldRedirect será true.
   useEffect(() => {
@@ -155,6 +167,11 @@ function Provider({ children }) {
     setCopied, // Seta o link copiado na copied
     verifyCheckbox, // Controlar o checkbox de Ingredientes
     setVerifyCheckbox, // Controlar o checkbox de Ingredientes
+    setDisplayByingredients, // controlar a renderização do requisito 77
+    displayByIngredients, // variavel que armazena o valor booleano para o req 77
+    requestDrinksByIngredient,
+    selectedIngredient,
+    setSelectedIngredient,
   };
 
   return (

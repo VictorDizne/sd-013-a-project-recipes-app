@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function IngredientsCard({ ingredient, index }) { // componente montado para renderizar os ingredientes tanto de bebidas quanto de comidas
+function IngredientsFoodCard({ ingredient, index }) { // componente montado para renderizar os ingredientes tanto de bebidas quanto de comidas
   return (
     <div
       className="ingredients-container"
@@ -9,7 +9,7 @@ function IngredientsCard({ ingredient, index }) { // componente montado para ren
     >
       <img
         data-testid={ `${index}-card-img` }
-        src={ `https://www.themealdb.com/images/ingredients/${ingredient}-small.png` }
+        src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
         alt={ ingredient }
       />
       <span
@@ -21,9 +21,9 @@ function IngredientsCard({ ingredient, index }) { // componente montado para ren
   );
 }
 
-IngredientsCard.propTypes = ({
+IngredientsFoodCard.propTypes = ({
   index: PropTypes.number.isRequired,
   ingredient: PropTypes.string.isRequired,
 });
 
-export default IngredientsCard;
+export default IngredientsFoodCard;

@@ -8,24 +8,55 @@ import CategoriesDrink from '../components/CategoriesDrink';
 import '../styles/Drinks.css';
 
 function Drinks() {
-  const { directRequestDrink, isDrinkOrMealLoading } = useContext(RecipeContext);
+  const { directRequestDrink,
+    isDrinkOrMealLoading,
+    selectedIngredient,
+    displayByIngredients,
+    setDisplayByingredients,
+  } = useContext(RecipeContext);
+
+  const MAX_NUMBER = 12;
 
   // useEffect com comportamento de ComponentDidMount
   useEffect(() => {
     directRequestDrink();
+    return () => setDisplayByingredients(false); // equivale ao componentWillUnMount e muda o estado displayByIngredients para false
   }, []);
 
+  const RecipesElement = !isDrinkOrMealLoading ? (
+    <div>
+      <RecipesList />
+    </div>) : <p>Carregando</p>;
+
+  const drinksByIngredient = (
+    selectedIngredient.map((el, i) => {
+      if (i < MAX_NUMBER) {
+        return (
+          <div
+            data-testid={ `${i}-recipe-card` }
+          >
+            <span
+              data-testid={ `${i}-card-name` }
+            >
+              {el.strDrink}
+            </span>
+            <img
+              data-testid={ `${i}-card-img` }
+              src={ el.strDrinkThumb }
+              alt={ el.strDrinkThumb }
+            />
+          </div>
+        );
+      }
+      return '';
+    })
+  );
+
   return (
-    <div className="bebidas-body">
-      <div className="recipes-background-color" />
+    <div className="recipes-background-color">
       <Header title="Bebidas" />
       <CategoriesDrink />
-      {
-        !isDrinkOrMealLoading ? (
-          <div>
-            <RecipesList />
-          </div>) : <p>Carregando</p>
-      }
+      {displayByIngredients ? drinksByIngredient : RecipesElement}
       <Footer />
     </div>
   );

@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import IngredientsCard from '../components/IngredientsCard';
+import IngredientsDrinkCard from '../components/IngredientsDrinkCard';
+import RecipeContext from '../context/RecipeContext';
 
 function DrinkExploreIngredients() {
+  const { setDisplayByingredients, requestDrinksByIngredient } = useContext(RecipeContext);
   const [drinkIngredients, setDrinkIngredients] = useState([]); // variavel que irá armazenar o array com o nome das bebidas após a montagem do componente (conforme useEffect)
   const MAX_NUMBER = 12;
 
@@ -17,7 +20,8 @@ function DrinkExploreIngredients() {
   useEffect(() => {
     requestDrinkIngredients()
       .then(({ drinks }) => setDrinkIngredients(drinks));
-  });
+    return () => setDisplayByingredients(true); // equivale ao componentWillUnMount e muda o estado displayByIngredients para true
+  }, []);
 
   return (
     <div>
@@ -25,12 +29,15 @@ function DrinkExploreIngredients() {
       {drinkIngredients.map((el, i) => {
         if (i < MAX_NUMBER) {
           return (
-            <IngredientsCard
-            //  componente que renderiza cada card de comidas (imagem e nome)
+
+            <IngredientsDrinkCard
+              //  componente que renderiza cada card de comidas (imagem e nome)
               key={ i }
               ingredient={ el.strIngredient1 }
               index={ i }
+              onClick={ () => requestDrinksByIngredient(i, el.strIngredient1) }
             />
+
           );
         }
         return '';
