@@ -34,6 +34,6 @@ export const handleAPIDrinks = (param1, text) => {
     return fetchForFirstLetter(text);
   }
   if (param1 === 'primeira letra' && text.length > 1) {
-    global.alert('Sua busca deve conter somente 1 (um) caracter');
+    return global.alert('Sua busca deve conter somente 1 (um) caracter');
   }
 };

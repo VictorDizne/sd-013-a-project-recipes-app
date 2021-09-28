@@ -10,7 +10,6 @@ import '../PaginasCss/Header.css';
 
 function Header() {
   // const { clickLoading } = useContext(Context);
-
   const [data, setData] = useState([]);
   const [showInput, setShowInput] = useState(true);
   const [inputRadio, setInputRadio] = useState('');
@@ -49,13 +48,13 @@ function Header() {
     setInputRadio(target.value);
   };
 
-  const handleClickFetch = () => {
+  const handleClickFetch = async () => {
     if (path === 'comidas') {
-      const dataComidas = handleAPIFoods(inputRadio, inputText);
+      const dataComidas = await handleAPIFoods(inputRadio, inputText);
       setData(dataComidas);
     }
     if (path === 'bebidas') {
-      const dataBebidas = handleAPIDrinks(inputRadio, inputText);
+      const dataBebidas = await handleAPIDrinks(inputRadio, inputText);
       setData(dataBebidas);
     }
   };
@@ -121,10 +120,10 @@ function Header() {
           Buscar
         </button>
       </div>
-      {/* {
+      {/* //Essa map é só pra testar se tava funcioandno */}
+      {
         data.map((el) => <div key={ el.idDrink }>{el.idDrink}</div>)
-        // console.log(data)
-      } */}
+      }
 
     </div>
   );
