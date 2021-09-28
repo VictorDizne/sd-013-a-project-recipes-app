@@ -47,7 +47,7 @@ function ExploreFoodPage() {
   }
   return (
     <>
-      <Header />
+      <Header title="Explorar Comidas" />
       { loading ? <p>CARREGANDO...</p> : showButtons() }
       <Footer />
     </>

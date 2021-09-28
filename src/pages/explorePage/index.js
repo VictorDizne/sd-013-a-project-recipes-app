@@ -6,7 +6,7 @@ import Header from '../../components/header';
 function ExplorePage() {
   return (
     <>
-      <Header />
+      <Header title="Explorar" />
       <div className="explore-buttons">
         <Link to="/explorar/comidas">
           <button type="button" data-testid="explore-food">
