@@ -2,6 +2,20 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Ingredients({ recipe, isMeal }) {
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
+
+  const [
+    checkedItems,
+    setCheckedItems,
+  ] = useState(JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+    cocktails: {},
+    meals: {},
+  });
+
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(checkedItems));
+  }, [checkedItems]);
+
   const verifyMeal = (checked, indexIng, id, inProgressRecipes) => {
     if (checked) {
       const updatedMeals = {
@@ -12,18 +26,25 @@ function Ingredients({ recipe, isMeal }) {
             ? [...inProgressRecipes.meals[id], indexIng] : [indexIng],
         },
       };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(updatedMeals));
+      // const teste50 = recipeIngredients.map((ingredient) => (checked ===
+      //   ? ({
+      //     ...ingredient,
+      //     checked: true,
+      //   })
+      //   : ingredient));
+      setCheckedItems(updatedMeals);
+      // setRecipeIngredients(teste50);
     } else {
       const removedIngredient = inProgressRecipes.meals[id]
         .filter((ingredient) => ingredient !== indexIng);
 
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
+      setCheckedItems({
         ...inProgressRecipes,
         meals: {
           ...inProgressRecipes.meals,
           [id]: removedIngredient,
         },
-      }));
+      });
     }
   };
   const verifyDrink = (checked, indexIng, id, inProgressRecipes) => {
@@ -36,36 +57,30 @@ function Ingredients({ recipe, isMeal }) {
             ? [...inProgressRecipes.cocktails[id], indexIng] : [indexIng],
         },
       };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(updatedCocktails));
+      setCheckedItems(updatedCocktails);
     } else {
       const removedIngredient = inProgressRecipes.cocktails[id]
         .filter((ingredient) => ingredient !== indexIng);
-
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
+      setCheckedItems({
         ...inProgressRecipes,
         cocktails: {
           ...inProgressRecipes.cocktails,
           [id]: removedIngredient,
         },
-      }));
+      });
     }
   };
 
   const verifyChecked = (event, indexIng, id) => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
     if (isMeal) {
-      verifyMeal(event.target.checked, indexIng, id, inProgressRecipes);
+      verifyMeal(event.target.checked, indexIng, id, checkedItems);
     } else {
-      verifyDrink(event.target.checked, indexIng, id, inProgressRecipes);
+      verifyDrink(event.target.checked, indexIng, id, checkedItems);
     }
   };
 
-  const [recipeIngredients, setRecipeIngredients] = useState([]);
-
   useEffect(() => {
     const getIngredients = () => {
-      // console.log(recipe, 'recipe');
       const entries = Object.entries(recipe);
 
       if (entries.length) {
@@ -84,12 +99,30 @@ function Ingredients({ recipe, isMeal }) {
         const ingredientsAndMeasures = ingredients
           .map((ingredient, index) => ({ ...ingredient, ...measures[index] }));
 
-        // console.log(ingredientsAndMeasures, 'marcação!!!');
-        setRecipeIngredients(ingredientsAndMeasures);
+        const checkedIngredients = ingredientsAndMeasures.map((ingredient, index) => {
+          const isChecked = checkedItems.meals[recipe.idMeal]
+            .find((item) => item === index);
+
+          if (isChecked) {
+            return {
+              ...ingredient,
+              checked: true,
+            };
+          }
+          return {
+            ...ingredient,
+            checked: false,
+          };
+        });
+
+        console.log(checkedIngredients);
+        setRecipeIngredients(checkedIngredients);
+
+        // setRecipeIngredients(ingredientsAndMeasures);
       }
     };
     getIngredients();
-  }, [recipe]);
+  }, [checkedItems, recipe]);
 
   return (
     <ul>
@@ -100,6 +133,7 @@ function Ingredients({ recipe, isMeal }) {
           data-testid={ `${i}-ingredient-step` }
         >
           <input
+            checked={ ingredient.checked }
             name={ `${i}-ingredient-step` }
             id={ `${i}-ingredient-step` }
             type="checkbox"

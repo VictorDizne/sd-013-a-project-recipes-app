@@ -1,23 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import Ingredients from './Ingredients';
 
 function RecipeInProgress({ recipe, isMeal }) {
-  useEffect(() => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (!inProgressRecipes) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(
-        {
-          cocktails: {},
-          meals: {},
-        },
-      ));
-    }
-  }, []);
-
   return (
     <div>
 
