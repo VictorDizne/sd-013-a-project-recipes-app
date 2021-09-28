@@ -6,7 +6,6 @@ import Context from './Context';
 function ContextAPIProvider({ children }) {
   const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const DOZE = 12;
 
   const errorMessage = (
     'Sinto muito, não encontramos nenhuma receita para esses filtros.'
@@ -106,7 +105,6 @@ function ContextAPIProvider({ children }) {
       setSearchData(json.drinks);
     }
   };
-
   const { pathname } = useLocation();
 
   const pathnameCheck = () => {

@@ -14,16 +14,17 @@ export default function Foods() {
 
   const history = useHistory();
 
-  const { searchData, fetchAPI, loading, pathnameCheck } = useContext(Context);
+  const { searchData, loading, pathnameCheck, fetchAPI } = useContext(Context);
 
   const DOZE = 12;
 
   const { pathname } = useLocation();
 
+  // const API = () => (fetchAPI(pathnameCheck()));
   useEffect(() => {
     // Requisição inicial para renderizar cards ao carregar a página.
+    // const { pathname } = useLocation();
     fetchAPI(pathnameCheck());
-    console.log(pathnameCheck());
   }, []);
 
   return (

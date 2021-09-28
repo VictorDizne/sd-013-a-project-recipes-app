@@ -13,7 +13,6 @@ const useApiId = (type, id) => {
     };
     fetchId();
   }, [id, type]);
-
   return data;
 };
 
