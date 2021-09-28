@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import './receitas-feitas.css';
 
 const doneRecipes = [
   {
@@ -31,7 +30,6 @@ const doneRecipes = [
 
 function ReceitasFeitas() {
   const [recipes, setRecipes] = useState(doneRecipes);
-  const history = useHistory();
 
   const filterType = (type) => {
     let newRecipes = doneRecipes;
@@ -81,7 +79,6 @@ function ReceitasFeitas() {
               <div key={ index }>
                 <Link to={ `./${type}s/${id}` }>
                   <input
-                    className="img-recipe"
                     width="300px"
                     src={ image }
                     type="image"
