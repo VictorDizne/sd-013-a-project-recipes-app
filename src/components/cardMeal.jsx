@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import appContext from '../redux/appcontext';
-// import CardDetails from './cardDetails';
 
 const CardMeal = () => {
   const history = useHistory();
