@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import fetchDrinkById from '../services/fetchDrinkById';
+import IngredientsList from '../components/IngredientsList';
 
 function BebidasProgress({ match, history }) {
   const { recipeId } = match.params;
@@ -10,41 +11,9 @@ function BebidasProgress({ match, history }) {
   const [ingredientList, setIngredientList] = useState([]);
   const [disabledButton, setDisabledButton] = useState(true);
   const [compareCheckBox, setCompareCheckBox] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  //const [cocktails, setCocktails] = useState({});
   const checkboxes = document.querySelectorAll('.checkboxes');
-
-  /* const loadPage = () => {
-    const checkboxes = document.querySelectorAll('.checkboxes');
-    const listRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if(listRecipe !== null) {
-      const cocktails = listRecipe.cocktails;
-      const numberCocktails = Number(Object.keys(cocktails));
-      const numberId = Number(recipeId)
-      const arrayChecked = Object.values(cocktails)[0];
-      let compareCheckBoxes = 0;
-      if(numberCocktails === numberId) {
-        if(checkboxes !== null && checkboxes.length > 0) {
-          checkboxes.forEach((checkbox, index) =>  {
-            if(checkbox.value = arrayChecked[index]) {
-              checkbox.checked = true;
-              checkbox.parentElement.style.textDecorationLine = 'line-through';
-              checkbox.parentElement.style.textDecorationStyle = 'solid';
-              compareCheckBoxes += 1;
-            } else {
-              checkbox.checked = false;
-              checkbox.parentElement.style.textDecorationLine = '';
-              checkbox.parentElement.style.textDecorationStyle = '';
-            }
-          })
-          if(compareCheckBoxes === checkboxes.length) {
-            setDisabledButton(false);
-          } else {
-            setDisabledButton(true);
-          }
-        }
-      }
-    }
-  }; */
 
   useEffect(() => {
     const getDrink = async (id) => {
@@ -53,7 +22,6 @@ function BebidasProgress({ match, history }) {
     };
     getDrink(recipeId);
     setIsLoading(false);
-    // loadPage();
   }, [recipeId]);
 
   const ingredients = [
@@ -168,7 +136,12 @@ function BebidasProgress({ match, history }) {
 
       <h4>Ingredientes</h4>
       <ul>
-        { ingredientsArrayList() }
+        <IngredientsList 
+          handleCheckbox={ handleCheckbox } 
+          ingredients={ ingredients } 
+          checkboxes={ checkboxes }
+          recipeId={recipeId}
+          />
       </ul>
 
       <h4>Instruções</h4>
@@ -193,7 +166,7 @@ BebidasProgress.propTypes = {
       recipeId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  history: PropTypes.arrayOf({}).isRequired,
+  history: PropTypes.arrayOf([]).isRequired,
 };
 
 export default BebidasProgress;
