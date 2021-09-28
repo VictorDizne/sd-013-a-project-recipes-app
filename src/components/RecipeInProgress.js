@@ -6,12 +6,16 @@ import Ingredients from './Ingredients';
 
 function RecipeInProgress({ recipe, isMeal }) {
   useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(
-      {
-        cocktails: {},
-        meals: {},
-      },
-    ));
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (!inProgressRecipes) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(
+        {
+          cocktails: {},
+          meals: {},
+        },
+      ));
+    }
   }, []);
 
   return (

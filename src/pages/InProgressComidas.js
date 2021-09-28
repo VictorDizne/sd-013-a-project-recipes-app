@@ -9,7 +9,7 @@ export default function InProgressComidas({ match: { params: { recipeId } } }) {
     const fetching = async () => {
       const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
       const json = await res.json();
-      console.log(json.meals[0]);
+      // console.log(json.meals[0]);
       setMeal(json.meals[0]);
     };
 

@@ -2,30 +2,62 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Ingredients({ recipe, isMeal }) {
-  const verifyChecked = (event, indexIng, id) => {
-    // console.log(event.target.checked);
-    // console.log(id);
-
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (event.target.checked === true && isMeal) {
+  const verifyMeal = (checked, indexIng, id, inProgressRecipes) => {
+    if (checked) {
       const updatedMeals = {
         ...inProgressRecipes,
         meals: {
+          ...inProgressRecipes.meals,
           [id]: inProgressRecipes.meals[id]
             ? [...inProgressRecipes.meals[id], indexIng] : [indexIng],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(updatedMeals));
-    } else if (event.target.checked === false || !isMeal) {
+    } else {
+      const removedIngredient = inProgressRecipes.meals[id]
+        .filter((ingredient) => ingredient !== indexIng);
+
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        meals: {
+          ...inProgressRecipes.meals,
+          [id]: removedIngredient,
+        },
+      }));
+    }
+  };
+  const verifyDrink = (checked, indexIng, id, inProgressRecipes) => {
+    if (checked) {
       const updatedCocktails = {
         ...inProgressRecipes,
         cocktails: {
+          ...inProgressRecipes.cocktails,
           [id]: inProgressRecipes.cocktails[id]
             ? [...inProgressRecipes.cocktails[id], indexIng] : [indexIng],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(updatedCocktails));
+    } else {
+      const removedIngredient = inProgressRecipes.cocktails[id]
+        .filter((ingredient) => ingredient !== indexIng);
+
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        cocktails: {
+          ...inProgressRecipes.cocktails,
+          [id]: removedIngredient,
+        },
+      }));
+    }
+  };
+
+  const verifyChecked = (event, indexIng, id) => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (isMeal) {
+      verifyMeal(event.target.checked, indexIng, id, inProgressRecipes);
+    } else {
+      verifyDrink(event.target.checked, indexIng, id, inProgressRecipes);
     }
   };
 
@@ -68,6 +100,8 @@ function Ingredients({ recipe, isMeal }) {
           data-testid={ `${i}-ingredient-step` }
         >
           <input
+            name={ `${i}-ingredient-step` }
+            id={ `${i}-ingredient-step` }
             type="checkbox"
             onClick={ (event) => {
               verifyChecked(event, i, recipe.idMeal || recipe.idDrink);
