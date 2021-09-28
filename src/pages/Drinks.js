@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import DrinkCard from '../components/DrinkCard';
 import Footer from '../components/Footer';
 import { fetchDrinkCategories } from '../services/bebidasApi';
+import '../styles/Recipes.css';
 
 const Drinks = () => {
   const {
@@ -55,7 +56,7 @@ const Drinks = () => {
             </button>
           ))}
         </div>
-        <div>
+        <div className="recipes-container">
           { drinkData && drinkData.slice(0, MAX_RECIPES).map(((recipe, index) => (
             <DrinkCard key={ index } index={ index } recipe={ recipe } page="drinks" />
           )))}

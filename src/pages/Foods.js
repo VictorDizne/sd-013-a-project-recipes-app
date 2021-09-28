@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import MealCard from '../components/MealCard';
 import Footer from '../components/Footer';
 import { fetchFoodCategories } from '../services/comidasApi';
-import '../styles/Food.css';
+import '../styles/Recipes.css';
 
 const Foods = () => {
   const { mealData,
@@ -54,7 +54,7 @@ const Foods = () => {
               { b.strCategory }
             </button>
           ))}
-          <div className="Recipes-Container">
+          <div className="recipes-container">
             { mealData && mealData.slice(0, MAX_RECIPES).map(((recipe, index) => (
               <MealCard key={ index } index={ index } recipe={ recipe } page="foods" />
             )))}

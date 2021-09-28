@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { fetchFoodById } from '../services/comidasApi';
 import { fetchRecommendedDrinks } from '../services/bebidasApi';
 import RecomendationCard from '../components/RecomendationCard';
-import '../styles/Food.css';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;

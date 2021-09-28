@@ -20,6 +20,7 @@ function Profile() {
   };
 
   const { email } = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div>
       <Header title="Perfil" />
