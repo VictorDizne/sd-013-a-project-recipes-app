@@ -14,8 +14,6 @@ const Provider = ({ children }) => {
   // no meu caso eu "loading, setLoading e clickLoading" e setData como test mas podendo ser uma função ou outra coisa
   //  que julgue necessario.
   const context = {
-    loading,
-    setLoading,
     clickLoading,
   };
 
