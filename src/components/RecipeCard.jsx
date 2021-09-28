@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function RecipeCard({ title, url }) {
+function RecipeCard({ title, src, index }) {
   return (
-    <div>
-      <img src={ url } alt={ title } />
-      <h3>{ title }</h3>
+    <div data-testid={ `${index}-recipe-card` }>
+      <img src={ src } alt={ title } data-testid={ `${index}-card-img` } />
+      <h3 data-testid={ `${index}-card-name` }>{ title }</h3>
     </div>
   );
 }
@@ -13,6 +13,7 @@ function RecipeCard({ title, url }) {
 const { string } = PropTypes;
 
 RecipeCard.propTypes = {
+  index: string,
   title: string,
   url: string,
 }.isRequired;

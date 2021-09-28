@@ -21,6 +21,7 @@ function FilterRecipes({ pageTitle, handleFilter }) {
   return (
     categories.map((category, index) => (
       <Button
+        name={ category }
         key={ index }
         type="button"
         id={ `${category.strCategory}-category-filter` }

@@ -40,11 +40,11 @@ function HandleHeader({ title, setSearchBarStatus }) {
           type="button"
           onClick={ onClickBack }
         >
-          <img
-            src={ BsArrowReturnLeft }
-            alt="Back Icon"
+          <div
             className="BackBtn"
-          />
+          >
+            <BsArrowReturnLeft />
+          </div>
         </button>
       </nav>
     );

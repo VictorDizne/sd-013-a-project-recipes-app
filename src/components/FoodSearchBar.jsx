@@ -98,6 +98,7 @@ function FoodSearchBar({ setSearchBarStatus, setFoodRecipes }) {
           type="sumbit"
           id="exec-search-btn"
           className="searchBarButton"
+          buttonText="Buscar"
         />
       </form>
     </section>
