@@ -49,7 +49,7 @@ function MealDetails({ match: { params: { id } } }) {
     <div>
       <img
         data-testid="recipe-photo"
-        src={ recipe.strMealThumb }
+        src={ `${recipe.strMealThumb}/preview` }
         alt={ recipe.strMeal }
       />
       <h3 data-testid="recipe-title">{recipe.strMeal}</h3>

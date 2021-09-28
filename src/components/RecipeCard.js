@@ -19,7 +19,7 @@ export default function ReciperCard({ name, index, img, idRecipe }) {
     >
       <img
         data-testid={ `${index}-card-img` }
-        src={ img }
+        src={ `${img}/preview` }
         alt={ name }
         className="imgThumb"
       />

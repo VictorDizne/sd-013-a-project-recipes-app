@@ -48,7 +48,7 @@ function DrinkDetails({ match: { params: { id } } }) {
     <div>
       <img
         data-testid="recipe-photo"
-        src={ recipe.strDrinkThumb }
+        src={ `${recipe.strDrinkThumb}/preview` }
         alt={ recipe.strDrink }
       />
       <h3 data-testid="recipe-title">{recipe.strDrink}</h3>
