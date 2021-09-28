@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RecipesContext from '../context/index';
 import Header from '../components/Header';
-import RecipeCard from '../components/RecipeCard';
+import MealCard from '../components/MealCard';
 import Footer from '../components/Footer';
 import { fetchFoodCategories } from '../services/comidasApi';
-import '../styles/Food.css';
+import '../styles/Recipes.css';
 
 const Foods = () => {
   const { mealData,
@@ -35,7 +35,7 @@ const Foods = () => {
   return (
     <div>
       <Header title="Comidas" hasSearchIcon page="foods" />
-      <div>
+      <div className="recipes-list">
         <div>
           <button
             type="button"
@@ -54,14 +54,14 @@ const Foods = () => {
               { b.strCategory }
             </button>
           ))}
-          <div className="Recipes-Container">
+          <div className="recipes-container">
             { mealData && mealData.slice(0, MAX_RECIPES).map(((recipe, index) => (
-              <RecipeCard key={ index } index={ index } recipe={ recipe } page="foods" />
+              <MealCard key={ index } index={ index } recipe={ recipe } page="foods" />
             )))}
           </div>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };

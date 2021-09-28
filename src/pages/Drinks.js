@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RecipesContext from '../context/index';
 import Header from '../components/Header';
-import RecipeCard from '../components/RecipeCard';
+import DrinkCard from '../components/DrinkCard';
 import Footer from '../components/Footer';
 import { fetchDrinkCategories } from '../services/bebidasApi';
+import '../styles/Recipes.css';
 
 const Drinks = () => {
   const {
@@ -35,7 +36,7 @@ const Drinks = () => {
   return (
     <div>
       <Header title="Bebidas" hasSearchIcon page="drinks" />
-      <div>
+      <div className="recipes-list">
         <div>
           <button
             type="button"
@@ -55,9 +56,9 @@ const Drinks = () => {
             </button>
           ))}
         </div>
-        <div>
+        <div className="recipes-container">
           { drinkData && drinkData.slice(0, MAX_RECIPES).map(((recipe, index) => (
-            <RecipeCard key={ index } index={ index } recipe={ recipe } page="drinks" />
+            <DrinkCard key={ index } index={ index } recipe={ recipe } page="drinks" />
           )))}
         </div>
       </div>

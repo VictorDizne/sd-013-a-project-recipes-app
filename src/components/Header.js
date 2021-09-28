@@ -15,7 +15,7 @@ function Header({ title, hasSearchIcon, page }) {
   };
 
   const renderButton = () => (
-    <button type="button" onClick={ handleClickSearchBar } className="css_botton_2">
+    <button type="button" onClick={ handleClickSearchBar } className="header-buttons">
       <img src={ searchIcon } alt="search Icon" data-testid="search-top-btn" />
     </button>
   );
@@ -26,14 +26,13 @@ function Header({ title, hasSearchIcon, page }) {
 
   return (
     <>
-      <header>
-        <div className="container_header">
-          <button type="button" onClick={ handleClickProfile } className="css_botton_1">
-            <img src={ profileIcon } alt="search Icon" data-testid="profile-top-btn" />
-          </button>
-          <h1 data-testid="page-title">{ title }</h1>
-          { hasSearchIcon && renderButton()}
-        </div>
+      <header className="header-container">
+        <button type="button" onClick={ handleClickProfile } className="header-buttons">
+          <img src={ profileIcon } alt="search Icon" data-testid="profile-top-btn" />
+        </button>
+        <h1 data-testid="page-title" className="header-title">{ title }</h1>
+        { hasSearchIcon && renderButton()}
+        { !hasSearchIcon && <div /> }
       </header>
 
       { showSearchBar && <HeaderSearchBar

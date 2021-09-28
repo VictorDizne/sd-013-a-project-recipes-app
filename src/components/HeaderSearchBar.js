@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from '../context/index';
-import '../styles/Header.css';
+import '../styles/HeaderSearchBar.css';
 
 function HeaderSearchBar({ page, handleClickSearchBar }) {
   const {
@@ -25,7 +25,7 @@ function HeaderSearchBar({ page, handleClickSearchBar }) {
   }
 
   return (
-    <form className="fome_bar">
+    <form className="form_bar">
       <input
         type="text"
         placeholder="Buscar receitas"
@@ -34,12 +34,12 @@ function HeaderSearchBar({ page, handleClickSearchBar }) {
         value={ inputText }
         onChange={ (event) => setInputText(event.target.value) }
       />
-      <div>
-        <label htmlFor="ingredient">
+      <div className="radio-container">
+        <label htmlFor="ingredient" className="label">
           <input
             type="radio"
             name="search-type"
-            className="radio_1"
+            className="radio-button"
             id="ingredient"
             data-testid="ingredient-search-radio"
             value="ingredient"
@@ -47,11 +47,11 @@ function HeaderSearchBar({ page, handleClickSearchBar }) {
           />
           Ingrediente
         </label>
-        <label htmlFor="name">
+        <label htmlFor="name" className="label">
           <input
             type="radio"
             name="search-type"
-            className="radio_2"
+            className="radio-button"
             id="name"
             data-testid="name-search-radio"
             value="name"
@@ -59,11 +59,11 @@ function HeaderSearchBar({ page, handleClickSearchBar }) {
           />
           Nome
         </label>
-        <label htmlFor="letter">
+        <label htmlFor="letter" className="label">
           <input
             type="radio"
             name="search-type"
-            className="radio_3"
+            className="radio-button"
             id="letter"
             data-testid="first-letter-search-radio"
             value="letter"
