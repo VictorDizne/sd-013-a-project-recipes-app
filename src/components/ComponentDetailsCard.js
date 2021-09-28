@@ -6,24 +6,6 @@ function ComponentDetailsCard({ detailItem, renderIngredients }) {
   const history = useHistory();
   const handlePage = history.location.pathname.includes('/comidas');
 
-  /* const renderVideo = () => {
-    if (history.location.pathname.includes('/comidas')) {
-      return (
-        <iframe
-          data-testid="video"
-          width="560"
-          height="315"
-          src={ video }
-          title={ detailItem.strMeal }
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write;
-        encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      );
-    }
-  }; */
-
   const renderMeal = () => {
     const video = detailItem.strYoutube.replace('watch?v=', 'embed/');
     return (
@@ -33,6 +15,12 @@ function ComponentDetailsCard({ detailItem, renderIngredients }) {
           src={ detailItem.strMealThumb }
           alt={ detailItem.strMeal }
         />
+        <button type="button" data-testid="share-btn">
+          Compartilhar
+        </button>
+        <button type="button" data-testid="favorite-btn">
+          Favoritar
+        </button>
         <h1 data-testid="recipe-title">{detailItem.strMeal}</h1>
         <h4 data-testid="recipe-category">{detailItem.strCategory}</h4>
         {renderIngredients()}
@@ -59,6 +47,12 @@ function ComponentDetailsCard({ detailItem, renderIngredients }) {
         src={ detailItem.strDrinkThumb }
         alt={ detailItem.strDrink }
       />
+      <button type="button" data-testid="share-btn">
+        Compartilhar
+      </button>
+      <button type="button" data-testid="favorite-btn">
+        Favoritar
+      </button>
       <h1 data-testid="recipe-title">{detailItem.strDrink}</h1>
       <h4 data-testid="recipe-category">
         {detailItem.strCategory}
@@ -79,7 +73,7 @@ function ComponentDetailsCard({ detailItem, renderIngredients }) {
 }
 
 ComponentDetailsCard.propTypes = {
-  detailItem: PropTypes.objectOf().isRequired,
+  detailItem: PropTypes.objectOf(Object).isRequired,
   renderIngredients: PropTypes.func.isRequired,
 };
 

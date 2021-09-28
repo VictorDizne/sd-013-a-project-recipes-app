@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import recipeContext from '../context';
 import ComponentDetailsCard from './ComponentDetailsCard';
+import ComponentSugestions from './ComponentSugestions';
 
-function ComponentDetails({ drinkOrMeal }) {
+function ComponentDetails() {
   const { fetchDetails, details, dataForFetch: { currentPage },
     handleCurrentPage } = useContext(recipeContext).ContextDetails;
   const { id } = useParams();
@@ -62,18 +62,20 @@ function ComponentDetails({ drinkOrMeal }) {
           key={ index }
           detailItem={ item }
           renderIngredients={ finalArray }
-          drinkOrMeal={ drinkOrMeal }
         />
       )) }
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
-      <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
+      <ComponentSugestions />
+      <div className="btn-container">
+        <button
+          className="btn-start"
+          data-testid="start-recipe-btn"
+          type="button"
+        >
+          Iniciar receita
+        </button>
+      </div>
     </div>
   );
 }
-
-ComponentDetails.propTypes = {
-  drinkOrMeal: PropTypes.string.isRequired,
-};
 
 export default ComponentDetails;
