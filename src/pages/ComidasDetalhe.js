@@ -16,7 +16,7 @@ function ComidasDetalhes({ match }) {
     };
     getMeal(recipeId);
     setIsLoading(false);
-  }, [setMeal, recipeId]);
+  }, [recipeId]);
 
   if (isLoading) return <h1>Loading...</h1>;
 

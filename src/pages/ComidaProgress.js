@@ -2,12 +2,49 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import fetchMealById from '../services/fetchMealById';
 
-function ComidaProgress({ match }) {
+function ComidaProgress({ match, history }) {
   const { recipeId } = match.params;
 
   const [meal, setMeal] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [ingredientList, setIngredientList] = useState([]);
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [compareCheckBox, setCompareCheckBox] = useState(0);
+  const checkboxes = document.querySelectorAll('.checkboxes');
+
+  /* const loadPage = () => {
+    const checkboxes = document.querySelectorAll('.checkboxes');
+    const listRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if(listRecipe !== null) {
+      const cocktails = listRecipe.cocktails;
+      const numberCocktails = Number(Object.keys(cocktails));
+      const numberId = Number(recipeId)
+      const arrayChecked = Object.values(cocktails)[0];
+      let compareCheckBoxes = 0;
+      if(numberCocktails === numberId) {
+        if(checkboxes !== null && checkboxes.length > 0) {
+          checkboxes.forEach((checkbox, index) =>  {
+            if(checkbox.value = arrayChecked[index]) {
+              checkbox.checked = true;
+              checkbox.parentElement.style.textDecorationLine = 'line-through';
+              checkbox.parentElement.style.textDecorationStyle = 'solid';
+              compareCheckBoxes += 1;
+            } else {
+              checkbox.checked = false;
+              checkbox.parentElement.style.textDecorationLine = '';
+              checkbox.parentElement.style.textDecorationStyle = '';
+            }
+          })
+          if(compareCheckBoxes === checkboxes.length) {
+            setDisabledButton(false);
+          } else {
+            setDisabledButton(true);
+          }
+        }
+      }
+    }
+  }; */
 
   useEffect(() => {
     const getMeal = async (id) => {
@@ -16,7 +53,8 @@ function ComidaProgress({ match }) {
     };
     getMeal(recipeId);
     setIsLoading(false);
-  }, [setMeal, recipeId]);
+    // loadPage();
+  }, [recipeId]);
 
   const ingredients = [
     meal.strIngredient1,
@@ -42,9 +80,10 @@ function ComidaProgress({ match }) {
   ];
 
   const handleCheckbox = ({ target }, index) => {
-    const teste = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(teste);
+    console.log(checkboxes.length);
+    console.log(compareCheckBox);
     if (target.checked === true) {
+      setCompareCheckBox(compareCheckBox + 1);
       target.parentElement.style.textDecorationLine = 'line-through';
       target.parentElement.style.textDecorationStyle = 'solid';
       setIngredientList([...ingredientList, target.value]);
@@ -54,12 +93,60 @@ function ComidaProgress({ match }) {
         },
       }));
     } else if (target.checked === false) {
+      setCompareCheckBox(compareCheckBox - 1);
       target.parentElement.style.textDecorationLine = '';
       target.parentElement.style.textDecorationStyle = '';
       ingredientList.splice(index, 1);
       setIngredientList(ingredientList);
     }
+    if (compareCheckBox === checkboxes.length - 1) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
   };
+
+  const handleOnClick = () => {
+    const arrayList = [
+      {
+        id: recipeId,
+        type: 'meal',
+        area: '',
+        category: meal.strCategory,
+        alcoholicOrNot: meal.strAlcoholic,
+        name: meal.strMeal,
+        image: meal.strMealThumb,
+        doneDate: meal.dateModified,
+        tags: '',
+      },
+    ];
+    localStorage.setItem('doneRecipes', JSON.stringify(arrayList));
+    history.push('/receitas-feitas');
+  };
+
+  const ingredientsArrayList = () => (
+    ingredients.filter((ingredient) => typeof ingredient === 'string'
+        && ingredient !== '')
+      .map((ingredient, index) => (
+        <div
+          key={ ingredient }
+        >
+          <label
+            htmlFor={ index }
+            key={ ingredient }
+            data-testid={ `${index}-ingredient-step` }
+          >
+            <input
+              className="checkboxes"
+              value={ ingredient }
+              id={ index }
+              type="checkbox"
+              onClick={ ({ target }) => handleCheckbox({ target }, index) }
+            />
+            {ingredient}
+          </label>
+        </div>))
+  );
 
   if (isLoading) return <h1>Loading...</h1>;
 
@@ -81,7 +168,8 @@ function ComidaProgress({ match }) {
 
       <h4>Ingredientes</h4>
       <ul>
-        {ingredients.filter((ingredient) => typeof ingredient === 'string'
+        { ingredientsArrayList() }
+        { /* ingredients.filter((ingredient) => typeof ingredient === 'string'
         && ingredient !== '')
           .map((ingredient, index) => (
             <div
@@ -100,13 +188,18 @@ function ComidaProgress({ match }) {
                 />
                 {ingredient}
               </label>
-            </div>))}
+          </div>)) */}
       </ul>
 
       <h4>Instruções</h4>
       <p data-testid="instructions">{meal.strInstructions}</p>
 
-      <button type="button" data-testid="finish-recipe-btn">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        onClick={ handleOnClick }
+        disabled={ disabledButton }
+      >
         Finalizar Receita
       </button>
 
@@ -120,6 +213,7 @@ ComidaProgress.propTypes = {
       recipeId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  history: PropTypes.arrayOf({}).isRequired,
 };
 
 export default ComidaProgress;
