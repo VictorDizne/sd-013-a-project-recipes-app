@@ -10,7 +10,9 @@ export default function Provider({ children }) {
   const [mealsApi, setMeals] = useState([]);
   const [activeSearchbarFilter, toggleSearchbarFilter] = useState(false);
   const [pageIngredients, setPageIngredients] = useState(false);
-  const [fetchIngredients, setFetchIngredients] = useState(false);
+  const [fetchIngredients, setFetchIngredients] = useState([]);
+  const [pageAreas, setPageAreas] = useState(false);
+  const [area, setArea] = useState([]);
 
   useEffect(() => {
     async function fetchMeals() {
@@ -44,6 +46,10 @@ export default function Provider({ children }) {
     setPageIngredients,
     fetchIngredients,
     setFetchIngredients,
+    area,
+    setArea,
+    pageAreas,
+    setPageAreas,
   };
 
   return (

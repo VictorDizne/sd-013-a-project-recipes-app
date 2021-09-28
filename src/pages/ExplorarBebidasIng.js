@@ -18,6 +18,7 @@ const ExplorarBebidasIng = () => {
 
   useEffect(() => {
     fecthDrinks();
+    setPageIngredients(false);
   }, []);
 
   const handleClick = async (ingredient) => {
