@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import fetchDrinkById from '../services/fetchDrinkById';
+import fetchRecipeById from '../services/fetchRecipeById';
 
 function BebidasProgress({ match }) {
   const { recipeId } = match.params;
@@ -11,7 +11,7 @@ function BebidasProgress({ match }) {
 
   useEffect(() => {
     const getDrink = async (id) => {
-      const result = await fetchDrinkById(id);
+      const result = await fetchRecipeById(id, false);
       setDrink(result);
     };
     getDrink(recipeId);

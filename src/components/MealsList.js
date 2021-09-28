@@ -17,6 +17,7 @@ function MealsList() {
             <img
               src={ meal.strMealThumb }
               data-testid={ `${idx}-card-img` }
+              className="img-fluid"
               alt={ meal.strMeal }
             />
           </section>
