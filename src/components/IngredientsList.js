@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 function IngredientsList(props) {
   console.log(props);
-  const { ingredients, handleCheckbox, recipeId } = props;
+  const { ingredients, handleCheckbox } = props;
 
-  const [checkboxesState, setCheckboxesState] = useState([]);
+  // const [checkboxesState, setCheckboxesState] = useState([]);
 
-  const checkboxes = document.querySelectorAll('.checkboxes');
+  // const checkboxes = document.querySelectorAll('.checkboxes');
 
-  const loadPage = () => {
+  /* const loadPage = () => {
     const listRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
     console.log(checkboxes[0])
     console.log(checkboxesState);
     //setCheckboxesState(checkboxes)
-
 
     if(listRecipe !== null) {
       console.log('teste1')
@@ -44,11 +43,9 @@ function IngredientsList(props) {
 
   useEffect(() => {
     loadPage();
-  }, [])
+  }, []) */
 
-  const ingredientsArrayList = () => {
-    loadPage();
-    return (
+  const ingredientsArrayList = () => (
     ingredients.filter((ingredient) => typeof ingredient === 'string'
         && ingredient !== '')
       .map((ingredient, index) => (
@@ -70,16 +67,20 @@ function IngredientsList(props) {
             {ingredient}
           </label>
         </div>))
-  )};
+  );
 
-  return(
+  return (
     <div>
       {ingredientsArrayList()}
     </div>
-    
-  )
+
+  );
 }
 
+IngredientsList.propTypes = {
+  ingredients: PropTypes.arrayOf([]).isRequired,
+  // recipeId: PropTypes.string.isRequired,
+  handleCheckbox: PropTypes.func.isRequired,
+};
 
 export default IngredientsList;
-

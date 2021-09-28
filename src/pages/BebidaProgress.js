@@ -11,8 +11,8 @@ function BebidasProgress({ match, history }) {
   const [ingredientList, setIngredientList] = useState([]);
   const [disabledButton, setDisabledButton] = useState(true);
   const [compareCheckBox, setCompareCheckBox] = useState(0);
-  const [loaded, setLoaded] = useState(false);
-  //const [cocktails, setCocktails] = useState({});
+  // const [loaded, setLoaded] = useState(false);
+  // const [cocktails, setCocktails] = useState({});
   const checkboxes = document.querySelectorAll('.checkboxes');
 
   useEffect(() => {
@@ -92,7 +92,7 @@ function BebidasProgress({ match, history }) {
     history.push('/receitas-feitas');
   };
 
-  const ingredientsArrayList = () => (
+  /* const ingredientsArrayList = () => (
     ingredients.filter((ingredient) => typeof ingredient === 'string'
         && ingredient !== '')
       .map((ingredient, index) => (
@@ -114,7 +114,7 @@ function BebidasProgress({ match, history }) {
             {ingredient}
           </label>
         </div>))
-  );
+  ); */
 
   if (isLoading) return <h1>Loading...</h1>;
 
@@ -136,12 +136,12 @@ function BebidasProgress({ match, history }) {
 
       <h4>Ingredientes</h4>
       <ul>
-        <IngredientsList 
-          handleCheckbox={ handleCheckbox } 
-          ingredients={ ingredients } 
+        <IngredientsList
+          handleCheckbox={ handleCheckbox }
+          ingredients={ ingredients }
           checkboxes={ checkboxes }
-          recipeId={recipeId}
-          />
+          recipeId={ recipeId }
+        />
       </ul>
 
       <h4>Instruções</h4>
