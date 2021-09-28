@@ -16,13 +16,15 @@ function DrinkDetails() {
   const historyFilter = history.location.pathname;
   const historyId = historyFilter.substr(INITIAL_VALUE);
 
-  const fillIngredients = (drink) => {
+  // solução feita a partir do repositório
+  // https://github.com/tryber/sd-013-a-project-recipes-app/blob/main-group-3-requisito-28/src/components/RecipeDetailCard.jsx
+  const getIngredients = (drink) => {
     const strDrink = Object.entries(drink[0]);
-    const strIngredient = strDrink.filter(([chave, valor]) => chave
-      .includes('strIngredient') && valor);
+    const strIngredient = strDrink.filter(([key, value]) => key
+      .includes('strIngredient') && value);
 
-    const strMeasure = strDrink.filter(([chave, valor]) => chave
-      .includes('strMeasure') && valor);
+    const strMeasure = strDrink.filter(([key, value]) => key
+      .includes('strMeasure') && value);
 
     return strIngredient.map((item, index) => `${item[1]} - ${strMeasure[index][1]}`);
   };
@@ -30,7 +32,7 @@ function DrinkDetails() {
   useEffect(() => {
     const getRecipe = async () => {
       const drink = await fetchDrinksById(historyId);
-      setIngredients(fillIngredients(drink));
+      setIngredients(getIngredients(drink));
       setRecipe(drink);
     };
     getRecipe();

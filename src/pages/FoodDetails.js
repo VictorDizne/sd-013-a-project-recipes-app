@@ -16,13 +16,15 @@ function FoodDetails() {
   const historyFilter = history.location.pathname;
   const historyId = historyFilter.substr(INITIAL_VALUE);
 
-  const fillIngredients = (meal) => {
+  // solução feita a partir do repositório
+  // https://github.com/tryber/sd-013-a-project-recipes-app/blob/main-group-3-requisito-28/src/components/RecipeDetailCard.jsx
+  const getIngredients = (meal) => {
     const strMeal = Object.entries(meal[0]);
-    const strIngredient = strMeal.filter(([chave, valor]) => chave
-      .includes('strIngredient') && valor);
+    const strIngredient = strMeal.filter(([key, value]) => key
+      .includes('strIngredient') && value);
 
-    const strMeasure = strMeal.filter(([chave, valor]) => chave
-      .includes('strMeasure') && valor);
+    const strMeasure = strMeal.filter(([key, value]) => key
+      .includes('strMeasure') && value);
 
     return strIngredient.map((item, index) => `${item[1]} - ${strMeasure[index][1]}`);
   };
@@ -30,7 +32,7 @@ function FoodDetails() {
   useEffect(() => {
     const getRecipe = async () => {
       const meal = await fetchFoodById(historyId);
-      setIngredients(fillIngredients(meal));
+      setIngredients(getIngredients(meal));
       setRecipe(meal);
     };
     getRecipe();
