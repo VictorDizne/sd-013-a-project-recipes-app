@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import Bebidas from './pages/Bebidas';
 import Provider from './redux/Context';
@@ -14,14 +13,41 @@ import ExplorarComidasIng from './pages/ExplorarComidasIng';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
 import NotFound from './pages/NotFound';
 import ExplorarComidasAr from './pages/ExplorarComidasAr';
+import CardDetailsMeal from './components/cardDetailsMeal';
+import CardDetailsDrinks from './components/cardDetailsDrinks';
+import CardMealsInProgress from './pages/CardMealsInProgress';
+import CardDrinksInProgress from './pages/CardDrinksInProgress';
 import SurpreendaComidas from './pages/SurpreendaComidas';
 import SurpreendaBebidas from './pages/SurpreendaBebidas';
+import Comidas from './pages/Comidas';
 
 function App() {
   return (
     <Provider>
       <BrowserRouter>
         <Switch>
+          <Route
+            exact
+            path="/comidas/:id"
+            render={ ({ match: { params: { id } } }) => <CardDetailsMeal props={ id } /> }
+          />
+          <Route
+            exact
+            path="/comidas/:id/in-progress"
+            component={ CardMealsInProgress }
+          />
+          <Route
+            exact
+            path="/bebidas/:id"
+            render={ ({ match: { params: { id } } }) => (
+              <CardDetailsDrinks props={ id } />
+            ) }
+          />
+          <Route
+            exact
+            path="/bebidas/:id/in-progress"
+            component={ CardDrinksInProgress }
+          />
           <Route exact path="/comidas" component={ Comidas } />
           <Route exact path="/bebidas" component={ Bebidas } />
           <Route exact path="/explorar" component={ Explorar } />
