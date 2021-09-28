@@ -6,6 +6,8 @@ import RecipeRecomendations from './RecipeRecomendations';
 import './css/RecipeDetails.css';
 import StartRecipeBtn from './StartRecipeBtn';
 
+const copy = require('clipboard-copy');
+
 const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
   const recipeIngredients = [];
 
@@ -34,6 +36,16 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
     );
   };
 
+  const handleShareBtn = () => {
+    const { location: { pathname } } = history;
+    copy(`http://localhost:3000${pathname}`);
+
+    const h4 = document.createElement('h4');
+    h4.textContent = 'Link copiado!';
+    const father = document.querySelector('[data-testid="recipe-category"]');
+    father.insertAdjacentElement('afterend', h4);
+  };
+
   return (
     <div>
       <img
@@ -48,6 +60,7 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
         src={ shareIcon }
         alt="compartilhar receita"
         data-testid="share-btn"
+        onClick={ handleShareBtn }
       />
       <input
         type="image"
@@ -94,6 +107,10 @@ RecipeDetails.propTypes = {
   showBtn: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      search: PropTypes.string,
+      pathname: PropTypes.string,
+    }),
   }).isRequired,
 };
 
