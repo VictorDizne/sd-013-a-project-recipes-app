@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { fetchFoodById } from '../services/comidasApi';
 import { fetchRecommendedDrinks } from '../services/bebidasApi';
 import RecomendationCard from '../components/RecomendationCard';
+import '../styles/PageDetails.css';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
@@ -45,6 +46,31 @@ function FoodDetails() {
     };
     getRecomendations();
   }, []);
+
+  const createList = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const date = `${day}/${month}/${year}`;
+
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = recipe;
+    const doneRecipes = [{
+      id: idMeal,
+      type: 'meal',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: date,
+      tags: strTags || [],
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+    // btnStartRecipe.style.display = 'none';
+    btnStartRecipe.hidden = true;
+  };
 
   return (
     <div className="food-container">
@@ -92,19 +118,28 @@ function FoodDetails() {
           title={ recipe[0].strMeal }
           data-testid="video"
         />)}
-
-      { recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
-        <RecomendationCard
-          key={ idx }
-          recipe={ rec }
-          idx={ idx }
-          page="meals"
-        />
-      ))}
-
-      <Link to={ `/comidas/${historyId}/in-progress` } data-testid="start-recipe-btn">
+      <h3>Recomendadas</h3>
+      <div className="recomandation-container">
+        { recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
+          <RecomendationCard
+            key={ idx }
+            recipe={ rec }
+            idx={ idx }
+            page="meals"
+          />
+        ))}
+      </div>
+      {/* <div className="button-container"> */}
+      <Link
+        to={ `/comidas/${historyId}/in-progress` }
+        data-testid="start-recipe-btn"
+        className="iniciar-receita"
+        id="btn-iniciar-receita"
+        onClick={ createList }
+      >
         Iniciar Receita
       </Link>
+      {/* </div> */}
     </div>
   );
 }
