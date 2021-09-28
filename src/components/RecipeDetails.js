@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
+import RecipeRecomendations from './RecipeRecomendations';
+import './css/RecipeDetails.css';
+import StartRecipeBtn from './StartRecipeBtn';
 
-const RecipeDetails = ({ recipe, isMeal }) => {
+const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
   const recipeIngredients = [];
 
   const geraArrayProFilhoDaPutaQueNaoFez = () => {
@@ -34,6 +37,7 @@ const RecipeDetails = ({ recipe, isMeal }) => {
   return (
     <div>
       <img
+        className="recipe-thumbnail"
         data-testid="recipe-photo"
         src={ isMeal ? recipe.strMealThumb : recipe.strDrinkThumb }
         alt={ isMeal ? 'foto da comida' : 'foto do drink' }
@@ -54,14 +58,22 @@ const RecipeDetails = ({ recipe, isMeal }) => {
       <h3
         data-testid="recipe-category"
       >
-        {`${recipe.strCategory} ${recipe.strAlcoholic}`}
+        {`${recipe.strCategory} ${isMeal ? '' : recipe.strAlcoholic}`}
 
       </h3>
       {geraArrayProFilhoDaPutaQueNaoFez()}
       <p data-testid="instructions">{recipe.strInstructions}</p>
       {isMeal && <a data-testid="video" href={ recipe.strVideo }>Video</a>}
-      <p data-testid="0-recomendation-card">Ae</p>
-      <button type="button" data-testid="start-recipe-btn">Começar receita</button>
+      <div className="recomendation-content">
+        <div className="recomendation-container">
+          <RecipeRecomendations isMeal={ isMeal } />
+        </div>
+      </div>
+      {showBtn && <StartRecipeBtn
+        history={ history }
+        recipe={ recipe }
+        isMeal={ isMeal }
+      />}
     </div>
   );
 };
@@ -79,6 +91,10 @@ RecipeDetails.propTypes = {
     strAlcoholic: PropTypes.string,
   }).isRequired,
   isMeal: PropTypes.bool.isRequired,
+  showBtn: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default RecipeDetails;

@@ -8,6 +8,7 @@ const RecipesContextProvider = ({ children }) => {
   const [mealsCategories, setMealsCategories] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [btnText, setBtnText] = useState('Iniciar Receita');
 
   // const history = useHistory();
 
@@ -111,6 +112,8 @@ const RecipesContextProvider = ({ children }) => {
     getDrinksCategories,
     isLoading,
     setIsLoading,
+    btnText,
+    setBtnText,
   };
 
   return (

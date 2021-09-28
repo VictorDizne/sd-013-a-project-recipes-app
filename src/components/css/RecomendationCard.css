@@ -1,0 +1,21 @@
+.recomendation-content {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.recomendation-container {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+}
+
+.recomendation-item {
+  flex-basis: 0;
+  flex-grow: 0;
+  width: 180px;
+}
+
+.recomendation-item img {
+  max-width: 180px;
+}
