@@ -38,6 +38,7 @@ function CategoryButtons() {
         break;
       }
     } else {
+      setToggle('');
       // setToggle(true);
       // result.forEach((element) => {
       //   element.disabled = false;
