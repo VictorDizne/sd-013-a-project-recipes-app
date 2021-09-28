@@ -45,10 +45,8 @@ function MealDetails({ match: { params: { id } } }) {
   };
 
   const checkFavorite = () => {
-    const localTest = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    // const toCheck = JSON.parse(localStorage.favoriteRecipes);
-    const toCheck = localTest.find((recipe) => recipe.id === details.idMeal);
-    console.log(localTest, toCheck);
+    const receitas = JSON.parse(localStorage.favoriteRecipes);
+    return receitas.some((recipe) => (JSON.parse(recipe).id) === id);
   };
 
   const favoritar = () => {
@@ -61,8 +59,19 @@ function MealDetails({ match: { params: { id } } }) {
       name: details.strMeal,
       image: details.strMealThumb,
     };
-    setFavRecipes([...favRecipes, JSON.stringify(obj)]);
+    return setFavRecipes([...favRecipes, JSON.stringify(obj)]);
   };
+
+  const desfavoritar = () => {
+    const localTest = JSON.parse(localStorage.favoriteRecipes);
+    const desfa = localTest.filter((recipe) => (JSON.parse(recipe).id) !== id);
+    if (!desfa) return setFavRecipes(['item']);
+    return setFavRecipes(JSON.stringify(desfa));
+  };
+
+  function handleFavButton({ target }) {
+    return checkFavorite() ? desfavoritar() : favoritar();
+  }
 
   useEffect(() => {
     const fetchByID = async () => {
@@ -101,7 +110,7 @@ function MealDetails({ match: { params: { id } } }) {
       <button
         type="button"
         data-testid="favorite-btn"
-        onClick={ favoritar }
+        onClick={ handleFavButton }
       >
         <img
           src={ favorita ? blackHeartIcon : whiteHeartIcon }
