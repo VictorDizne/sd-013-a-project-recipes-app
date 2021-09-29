@@ -45,6 +45,7 @@ function ProcessFood() {
     const createDate = `${currentDate
       .getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`;
     const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = meal;
+    const tagsMeals = strTags !== null ? strTags.split(',') : [];
     const mealFinished = {
       id: idMeal,
       type: 'comida',
@@ -54,7 +55,7 @@ function ProcessFood() {
       name: strMeal,
       image: strMealThumb,
       doneDate: createDate,
-      tags: [strTags],
+      tags: tagsMeals,
     };
     if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
       localStorage.setItem('doneRecipes', JSON.stringify([mealFinished]));
@@ -136,7 +137,7 @@ function ProcessFood() {
       >
         Finalizar Receita
       </button>
-      <ShareButton />
+      <ShareButton dataTestId="share-btn" />
       <FavoriteButton meal={ meal } />
     </div>
   );

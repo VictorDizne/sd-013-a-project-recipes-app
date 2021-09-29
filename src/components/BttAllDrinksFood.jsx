@@ -15,14 +15,14 @@ function AllDrinksFood() {
       <button
         type="button"
         data-testid="filter-by-food-btn"
-        onClick={ () => setState({ ...state, filterDoneFood: 'bebida' }) }
+        onClick={ () => setState({ ...state, filterDoneFood: 'comida' }) }
       >
         Foods
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
-        onClick={ () => setState({ ...state, filterDoneFood: 'comida' }) }
+        onClick={ () => setState({ ...state, filterDoneFood: 'bebida' }) }
       >
         Drinks
       </button>

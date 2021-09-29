@@ -1,39 +1,39 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import appContext from '../contexts/appContext';
 import Header from '../components/header';
 import BttAllDrinksFood from '../components/BttAllDrinksFood';
-// import ReadyReceipesCards from '../components/ReadyReceipesCards';
-import ReadyMealsCards from '../components/ReadyMealsCards';
-import ReadyDrinksCards from '../components/ReadyDrinksCards';
+import ReadyRecipesCards from '../components/ReadyRecipesCards';
 
 function ReadyRecipes() {
-  const { filterDoneFood } = useContext(appContext);
+  const [doneRecipes, setDoneRecipes] = useState(
+    JSON.parse(localStorage.getItem('doneRecipes')),
+  );
+  const { state: { filterDoneFood } } = useContext(appContext);
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
       localStorage.setItem('doneRecipes', JSON.stringify([{}]));
     }
   }, []);
 
-  const renderByFilter = () => {
-    switch (filterDoneFood) {
-    case 'bebida':
-      return (<ReadyDrinksCards />);
-    case 'comida':
-      return (<ReadyMealsCards />);
-    default:
-      return (
-        <div>
-          <ReadyMealsCards />
-          <ReadyDrinksCards />
-        </div>
-      );
+  useEffect(() => {
+    console.log(filterDoneFood);
+    const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (filterDoneFood === 'all') {
+      setDoneRecipes(allDoneRecipes);
     }
-  };
+    if (filterDoneFood === 'comida') {
+      setDoneRecipes(allDoneRecipes.filter((doneRecipe) => doneRecipe.type === 'comida'));
+    }
+    if (filterDoneFood === 'bebida') {
+      setDoneRecipes(allDoneRecipes.filter((doneRecipe) => doneRecipe.type === 'bebida'));
+    }
+  }, [filterDoneFood]);
+
   return (
     <section>
       <Header name="Receitas Feitas" search={ false } />
       <BttAllDrinksFood />
-      { renderByFilter() }
+      <ReadyRecipesCards doneRecipes={ doneRecipes } />
     </section>
   );
 }

@@ -53,11 +53,11 @@ function ProcessDrink() {
           type: 'bebida',
           area: '',
           category: strCategory,
-          alcoholicOrNot: '',
+          alcoholicOrNot: strAlcoholic,
           name: strGlass,
           image: strDrinkThumb,
           doneDate: createDate,
-          tags: strAlcoholic }]));
+          tags: [] }]));
     } else {
       const oldDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
       localStorage.setItem('doneRecipes', JSON.stringify([...oldDoneRecipes, {
@@ -69,7 +69,7 @@ function ProcessDrink() {
         name: strGlass,
         image: strDrinkThumb,
         doneDate: createDate,
-        tags: '' }]));
+        tags: [] }]));
     }
     return history.push('/receitas-feitas');
   };
@@ -142,7 +142,7 @@ function ProcessDrink() {
       >
         Finalizar Receita
       </button>
-      <ShareButton />
+      <ShareButton dataTestId="share-btn" />
       <FavoriteButton drink={ drink } />
     </div>
   );

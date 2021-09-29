@@ -81,7 +81,7 @@ function FoodDetails() {
       />
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
       <p data-testid="recipe-category">{meal.strCategory}</p>
-      <ShareButton />
+      <ShareButton dataTestId="share-btn" />
       <FavoriteButton meal={ meal } />
       <h3>Ingredients</h3>
       <ul>
