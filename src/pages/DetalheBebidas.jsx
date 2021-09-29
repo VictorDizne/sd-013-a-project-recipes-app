@@ -128,7 +128,7 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
                 </li>))}
           </ul>
           <ul>
-            {ingredientMeasures(drinkDetail, 'medida')
+            {ingredientMeasures(drinkDetail, 'medidas')
               .map((measurement, i) => (
                 <li
                   data-testid={ `${i}-ingredient-name-and-measure` }

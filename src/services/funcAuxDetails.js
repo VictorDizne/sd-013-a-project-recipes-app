@@ -46,7 +46,7 @@ export const btnFavoritar = (id, setBtnFavorite) => {
 
 export const ingredientMeasures = (obj, tipo) => {
   const keysOfApi = Object.keys(obj);
-  if (tipo === 'medida') {
+  if (tipo === 'medidas') {
     const measurementKeys = keysOfApi.filter((chave) => chave.includes('strMeasure'))
       .map((measure) => obj[measure])
       .filter((measure) => measure !== ' ' && measure !== null && measure !== '');
