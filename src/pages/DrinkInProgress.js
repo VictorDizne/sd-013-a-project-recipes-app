@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchDetails } from '../services';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 function initStorage(id) {
   if (localStorage.getItem('inProgressRecipes') === null) {
@@ -101,13 +103,15 @@ function DrinkInProgress({ match: { params: { id } } }) {
         alt={ recipe.strDrink }
       />
       <h3 data-testid="recipe-title">{recipe.strDrink}</h3>
-      <input type="image" data-testid="share-btn" src={ shareIcon } alt="Share" />
+      {/* <input type="image" data-testid="share-btn" src={ shareIcon } alt="Share" />
       <input
         type="image"
         data-testid="favorite-btn"
         src={ whiteHeartIcon }
         alt="Favorite Icon"
-      />
+      /> */}
+      <ShareButton id={ id } type="comidas" />
+      <FavoriteButton id={ id } type="comida" recipe={ recipe } />
       <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
       <div>
         {
