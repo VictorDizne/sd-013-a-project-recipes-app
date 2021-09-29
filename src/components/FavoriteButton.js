@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -74,5 +75,19 @@ function FavoriteButton({ id, type, recipe }) {
     />
   );
 }
+
+FavoriteButton.propTypes = {
+  id: PropTypes.string,
+  recipe: PropTypes.shape({
+    strAlcoholic: PropTypes.string,
+    strArea: PropTypes.string,
+    strCategory: PropTypes.string,
+    strDrink: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    strMeal: PropTypes.string,
+    strMealThumb: PropTypes.string,
+  }),
+  type: PropTypes.string,
+}.isRequired;
 
 export default FavoriteButton;

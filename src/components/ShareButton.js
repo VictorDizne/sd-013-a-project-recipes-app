@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -24,5 +25,10 @@ function ShareButton({ id, type }) {
       : <p>Link copiado!</p>
   );
 }
+
+ShareButton.propTypes = {
+  id: PropTypes.string,
+  type: PropTypes.string,
+}.isRequired;
 
 export default ShareButton;

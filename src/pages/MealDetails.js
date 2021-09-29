@@ -70,7 +70,7 @@ function MealDetails({ match: { params: { id } } }) {
     };
     fetchRecipe();
     fetchRecomendations();
-  }, []);
+  }, [id, location.pathname]);
 
   useEffect(() => {
     const checkStorage = async () => {

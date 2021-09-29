@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchIArea } from '../services';
+// import { fetchIArea } from '../services';
 
 function SelectArea() {
   // const [listArea, setListArea] = useState([]);

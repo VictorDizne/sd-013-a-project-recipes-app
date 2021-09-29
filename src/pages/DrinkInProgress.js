@@ -75,7 +75,7 @@ function DrinkInProgress({ match: { params: { id } } }) {
       setRecipe(data);
     };
     fetchRecipe();
-  }, []);
+  }, [id, location.pathname]);
 
   useEffect(() => {
     const checkStorage = async () => {

@@ -84,7 +84,7 @@ function Header() {
     } else {
       initialRender.current = true;
     }
-  }, [recipes]);
+  }, [history, recipes, searchSettings]);
 
   function handleClickProfile() {
     history.push('/perfil');

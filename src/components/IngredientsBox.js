@@ -17,7 +17,7 @@ function IngredientsBox() {
       setIngredients(data);
     };
     loadIngredients();
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (initialRender.current) {
