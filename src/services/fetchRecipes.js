@@ -37,13 +37,11 @@ export async function fetchDrinkRecipesByCategory(category, setDrinkRecipes) {
 export const fetchRandomFoodRecipe = async () => {
   const response = await fetch(RANDOM_FOOD);
   const result = await response.json();
-  console.log(result.meals[0].idMeal);
   return result.meals[0].idMeal;
 };
 
 export const fetchRandomDrinkRecipe = async () => {
   const response = await fetch(RANDOM_DRINK);
   const result = await response.json();
-  console.log(result.drinks[0].idMeal);
   return result.drinks[0].idDrink;
 };

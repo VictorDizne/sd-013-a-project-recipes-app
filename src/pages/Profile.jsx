@@ -10,7 +10,7 @@ const Main = styled.main`
 `;
 
 function Profile() {
-  const getUserEmail = JSON.parse(localStorage.getItem('user')).email;
+  const getUserEmail = JSON.parse(localStorage.getItem('user'));
 
   const history = useHistory();
 
@@ -25,7 +25,7 @@ function Profile() {
       <h2
         data-testid="profile-email"
       >
-        { getUserEmail }
+        { getUserEmail ? getUserEmail.email : 'Faça o login' }
       </h2>
       <Button
         className="doneRecipes"

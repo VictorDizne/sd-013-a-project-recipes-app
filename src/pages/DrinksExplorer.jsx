@@ -18,7 +18,11 @@ const DrinksExplorer = () => {
   const history = useHistory();
 
   useEffect(() => {
-    setSurpriseRecipe(fetchRandomDrinkRecipe());
+    const fetchRandomRecipe = async () => {
+      setSurpriseRecipe(await fetchRandomDrinkRecipe());
+    };
+
+    fetchRandomRecipe();
   }, []);
 
   return (
