@@ -34,7 +34,7 @@ function SearchFoodBar() {
     }
     // Checa se achou apenas um resultado, se for o caso redireciona para os detalhes
     const { meals } = apiResults;
-    if (Object.keys(meals).length === 1) {
+    if (meals && Object.keys(meals).length === 1) {
       history.push(`/comidas/${meals[0].idMeal}`);
     }
     // Seta os resultados na context para apresentar os cards ao usuário
@@ -46,14 +46,14 @@ function SearchFoodBar() {
     // Checa se estamos pequisando a primeira letra e se o input é maior que um caractere,
     // se for, aparece um alert na tela. Caso contrário, faz a pesquisa na API normalmente
     if (searchParameter.radio === 'firstLetter' && searchParameter.text.length !== 1) {
-      global.alert('Digite apenas uma letra');
+      global.alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       searchAPI();
     }
   }
 
   return (
-    <div>
+    <div className="search-metods">
       <label htmlFor="filter_radio">
         Ingrediente
         <input
@@ -89,6 +89,7 @@ function SearchFoodBar() {
 
       <input
         type="text"
+        placeholder="Buscar"
         data-testid="search-input"
         name="text"
         onChange={ handleSearchParameter }

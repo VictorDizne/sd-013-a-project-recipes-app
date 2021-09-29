@@ -34,10 +34,11 @@ function FoodIngredients() {
     const ingredientMap = ingredients.map((ingredient, index) => (
       <div data-testid={ `${index}-ingredient-card` } key={ index }>
         <Link to="/comidas">
+          {console.log(ingredient)}
           <SingleCard
             cardName={ ingredient.strIngredient }
             index={ index }
-            imgsrc={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` }
+            imgsrc={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
             onclick={ () => handleClick(ingredient.strIngredient) }
           />
         </Link>

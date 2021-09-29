@@ -33,7 +33,7 @@ function SearchDrinkBar() {
       break;
     }// Checa se achou apenas um resultado, se for o caso redireciona para os detalhes
     const { drinks } = apiResults;
-    if (Object.keys(drinks).length === 1) {
+    if (drinks && Object.keys(drinks).length === 1) {
       history.push(`/bebidas/${drinks[0].idDrink}`);
     }
     // Seta os resultados na context para apresentar os cards ao usuário
@@ -45,14 +45,14 @@ function SearchDrinkBar() {
     // Checa se estamos pequisando a primeira letra e se o input é maior que um caractere,
     // se for, aparece um alert na tela. Caso contrário, faz a pesquisa na API normalmente
     if (searchParameter.radio === 'firstLetter' && searchParameter.text.length !== 1) {
-      global.alert('Digite apenas uma letra');
+      global.alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       searchAPI();
     }
   }
 
   return (
-    <div>
+    <div className="search-metods">
       <label htmlFor="filter_radio">
         Ingrediente
         <input
@@ -87,6 +87,7 @@ function SearchDrinkBar() {
       </label>
 
       <input
+        placeholder="Buscar"
         type="text"
         data-testid="search-input"
         name="text"
