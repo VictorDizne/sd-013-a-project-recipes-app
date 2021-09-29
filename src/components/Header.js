@@ -20,30 +20,30 @@ function Header({ title, search }) {
           <img
             data-testid="profile-top-btn"
             src={ profileIcon }
-            alt="profile"
+            alt="profile-top-btn"
           />
         </Link>
-        <h1 data-testid="page-title">
-          { title }
-        </h1>
+        <h1 data-testid="page-title">{ title }</h1>
         {/* Se o search for verdadeiro o botão de SearchBar será renderizado com o ícone
           conforme requisitos 9 e 10.
           E quando for clicado no botão, será ativado o state RenderSearchBar para executar o
           componente de SearchBar. */}
         {
-          search && (
-            <input
-              onClick={ () => setRenderSearchBar(!renderSearchBar) }
-              type="image"
-              data-testid="search-top-btn"
-              src={ searchIcon }
-              alt="search"
-            />
-          )
+          search === false
+            ? ''
+            : (
+              <input
+                onClick={ () => setRenderSearchBar(!renderSearchBar) }
+                type="image"
+                data-testid="search-top-btn"
+                src={ searchIcon }
+                alt="search-top-btn"
+              />
+            )
         }
-        {/* Com o renderSearchBar true então o componente SearchBar é chamado */}
-        { renderSearchBar && <SearchBar title={ title } /> }
       </div>
+      {/* Com o renderSearchBar true então o componente SearchBar é chamado */}
+      { renderSearchBar && <SearchBar title={ title } /> }
     </header>
   );
 }

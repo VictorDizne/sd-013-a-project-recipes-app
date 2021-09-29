@@ -5,34 +5,35 @@ function CategoriesDrink() {
   // Importa do context o drinkCategory para pegar as categorias de Bebidas, o setIsDrinkOrMealLoading para indicar que as Bebidas estão carregando e o setMealsOrDrinks para setar o novo array de Bebidas
   const {
     drinkCategory,
-    setIsDrinkOrMealLoading,
     setMealsOrDrinks,
+    setIsDrinkOrMealLoading,
+    directRequestDrink,
+    setCameFromIngredient,
   } = useContext(RecipeContext);
 
   // Pegar no máximo 5 categorias e colocar na tela
   const MIN_CATEG = 5;
 
   // Fetch que faz a busca na API usando o filtro conforme value(que é o botão clicado)
-  const fetchFilterCategory = async (value) => {
-    let URL_API = '';
-    if (value === 'All') {
-      URL_API = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='; // Link que lista tudo
-    } else {
-      URL_API = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`; // Link que lista conforme filtro
-    }
+  const fetchCategory = async (value) => {
     setIsDrinkOrMealLoading(true);
-    const response = await fetch(URL_API);
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`);
     const result = await response.json();
     setMealsOrDrinks(result.drinks);
     setIsDrinkOrMealLoading(false);
   };
 
+  const handleClick = () => {
+    setCameFromIngredient(false);
+    directRequestDrink();
+  };
+
   return (
-    <div>
+    <div className="categorias">
       <button
+        onClick={ handleClick }
+        data-testid="All-category-filter"
         type="button"
-        value="All"
-        onClick={ ({ target }) => fetchFilterCategory(target.value) }
       >
         All
       </button>
@@ -43,14 +44,22 @@ function CategoriesDrink() {
         if (index < MIN_CATEG) {
           return (
             <button
+              className=".drink-btn"
               data-testid={ `${elem.strCategory}-category-filter` }
               type="button"
               value={ elem.strCategory }
-              key={ elem.strCategory }
               // Ao clicar no botão, será acionado a função fetchFilterCategory passando a ela o value como parametro, que é o botão clicado
-              onClick={ ({ target }) => fetchFilterCategory(target.value) }
+              onClick={ ({ target }) => {
+                setCameFromIngredient(false);
+                target.firstChild.checked = !target.firstChild.checked;
+                return (
+                  target.firstChild.checked
+                    ? fetchCategory(target.value) : directRequestDrink());
+              } }
+              key={ elem.strCategory }
             >
-              { elem.strCategory }
+              <input style={ { display: 'none' } } type="checkbox" />
+              {elem.strCategory}
             </button>
           );
         }
