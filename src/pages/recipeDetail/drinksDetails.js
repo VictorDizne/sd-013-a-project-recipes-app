@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import fetchAPI from '../../services/fetchAPI';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -33,6 +34,15 @@ function DrinkDetails({ match: { params: { id } } }) {
   const checkFavorite = () => {
     const receitas = JSON.parse(localStorage.favoriteRecipes);
     return receitas.some((recipe) => ((recipe).id) === id);
+  };
+
+  const initRecipe = (info) => {
+    const idDaReceita = info.idDrink;
+    const iniciar = {
+      pathname: `/bebidas/${idDaReceita}/in-progress`,
+      info,
+    };
+    return iniciar;
   };
 
   const favoritar = () => {
@@ -130,12 +140,14 @@ function DrinkDetails({ match: { params: { id } } }) {
           ))}
       </ul>
       <p data-testid="instructions">{ details.strInstructions }</p>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      <Link to={ () => initRecipe(details) }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
+      </Link>
       <Footer />
     </>
   );

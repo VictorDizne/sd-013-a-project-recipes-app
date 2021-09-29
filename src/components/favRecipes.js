@@ -20,7 +20,6 @@ function CardMealRecipes() {
 
   const desfavoritar = ({ target: { name } }) => {
     const afterDesfav = receitas.filter((receita) => receita.name !== name);
-    console.log(afterDesfav);
     localStorage.favoriteRecipes = JSON.stringify(afterDesfav);
     setRender(afterDesfav);
   };
