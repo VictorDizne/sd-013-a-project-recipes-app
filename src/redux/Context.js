@@ -24,10 +24,6 @@ export default function Provider({ children }) {
       const filterMealsRecomendationCard = meals.slice(Number('0'), Number('6'));
       setMeals(filterMeals);
       setMealsApiRecomendationCard(filterMealsRecomendationCard);
-      // localStorage.setItem('inProgressRecipes', JSON.stringify({
-      //   cocktails: {},
-      //   meals: {},
-      // }));
     }
     async function fetchDrinks() {
       const endpointDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
