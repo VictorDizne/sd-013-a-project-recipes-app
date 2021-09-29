@@ -5,6 +5,10 @@ import FavoriteRecipes from '../pages/FavoriteRecipes';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 
+const FILTER_BY_ALL_BTN = 'filter-by-all-btn';
+const FILTER_BY_FOOD_BTN = 'filter-by-food-btn';
+const HORIZONTAL_IMAGE = '0-horizontal-image';
+
 const favoriteUrl = '/receitas-favoritas';
 
 const favoriteRecipes = [
@@ -120,10 +124,10 @@ describe('1 - Verifica os elementos presentes na tela Receitas Favoritas', () =>
   test('Todos os data-testids estão disponíveis', () => {
     renderWithRouter(<FavoriteRecipes title="Receitas Favoritas" visible={ false } />);
 
-    expect(screen.queryByTestId('filter-by-all-btn')).toBeInTheDocument();
-    expect(screen.queryByTestId('filter-by-food-btn')).toBeInTheDocument();
+    expect(screen.queryByTestId(FILTER_BY_ALL_BTN)).toBeInTheDocument();
+    expect(screen.queryByTestId(FILTER_BY_FOOD_BTN)).toBeInTheDocument();
     expect(screen.queryByTestId('filter-by-drink-btn')).toBeInTheDocument();
-    expect(screen.queryByTestId('0-horizontal-image')).toBeInTheDocument();
+    expect(screen.queryByTestId(HORIZONTAL_IMAGE)).toBeInTheDocument();
     expect(screen.queryByTestId('0-horizontal-top-text')).toBeInTheDocument();
     expect(screen.queryByTestId('0-horizontal-name')).toBeInTheDocument();
     expect(screen.queryByTestId('0-horizontal-share-btn')).toBeInTheDocument();
@@ -139,8 +143,8 @@ describe('1 - Verifica os elementos presentes na tela Receitas Favoritas', () =>
     const { getByTestId } = renderWithRouter(
       <FavoriteRecipes title="Receitas Favoritas" visible={ false } />,
     );
-    const btnAll = getByTestId('filter-by-all-btn');
-    const btnFood = getByTestId('filter-by-food-btn');
+    const btnAll = getByTestId(FILTER_BY_ALL_BTN);
+    const btnFood = getByTestId(FILTER_BY_FOOD_BTN);
     const btnDrink = getByTestId('filter-by-drink-btn');
     expect(btnAll).toBeInTheDocument();
     expect(btnFood).toBeInTheDocument();
@@ -149,7 +153,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Favoritas', () =>
 
   test('Ao clicar no botão de Food mostra apenas as Foods favoritadas', () => {
     renderWithRouter(<FavoriteRecipes title="Receitas Favoritas" visible={ false } />);
-    const filtrarFoods = screen.getByTestId('filter-by-food-btn');
+    const filtrarFoods = screen.getByTestId(FILTER_BY_FOOD_BTN);
     userEvent.click(filtrarFoods);
 
     expect(screen.getByText(/Penne/i)).toBeInTheDocument();
@@ -157,7 +161,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Favoritas', () =>
 
   test('Ao clicar no botão de ALL mostra todas as receitas favoritadas', () => {
     renderWithRouter(<FavoriteRecipes title="Receitas Favoritas" visible={ false } />);
-    const filtrarAll = screen.getByTestId('filter-by-all-btn');
+    const filtrarAll = screen.getByTestId(FILTER_BY_ALL_BTN);
     userEvent.click(filtrarAll);
 
     expect(screen.getByText('Aquamarine')).toBeInTheDocument();
@@ -196,7 +200,7 @@ describe('3 - Testa se quanto uma imagem ou título de receita é clicado', () =
 
   test('Testa quando a imagem de receita é clicada', () => {
     const { getByTestId, history } = renderWithRouter(<FavoriteRecipes />);
-    const firstImage = getByTestId('0-horizontal-image');
+    const firstImage = getByTestId(HORIZONTAL_IMAGE);
     userEvent.click(firstImage);
     const { pathname } = history.location;
     expect(pathname).toBe('/comidas/52771');
