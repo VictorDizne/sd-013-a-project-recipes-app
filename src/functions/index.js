@@ -39,9 +39,30 @@ export const ingredientAndMeasureArray = (details) => {
 };
 // FUNÇÕES PARA CRIAR O ARRAY DE INGREDIENTES E MEDIDAS
 
+// FUNÇÃO PARA CRIAR O ARRAY DE INGREDIENTES E CHECKBOX
+
+export const ingredientsInProgressArray = (details, handleClick) => {
+  const array = filterIngredientsAndMeasures(details);
+  const shortArrays = [];
+
+  while (array.length > 0) {
+    shortArrays.push(array.splice(0, 2));
+  }
+  const arrayMap = shortArrays.map((item, index) => (
+    <li key={ index }>
+      <label id="label" data-testid={ `${index}-ingredient-step` } htmlFor={ index }>
+        <input onClick={ handleClick } type="checkbox" id={ index } />
+        {item.toString().replace(',', ' - ')}
+      </label>
+    </li>
+  ));
+  return arrayMap;
+};
+
+// FUNÇÃO PARA CRIAR O ARRAY DE INGREDIENTES E CHECKBOX
+
 // FUNÇÕES PARA SETAR O LOCAL STORAGE
 
-// Função que analiza se o protudo esta ou não na lista.
 const productIsExistent = (newProduct, favoriteRecipes) => {
   const productFound = favoriteRecipes.find(((recipe) => recipe.id === newProduct.id));
   if (!productFound) return [false, newProduct];
@@ -49,13 +70,10 @@ const productIsExistent = (newProduct, favoriteRecipes) => {
 };
 
 export const saveLocalStorage = (newArray, id) => {
-  // Pega a lista de receitas do localStorage
   let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
 
-  // Pesquisa se o receita ja existe pela a Id
   const [isExist, recipe] = productIsExistent(newArray, favoriteRecipes);
 
-  // Verifica se existe a receita
   if (isExist) {
     const updatedProductList = favoriteRecipes.filter((item) => {
       if (item.id !== id) {
@@ -67,7 +85,6 @@ export const saveLocalStorage = (newArray, id) => {
     return recipe;
   }
 
-  // Se não existe add a nova receita.
   favoriteRecipes = [...favoriteRecipes, recipe];
   localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 };
