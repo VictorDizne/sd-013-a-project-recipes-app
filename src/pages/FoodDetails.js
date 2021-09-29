@@ -4,6 +4,7 @@ import { fetchFoodById } from '../services/comidasApi';
 import { fetchRecommendedDrinks } from '../services/bebidasApi';
 import RecomendationCard from '../components/RecomendationCard';
 import '../styles/PageDetails.css';
+import shareIcon from '../images/shareIcon.svg';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
@@ -119,7 +120,9 @@ function FoodDetails() {
           <h1 data-testid="recipe-title">{recipe[0].strMeal}</h1>
 
           <button type="button" data-testid="favorite-btn">Favoritar</button>
-          <button type="button" data-testid="share-btn">Compartilhar</button>
+          <button type="button" data-testid="share-btn">
+            <img src={ shareIcon } alt="Share Icon" />
+          </button>
 
           <p data-testid="recipe-category">{recipe[0].strCategory}</p>
         </div>
