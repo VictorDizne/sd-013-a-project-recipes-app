@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { MainContext } from '../context/Provider';
 
 export default function IngredientCard({ name, index }) {
-  // const history = useHistory();
+  const history = useHistory();
+  const { setByIngredients } = useContext(MainContext);
   const { pathname } = useLocation();
 
-  const handleClick = () => {
-    // history.push(`${location.pathname}/${idRecipe}`);
+  const handleClick = async () => {
+    setByIngredients({ bool: true, ingredient: name });
+    if (pathname.includes('comidas')) history.push('/comidas');
+    else history.push('/bebidas');
   };
 
   return (

@@ -8,16 +8,26 @@ import { fetchRecipes } from '../services';
 const MAX_INDEX = 12;
 
 function Meals() {
-  const { recipes, setRecipes } = useContext(MainContext);
+  const { recipes, setRecipes, byIngredients } = useContext(MainContext);
   const [isReady, setIsReady] = useState(false);
   const initialRender = useRef(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchRecipes('', 'name', '/comidas');
-      setRecipes(data);
-    };
-    fetchData();
+    if (!byIngredients.bool) {
+      const fetchData = async () => {
+        const data = await fetchRecipes('', 'name', '/comidas');
+        setRecipes(data);
+      };
+      fetchData();
+    } else {
+      const fetchData = async () => {
+        const data = await fetchRecipes(
+          byIngredients.ingredient, 'ingredient', '/comidas',
+        );
+        setRecipes(data);
+      };
+      fetchData();
+    }
   }, []);
 
   useEffect(() => {

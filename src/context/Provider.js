@@ -18,6 +18,8 @@ export function Provider({ children }) {
 
   const [toggle, setToggle] = useState('');
 
+  const [byIngredients, setByIngredients] = useState({ bool: false, ingrdient: '' });
+
   const initialRender = useRef(false);
 
   useEffect(() => {
@@ -49,6 +51,8 @@ export function Provider({ children }) {
     toggle,
     setRandomReciper,
     randomReciper,
+    byIngredients,
+    setByIngredients,
   };
 
   return (
