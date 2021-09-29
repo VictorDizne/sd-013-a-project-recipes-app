@@ -1,47 +1,38 @@
 import React, { useEffect, useContext } from 'react';
 import MyContext from '../context/Context';
-import * as myFunc from '../services/api';
+import * as myFuncApi from '../services/api';
+import * as myFuncStorage from '../services/storage';
 import { Header, Footer, FoodCard, ButtonsFilters } from '../components';
 
 function FoodsPage() {
   const { recipes, setMyPage, myPage, setRecipes } = useContext(MyContext);
-
   const LIMITER_FOODS = 12;
 
   const randonRecipes = async () => {
-    const { meals } = await myFunc.fetchRandonRecipes(myPage);
+    const { meals } = await myFuncApi.fetchRandonRecipes(myPage);
     setRecipes(meals);
   };
 
-  const setInProgressRecipeLocalStorage = () => {
-    const progressRecipe = {
-      cocktails: {},
-      meals: {}
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(progressRecipe));
-  }
-
-  const setFavoriteRecipeLocalStorage = () => {
-    const favoriteRecipe = []
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipe));
-  }
-
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!doneRecipes) {
+      myFuncStorage.setDoneRecipesLocalStorage();
+    }
+
     const progressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if ( !progressRecipe ) {
-      setInProgressRecipeLocalStorage()
+    if (!progressRecipe) {
+      myFuncStorage.setInProgressRecipeLocalStorage();
     }
 
     const favoriteRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if ( !favoriteRecipe ) {
-      setFavoriteRecipeLocalStorage()
+    if (!favoriteRecipe) {
+      myFuncStorage.setFavoriteRecipeLocalStorage();
     }
 
     setMyPage('themealdb');
     if (myPage !== '') {
       randonRecipes();
     }
-
   }, [setMyPage, myPage]);
 
   const returnCard = (item, index) => (
@@ -55,15 +46,15 @@ function FoodsPage() {
       data={ item }
     />
   );
-  //  if (!recipe.length) return <p>Loading...</p>
 
   return (
     <div style={ { display: 'flex', flexDirection: 'column' } }>
       <Header title="Comidas" search />
       <ButtonsFilters page="meals" />
       <div style={ { display: 'flex', flexWrap: 'wrap' } }>
-        { recipes !== null && recipes.map((item, index) => (index >= LIMITER_FOODS
-          ? null : returnCard(item, index))) }
+        { recipes !== null
+          && recipes.map((item, index) => (index >= LIMITER_FOODS
+            ? null : returnCard(item, index))) }
       </div>
       <Footer />
     </div>

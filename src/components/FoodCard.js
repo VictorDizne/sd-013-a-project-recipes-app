@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -29,6 +29,8 @@ FoodCard.propTypes = {
   name: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
 };
 
 export default FoodCard;
