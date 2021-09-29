@@ -4,17 +4,21 @@ import PropTypes from 'prop-types';
 import { fetchDetails } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import Recomendations from '../components/Recomendations';
 
-// const MAX_RECOMENDATION = 6;
-
-// const usedIngredient = { textDecoration: 'line-through' };
-
-// function checkProgress(id, recipes) {
-//   const recipesIds = Object.keys(recipes);
-//   if (recipesIds.includes(id)) return true;
-//   return false;
-// }
+function initStorage(id) {
+  if (localStorage.getItem('inProgressRecipes') === null) {
+    localStorage.setItem(
+      'inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }),
+    );
+  }
+  const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const { meals } = payload;
+  if (!meals[id]) {
+    meals[id] = [];
+  }
+  const updated = { ...payload, meals };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(updated));
+}
 
 function getStorage() {
   const payload = localStorage.getItem('inProgressRecipes');
@@ -26,6 +30,11 @@ function getStorage() {
 }
 
 function saveOnStorage(number, id) {
+  if (localStorage.getItem('inProgressRecipes') === null) {
+    localStorage.setItem(
+      'inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }),
+    );
+  }
   const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const { meals } = payload;
   if (!meals[id]) {
@@ -63,6 +72,7 @@ function MealInProgress({ match: { params: { id } } }) {
   }
 
   useEffect(() => {
+    initStorage(id);
     const fetchRecipe = async () => {
       const data = await fetchDetails(location.pathname, id);
       setRecipe(data);
@@ -113,15 +123,16 @@ function MealInProgress({ match: { params: { id } } }) {
               return (
                 <label
                   htmlFor="ingredient"
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                  // style={ { textDecoration: inProgressRecipes[id].includes(`${index + 1}`) ? 'line-through' : '' } }
+                  data-testid={ `${index}-ingredient-step` }
+                  style={ { textDecoration: inProgressRecipes[id]
+                    .includes(`${index + 1}`) ? 'line-through' : '' } }
                 >
                   <input
                     name={ index + 1 }
                     type="checkbox"
                     id="ingredient"
                     onChange={ handleCheckBox }
-                    // checked={ inProgressRecipes[id].includes(`${index + 1}`) }
+                    checked={ inProgressRecipes[id].includes(`${index + 1}`) }
                   />
                   {`${value} - ${recipe[`strMeasure${index + 1}`]}`}
                 </label>);
