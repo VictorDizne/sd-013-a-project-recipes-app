@@ -18,8 +18,6 @@ function DrinkDetails({ match: { params: { id } } }) {
     setDetails,
     setIngredientes,
     setMedida,
-    favorita,
-    setFavorita,
     setFavRecipes,
     favRecipes } = useContext(recipesContext);
 
@@ -32,8 +30,12 @@ function DrinkDetails({ match: { params: { id } } }) {
     setIngredientes(ingredients);
   };
 
+  const checkFavorite = () => {
+    const receitas = JSON.parse(localStorage.favoriteRecipes);
+    return receitas.some((recipe) => ((recipe).id) === id);
+  };
+
   const favoritar = () => {
-    setFavorita(!favorita);
     const obj = {
       id: details.idDrink,
       type: 'Drink',
@@ -43,8 +45,18 @@ function DrinkDetails({ match: { params: { id } } }) {
       name: details.strDrink,
       image: details.strDrinkThumb,
     };
-    setFavRecipes([...favRecipes, JSON.stringify(obj)]);
+    return setFavRecipes([...favRecipes, (obj)]);
   };
+
+  const desfavoritar = () => {
+    const localTest = JSON.parse(localStorage.favoriteRecipes);
+    const desfa = localTest.filter((recipe) => ((recipe).id) !== id);
+    return setFavRecipes((desfa));
+  };
+
+  function handleFavButton() {
+    return checkFavorite() ? desfavoritar() : favoritar();
+  }
 
   const compartilhar = () => {
     copy(window.location);
@@ -69,9 +81,9 @@ function DrinkDetails({ match: { params: { id } } }) {
       measureList(drinks[0]);
       setLoading(false);
     };
-    localStorage.favoriteRecipes = favRecipes;
+    localStorage.favoriteRecipes = JSON.stringify(favRecipes);
     fetchByID();
-  }, [id, favRecipes]);
+  }, [favRecipes]);
 
   if (loading) return 'loading';
 
@@ -96,10 +108,10 @@ function DrinkDetails({ match: { params: { id } } }) {
       <button
         type="button"
         data-testid="favorite-btn"
-        onClick={ favoritar }
+        onClick={ handleFavButton }
       >
         <img
-          src={ favorita ? blackHeartIcon : whiteHeartIcon }
+          src={ checkFavorite() ? blackHeartIcon : whiteHeartIcon }
           alt="Favoritar"
         />
       </button>

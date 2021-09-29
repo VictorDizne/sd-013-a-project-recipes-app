@@ -18,7 +18,6 @@ function MealDetails({ match: { params: { id } } }) {
     setDetails,
     setIngredientes,
     setMedida,
-    favorita,
     setFavRecipes,
     favRecipes } = useContext(recipesContext);
   const ingredientsList = (mealInfo) => {
@@ -46,7 +45,7 @@ function MealDetails({ match: { params: { id } } }) {
 
   const checkFavorite = () => {
     const receitas = JSON.parse(localStorage.favoriteRecipes);
-    return receitas.some((recipe) => (JSON.parse(recipe).id) === id);
+    return receitas.some((recipe) => ((recipe).id) === id);
   };
 
   const favoritar = () => {
@@ -55,21 +54,20 @@ function MealDetails({ match: { params: { id } } }) {
       type: 'Meals',
       area: details.strArea,
       category: details.strCategory,
-      alcoholicOrNot: null,
       name: details.strMeal,
       image: details.strMealThumb,
     };
-    return setFavRecipes([...favRecipes, JSON.stringify(obj)]);
+    return setFavRecipes([...favRecipes, (obj)]);
   };
 
   const desfavoritar = () => {
     const localTest = JSON.parse(localStorage.favoriteRecipes);
-    const desfa = localTest.filter((recipe) => (JSON.parse(recipe).id) !== id);
-    if (!desfa) return setFavRecipes(['item']);
-    return setFavRecipes(JSON.stringify(desfa));
+    const desfa = localTest.filter((recipe) => ((recipe).id) !== id);
+    return setFavRecipes((desfa));
   };
 
-  function handleFavButton({ target }) {
+  function handleFavButton() {
+    localStorage.favoriteRecipes = JSON.stringify(favRecipes);
     return checkFavorite() ? desfavoritar() : favoritar();
   }
 
@@ -82,10 +80,9 @@ function MealDetails({ match: { params: { id } } }) {
       measureList(meals[0]);
       setLoading(false);
     };
-    localStorage.favoriteRecipes = JSON.stringify(favRecipes);
     fetchByID();
     checkFavorite();
-  }, [id, favRecipes]);
+  }, [favRecipes]);
 
   if (loading) return 'loading';
 
@@ -113,7 +110,7 @@ function MealDetails({ match: { params: { id } } }) {
         onClick={ handleFavButton }
       >
         <img
-          src={ favorita ? blackHeartIcon : whiteHeartIcon }
+          src={ checkFavorite() ? blackHeartIcon : whiteHeartIcon }
           alt="Favoritar"
         />
       </button>
