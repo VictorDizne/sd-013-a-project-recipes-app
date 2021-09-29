@@ -2,13 +2,20 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import copy from 'clipboard-copy';
-import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
 import Loading from '../components/Loading';
 import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import BlackHeart from '../images/blackHeartIcon.svg';
+import {
+  btnContinuar,
+  btnFavoritar,
+  ingredientMeasures,
+  changeLocalRecipe,
+  changeLocalFavorite,
+  getAPIdataID,
+  alimentosSugestions } from '../services/funcAuxDetails';
 
 const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
@@ -26,48 +33,12 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
   };
 
   useEffect(() => {
-    const getAPIdata = async () => {
-      const APIRequest = await foodAPIRequest('lookup', `i=${id}`);
-      setfoodDetail(...APIRequest);
-    };
-    getAPIdata();
-    const SIX = 6;
-    const cocktailsRequest = async () => {
-      const drink = await cocktailsAPIRequest();
-      const drinkSix = drink.slice(0, SIX);
-      setDrinkDetails(drinkSix);
-    };
-    cocktailsRequest();
-    if (localStorage.getItem('inProgressRecipes') === null) {
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ meals: {}, cocktails: {} }));
-    }
-    const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const chaves = Object.keys(test.meals).some((chave) => chave === id);
-    if (chaves) {
-      setBtnState('Continuar Receita');
-    }
-    if (localStorage.getItem('favoriteRecipes') === null) {
-      localStorage.setItem('favoriteRecipes', JSON
-        .stringify([]));
-    }
-    const testFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const chavesFav = testFav.some((chave) => chave.id === id);
-    if (chavesFav) {
-      setBtnFavorite('isFavorite');
-    }
+    alimentosSugestions(setDrinkDetails, 'cocktails');
+    getAPIdataID(id, setfoodDetail, 'food');
+
+    btnContinuar(id, setBtnState);
+    btnFavoritar(id, setBtnFavorite);
   }, []);
-
-  const keysOfApi = Object.keys(foodDetail);
-
-  const measurementKeys = keysOfApi.filter((chave) => chave.includes('strMeasure'))
-    .map((measure) => foodDetail[measure])
-    .filter((measure) => measure !== null || measure !== '');
-
-  const ingredientsKeys = keysOfApi.filter((chave) => chave.includes('strIngredient'));
-  const ingredientsValues = ingredientsKeys
-    .map((ingredient) => foodDetail[ingredient])
-    .filter((ingredient) => ingredient !== '');
 
   const {
     strMeal,
@@ -78,19 +49,12 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
     strArea,
   } = foodDetail;
 
-  const handleClick = () => {
-    if (localStorage.getItem('inProgressRecipes') === null) {
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ meals: { [id]: [] }, cocktails: {} }));
-    }
-    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    localStorage.setItem('inProgressRecipes', JSON
-      .stringify({ ...recipes, meals: { ...recipes.meals, [id]: [] } }));
-
+  const handleRecipe = () => {
+    changeLocalRecipe(id, 'meals', 'cocktails');
     history.push(`/comidas/${id}/in-progress`);
   };
 
-  const obj = {
+  const favInfo = {
     id,
     type: 'comida',
     area: strArea,
@@ -100,24 +64,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
     image: strMealThumb,
   };
   const handleFavorite = () => {
-    if (localStorage.getItem('favoriteRecipes') === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
-    }
-
-    const favs = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const unFav = favs.filter((element) => element.id !== id);
-
-    if (btnFavorite === 'isNotFavorite') {
-      copy('isFavorite');
-      localStorage.setItem('favoriteRecipes', JSON
-        .stringify([...favs, obj]));
-    } else {
-      copy('isNotFavorite');
-      localStorage.setItem('favoriteRecipes', JSON.stringify(unFav));
-    }
-    navigator.clipboard.readText().then(
-      (clipText) => setBtnFavorite(clipText),
-    );
+    changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
   };
 
   const handleShare = () => {
@@ -127,7 +74,6 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
 
   return (foodDetail.length === 0 && drinksDetails.length === 0) ? <Loading /> : (
     <div>
-      { console.log(ingredientsValues) }
       <img
         data-testid="recipe-photo"
         src={ strMealThumb }
@@ -146,7 +92,11 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
         onClick={ handleFavorite }
         type="button"
       >
-        <img data-testid="favorite-btn" src={ btnFavorite === 'isFavorite' ? BlackHeart : Heart } alt="btn Fav" />
+        <img
+          data-testid="favorite-btn"
+          src={ btnFavorite === 'isFavorite' ? BlackHeart : Heart }
+          alt="btn Fav"
+        />
       </button>
       <p data-testid="recipe-title">{strMeal}</p>
       <p data-testid="recipe-category">{strCategory}</p>
@@ -154,7 +104,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
         <p>Ingredients</p>
         <div className="ingredients-measure">
           <ul>
-            {ingredientsValues
+            {ingredientMeasures(foodDetail, 'ingredientes')
               .map((ingredient, i) => (
                 <li
                   data-testid={ `${i}-ingredient-name-and-measure` }
@@ -164,7 +114,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
                 </li>))}
           </ul>
           <ul>
-            {measurementKeys
+            {ingredientMeasures(foodDetail, 'medida')
               .map((measure, i) => (
                 <li
                   data-testid={ `${i}-ingredient-name-and-measure` }
@@ -181,9 +131,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
         title="YouTube video player"
         width="320"
         height="240"
-        src={ `${strYoutube
-          .split('watch?v=')[0]}embed/${strYoutube
-          .split('watch?v=')[1]}` }
+        src={ strYoutube ? strYoutube.replace('watch?v=', 'embed/') : 'loading' }
         frameBorder="0"
         allow="accelerometer; gyroscope; picture-in-picture"
         allowFullScreen
@@ -205,7 +153,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
       </Slider>
       <button
         id={ id }
-        onClick={ handleClick }
+        onClick={ handleRecipe }
         className="iniciar"
         data-testid="start-recipe-btn"
         type="button"
