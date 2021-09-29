@@ -3,6 +3,10 @@ import { Link, useHistory } from 'react-router-dom';
 import { fetchDrinksById } from '../services/bebidasApi';
 import { fetchRecommendedMeals } from '../services/comidasApi';
 import RecomendationCard from '../components/RecomendationCard';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { getIngredients, createDate, favoriteDrinkRecipe } from '../services/helpers';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
@@ -11,32 +15,25 @@ function DrinkDetails() {
   const [ingredients, setIngredients] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
-
+  const [messageAlert, setMessageAlert] = useState('');
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
   const historyFilter = history.location.pathname;
   const historyId = historyFilter.substr(INITIAL_VALUE);
+  const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
-  // solução feita a partir do repositório
-  // https://github.com/tryber/sd-013-a-project-recipes-app/blob/main-group-3-requisito-28/src/components/RecipeDetailCard.jsx
-  const getIngredients = (drink) => {
-    const strDrink = Object.entries(drink[0]);
-    const strIngredient = strDrink.filter(([key, value]) => key
-      .includes('strIngredient') && value);
-
-    const strMeasure = strDrink.filter(([key, value]) => key
-      .includes('strMeasure') && value);
-
-    return strIngredient.map((item, index) => `${item[1]} - ${strMeasure[index][1]}`);
-  };
+  useEffect(() => {
+    const verify = savedDoneRecipes.some((item) => item.id === historyId);
+    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+    btnStartRecipe.hidden = verify;
+  }, []);
 
   useEffect(() => {
     const getRecipe = async () => {
       const drink = await fetchDrinksById(historyId);
-      console.log(drink);
-      if (drink) {
-        setIngredients(getIngredients(drink));
-        setRecipe(drink);
-      }
+      setIngredients(getIngredients(drink));
+      setRecipe(drink);
     };
     getRecipe();
   }, [historyId]);
@@ -50,29 +47,63 @@ function DrinkDetails() {
   }, []);
 
   const createList = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const date = `${day}/${month}/${year}`;
-
+    let doneRecipes = [];
     const { idDrink,
-      strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe;
-    const doneRecipes = [{
-      id: idDrink,
-      type: 'meal',
-      area: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-      doneDate: date,
-      tags: strTags || [],
-    }];
+      strArea, strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe[0];
+    const tagsArray = (strTags === null) ? [] : strTags.split(',');
+    if (savedDoneRecipes) {
+      doneRecipes = [
+        ...savedDoneRecipes,
+        {
+          id: idDrink,
+          type: 'bebida',
+          area: '',
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strDrinkThumb,
+          doneDate: createDate(),
+          tags: tagsArray,
+        },
+      ];
+    } else {
+      doneRecipes = [
+        {
+          id: idDrink,
+          type: 'bebida',
+          area: strArea,
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strDrinkThumb,
+          doneDate: createDate(),
+          tags: tagsArray,
+        },
+      ];
+    }
+
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
-    // btnStartRecipe.style.display = 'none';
-    btnStartRecipe.hidden = true;
+  };
+
+  const shareRecipe = () => {
+    const url = `http://localhost:3000/bebidas/${historyId}`;
+    const SET_TIME_OUT = 1000;
+    navigator.clipboard.writeText(url);
+    setMessageAlert('Link copiado!');
+    setTimeout(() => {
+      setMessageAlert('');
+    }, SET_TIME_OUT);
+  };
+
+  useEffect(() => {
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const verify = favRecipes.find((item) => item.id === historyId);
+    setFavorite(verify);
+  }, []);
+
+  const handleClick = () => {
+    favoriteDrinkRecipe(recipe, previousRecipes, favorite, historyId);
+    setFavorite(!favorite);
   };
 
   return (
@@ -87,10 +118,20 @@ function DrinkDetails() {
           />
 
           <h1 data-testid="recipe-title">{ recipe[0].strDrink }</h1>
-
-          <button type="button" data-testid="favorite-btn">Favoritar</button>
-          <button type="button" data-testid="share-btn">Compartilhar</button>
-
+          <div id="btn-container">
+            <p>{messageAlert}</p>
+            <button
+              type="button"
+              onClick={ handleClick }
+            >
+              {favorite
+                ? <img src={ blackHeartIcon } alt="heart" data-testid="favorite-btn" />
+                : <img src={ whiteHeartIcon } alt="noheart" data-testid="favorite-btn" />}
+            </button>
+            <button type="button" data-testid="share-btn" onClick={ shareRecipe }>
+              <img src={ shareIcon } alt="Share Icon" />
+            </button>
+          </div>
           <p data-testid="recipe-category">{ recipe[0].strAlcoholic }</p>
         </div>
       )}
@@ -123,7 +164,7 @@ function DrinkDetails() {
         ))}
       </div>
       <Link
-        to={ `/comidas/${historyId}/in-progress` }
+        to={ `/bebidas/${historyId}/in-progress` }
         data-testid="start-recipe-btn"
         className="iniciar-receita"
         id="btn-iniciar-receita"
