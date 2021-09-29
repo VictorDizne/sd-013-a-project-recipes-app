@@ -2,9 +2,20 @@ import React from 'react';
 
 function FoodDetails() {
   return (
-    <div>
-      Food Details
-    </div>
+    <section>
+      <div>
+        Food Details
+      </div>
+      <div>
+        Food Details
+      </div>
+      <div>
+        Food Details
+      </div>
+      <div>
+        Food Details
+      </div>
+    </section>
 
   );
 }
