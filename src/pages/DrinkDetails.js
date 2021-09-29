@@ -30,6 +30,18 @@ function DrinkDetails() {
   };
 
   useEffect(() => {
+    const previousRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (previousRecipes) {
+      const verify = previousRecipes.some((item) => item.id === historyId);
+      if (verify) {
+        const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+        // btnStartRecipe.style.display = 'none';
+        btnStartRecipe.hidden = true;
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     const getRecipe = async () => {
       const drink = await fetchDrinksById(historyId);
       console.log(drink);
@@ -49,7 +61,35 @@ function DrinkDetails() {
     getRecomendations();
   }, []);
 
+  // const createList = () => {
+  //   const today = new Date();
+  //   const year = today.getFullYear();
+  //   const month = today.getMonth() + 1;
+  //   const day = today.getDate();
+  //   const date = `${day}/${month}/${year}`;
+
+  //   const { idDrink,
+  //     strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe;
+  //   const doneRecipes = [{
+  //     id: idDrink,
+  //     type: 'meal',
+  //     area: '',
+  //     category: strCategory,
+  //     alcoholicOrNot: strAlcoholic,
+  //     name: strDrink,
+  //     image: strDrinkThumb,
+  //     doneDate: date,
+  //     tags: strTags || [],
+  //   }];
+  //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  //   const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+  //   // btnStartRecipe.style.display = 'none';
+  //   btnStartRecipe.hidden = true;
+  // };
+
   const createList = () => {
+    let doneRecipes = [];
+    const previousRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1;
@@ -57,22 +97,41 @@ function DrinkDetails() {
     const date = `${day}/${month}/${year}`;
 
     const { idDrink,
-      strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe;
-    const doneRecipes = [{
-      id: idDrink,
-      type: 'meal',
-      area: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-      doneDate: date,
-      tags: strTags || [],
-    }];
+      strArea, strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe[0];
+    const tagsArray = (strTags === null) ? [] : strTags.split(',');
+    console.log(recipe);
+    if (previousRecipes) {
+      doneRecipes = [
+        ...previousRecipes,
+        {
+          id: idDrink,
+          type: 'bebida',
+          area: '',
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strDrinkThumb,
+          doneDate: date,
+          tags: tagsArray,
+        },
+      ];
+    } else {
+      doneRecipes = [
+        {
+          id: idDrink,
+          type: 'bebida',
+          area: strArea,
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strDrinkThumb,
+          doneDate: date,
+          tags: tagsArray,
+        },
+      ];
+    }
+
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
-    // btnStartRecipe.style.display = 'none';
-    btnStartRecipe.hidden = true;
   };
 
   return (
@@ -123,7 +182,7 @@ function DrinkDetails() {
         ))}
       </div>
       <Link
-        to={ `/comidas/${historyId}/in-progress` }
+        to={ `/bebidas/${historyId}/in-progress` }
         data-testid="start-recipe-btn"
         className="iniciar-receita"
         id="btn-iniciar-receita"
