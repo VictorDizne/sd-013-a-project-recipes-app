@@ -5,6 +5,8 @@ import fetchRecipeById from '../services/fetchRecipeById';
 import Video from '../components/Video';
 import Img from '../components/Img';
 import Ingredients from '../components/Ingredients';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 function ReceitaDetalhes({ match }) {
   const [recipe, setRecipe] = useState({});
@@ -29,8 +31,9 @@ function ReceitaDetalhes({ match }) {
       <h2 data-testid="recipe-category">
         {isMeal ? recipe.strCategory : recipe.strAlcoholic}
       </h2>
-      <button type="button" data-testid="share-btn">Share</button>
-      <button type="button" data-testid="favorite-btn">S2</button>
+      <ShareButton url={ match.url } />
+      <FavoriteButton recipe={ recipe } isMeal={ isMeal } />
+      {/* <button type="button" data-testid="share-btn">Share</button> */}
 
       <Ingredients recipe={ recipe } />
 
@@ -43,7 +46,7 @@ function ReceitaDetalhes({ match }) {
       <p data-testid="0-recomendation-card">Ver o que é isso.</p>
 
       <Link
-        to={ `/comidas/${recipeId}/in-progress` }
+        to={ `${isMeal ? '/comidas/' : '/bebidas/'}${recipeId}/in-progress` }
         className="btn btn-primary"
         data-testid="start-recipe-btn"
       >
@@ -61,6 +64,7 @@ ReceitaDetalhes.propTypes = {
     params: PropTypes.shape({
       recipeId: PropTypes.string.isRequired,
     }).isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
 };
 

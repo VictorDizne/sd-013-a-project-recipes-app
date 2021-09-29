@@ -55,7 +55,7 @@ function IngredientsListMeals({ ingredients, handleCheckbox }) {
   const ingredientsArrayList = () => {
     const listRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
     let arrayIngredients = [];
-    if (listRecipe !== null) {
+    if (listRecipe.length) {
       [arrayIngredients] = [Object.values(listRecipe.meals)];
     }
 
