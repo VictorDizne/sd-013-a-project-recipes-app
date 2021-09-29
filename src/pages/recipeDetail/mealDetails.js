@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import fetchAPI from '../../services/fetchAPI';
@@ -18,9 +18,8 @@ function MealDetails({ match: { params: { id } } }) {
     medida,
     setDetails,
     setIngredientes,
-    setMedida,
-    setFavRecipes,
-    favRecipes } = useContext(recipesContext);
+    setMedida } = useContext(recipesContext);
+  const [favRecipes, setFavRecipes] = useState();
   const ingredientsList = (mealInfo) => {
     const arr = Object.keys(mealInfo);
     const ingredients = arr
@@ -32,7 +31,6 @@ function MealDetails({ match: { params: { id } } }) {
 
   const compartilhar = () => {
     copy(window.location);
-    global.alert('Link copiado!');
   };
 
   const measureList = (mealInfo) => {

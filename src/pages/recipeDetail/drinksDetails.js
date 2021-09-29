@@ -79,7 +79,6 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   const compartilhar = () => {
     copy(window.location);
-    global.alert('Link copiado!');
   };
 
   const measureList = (drinksInfo) => {
