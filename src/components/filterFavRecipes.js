@@ -1,6 +1,9 @@
 import React from 'react';
 
 function FilterFavRecipes() {
+  // function filterByType() {
+
+  // }
   return (
     <div>
       <button type="button">Food</button>

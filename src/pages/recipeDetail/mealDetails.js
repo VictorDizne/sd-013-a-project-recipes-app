@@ -57,17 +57,19 @@ function MealDetails({ match: { params: { id } } }) {
       name: details.strMeal,
       image: details.strMealThumb,
     };
-    return setFavRecipes([...favRecipes, (obj)]);
+    const parseVersion = JSON.parse(localStorage.favoriteRecipes);
+    localStorage.favoriteRecipes = JSON.stringify([...parseVersion, (obj)]);
+    setFavRecipes(true);
   };
 
   const desfavoritar = () => {
     const localTest = JSON.parse(localStorage.favoriteRecipes);
     const desfa = localTest.filter((recipe) => ((recipe).id) !== id);
-    return setFavRecipes((desfa));
+    localStorage.favoriteRecipes = JSON.stringify((desfa));
+    setFavRecipes(false);
   };
 
   function handleFavButton() {
-    localStorage.favoriteRecipes = JSON.stringify(favRecipes);
     return checkFavorite() ? desfavoritar() : favoritar();
   }
 

@@ -45,13 +45,16 @@ function DrinkDetails({ match: { params: { id } } }) {
       name: details.strDrink,
       image: details.strDrinkThumb,
     };
-    return setFavRecipes([...favRecipes, (obj)]);
+    const parseVersion = JSON.parse(localStorage.favoriteRecipes);
+    localStorage.favoriteRecipes = JSON.stringify([...parseVersion, (obj)]);
+    return setFavRecipes(true);
   };
 
   const desfavoritar = () => {
     const localTest = JSON.parse(localStorage.favoriteRecipes);
     const desfa = localTest.filter((recipe) => ((recipe).id) !== id);
-    return setFavRecipes((desfa));
+    localStorage.favoriteRecipes = JSON.stringify(desfa);
+    return setFavRecipes(false);
   };
 
   function handleFavButton() {
@@ -81,7 +84,7 @@ function DrinkDetails({ match: { params: { id } } }) {
       measureList(drinks[0]);
       setLoading(false);
     };
-    localStorage.favoriteRecipes = JSON.stringify(favRecipes);
+    checkFavorite();
     fetchByID();
   }, [favRecipes]);
 
