@@ -11,7 +11,6 @@ function ExplorerDrinks() {
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
       .then((r) => r.json())
       .then((rJson) => rJson.drinks[0].idDrink)
-      // .then((rJson) => console.log(rJson))
       .then((id) => localStorage.setItem('idDrink', id));
   }, []);
 
