@@ -25,7 +25,8 @@ import {
 
 function App() {
   return (
-    // O Switch permite, conforme conponente, redirecionar as rotas
+    <div className="row" id="fda_app">
+    {/* O Switch permite, conforme conponente, redirecionar as rotas */}
     <Switch>
       {/* Iniciando as rotas dos componentes */}
       <Route exact path="/" component={ Login } />
@@ -49,6 +50,7 @@ function App() {
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
       <Route component={ NotFound } />
     </Switch>
+    </div>
   );
 }
 
