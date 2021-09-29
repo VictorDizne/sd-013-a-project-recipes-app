@@ -34,6 +34,7 @@ function EveryDrinkCard() {
           >
             <Link to={ () => DrinkURL(recipe.idDrink) }>
               <SingleCard
+                className="single-card"
                 imgsrc={ recipe.strDrinkThumb }
                 index={ index }
                 cardName={ recipe.strDrink }
@@ -46,7 +47,7 @@ function EveryDrinkCard() {
     }
   }
   return (
-    <div>
+    <div className="div-cards">
       { card }
     </div>
   );

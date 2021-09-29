@@ -53,7 +53,7 @@ function SearchFoodBar() {
   }
 
   return (
-    <div>
+    <div className="search-metods">
       <label htmlFor="filter_radio">
         Ingrediente
         <input
@@ -89,6 +89,7 @@ function SearchFoodBar() {
 
       <input
         type="text"
+        placeholder="Buscar"
         data-testid="search-input"
         name="text"
         onChange={ handleSearchParameter }

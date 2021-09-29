@@ -50,7 +50,9 @@ function DrinkIngredients() {
   return (
     <>
       <Header title="Explorar ingredientes" />
-      { loadingPageDrink ? <p>CARREGANDO...</p> : showCard() }
+      <div className="div-cards">
+        { loadingPageDrink ? <p>CARREGANDO...</p> : showCard() }
+      </div>
       <Footer />
     </>
   );

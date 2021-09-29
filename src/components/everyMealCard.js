@@ -21,6 +21,7 @@ function EveryMealCard() {
       >
         <Link to={ `/comidas/${recipe.idMeal}` } key={ index }>
           <SingleCard
+            className="single-card"
             imgsrc={ recipe.strMealThumb }
             index={ index }
             cardName={ recipe.strMeal }
@@ -29,7 +30,7 @@ function EveryMealCard() {
         </Link>
       </div>));
   return (
-    <div className="every-card">
+    <div className="div-cards">
       { everyCard }
     </div>
   );
