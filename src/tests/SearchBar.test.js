@@ -13,8 +13,6 @@ describe('Testa as requisições para API na página de Comidas', () => {
     await waitForElementToBeRemoved(() => loading);
   });
 
-  afterEach(() => jest.clearAllMocks());
-
   it('Testa a busca de receitas de comidas por ingredientes', async () => {
     global.fetch = jest.fn(() => Promise.resolve({
       json: () => Promise.resolve(beefMeals),
