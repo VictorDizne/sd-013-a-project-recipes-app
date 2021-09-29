@@ -26,7 +26,9 @@ function ReceitaDetalhes({ match }) {
     <>
       <Img meal={ isMeal } recipe={ recipe } />
       <h1 data-testid="recipe-title">{isMeal ? recipe.strMeal : recipe.strDrink}</h1>
-      <h2 data-testid="recipe-category">{isMeal ? recipe.strCategory : recipe.strAlcoholic}</h2>
+      <h2 data-testid="recipe-category">
+        {isMeal ? recipe.strCategory : recipe.strAlcoholic}
+      </h2>
       <button type="button" data-testid="share-btn">Share</button>
       <button type="button" data-testid="favorite-btn">S2</button>
 

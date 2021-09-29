@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Ingredients({ recipe }) {
   const ingredients = () => {
@@ -24,5 +25,9 @@ function Ingredients({ recipe }) {
     </>
   );
 }
+
+Ingredients.propTypes = {
+  recipe: PropTypes.shape({}).isRequired,
+};
 
 export default Ingredients;
