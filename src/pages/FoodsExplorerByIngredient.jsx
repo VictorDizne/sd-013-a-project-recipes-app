@@ -1,7 +1,17 @@
 import React from 'react';
+// import PropTypes from 'prop-types'
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const FoodsExplorerByIngredient = () => (
-  <h1>Component</h1>
+  <main>
+    <Header title="Explorar Ingredientes" />
+    <Footer />
+  </main>
 );
+
+// FoodsExplorerByIngredient.propTypes = {
+
+// }
 
 export default FoodsExplorerByIngredient;

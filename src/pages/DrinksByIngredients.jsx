@@ -1,7 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const DrinksByIngredients = () => (
-  <h1>Component</h1>
+  <main>
+    <Header title="Explorar Ingredientes" />
+    <Footer />
+  </main>
 );
 
 export default DrinksByIngredients;

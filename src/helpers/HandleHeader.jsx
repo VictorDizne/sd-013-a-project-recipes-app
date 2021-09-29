@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { BsArrowReturnLeft } from 'react-icons/bs';
@@ -22,21 +22,21 @@ const Nav = styled.nav`
 function HandleHeader({ title, setSearchBarStatus }) {
   const history = useHistory();
 
-  const onClickBack = () => history.goBack();
-  const onClickProfile = () => history.push('/perfil');
-
   const profileButton = (
-    <Button
-      className="profileIconBtn"
-      buttonType="BackgroundButton"
-      onClick={ onClickProfile }
-      buttonText={
-        <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
-      }
-    />
+    <Link to="/perfil">
+      <Button
+        className="profileIconBtn"
+        buttonType="BackgroundButton"
+        // onClick={ () => history.push('/perfil') }
+        buttonText={
+          <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
+        }
+      />
+    </Link>
   );
 
-  if (title !== 'Bebidas' && title !== 'Comidas' && title !== 'Explorar Orígem') {
+  if (title !== 'Bebidas' && title !== 'Comidas' && title !== 'Explorar Orígem'
+  && title !== 'Explorar Origem') {
     return (
       <Nav>
         { profileButton }
@@ -48,7 +48,7 @@ function HandleHeader({ title, setSearchBarStatus }) {
         </h1>
         <Button
           type="button"
-          onClick={ onClickBack }
+          onClick={ () => history.goBack() }
           buttonType="BackgroundButton"
           buttonText={
             <BsArrowReturnLeft />
