@@ -5,17 +5,18 @@ import Button from '../components/Button';
 import Context from '../Context/Context';
 import useRecipesSearch from '../Hooks/useRecipesSearch';
 import useFetchRecipes from '../Hooks/useFetchRecipes';
+import useFetchFilter from '../Hooks/useFetchFilter';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Drinks() {
   const urlDrink = 'thecocktail';
-  const { data, recipes, category, setId } = useContext(Context);
-  // const [toggle, setToggle] = useState(false);
+  const { data, recipes, category, setId, filter, setFilter } = useContext(Context);
   const history = useHistory();
   const secondButton = true;
   useFetchRecipes(urlDrink);
   useRecipesSearch(data.search, data.text, urlDrink);
+  useFetchFilter(urlDrink);
 
   const renderDrinks = () => {
     const magic = 12;
@@ -24,7 +25,7 @@ function Drinks() {
         global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
       );
     }
-    if (recipes.drinks.length === 1) {
+    if (recipes.drinks.length === 1 && filter === 'All') {
       const id = recipes.drinks[0].idDrink;
       return history.push(`./bebidas/${id}`);
     }
@@ -56,17 +57,21 @@ function Drinks() {
           onClick={ () => setId(drink.idDrink) }
         >
           <div key={ index } data-testid={ `${index}-recipe-card` }>
-            <h3 data-testid={ `${index}-card-name` }>{ drink.strMeal }</h3>
+            <h3 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h3>
             <img
               src={ drink.strDrinkThumb }
               alt={ drink.strDrink }
               data-testid={ `${index}-card-img` }
+              className="drinks"
             />
           </div>
         </Link>
       ))
     );
   };
+
+  const ClickCategory = ({ target }) => (
+    target.innerText === filter ? setFilter('All') : setFilter(target.innerText));
 
   const renderButtons = () => {
     if (category.drinks !== undefined) {
@@ -77,6 +82,7 @@ function Drinks() {
         <Button
           key={ button.strCategory }
           testID={ `${button.strCategory}-category-filter` }
+          handleClick={ ClickCategory }
         >
           {button.strCategory}
         </Button>
@@ -89,7 +95,8 @@ function Drinks() {
       <Header text="Bebidas" secondButton={ secondButton } />
       <section>
         <Button
-          testID="all-category-filter"
+          testID="All-category-filter"
+          handleClick={ ClickCategory }
         >
           All
         </Button>

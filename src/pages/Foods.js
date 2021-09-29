@@ -6,15 +6,18 @@ import Context from '../Context/Context';
 import Header from '../components/Header';
 import useRecipesSearch from '../Hooks/useRecipesSearch';
 import useFetchRecipes from '../Hooks/useFetchRecipes';
+import useFetchFilter from '../Hooks/useFetchFilter';
 import Footer from '../components/Footer';
 
 function Foods() {
-  const { recipes, data, category, setId } = useContext(Context);
+  const { recipes, data, category, setId, filter, setFilter } = useContext(Context);
   const history = useHistory();
   const urlFood = 'themeal';
   const secondButton = true;
   useFetchRecipes(urlFood, 'meals');
   useRecipesSearch(data.search, data.text, urlFood);
+  useFetchFilter(urlFood);
+
   const renderFoods = () => {
     const magic = 12;
     if (recipes.meals === null) {
@@ -22,7 +25,7 @@ function Foods() {
         global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
       );
     }
-    if (recipes.meals.length === 1) {
+    if (recipes.meals.length === 1 && filter === 'All') {
       const id = recipes.meals[0].idMeal;
       return history.push(`./comidas/${id}`);
     }
@@ -59,6 +62,10 @@ function Foods() {
       ))
     );
   };
+
+  const ClickCategory = ({ target }) => (
+    target.innerText === filter ? setFilter('All') : setFilter(target.innerText));
+
   const renderButtons = () => {
     if (category.meals !== undefined) {
       const magic2 = 5;
@@ -68,6 +75,7 @@ function Foods() {
         <Button
           key={ button.strCategory }
           testID={ `${button.strCategory}-category-filter` }
+          handleClick={ ClickCategory }
         >
           {button.strCategory}
         </Button>
@@ -80,7 +88,8 @@ function Foods() {
       <Header text="Comidas" secondButton={ secondButton } />
       <section>
         <Button
-          testID="all-category-filter"
+          testID="All-category-filter"
+          handleClick={ ClickCategory }
         >
           All
         </Button>
