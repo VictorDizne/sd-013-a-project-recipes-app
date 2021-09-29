@@ -1,17 +1,22 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
-import useApiId from '../hooks/useApiId';
+import YouTube from 'react-youtube';
+import RecomendationMap from '../Components/RecomendationMap';
+import ButtonRecipe from '../Components/ButtonRecipe';
+// import whiteHeartIcon from '../Images/whiteHeartIcon.svg';
+// import shareIcon from '../Images/shareIcon.svg';
+import useApiId from '../Hooks/useApiId';
+import useFetchApi from '../Hooks/useFetchApi';
+import youtubeLink from '../services/YoutubeLink';
+import '../Styles/btn-down.css';
 
 function RecipeDetails(props) {
   const { match: { params: { id } } } = props;
-  console.log(useLocation());
   const { pathname } = useLocation();
-  console.log(pathname);
-  const pathnameCheck = () => {
-    switch (pathname) {
+
+  const pathnameCheck = (pathnameParam) => {
+    switch (pathnameParam) {
     case `/comidas/${id}`:
       return 'themealdb';
     case `/bebidas/${id}`:
@@ -21,29 +26,28 @@ function RecipeDetails(props) {
     }
   };
 
-  const [data, isMeal] = useApiId(pathnameCheck(), id);
-  // console.log(Object.values(data));
-  console.log(data);
+  const [data, isMeal] = useApiId(pathnameCheck(pathname), id);
+  const arrayMeasures = [];
+  const arrayIngredients = [];
+  const VINTE = 20;
 
-  // const [recipe, setRecipe] = useState([]);
+  for (let i = 1; i < VINTE; i += 1) {
+    if (data[`strIngredient${i}`] !== null
+      && data[`strIngredient${i}`] !== ''
+      && data[`strIngredient${i}`] !== undefined) {
+      arrayIngredients.push(data[`strIngredient${i}`]);
+    }
+    if (data[`strMeasure${i}`] !== null
+      && data[`strMeasure${i}`] !== ''
+      && data[`strMeasure${i}`] !== undefined) {
+      arrayMeasures.push(data[`strMeasure${i}`]);
+    }
+  }
 
-  // useEffect(() => {
-  //   const fetchId = async (type, i) => {
-  //     const result = await fetch(`https://www.${type}.com/api/json/v1/1/lookup.php?i=${i}`);
-  //     const json = await result.json();
-  //     setRecipe(json);
-  //     console.log(json);
-  //   };
-  //   fetchId(pathnameCheck(), id);
-  // });
-
-  // const  = ({ recipe, isMeal }) => {
-  //   const foods = [];
-  // };
-
-  const arrayIngredient = Object.entries(data);
-  const arrayIngredientItem = [];
-  console.log(arrayIngredient);
+  const pathnameReverse = isMeal
+    ? pathnameCheck(`/bebidas/${id}`)
+    : pathnameCheck(`/comidas/${id}`);
+  const recomendationData = useFetchApi(pathnameReverse);
 
   return (
     <div>
@@ -58,73 +62,55 @@ function RecipeDetails(props) {
 
         <h2 data-testid="recipe-title">{isMeal ? data.strMeal : data.strDrink}</h2>
 
+        {/* <ShareButton />
         <button
           type="button"
           src={ shareIcon }
           alt="compartilhar"
           data-testid="share-btn"
-        />
-
+          onClick={}
+        /> */}
+        {/* <FavoriteButton />
         <button
           type="button"
-          src={ blackHeartIcon }
-          alt="favorita receita"
+          src={ whiteHeartIcon }
+          alt="favoritar receita"
           data-testid="favorite-btn"
-        />
+        /> */}
 
         <h2
           data-testid="recipe-category"
         >
-          { data.strCategory || data.strAlcoholic }
+          { isMeal ? data.strCategory : (`${data.strAlcoholic} - ${data.strCategory}`) }
         </h2>
-
         <ul>
-          {arrayIngredient.forEach((item) => {
-            if (item[0] === 'strIngredient') {
-              arrayIngredientItem.push(item[1]);
-            }
-          }).map((item, index) => <li key={ index }>{ item }</li>)}
-
-          {/* .filter((a) => (
-      a[0] === 'strIngredient'
-                      )).map((a, index) => (
-                      <li key={ index }>
-                 { a }
-         </li>
-     ))} */}
-          {/* {data.map((item, i) => (
-            <li
-              key={ `${item.name} ${i}` }
-              data-testid={ `${i}-ingredient-name-and-measure` }
-            >
-              {`${item.name} ${item.measure}` }
+          {arrayIngredients.map((ingredient, index) => (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              { `${ingredient} - ${arrayMeasures[index]}` }
             </li>
-          ))} */}
+          ))}
         </ul>
-{/* 
         <p data-testid="instructions">{data.strInstructions}</p>
-        {isMeal && <iframe data-testid="video" title="video" src={ data.strYoutube } />}
-        <p data-testid={ `${index}-recomendation-card` }>Recomendation</p>
-        <button type="button" data-testid="start-recipe-btn">Start Recipe</button> */}
+
+        {isMeal && (
+          <div data-testid="video">
+            <YouTube
+              videoId={ youtubeLink(data.strYoutube, pathname) }
+            />
+          </div>)}
+
+        <RecomendationMap
+          itens={ recomendationData }
+          pathname={ pathnameReverse }
+          isMeal={ isMeal }
+        />
+
+        <ButtonRecipe isMeal={ isMeal } id={ id } />
       </div>
 
     </div>
   );
 }
-
-RecipeDetails.propTypes = {
-  data: PropTypes.shape({
-    strDrink: PropTypes.string,
-    strMealThumb: PropTypes.string,
-    strInstructions: PropTypes.string,
-    strCategory: PropTypes.string,
-    strMeal: PropTypes.string,
-    strVideo: PropTypes.string,
-    strIngredient: PropTypes.string,
-    strAlcoholic: PropTypes.string,
-    strDrinkThumb: PropTypes.string,
-  }).isRequired,
-};
 
 RecipeDetails.propTypes = {
   match: PropTypes.shape({

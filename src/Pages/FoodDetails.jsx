@@ -2,20 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import useApiId from '../Hooks/useApiId';
 
-function DrinkDetails(props) {
+function FoodDetails(props) {
   const { match: { params: { id } } } = props;
-  const data = useApiId('thecocktaildb', id);
+
+  const data = useApiId('themealdb', id);
 
   console.log(data);
 
   return (
     <div>
-      <h1>DrinkDetails</h1>
+      <h1>FoodDetails</h1>
     </div>
   );
 }
 
-DrinkDetails.propTypes = {
+FoodDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.number,
@@ -23,4 +24,4 @@ DrinkDetails.propTypes = {
   }).isRequired,
 };
 
-export default DrinkDetails;
+export default FoodDetails;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const useApiId = (type, id) => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [isMeal, setIsMeal] = useState(false);
   useEffect(() => {
     const fetchId = async () => {

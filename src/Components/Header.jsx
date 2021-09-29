@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import profileIcon from '../Images/profileIcon.svg';
+import searchIcon from '../Images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ value }) {
   const history = useHistory();
@@ -15,30 +16,6 @@ function Header({ value }) {
     }
     return setShowInput(false);
   }
-
-  // function hiddenInput()
-  //   if (showInput) {
-  //     return (
-  //       <input type="text" data-testid="search-input" />
-  //     );
-  //   }
-  // }
-
-  // function handleButton() {
-  //   if (setIcon) {
-  //     return (
-  //       <>
-  //         <button
-  //           type="button"
-  //           onClick={ isVerified }
-  //         >
-  //           <img data-testid="search-top-btn" src={ searchIcon } alt="buscar" />
-  //         </button>
-  //         { hiddenInput() }
-  //       </>
-  //     );
-  //   }
-  // }
 
   return (
     <header>
@@ -53,7 +30,6 @@ function Header({ value }) {
         />
       </button>
       <h1 data-testid="page-title">{ pageName }</h1>
-      {/* { handleButton() } */}
       {setIcon
         && (
           <div>
@@ -65,7 +41,7 @@ function Header({ value }) {
             </button>
           </div>
         )}
-      {showInput && <input type="text" data-testid="search-input" />}
+      {showInput && <SearchBar />}
     </header>
   );
 }
