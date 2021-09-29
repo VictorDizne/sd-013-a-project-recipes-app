@@ -88,21 +88,14 @@ export default function Comidas({ history }) {
               }
               {
                 meals.map((meal, index) => (
-                  <a
-                    data-testid={ `${index}-recipe-card` }
-                    href={ `/comidas/${meal.idMeal}` }
+                  <Card
                     key={ meal.idMeal }
-                    style={ { width: '5px', height: '20px' } }
-                  >
-                    <Card
-                      key={ meal.idMeal }
-                      index={ index }
-                      recipe={ meal }
-                      recipeImage={ meal.strMealThumb }
-                      recipeName={ meal.strMeal }
-                      // link={ `/comidas/${meal.idMeal}` }
-                    />
-                  </a>
+                    index={ index }
+                    recipe={ meal }
+                    recipeImage={ meal.strMealThumb }
+                    recipeName={ meal.strMeal }
+                    link={ `/comidas/${meal.idMeal}` }
+                  />
                 ))
               }
             </>

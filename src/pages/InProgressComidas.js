@@ -4,6 +4,7 @@ import RecipeInProgress from '../components/RecipeInProgress';
 
 export default function InProgressComidas({ match: { params: { recipeId } } }) {
   const [meal, setMeal] = useState({});
+  const isTrue = true;
 
   useEffect(() => {
     const fetching = async () => {
@@ -18,7 +19,7 @@ export default function InProgressComidas({ match: { params: { recipeId } } }) {
 
   return (
     <div>
-      <RecipeInProgress recipe={ meal } isMeal />
+      <RecipeInProgress recipe={ meal } isMeal={ isTrue } />
     </div>
   );
 }

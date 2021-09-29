@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Card from '../components/Card';
@@ -87,18 +86,14 @@ export default function Bebidas({ history }) {
               }
 
               { drinks.map((drink, index) => (
-                <Link
-                  data-testid={ `${index}-recipe-card` }
-                  to={ `/bebidas/${drink.idDrink}` }
+                <Card
                   key={ drink.idDrink }
-                >
-                  <Card
-                    index={ index }
-                    recipe={ drink }
-                    recipeImage={ drink.strDrinkThumb }
-                    recipeName={ drink.strDrink }
-                  />
-                </Link>
+                  index={ index }
+                  recipe={ drink }
+                  recipeImage={ drink.strDrinkThumb }
+                  recipeName={ drink.strDrink }
+                  link={ `/bebidas/${drink.idDrink}` }
+                />
               )) }
             </>
           )
