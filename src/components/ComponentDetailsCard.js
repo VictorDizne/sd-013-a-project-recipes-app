@@ -1,10 +1,43 @@
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDebugState } from 'use-named-state';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import recipeContext from '../context';
+
+const copy = require('clipboard-copy');
 
 function ComponentDetailsCard({ detailItem, renderIngredients }) {
   const history = useHistory();
   const handlePage = history.location.pathname.includes('/comidas');
+  const [message, setMessage] = useDebugState('message', false);
+  const [favoriteIcon, setFavoriteIcon] = useDebugState('favorite', false);
+
+  const { details } = useContext(recipeContext).ContextDetails;
+  const { idMeal, strCategory, strMeal, strMealThumb, strArea } = details[0];
+  console.log(idMeal, strCategory, strMeal, strMealThumb, strArea);
+
+  const handleClick = () => {
+    console.log('click');
+    setMessage(!message);
+    copy(window.location.href);
+  };
+
+  const handleFavorite = () => {
+    setFavoriteIcon(!favoriteIcon);
+    const favoriteObject = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteObject));
+  };
 
   const renderMeal = () => {
     const video = detailItem.strYoutube.replace('watch?v=', 'embed/');
@@ -15,11 +48,19 @@ function ComponentDetailsCard({ detailItem, renderIngredients }) {
           src={ detailItem.strMealThumb }
           alt={ detailItem.strMeal }
         />
-        <button type="button" data-testid="share-btn">
-          Compartilhar
+        <button type="button" data-testid="share-btn" onClick={ handleClick }>
+          <img src={ shareIcon } alt="" />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          Favoritar
+        {message && <p>Link copiado!</p>}
+        <button
+          type="button"
+          onClick={ handleFavorite }
+        >
+          <img
+            data-testid="favorite-btn"
+            src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
+            alt=""
+          />
         </button>
         <h1 data-testid="recipe-title">{detailItem.strMeal}</h1>
         <h4 data-testid="recipe-category">{detailItem.strCategory}</h4>
@@ -47,11 +88,19 @@ function ComponentDetailsCard({ detailItem, renderIngredients }) {
         src={ detailItem.strDrinkThumb }
         alt={ detailItem.strDrink }
       />
-      <button type="button" data-testid="share-btn">
-        Compartilhar
+      <button type="button" data-testid="share-btn" onClick={ handleClick }>
+        <img src={ shareIcon } alt="" />
       </button>
-      <button type="button" data-testid="favorite-btn">
-        Favoritar
+      {message && <p>Link copiado!</p>}
+      <button
+        type="button"
+        onClick={ handleFavorite }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
+          alt=""
+        />
       </button>
       <h1 data-testid="recipe-title">{detailItem.strDrink}</h1>
       <h4 data-testid="recipe-category">

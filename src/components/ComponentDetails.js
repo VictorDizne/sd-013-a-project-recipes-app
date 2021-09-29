@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import recipeContext from '../context';
 import ComponentDetailsCard from './ComponentDetailsCard';
 import ComponentSugestions from './ComponentSugestions';
@@ -8,6 +8,7 @@ function ComponentDetails() {
   const { fetchDetails, details, dataForFetch: { currentPage },
     handleCurrentPage } = useContext(recipeContext).ContextDetails;
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     handleCurrentPage();
@@ -54,6 +55,11 @@ function ComponentDetails() {
     return arrayMap;
   };
 
+  const handleClick = () => {
+    if (currentPage === 'themealdb') history.push(`${id}/in-progress`);
+    if (currentPage === 'thecocktaildb') history.push(`${id}/in-progress`);
+  };
+
   if (details === '') return <h1>Loading</h1>;
   return (
     <div>
@@ -70,6 +76,7 @@ function ComponentDetails() {
           className="btn-start"
           data-testid="start-recipe-btn"
           type="button"
+          onClick={ handleClick }
         >
           Iniciar receita
         </button>

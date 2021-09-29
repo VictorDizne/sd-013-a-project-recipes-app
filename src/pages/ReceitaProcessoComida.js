@@ -5,6 +5,7 @@ function ReceitaProcessoComida() {
   return (
     <div>
       <Header title="Receitas em processo comidas" hideSearch={ false } hideProfile />
+      <h1>processo</h1>
     </div>
   );
 }
