@@ -5,6 +5,9 @@ import { fetchRecommendedDrinks } from '../services/bebidasApi';
 import RecomendationCard from '../components/RecomendationCard';
 import '../styles/PageDetails.css';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { getIngredients, createDate, favoriteMealRecipe } from '../services/helpers';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
@@ -14,34 +17,17 @@ function FoodDetails() {
   const [recipe, setRecipe] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
   const [messageAlert, setMessageAlert] = useState('');
-
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
   const historyFilter = history.location.pathname;
   const historyId = historyFilter.substr(INITIAL_VALUE);
-
-  // solução feita a partir do repositório
-  // https://github.com/tryber/sd-013-a-project-recipes-app/blob/main-group-3-requisito-28/src/components/RecipeDetailCard.jsx
-  const getIngredients = (meal) => {
-    const strMeal = Object.entries(meal[0]);
-    const strIngredient = strMeal.filter(([key, value]) => key
-      .includes('strIngredient') && value);
-
-    const strMeasure = strMeal.filter(([key, value]) => key
-      .includes('strMeasure') && value);
-
-    return strIngredient.map((item, index) => `${item[1]} - ${strMeasure[index][1]}`);
-  };
+  const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
   useEffect(() => {
-    const previousRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (previousRecipes) {
-      const verify = previousRecipes.some((item) => item.id === historyId);
-      if (verify) {
-        const btnStartRecipe = document.getElementById('btn-iniciar-receita');
-        // btnStartRecipe.style.display = 'none';
-        btnStartRecipe.hidden = true;
-      }
-    }
+    const verify = savedDoneRecipes.some((item) => item.id === historyId);
+    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+    btnStartRecipe.hidden = verify;
   }, []);
 
   useEffect(() => {
@@ -63,19 +49,11 @@ function FoodDetails() {
 
   const createList = () => {
     let doneRecipes = [];
-    const previousRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const date = `${day}/${month}/${year}`;
-
     const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = recipe[0];
     const tagsArray = (strTags === null) ? [] : strTags.split(',');
-    console.log(recipe);
-    if (previousRecipes) {
+    if (savedDoneRecipes) {
       doneRecipes = [
-        ...previousRecipes,
+        ...savedDoneRecipes,
         {
           id: idMeal,
           type: 'comida',
@@ -84,7 +62,7 @@ function FoodDetails() {
           alcoholicOrNot: '',
           name: strMeal,
           image: strMealThumb,
-          doneDate: date,
+          doneDate: createDate(),
           tags: tagsArray,
         },
       ];
@@ -98,7 +76,7 @@ function FoodDetails() {
           alcoholicOrNot: '',
           name: strMeal,
           image: strMealThumb,
-          doneDate: date,
+          doneDate: createDate(),
           tags: tagsArray,
         },
       ];
@@ -110,12 +88,22 @@ function FoodDetails() {
   const shareRecipe = () => {
     const url = `http://localhost:3000/comidas/${historyId}`;
     const SET_TIME_OUT = 1000;
-    // window.prompt('Link copiado!', url);
     navigator.clipboard.writeText(url);
     setMessageAlert('Link copiado!');
     setTimeout(() => {
       setMessageAlert('');
     }, SET_TIME_OUT);
+  };
+
+  useEffect(() => {
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const verify = favRecipes.find((item) => item.id === historyId);
+    setFavorite(verify);
+  }, []);
+
+  const handleClick = () => {
+    favoriteMealRecipe(recipe, previousRecipes, favorite, historyId);
+    setFavorite(!favorite);
   };
 
   return (
@@ -132,7 +120,14 @@ function FoodDetails() {
           <h1 data-testid="recipe-title">{recipe[0].strMeal}</h1>
           <div id="btn-container">
             <p>{messageAlert}</p>
-            <button type="button" data-testid="favorite-btn">Favoritar</button>
+            <button
+              type="button"
+              onClick={ handleClick }
+            >
+              {favorite
+                ? <img src={ blackHeartIcon } alt="heart" data-testid="favorite-btn" />
+                : <img src={ whiteHeartIcon } alt="noheart" data-testid="favorite-btn" />}
+            </button>
             <button type="button" data-testid="share-btn" onClick={ shareRecipe }>
               <img src={ shareIcon } alt="Share Icon" />
             </button>
@@ -178,7 +173,6 @@ function FoodDetails() {
           />
         ))}
       </div>
-      {/* <div className="button-container"> */}
       <Link
         to={ `/comidas/${historyId}/in-progress` }
         data-testid="start-recipe-btn"
@@ -188,7 +182,6 @@ function FoodDetails() {
       >
         Iniciar Receita
       </Link>
-      {/* </div> */}
     </div>
   );
 }
