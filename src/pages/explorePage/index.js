@@ -14,7 +14,7 @@ function ExplorePage() {
           </button>
         </Link>
         <Link className="explore-button" to="/explorar/bebidas">
-          <button className="explore" type="button" data-testid="explore-food">
+          <button className="explore" type="button" data-testid="explore-drinks">
             Explorar Bebidas
           </button>
         </Link>
