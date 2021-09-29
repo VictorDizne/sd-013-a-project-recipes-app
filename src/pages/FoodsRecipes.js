@@ -5,11 +5,15 @@ import PropTypes from 'prop-types';
 import Context from '../Context/Context';
 import Button from '../components/Button';
 import useFetchRecipes from '../Hooks/useFetchRecipes';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FoodsRecipies(props) {
   const { recipes } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
+  const [favHeart, setFavHeart] = useState(false);
+
   const history = useHistory();
   const { match: { params: { id } } } = props;
   const urlDrink = 'thecocktail';
@@ -67,7 +71,16 @@ function FoodsRecipies(props) {
             Compartilhar
           </Button>
           { message ? <h5>Link copiado!</h5> : null }
-          <Button testID="favorite-btn">Favoritar</Button>
+          <Button
+            testID="favorite-btn"
+            handleClick={ () => {
+              favHeart ? setFavHeart(false) : setFavHeart(true);
+            } }
+            
+          >
+            Favoritar
+          </Button>
+          {favHeart ? <img src={blackHeartIcon}/> : <img src={whiteHeartIcon}/> }
           <ul>
             <h3>Ingredientes</h3>
             {Object.keys(details)
