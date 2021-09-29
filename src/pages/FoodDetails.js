@@ -13,6 +13,7 @@ function FoodDetails() {
   const [ingredients, setIngredients] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
+  const [messageAlert, setMessageAlert] = useState('');
 
   const history = useHistory();
   const historyFilter = history.location.pathname;
@@ -106,6 +107,17 @@ function FoodDetails() {
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   };
 
+  const shareRecipe = () => {
+    const url = `http://localhost:3000/comidas/${historyId}`;
+    const SET_TIME_OUT = 1000;
+    // window.prompt('Link copiado!', url);
+    navigator.clipboard.writeText(url);
+    setMessageAlert('Link copiado!');
+    setTimeout(() => {
+      setMessageAlert('');
+    }, SET_TIME_OUT);
+  };
+
   return (
     <div className="food-container">
       {(recipe.length === 1) && (
@@ -118,12 +130,13 @@ function FoodDetails() {
           />
 
           <h1 data-testid="recipe-title">{recipe[0].strMeal}</h1>
-
-          <button type="button" data-testid="favorite-btn">Favoritar</button>
-          <button type="button" data-testid="share-btn">
-            <img src={ shareIcon } alt="Share Icon" />
-          </button>
-
+          <div id="btn-container">
+            <p>{messageAlert}</p>
+            <button type="button" data-testid="favorite-btn">Favoritar</button>
+            <button type="button" data-testid="share-btn" onClick={ shareRecipe }>
+              <img src={ shareIcon } alt="Share Icon" />
+            </button>
+          </div>
           <p data-testid="recipe-category">{recipe[0].strCategory}</p>
         </div>
       )}

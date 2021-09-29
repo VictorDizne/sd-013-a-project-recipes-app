@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { fetchDrinksById } from '../services/bebidasApi';
 import { fetchRecommendedMeals } from '../services/comidasApi';
 import RecomendationCard from '../components/RecomendationCard';
+import shareIcon from '../images/shareIcon.svg';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
@@ -11,6 +12,7 @@ function DrinkDetails() {
   const [ingredients, setIngredients] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [recomendation, setRecomendation] = useState([]);
+  const [messageAlert, setMessageAlert] = useState('');
 
   const history = useHistory();
   const historyFilter = history.location.pathname;
@@ -61,32 +63,6 @@ function DrinkDetails() {
     getRecomendations();
   }, []);
 
-  // const createList = () => {
-  //   const today = new Date();
-  //   const year = today.getFullYear();
-  //   const month = today.getMonth() + 1;
-  //   const day = today.getDate();
-  //   const date = `${day}/${month}/${year}`;
-
-  //   const { idDrink,
-  //     strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe;
-  //   const doneRecipes = [{
-  //     id: idDrink,
-  //     type: 'meal',
-  //     area: '',
-  //     category: strCategory,
-  //     alcoholicOrNot: strAlcoholic,
-  //     name: strDrink,
-  //     image: strDrinkThumb,
-  //     doneDate: date,
-  //     tags: strTags || [],
-  //   }];
-  //   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-  //   const btnStartRecipe = document.getElementById('btn-iniciar-receita');
-  //   // btnStartRecipe.style.display = 'none';
-  //   btnStartRecipe.hidden = true;
-  // };
-
   const createList = () => {
     let doneRecipes = [];
     const previousRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -134,6 +110,17 @@ function DrinkDetails() {
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   };
 
+  const shareRecipe = () => {
+    const url = `http://localhost:3000/bebidas/${historyId}`;
+    const SET_TIME_OUT = 1000;
+    // window.prompt('Link copiado!', url);
+    navigator.clipboard.writeText(url);
+    setMessageAlert('Link copiado!');
+    setTimeout(() => {
+      setMessageAlert('');
+    }, SET_TIME_OUT);
+  };
+
   return (
     <div className="food-container">
       { (recipe.length === 1) && (
@@ -146,10 +133,13 @@ function DrinkDetails() {
           />
 
           <h1 data-testid="recipe-title">{ recipe[0].strDrink }</h1>
-
-          <button type="button" data-testid="favorite-btn">Favoritar</button>
-          <button type="button" data-testid="share-btn">Compartilhar</button>
-
+          <div id="btn-container">
+            <p>{messageAlert}</p>
+            <button type="button" data-testid="favorite-btn">Favoritar</button>
+            <button type="button" data-testid="share-btn" onClick={ shareRecipe }>
+              <img src={ shareIcon } alt="Share Icon" />
+            </button>
+          </div>
           <p data-testid="recipe-category">{ recipe[0].strAlcoholic }</p>
         </div>
       )}
