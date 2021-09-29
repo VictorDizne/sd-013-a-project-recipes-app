@@ -58,7 +58,7 @@ function FoodExploreIngredients() {
             </Link>
           );
         }
-        // return '';
+        return '';
       })}
       <Footer />
     </div>
