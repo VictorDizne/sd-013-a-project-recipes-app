@@ -1,14 +1,25 @@
 import React from 'react';
 
-function Ingredients() {
+function Ingredients({ recipe }) {
+  const ingredients = () => {
+    let i = 1;
+    const ingList = [];
+    while (recipe[`strIngredient${i}`]) {
+      ingList.push(`${recipe[`strIngredient${i}`]} ${recipe[`strMeasure${i}`]}`);
+      i += 1;
+    }
+    return ingList;
+  };
+
   return (
     <>
       <h4>Ingredientes</h4>
       <ul>
-        <li data-testid="0-ingredient-name-and-measure">
-          <p>Iterar sobre as chaves `strIngredient1` até `strIngredient20` aqui.</p>
-          <p>Concatenar com `strMeasure1` ao `strMeasure20`</p>
-        </li>
+        {ingredients().map((ing, idx) => (
+          <li key={ ing } data-testid={ `${idx}-ingredient-name-and-measure` }>
+            {ing}
+          </li>
+        ))}
       </ul>
     </>
   );

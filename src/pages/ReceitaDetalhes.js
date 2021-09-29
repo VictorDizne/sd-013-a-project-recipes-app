@@ -12,30 +12,30 @@ function ReceitaDetalhes({ match }) {
   const { recipeId } = match.params;
 
   // `true` se for a página de comidas, `false` caso seja bebidas
-  const meal = /comidas/.test(match.path);
+  const isMeal = /comidas/.test(match.path);
 
   useEffect(() => {
     const getRecipe = async (id) => {
-      const result = await fetchRecipeById(id, meal);
+      const result = await fetchRecipeById(id, isMeal);
       setRecipe(result);
     };
     getRecipe(recipeId);
-  }, [setRecipe, recipeId, meal]);
+  }, [setRecipe, recipeId, isMeal]);
 
   const renderContent = () => (
     <>
-      <Img meal={ meal } recipe={ recipe } />
-      <h1 data-testid="recipe-title">{meal ? recipe.strMeal : recipe.strDrink}</h1>
-      <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
+      <Img meal={ isMeal } recipe={ recipe } />
+      <h1 data-testid="recipe-title">{isMeal ? recipe.strMeal : recipe.strDrink}</h1>
+      <h2 data-testid="recipe-category">{isMeal ? recipe.strCategory : recipe.strAlcoholic}</h2>
       <button type="button" data-testid="share-btn">Share</button>
       <button type="button" data-testid="favorite-btn">S2</button>
 
-      <Ingredients />
+      <Ingredients recipe={ recipe } />
 
       <h4>Instruções</h4>
       <p data-testid="instructions">{recipe.strInstructions}</p>
 
-      <Video meal={ meal } recipe={ recipe } />
+      <Video meal={ isMeal } recipe={ recipe } />
 
       <h4>Recomendações</h4>
       <p data-testid="0-recomendation-card">Ver o que é isso.</p>
