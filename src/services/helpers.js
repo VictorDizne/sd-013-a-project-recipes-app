@@ -19,7 +19,7 @@ export const createDate = () => {
   return date;
 };
 
-export const favoriteRecipe = (recipe, previousRecipes, favorite, historyId) => {
+export const favoriteMealRecipe = (recipe, previousRecipes, favorite, historyId) => {
   let favoriteRecipes = [];
   const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe[0];
   if (previousRecipes) {
@@ -45,6 +45,48 @@ export const favoriteRecipe = (recipe, previousRecipes, favorite, historyId) => 
         alcoholicOrNot: '',
         name: strMeal,
         image: strMealThumb,
+      },
+    ];
+  }
+
+  if (!favorite) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }
+
+  if (favorite) {
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const removeRecipe = favRecipes
+      .filter((favRecipe) => favRecipe.id !== historyId);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(removeRecipe));
+  }
+};
+
+export const favoriteDrinkRecipe = (recipe, previousRecipes, favorite, historyId) => {
+  let favoriteRecipes = [];
+  const { idDrink, strCategory, strAlcoholic, strDrink, strDrinkThumb } = recipe[0];
+  if (previousRecipes) {
+    favoriteRecipes = [
+      ...previousRecipes,
+      {
+        id: idDrink,
+        type: 'bebida',
+        area: '',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
+      },
+    ];
+  } else {
+    favoriteRecipes = [
+      {
+        id: idDrink,
+        type: 'bebida',
+        area: '',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
       },
     ];
   }

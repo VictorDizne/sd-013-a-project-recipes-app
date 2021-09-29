@@ -7,7 +7,7 @@ import '../styles/PageDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { getIngredients, createDate, favoriteRecipe } from '../services/helpers';
+import { getIngredients, createDate, favoriteMealRecipe } from '../services/helpers';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
@@ -29,6 +29,7 @@ function FoodDetails() {
     const btnStartRecipe = document.getElementById('btn-iniciar-receita');
     btnStartRecipe.hidden = verify;
   }, []);
+
   useEffect(() => {
     const getRecipe = async () => {
       const meal = await fetchFoodById(historyId);
@@ -37,6 +38,7 @@ function FoodDetails() {
     };
     getRecipe();
   }, [historyId]);
+
   useEffect(() => {
     const getRecomendations = async () => {
       const recomemendedRecipes = await fetchRecommendedDrinks();
@@ -44,6 +46,7 @@ function FoodDetails() {
     };
     getRecomendations();
   }, []);
+
   const createList = () => {
     let doneRecipes = [];
     const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = recipe[0];
@@ -85,7 +88,6 @@ function FoodDetails() {
   const shareRecipe = () => {
     const url = `http://localhost:3000/comidas/${historyId}`;
     const SET_TIME_OUT = 1000;
-    // window.prompt('Link copiado!', url);
     navigator.clipboard.writeText(url);
     setMessageAlert('Link copiado!');
     setTimeout(() => {
@@ -100,7 +102,7 @@ function FoodDetails() {
   }, []);
 
   const handleClick = () => {
-    favoriteRecipe(recipe, previousRecipes, favorite, historyId);
+    favoriteMealRecipe(recipe, previousRecipes, favorite, historyId);
     setFavorite(!favorite);
   };
 
