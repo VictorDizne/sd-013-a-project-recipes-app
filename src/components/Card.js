@@ -1,17 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Card({ index, recipeImage, recipeName, link }) {
+  const history = useHistory();
+  const goToRecipeDetails = () => {
+    history.push(link);
+  };
+
   return (
 
-    <Link
-      to={ link }
+    <button
+      type="button"
+      onClick={ goToRecipeDetails }
       data-testid={ `${index}-recipe-card` }
     >
 
       <div className="recipe-card">
-
         <img
           src={ recipeImage }
           alt={ recipeName }
@@ -23,7 +28,7 @@ function Card({ index, recipeImage, recipeName, link }) {
           {recipeName}
         </div>
       </div>
-    </Link>
+    </button>
   );
 }
 
