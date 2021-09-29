@@ -13,6 +13,7 @@ export default function EspecificFoodProgress() {
       imgAndTitle="Meal"
       objType="comida"
       food
+      localStorageObj="meals"
     />
   );
 }

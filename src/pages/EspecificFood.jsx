@@ -13,6 +13,10 @@ export default function EspecificFood() {
 
   const redirectInProgress = () => {
     handleIngredientIndex(2);
+    const getItemLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({
+        ...getItemLocalStorage, meals: { ...getItemLocalStorage.meals, [id]: [] } }));
     history.push(`/comidas/${id}/in-progress`);
   };
 

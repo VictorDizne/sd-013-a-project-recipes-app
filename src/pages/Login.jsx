@@ -9,9 +9,14 @@ export default function Login() {
 
   function handleClick() {
     const user = { email };
+    const inProgressRecipe = {
+      cocktails: {},
+      meals: {},
+    };
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipe));
     history.push('/comidas');
   }
 

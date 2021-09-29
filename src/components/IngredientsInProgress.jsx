@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './RecipeCard.css';
 
 export default function IngredientsInProgress(props) {
   const { ingredientsList,
-    setIgredientChecked, setIgredientCheckedLenght, ingredientChecked } = props;
+    setIgredientChecked,
+    setIgredientCheckedLenght, ingredientChecked, localStorageObj, id } = props;
 
   const mapIngredientsInProgress = () => {
     const objectIngredients = Object.entries(ingredientsList);
@@ -21,11 +22,53 @@ export default function IngredientsInProgress(props) {
     return arrayIngredients;
   };
 
+  const ingredientsInProgress = () => {
+    const getItemLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const getObjectMealOrDrink = getItemLocalStorage[localStorageObj];
+    const arrayIds = getObjectMealOrDrink[id];
+
+    if (arrayIds) {
+      arrayIds.map((idIngredient) => {
+        const teste = document.getElementById(idIngredient);
+        if (teste) {
+          teste.parentElement.classList.add('scratched');
+          teste.checked = true;
+        } return null;
+      });
+    }
+  };
+
+  useEffect(() => {
+    ingredientsInProgress();
+  }, [ingredientsList]);
+
   const handleClassName = ({ target }) => {
     if (target.checked) {
       target.parentElement.className = 'scratched';
+
+      const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
+          ...getLocalStorage,
+          [localStorageObj]: {
+            ...getLocalStorage[localStorageObj],
+            [id]: [...getLocalStorage[localStorageObj][id], target.id],
+          },
+        }));
     } else {
       target.parentElement.classList.remove('scratched');
+      const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const arrayIds = getLocalStorage[localStorageObj][id];
+      const arrayIdsFiltered = arrayIds.filter((element) => element !== target.id);
+
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
+          ...getLocalStorage,
+          [localStorageObj]: {
+            ...getLocalStorage[localStorageObj],
+            [id]: arrayIdsFiltered,
+          },
+        }));
     }
 
     const ingredientsInProgressLength = (mapIngredientsInProgress()
@@ -72,4 +115,6 @@ IngredientsInProgress.propTypes = ({
   setIgredientChecked: PropTypes.func.isRequired,
   setIgredientCheckedLenght: PropTypes.func.isRequired,
   ingredientChecked: PropTypes.string.isRequired,
+  localStorageObj: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 });

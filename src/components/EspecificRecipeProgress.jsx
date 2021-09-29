@@ -16,7 +16,8 @@ export default function EspecificRecipeProgress(props) {
   const [ingredientCheckedLenght, setIgredientCheckedLenght] = useState();
   const [buttonClicked, setButtonClicked] = useState(whiteHeartIcon);
   const [divShare, setDivShare] = useState('displayNone');
-  const { nameApi, drinkOrMeals, imgAndTitle, id, food, objType } = props;
+  const {
+    nameApi, drinkOrMeals, imgAndTitle, id, food, objType, localStorageObj } = props;
   const location = useLocation();
 
   const fetchRecipeId = async () => {
@@ -146,6 +147,8 @@ export default function EspecificRecipeProgress(props) {
           setIgredientChecked={ setIgredientChecked }
           setIgredientCheckedLenght={ setIgredientCheckedLenght }
           ingredientChecked={ ingredientChecked }
+          localStorageObj={ localStorageObj }
+          id={ id }
         />
       </div>
       <div width="360">
@@ -174,4 +177,5 @@ EspecificRecipeProgress.propTypes = ({
   id: PropTypes.string.isRequired,
   food: PropTypes.bool.isRequired,
   objType: PropTypes.string.isRequired,
+  localStorageObj: PropTypes.string.isRequired,
 });

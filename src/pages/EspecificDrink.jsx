@@ -10,6 +10,11 @@ export default function EspecificDrink() {
   const history = UseHistory();
 
   const redirectInProgress = () => {
+    const getItemLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({
+        ...getItemLocalStorage,
+        cocktails: { ...getItemLocalStorage.cocktails, [id]: [] } }));
     history.push(`/bebidas/${id}/in-progress`);
   };
 

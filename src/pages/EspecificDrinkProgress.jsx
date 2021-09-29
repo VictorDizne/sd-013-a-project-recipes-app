@@ -13,6 +13,7 @@ export default function EspecificDrinkProgress() {
       imgAndTitle="Drink"
       food={ false }
       objType="bebida"
+      localStorageObj="cocktails"
     />
   );
 }
