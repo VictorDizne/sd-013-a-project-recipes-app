@@ -15,6 +15,7 @@ const TelaBebidas = () => {
     btnState,
     setCategoryFilter,
     setDataDrink,
+    searchBarFilters,
   } = useContext(MyContext);
 
   useEffect(() => {
@@ -34,13 +35,20 @@ const TelaBebidas = () => {
     ApiCategoryDrink();
   }, [btnState]);
 
+  const renderCards = () => {
+    if (categoryFilter !== null) {
+      return createCard(categoryFilter, 'Meal');
+    } if (searchBarFilters.length !== 0) {
+      return createCard(searchBarFilters, 'Meal');
+    } return createCard(dataDrink, 'Meal');
+  };
+
   return !dataDrink ? <Loading /> : (
     <>
       <Header hasLupa pageName="Bebidas" />
       <div className="main">
         <Filters alimento={ categoryDrink } />
-        { !categoryFilter ? createCard(dataDrink, 'Drink')
-          : createCard(categoryFilter, 'Drink') }
+        { renderCards() }
       </div>
       <Footer />
     </>
