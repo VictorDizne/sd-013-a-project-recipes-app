@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 function SingleCard({ imgsrc, cardName, index, onclick }) {
   return (
-    <button type="button" onClick={ onclick }>
+    <button className="eachFood" type="button" onClick={ onclick }>
       <img
+        className="foodImage"
         src={ imgsrc }
         alt="Recipe thumbnail"
-        width="150"
         data-testid={ `${index}-card-img` }
       />
       <p data-testid={ `${index}-card-name` }>

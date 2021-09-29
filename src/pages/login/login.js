@@ -43,9 +43,11 @@ function Login() {
 
   return (
     <div>
+      <h1 className="titlelogin"> Login </h1>
       <form>
         <input
           data-testid="email-input"
+          className="email-input"
           type="email"
           placeholder="Email"
           name="email"
@@ -53,6 +55,7 @@ function Login() {
         />
         <input
           data-testid="password-input"
+          className="password-input"
           type="password"
           placeholder="Senha"
           name="password"
@@ -60,6 +63,7 @@ function Login() {
         />
         <button
           disabled={ button }
+          className="login-button"
           data-testid="login-submit-btn"
           type="submit"
           id="button"
