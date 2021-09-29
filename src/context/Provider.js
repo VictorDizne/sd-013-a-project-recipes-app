@@ -70,7 +70,7 @@ function Provider({ children }) {
 
   const fetchDetails = (currentPage, lookup, letter, id) => {
     FetchAPI(currentPage, lookup, letter, id)
-      .then((response) => setDetails(response));
+      .then((response) => setDetails(response[0]));
   };
 
   useEffect(() => {
@@ -106,7 +106,7 @@ function Provider({ children }) {
     handleFetch,
   };
   const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
-  const ContextDetails = { details, fetchDetails, dataForFetch, handleCurrentPage };
+  const ContextDetails = { details, fetchDetails };
 
   const context = {
     ContextCard,
