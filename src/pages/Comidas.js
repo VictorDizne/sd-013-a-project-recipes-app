@@ -64,9 +64,8 @@ export default function Comidas({ history }) {
           ? <Loading />
           : (
             <>
-              <button
-                type="button"
-                data-testid="All-category-filter"
+              <ButtonFilter
+                categoryName="All"
                 onClick={ () => {
                   handleBtnClick({
                     input: '',
@@ -74,9 +73,10 @@ export default function Comidas({ history }) {
                     radio: 'Nome',
                   });
                 } }
+                isMeal="meal"
               >
                 All
-              </button>
+              </ButtonFilter>
               {
                 mealsCategories.map((category) => (
                   <ButtonFilter

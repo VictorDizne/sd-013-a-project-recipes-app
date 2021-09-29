@@ -62,9 +62,8 @@ export default function Bebidas({ history }) {
           ? <Loading />
           : (
             <>
-              <button
-                type="button"
-                data-testid="All-category-filter"
+              <ButtonFilter
+                categoryName="All"
                 onClick={ () => {
                   handleBtnClick({
                     input: '',
@@ -72,9 +71,10 @@ export default function Bebidas({ history }) {
                     radio: 'Nome',
                   });
                 } }
+                isMeal="drink"
               >
                 All
-              </button>
+              </ButtonFilter>
               {
                 drinksCategories.map((category) => (
                   <ButtonFilter
