@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import fetchDrinkById from '../services/fetchDrinkById';
-import IngredientsList from '../components/IngredientsList';
+import IngredientsListDrink from '../components/IngredientsListDrink';
 
 function BebidasProgress({ match, history }) {
   const { recipeId } = match.params;
@@ -11,8 +11,6 @@ function BebidasProgress({ match, history }) {
   const [ingredientList, setIngredientList] = useState([]);
   const [disabledButton, setDisabledButton] = useState(true);
   const [compareCheckBox, setCompareCheckBox] = useState(0);
-  // const [loaded, setLoaded] = useState(false);
-  // const [cocktails, setCocktails] = useState({});
   const checkboxes = document.querySelectorAll('.checkboxes');
 
   useEffect(() => {
@@ -48,24 +46,38 @@ function BebidasProgress({ match, history }) {
   ];
 
   const handleCheckbox = ({ target }, index) => {
-    console.log(checkboxes.length);
-    console.log(compareCheckBox);
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (target.checked === true) {
       setCompareCheckBox(compareCheckBox + 1);
       target.parentElement.style.textDecorationLine = 'line-through';
       target.parentElement.style.textDecorationStyle = 'solid';
       setIngredientList([...ingredientList, target.value]);
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        cocktails: {
-          [recipeId]: [...ingredientList, target.value],
-        },
-      }));
+      if (inProgressRecipes !== null) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          cocktails: {
+            [recipeId]: [...ingredientList, target.value],
+          },
+        }));
+      } else {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          cocktails: {
+            [recipeId]: [...ingredientList, target.value],
+          },
+        }));
+      }
     } else if (target.checked === false) {
       setCompareCheckBox(compareCheckBox - 1);
       target.parentElement.style.textDecorationLine = '';
       target.parentElement.style.textDecorationStyle = '';
       ingredientList.splice(index, 1);
       setIngredientList(ingredientList);
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        cocktails: {
+          [recipeId]: ingredientList,
+        },
+      }));
     }
     if (compareCheckBox === checkboxes.length - 1) {
       setDisabledButton(false);
@@ -92,30 +104,6 @@ function BebidasProgress({ match, history }) {
     history.push('/receitas-feitas');
   };
 
-  /* const ingredientsArrayList = () => (
-    ingredients.filter((ingredient) => typeof ingredient === 'string'
-        && ingredient !== '')
-      .map((ingredient, index) => (
-        <div
-          key={ ingredient }
-        >
-          <label
-            htmlFor={ index }
-            key={ ingredient }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <input
-              className="checkboxes"
-              value={ ingredient }
-              id={ index }
-              type="checkbox"
-              onClick={ ({ target }) => handleCheckbox({ target }, index) }
-            />
-            {ingredient}
-          </label>
-        </div>))
-  ); */
-
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
@@ -136,7 +124,7 @@ function BebidasProgress({ match, history }) {
 
       <h4>Ingredientes</h4>
       <ul>
-        <IngredientsList
+        <IngredientsListDrink
           handleCheckbox={ handleCheckbox }
           ingredients={ ingredients }
           checkboxes={ checkboxes }

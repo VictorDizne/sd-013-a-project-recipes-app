@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import fetchMealById from '../services/fetchMealById';
+import IngredientsListMeals from '../components/IngredientsListMeals';
 
 function ComidaProgress({ match, history }) {
   const { recipeId } = match.params;
@@ -11,40 +12,6 @@ function ComidaProgress({ match, history }) {
   const [disabledButton, setDisabledButton] = useState(true);
   const [compareCheckBox, setCompareCheckBox] = useState(0);
   const checkboxes = document.querySelectorAll('.checkboxes');
-
-  /* const loadPage = () => {
-    const checkboxes = document.querySelectorAll('.checkboxes');
-    const listRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if(listRecipe !== null) {
-      const cocktails = listRecipe.cocktails;
-      const numberCocktails = Number(Object.keys(cocktails));
-      const numberId = Number(recipeId)
-      const arrayChecked = Object.values(cocktails)[0];
-      let compareCheckBoxes = 0;
-      if(numberCocktails === numberId) {
-        if(checkboxes !== null && checkboxes.length > 0) {
-          checkboxes.forEach((checkbox, index) =>  {
-            if(checkbox.value = arrayChecked[index]) {
-              checkbox.checked = true;
-              checkbox.parentElement.style.textDecorationLine = 'line-through';
-              checkbox.parentElement.style.textDecorationStyle = 'solid';
-              compareCheckBoxes += 1;
-            } else {
-              checkbox.checked = false;
-              checkbox.parentElement.style.textDecorationLine = '';
-              checkbox.parentElement.style.textDecorationStyle = '';
-            }
-          })
-          if(compareCheckBoxes === checkboxes.length) {
-            setDisabledButton(false);
-          } else {
-            setDisabledButton(true);
-          }
-        }
-      }
-    }
-  }; */
 
   useEffect(() => {
     const getMeal = async (id) => {
@@ -80,24 +47,38 @@ function ComidaProgress({ match, history }) {
   ];
 
   const handleCheckbox = ({ target }, index) => {
-    console.log(checkboxes.length);
-    console.log(compareCheckBox);
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (target.checked === true) {
       setCompareCheckBox(compareCheckBox + 1);
       target.parentElement.style.textDecorationLine = 'line-through';
       target.parentElement.style.textDecorationStyle = 'solid';
       setIngredientList([...ingredientList, target.value]);
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        meals: {
-          [recipeId]: [...ingredientList, target.value],
-        },
-      }));
+      if (inProgressRecipes !== null) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          meals: {
+            [recipeId]: [...ingredientList, target.value],
+          },
+        }));
+      } else {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          meals: {
+            [recipeId]: [...ingredientList, target.value],
+          },
+        }));
+      }
     } else if (target.checked === false) {
       setCompareCheckBox(compareCheckBox - 1);
       target.parentElement.style.textDecorationLine = '';
       target.parentElement.style.textDecorationStyle = '';
       ingredientList.splice(index, 1);
       setIngredientList(ingredientList);
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        meals: {
+          [recipeId]: ingredientList,
+        },
+      }));
     }
     if (compareCheckBox === checkboxes.length - 1) {
       setDisabledButton(false);
@@ -124,30 +105,6 @@ function ComidaProgress({ match, history }) {
     history.push('/receitas-feitas');
   };
 
-  const ingredientsArrayList = () => (
-    ingredients.filter((ingredient) => typeof ingredient === 'string'
-        && ingredient !== '')
-      .map((ingredient, index) => (
-        <div
-          key={ ingredient }
-        >
-          <label
-            htmlFor={ index }
-            key={ ingredient }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <input
-              className="checkboxes"
-              value={ ingredient }
-              id={ index }
-              type="checkbox"
-              onClick={ ({ target }) => handleCheckbox({ target }, index) }
-            />
-            {ingredient}
-          </label>
-        </div>))
-  );
-
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
@@ -168,27 +125,12 @@ function ComidaProgress({ match, history }) {
 
       <h4>Ingredientes</h4>
       <ul>
-        { ingredientsArrayList() }
-        { /* ingredients.filter((ingredient) => typeof ingredient === 'string'
-        && ingredient !== '')
-          .map((ingredient, index) => (
-            <div
-              key={ ingredient }
-            >
-              <label
-                htmlFor={ index }
-                key={ ingredient }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  value={ ingredient }
-                  id={ index }
-                  type="checkbox"
-                  onClick={ ({ target }) => handleCheckbox({ target }, index) }
-                />
-                {ingredient}
-              </label>
-          </div>)) */}
+        <IngredientsListMeals
+          handleCheckbox={ handleCheckbox }
+          ingredients={ ingredients }
+          checkboxes={ checkboxes }
+          recipeId={ recipeId }
+        />
       </ul>
 
       <h4>Instruções</h4>
