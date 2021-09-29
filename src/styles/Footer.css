@@ -1,28 +1,24 @@
 .fixed-footer {
-  background-color: rgb(145, 128, 179);
+  align-items: center;
+  background-color: honeydew;
   bottom: 0;
-  box-shadow: -3px -3px 10px 1px rgb(46, 38, 59);
+  box-shadow: 10px 10px 15px black;
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
-  padding: 10px;
+  left: 0;
+  margin: 0 auto;
+  padding: 10px 0;
   position: fixed;
   width: 100%;
 }
 
-.fixed-footer button {
-  background-color: rgb(235, 223, 255);
+.footer-buttons {
+  background-color: transparent;
   border: none;
-  border-radius: 50%;
-  box-shadow: 1px 1px 10px 1px black;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.fixed-footer button:hover {
-  background-color: rgb(246, 241, 255);
-  transform: scale(1.05);
-}
-
-.fixed-footer img {
-  border-radius: 10%;
-  padding: 10px;
+.footer-buttons:hover {
+  transform: scale(0.9);
 }

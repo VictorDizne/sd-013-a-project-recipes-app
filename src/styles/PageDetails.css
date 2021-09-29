@@ -1,0 +1,32 @@
+.recomandation-container {
+  display: flex;
+  margin: 10px auto;
+  overflow-y: hidden;
+  width: 90%;
+}
+
+/* .button-container {
+  position: fixed;
+  bottom: 0;
+  left: 20%;
+} */
+
+.iniciar-receita {
+  background-color: rgb(9, 134, 156);
+  border: none;
+  border-radius: 5px;
+  bottom: 0;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  height: 35px;
+  left: 10%;
+  margin-top: 5px;
+  outline: none;
+  padding-top: 10px;
+  position: fixed;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 80%;
+}
