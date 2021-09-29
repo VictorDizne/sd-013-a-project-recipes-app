@@ -37,7 +37,7 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
     alimentosSugestions(setFoodsDetails, 'meals');
     getAPIdataID(id, setDrinkDetail, 'drink');
 
-    btnContinuar(id, setBtnState);
+    btnContinuar(id, setBtnState, 'cocktails');
     btnFavoritar(id, setBtnFavorite);
   }, []);
 
@@ -50,7 +50,7 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
 
   const handleRecipe = () => {
     changeLocalRecipe(id, 'cocktails', 'meals');
-    history.push(`/comidas/${id}/in-progress`);
+    history.push(`/bebidas/${id}/in-progress`);
   };
 
   const favInfo = {
