@@ -80,7 +80,7 @@ function DrinkDetail() {
       />
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>
       <p data-testid="recipe-category">{drink.strAlcoholic}</p>
-      <ShareButton />
+      <ShareButton dataTestId="share-btn" />
       <FavoriteButton drink={ drink } />
       <h3>Ingredients</h3>
       <ul>
