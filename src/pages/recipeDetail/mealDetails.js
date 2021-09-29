@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import fetchAPI from '../../services/fetchAPI';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -73,6 +74,15 @@ function MealDetails({ match: { params: { id } } }) {
     return checkFavorite() ? desfavoritar() : favoritar();
   }
 
+  const initRecipe = (info) => {
+    const idDaReceita = info.idMeal;
+    const iniciar = {
+      pathname: `/comidas/${idDaReceita}/in-progress`,
+      info,
+    };
+    return iniciar;
+  };
+
   useEffect(() => {
     const fetchByID = async () => {
       const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -129,12 +139,14 @@ function MealDetails({ match: { params: { id } } }) {
           ))}
       </ul>
       <p data-testid="instructions">{ details.strInstructions }</p>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      <Link to={ () => initRecipe(details) }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
+      </Link>
       <Footer />
     </>
   );
