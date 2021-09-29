@@ -60,7 +60,6 @@ const Foods = () => {
   const foodSearchBar = (
     <FoodSearchBar
       setSearchBarStatus={ setSearchBarStatus }
-      title="comidas"
       setFoodRecipes={ setFoodRecipes }
     />
   );
