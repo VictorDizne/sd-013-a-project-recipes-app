@@ -1,7 +1,9 @@
 import React from 'react';
 
-const FoodProgress = () => (
-  <p>Comidas em Progresso</p>
-);
+function FoodProgress() {
+  return (
+    <div>progress</div>
+  );
+}
 
 export default FoodProgress;
