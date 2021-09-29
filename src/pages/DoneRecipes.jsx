@@ -1,7 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const DoneRecipes = () => (
-  <h1>Component</h1>
+  <main>
+    <Header title="Receitas Feitas" />
+    <Footer />
+  </main>
 );
 
 export default DoneRecipes;
