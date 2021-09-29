@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import copy from 'clipboard-copy';
-import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
-import { btnContinuar,
-  btnFavoritar,
-  ingredientMeasures,
-  changeLocalRecipe,
-  changeLocalFavorite,
-  getAPIdata } from '../services/funcAuxDetails';
 import Loading from '../components/Loading';
 import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import BlackHeart from '../images/blackHeartIcon.svg';
+import {
+  btnContinuar,
+  btnFavoritar,
+  ingredientMeasures,
+  changeLocalRecipe,
+  changeLocalFavorite,
+  getAPIdataID,
+  alimentosSugestions } from '../services/funcAuxDetails';
 
 const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
@@ -32,21 +33,11 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
   };
 
   useEffect(() => {
-    getAPIdata(id, setfoodDetail);
-
-    const cocktailsRequest = async () => {
-      const SIX = 6;
-      const drink = await cocktailsAPIRequest();
-      const drinkSix = drink.slice(0, SIX);
-      setDrinkDetails(drinkSix);
-    };
-    cocktailsRequest();
+    alimentosSugestions(setDrinkDetails, 'cocktails');
+    getAPIdataID(id, setfoodDetail, 'food');
 
     btnContinuar(id, setBtnState);
-
-    if (btnFavoritar) {
-      setBtnFavorite('isFavorite');
-    }
+    btnFavoritar(id, setBtnFavorite);
   }, []);
 
   const {

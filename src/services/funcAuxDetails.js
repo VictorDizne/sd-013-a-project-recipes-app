@@ -1,9 +1,22 @@
 import copy from 'clipboard-copy';
 import { foodAPIRequest, cocktailsAPIRequest } from './APIrequest';
 
-export const getAPIdata = async (id, setfoodDetail) => {
-  const APIRequest = await foodAPIRequest('lookup', `i=${id}`);
-  setfoodDetail(...APIRequest);
+export const getAPIdataID = async (id, setAlimentoDetail, tipo) => {
+  const drinkRequest = await cocktailsAPIRequest('lookup', `i=${id}`);
+  const foodRequest = await foodAPIRequest('lookup', `i=${id}`);
+
+  const alimentoRequest = tipo === 'food' ? foodRequest : drinkRequest;
+
+  setAlimentoDetail(...alimentoRequest);
+};
+
+export const alimentosSugestions = async (setAlimentoDetails, tipoSugerido) => {
+  const SIX = 6;
+  const drink = await cocktailsAPIRequest();
+  const food = await foodAPIRequest();
+  const alimento = tipoSugerido === 'meals' ? food : drink;
+  const alimentoSix = alimento.slice(0, SIX);
+  setAlimentoDetails(alimentoSix);
 };
 
 export const btnContinuar = (id, setBtnState) => {
@@ -18,14 +31,17 @@ export const btnContinuar = (id, setBtnState) => {
     setBtnState('Continuar Receita');
   }
 };
-export const btnFavoritar = (id) => {
+export const btnFavoritar = (id, setBtnFavorite) => {
   if (localStorage.getItem('favoriteRecipes') === null) {
     localStorage.setItem('favoriteRecipes', JSON
       .stringify([]));
   }
   const testFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const chavesFav = testFav.some((chave) => chave.id === id);
-  return chavesFav;
+
+  if (chavesFav) {
+    setBtnFavorite('isFavorite');
+  }
 };
 
 export const ingredientMeasures = (obj, tipo) => {
