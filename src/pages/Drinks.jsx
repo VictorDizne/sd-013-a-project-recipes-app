@@ -5,6 +5,7 @@ import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FilterRecipes from '../components/FilterRecipes';
+import DrinkSearchBar from '../components/DrinkSearchBar';
 import {
   fetchAllDrinkRecipes,
   fetchDrinkRecipesByCategory,
@@ -57,12 +58,10 @@ const Drink = () => {
   );
 
   const drinkSearchBar = (
-    // <DrinkSearchBar
-    //   setSearchBarStatus={ setSearchBarStatus }
-    //   title="bebidas"
-    //   setDrinkRecipes={ setDrinkRecipes }
-    // />
-    <h1>DrinkSearchBar</h1>
+    <DrinkSearchBar
+      setSearchBarStatus={ setSearchBarStatus }
+      setDrinkRecipes={ setDrinkRecipes }
+    />
   );
 
   return (
