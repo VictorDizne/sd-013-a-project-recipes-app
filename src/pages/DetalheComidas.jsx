@@ -5,7 +5,10 @@ import copy from 'clipboard-copy';
 import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
 import { btnContinuar,
   btnFavoritar,
-  ingredientMeasures } from '../services/funcAuxDetails';
+  ingredientMeasures,
+  changeLocalRecipe,
+  changeLocalFavorite,
+  getAPIdata } from '../services/funcAuxDetails';
 import Loading from '../components/Loading';
 import Share from '../images/shareIcon.svg';
 import Heart from '../images/whiteHeartIcon.svg';
@@ -29,23 +32,17 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
   };
 
   useEffect(() => {
-    const getAPIdata = async () => {
-      const APIRequest = await foodAPIRequest('lookup', `i=${id}`);
-      setfoodDetail(...APIRequest);
-    };
-    getAPIdata();
-    const SIX = 6;
+    getAPIdata(id, setfoodDetail);
+
     const cocktailsRequest = async () => {
+      const SIX = 6;
       const drink = await cocktailsAPIRequest();
       const drinkSix = drink.slice(0, SIX);
       setDrinkDetails(drinkSix);
     };
-
     cocktailsRequest();
 
-    if (btnContinuar()) {
-      setBtnState('Continuar Receita');
-    }
+    btnContinuar(id, setBtnState);
 
     if (btnFavoritar) {
       setBtnFavorite('isFavorite');
@@ -61,19 +58,12 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
     strArea,
   } = foodDetail;
 
-  const handleClick = () => {
-    if (localStorage.getItem('inProgressRecipes') === null) {
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ meals: { [id]: [] }, cocktails: {} }));
-    }
-    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    localStorage.setItem('inProgressRecipes', JSON
-      .stringify({ ...recipes, meals: { ...recipes.meals, [id]: [] } }));
-
+  const handleRecipe = () => {
+    changeLocalRecipe(id, 'meals', 'cocktails');
     history.push(`/comidas/${id}/in-progress`);
   };
 
-  const obj = {
+  const favInfo = {
     id,
     type: 'comida',
     area: strArea,
@@ -83,24 +73,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
     image: strMealThumb,
   };
   const handleFavorite = () => {
-    if (localStorage.getItem('favoriteRecipes') === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
-    }
-
-    const favs = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const unFav = favs.filter((element) => element.id !== id);
-
-    if (btnFavorite === 'isNotFavorite') {
-      copy('isFavorite');
-      localStorage.setItem('favoriteRecipes', JSON
-        .stringify([...favs, obj]));
-    } else {
-      copy('isNotFavorite');
-      localStorage.setItem('favoriteRecipes', JSON.stringify(unFav));
-    }
-    navigator.clipboard.readText().then(
-      (clipText) => setBtnFavorite(clipText),
-    );
+    changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
   };
 
   const handleShare = () => {
@@ -110,7 +83,6 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
 
   return (foodDetail.length === 0 && drinksDetails.length === 0) ? <Loading /> : (
     <div>
-      {console.log(ingredientes)}
       <img
         data-testid="recipe-photo"
         src={ strMealThumb }
@@ -168,9 +140,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
         title="YouTube video player"
         width="320"
         height="240"
-        src={ `${strYoutube
-          .split('watch?v=')[0]}embed/${strYoutube
-          .split('watch?v=')[1]}` }
+        src={ strYoutube ? strYoutube.replace('watch?v=', 'embed/') : 'loading' }
         frameBorder="0"
         allow="accelerometer; gyroscope; picture-in-picture"
         allowFullScreen
@@ -192,7 +162,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
       </Slider>
       <button
         id={ id }
-        onClick={ handleClick }
+        onClick={ handleRecipe }
         className="iniciar"
         data-testid="start-recipe-btn"
         type="button"
