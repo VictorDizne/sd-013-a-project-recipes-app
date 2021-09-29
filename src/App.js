@@ -54,6 +54,7 @@ function App() {
 
 export default App;
 
+// Testes Cypress:
 // Requisitos 01 => test_coverage_spec.js
 // Requisitos 02-08 => login_spec.js
 // Requisitos 09-12 => header_spec.js
