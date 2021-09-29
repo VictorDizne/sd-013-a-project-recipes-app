@@ -7,11 +7,12 @@ function ExplorerDrinks() {
   const history = useHistory();
   useEffect(() => {
     localStorage.clear();
-    fetch('www.thecocktaildb.com/api/json/v1/1/random.php')
+    console.log('here');
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
       .then((r) => r.json())
       .then((rJson) => rJson.drinks[0].idDrink)
-      // .then((rJson) => console.log(typeof rJson))
-      .then((idDrink) => localStorage.setItem('idDrink', idDrink));
+      // .then((rJson) => console.log(rJson))
+      .then((id) => localStorage.setItem('idDrink', id));
   }, []);
 
   return (
