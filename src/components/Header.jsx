@@ -13,7 +13,37 @@ const Header = ({ pageName, hasLupa }) => {
   };
 
   const searchInput = (
-    <input data-testid="search-input" type="text" />
+    <>
+      <input className="searchInput" data-testid="search-input" type="text" />
+      <label htmlFor="ingredient-search-radio">
+        <input
+          name="searchOpt"
+          type="radio"
+          id="ingredient-search-radio"
+          data-testid="ingredient-search-radio"
+        />
+        Ingrediente
+      </label>
+      <label htmlFor="name-search-radio">
+        <input
+          name="searchOpt"
+          type="radio"
+          data-testid="name-search-radio"
+          id="name-search-radio"
+        />
+        Nome
+      </label>
+      <label htmlFor="first-letter-search-radio">
+        <input
+          name="searchOpt"
+          type="radio"
+          data-testid="first-letter-search-radio"
+          id="first-letter-search-radio"
+        />
+        Primeira letra
+      </label>
+      <button data-testid="exec-search-btn" type="button">Buscar</button>
+    </>
   );
 
   const withSearchIMG = (
