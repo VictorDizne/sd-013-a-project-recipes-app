@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 
 function RecomendedCard({ index, data, thumb, name, id, route, testid }) {
   return (
-    <Link style={ { width: '170px', height: '200px', margin: '10px' } } to={ `/${[route]}/${data[id]}` }>
+    <Link
+      style={ { width: '170px', height: '200px', margin: '10px' } }
+      to={ `/${[route]}/${data[id]}` }
+    >
       <div
         data-testid={ testid }
       >
@@ -28,6 +31,9 @@ RecomendedCard.propTypes = {
   name: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
+  testid: PropTypes.string.isRequired,
 };
 
 export default RecomendedCard;

@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import * as myFunc from '../services/api';
 import MyContext from '../context/Context';
 
@@ -21,12 +22,12 @@ function ButtonsFilters({ page }) {
     const LIMITER_MEALS = 12;
     if (controlFilter === item || item === 'All') {
       const result = await myFunc.fetchRandonRecipes(myPage);
-      const filterCategory = result[page].filter((item, index) => index < LIMITER_MEALS);
+      const filterCategory = result[page].filter((_item, index) => index < LIMITER_MEALS);
       setRecipes(filterCategory);
       setControlFilter('');
     } else {
       const result = await myFunc.fetchCategoryApi(myPage, item);
-      const filterCategory = result[page].filter((item, index) => index < LIMITER_MEALS);
+      const filterCategory = result[page].filter((_item, index) => index < LIMITER_MEALS);
       setRecipes(filterCategory);
       setControlFilter(item);
     }
@@ -54,5 +55,9 @@ function ButtonsFilters({ page }) {
     </div>
   );
 }
+
+ButtonsFilters.propTypes = {
+  page: PropTypes.string.isRequired,
+};
 
 export default ButtonsFilters;
