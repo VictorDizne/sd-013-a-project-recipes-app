@@ -25,7 +25,7 @@ import {
 
 function App() {
   return (
-    <div className="row" id="fda_app">
+    <div id="fda_app">
     {/* O Switch permite, conforme conponente, redirecionar as rotas */}
     <Switch>
       {/* Iniciando as rotas dos componentes */}

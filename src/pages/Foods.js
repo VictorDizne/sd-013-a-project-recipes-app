@@ -48,7 +48,6 @@ function Foods() {
   return (
     <div className="comidas-body">
       <Header title="Comidas" />
-      <div className="recipes-background-color" />
       <CategoriesFood />
       {
         !cameFromIngredient && element

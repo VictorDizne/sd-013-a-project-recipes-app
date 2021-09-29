@@ -10,3 +10,16 @@
 body {
   position: relative;
 }
+
+.comidas-body {
+  background-color: rgba(220,230,252,0.6);
+}
+
+#button {
+	padding: 16px 45px;
+	background: rgba(200, 99, 16, 0.5);
+	color: #C3D3D6;
+	border-radius: 4px;
+	margin-bottom: 30px;
+	font-weight: bold;
+}

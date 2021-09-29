@@ -1,21 +1,15 @@
-body
-{
+body {
     background-color: #fff;
     font-family: Poppins;
 }
 
-#root
+#fda_app
 {
-    padding-left: 50px;
-    padding-top: 10px;
+    padding: 20px;
     overflow-x: hidden;
+    
 }
 
-#root > section
-{
-    padding-top: 20px;
-    padding-bottom: 0;
-}
 
 /* .meals {
   align-items: center;

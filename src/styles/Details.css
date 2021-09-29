@@ -1,69 +1,55 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 .details {
-  padding: 30px 20px 50px;
+    backdrop-filter: blur(5px);
+    background-color: rgb(187, 194, 207);
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgb(177, 177, 177);
+    margin: 20px;
+    padding: 20px;
 }
 
-.details p {
-  padding: 10px;
-  text-align: justify;
+img {
+    border-radius: 6px;
+    height: 200px;
+    max-width: 300px;
+    width: 100%;
 }
 
-.details img {
-  height: 200px;
-  margin: auto;
-  width: 100%;
+.ingredient-list {
+    padding: 20px;
+    max-width: 300px;
 }
 
-.details .start-recipe-btn {
-  background-color: green;
-  bottom: 0;
-  color: white;
-  font-size: 20px;
-  font-weight: 600;
-  left: 0;
-  padding: 10px;
-  position: fixed;
-  width: 100%;
-  z-index: 999;
+p {
+    padding: 5px;
+    max-width: 300px;
 }
 
-.details .icons {
-  position: absolute;
-  right: 5px;
-  text-align: end;
-  top: 5px;
-  width: 100px;
+#youtube {
+    border-radius: 6px;
+    height: 200px;
+    max-width: 300px;
+    width: 100%;
 }
 
-.details .favorite-btn {
-  margin-left: 10px;
+h1 {
+    color:rgb(163, 37, 37);
+    max-width: fit-content;
 }
 
-.details .copied-link {
-  background-color: white;
-  font-size: 16px;
-  position: absolute;
-  right: -5px;
-  text-align: center;
-  top: -5px;
-  width: 80px;
+h2 {
+    color:rgba(38, 29, 86, 0.5);
+    max-width: fit-content;
 }
-
-.ingredient-list li {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-}
-
-.ingredient-list li label {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding-right: 30px;
-  width: 100%;
-}
-
-.selected-li {
-  background-color: rgb(221, 221, 221);
-  border-radius: 6px;
-  text-decoration: line-through;
+.start-recipe-btn {
+    padding: 16px 45px;
+	background: rgba(38, 29, 86, 0.5);
+	color: #C3D3D6;
+	border-radius: 4px;
+	margin: 30px;
+	font-weight: bold;
 }
