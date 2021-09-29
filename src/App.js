@@ -14,7 +14,9 @@ import MealDetails from './pages/recipeDetail/mealDetails';
 import FoodIngredients from './pages/foodIngredients';
 import ExploreFoodArea from './pages/exploreFoodArea';
 import NotFoundPage from './pages/notFoundPage';
+import FavRecipes from './pages/favRecipes';
 import DrinkIngredients from './pages/drinkIngredients';
+
 
 function App() {
   return (
@@ -31,11 +33,11 @@ function App() {
       <Route exact path="/explorar/bebidas" component={ ExploreDrinkPage } />
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/" component={ Login } />
+      <Route exact path="/receitas-favoritas" component={ FavRecipes } />
       <Route component={ NotFoundPage } />
       {/* <Route exact path="/comidas/:id-da-receita/in-progress" component={} />
       <Route exact path="/bebidas/:id-da-receita/in-progress" component={} />
-      <Route exact path="/receitas-feitas" component={} />
-      <Route exact path="/receitas-favoritas" component={} /> */}
+      <Route exact path="/receitas-feitas" component={} /> */}
     </Switch>
   );
 }
