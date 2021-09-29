@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Header from '../components/header';
 import LowerMenu from '../components/LowerMenu';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const [localEmail, setLocalEmail] = useState('');
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('user')) === null) {
+      localStorage.setItem('user', JSON.stringify(''));
+      const { email } = JSON.parse(localStorage.getItem('user'));
+      setLocalEmail(email);
+    }
+    const { email } = JSON.parse(localStorage.getItem('user'));
+    setLocalEmail(email);
+  }, []);
+
   const history = useHistory();
   console.log(history);
   return (
     <div>
       <Header name="Perfil" search={ false } />
-      <p data-testid="profile-email">{ email }</p>
+      <p data-testid="profile-email">{ localEmail }</p>
       <button
         type="button"
         onClick={ () => history.push('/receitas-feitas') }

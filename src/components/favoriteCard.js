@@ -9,8 +9,17 @@ const FavoriteCard = () => {
   const [drinkFilter, setDrinkFilter] = useState(false);
   const [mealFilter, setMealFilter] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [recipes, setRecipes] = useState(JSON
-    .parse(localStorage.getItem('favoriteRecipes')));
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('favoriteRecipes')) === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+      const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      setRecipes(storedRecipes);
+    }
+    const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setRecipes(storedRecipes);
+  }, []);
 
   useEffect(() => {
     const recipesDefault = JSON.parse(localStorage.getItem('favoriteRecipes'));

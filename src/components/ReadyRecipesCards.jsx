@@ -6,6 +6,14 @@ import appContext from '../contexts/appContext'; */
 import ShareButton from './shareButton';
 
 function ReadyRecipesCards({ doneRecipes }) {
+  if (doneRecipes === null) {
+    // console.log(doneRecipes[0].tags);
+    return (
+      <div>
+        Você não tem receitas finalizas
+      </div>
+    );
+  }
   return (
     <div>
       {
