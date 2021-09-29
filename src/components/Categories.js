@@ -28,7 +28,11 @@ function Categories({ isMeal }) {
     } else {
       const results = await fetchRecipesByCategories(category, isMeal);
       setToggleOn(selected);
-      setFilteredMeals(results);
+      if (isMeal) {
+        setFilteredMeals(results);
+      } else {
+        setFilteredDrinks(results);
+      }
     }
   };
 
@@ -37,6 +41,8 @@ function Categories({ isMeal }) {
   };
 
   const categories = isMeal ? mealsCategories : drinksCategories;
+
+  if (!categories) return <h1>Loading...</h1>;
 
   return (
     <nav>
