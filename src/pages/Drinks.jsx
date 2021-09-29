@@ -76,7 +76,7 @@ const Drink = () => {
         {
           drinkRecipes.map((drinkRecipe, index) => (
             <Link
-              to={ `bebidas/${drinkRecipe.idDriink}` }
+              to={ `bebidas/${drinkRecipe.idDrink}` }
               key={ `${drinkRecipe}${index}` }
               className="recipeCard"
             >
