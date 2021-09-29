@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { fetchSurprise } from '../services';
 
 function ExploreButtons() {
   const history = useHistory();
@@ -9,7 +10,15 @@ function ExploreButtons() {
   const handleExploreArea = () => {
     history.push(`${location.pathname}/area`);
   };
-  const handleExploreSurprise = () => history.push(`${location.pathname}`);
+  const handleExploreSurprise = async () => {
+    const { pathname } = location;
+    const id = await fetchSurprise(pathname);
+    if (pathname.includes('comidas')) {
+      history.push(`/comidas/${id}`);
+    } else {
+      history.push(`/bebidas/${id}`);
+    }
+  };
   const [buttonArea, setButtonArea] = useState();
 
   const conditionalButtonArea = () => {
