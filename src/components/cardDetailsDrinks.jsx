@@ -4,6 +4,7 @@ import clipboardCopy from 'clipboard-copy';
 import Loading from './loadingComponent';
 import RecomendationCardMeals from './RecomendationsCardMeals';
 import StartRecipeButton from './StartRecipeButton';
+import FavoriteButton from './FavoriteButton';
 
 const CardDetailsDrinks = (id) => {
   const history = useHistory();
@@ -59,6 +60,7 @@ const CardDetailsDrinks = (id) => {
       <button type="button" data-testid="share-btn" onClick={ () => copyText() }>
         Compartilhar receita
       </button>
+      <FavoriteButton recipeDetails={ produtoDrinks } />
       <p>{copiado}</p>
       <h2 data-testid="recipe-title">
         {produtoDrinks.strDrink}
@@ -104,9 +106,6 @@ const CardDetailsDrinks = (id) => {
         mealOrDrink="cocktails"
         filterIngredients={ filtrarIngredients() }
       />
-      <button type="button" data-testid="favorite-btn">
-        Favoritar receita
-      </button>
       <RecomendationCardMeals data-testeid="recomendation-card" />
     </div>
   );
