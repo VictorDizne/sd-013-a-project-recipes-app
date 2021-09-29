@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Context from '../Context/Context';
 import Button from '../components/Button';
+import useFetchRecipes from '../Hooks/useFetchRecipes';
 
 function DrinksRecipies(props) {
+  const { recipes } = useContext(Context);
+  const urlFood = 'themeal';
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
   const history = useHistory();
   const { match: { params: { id } } } = props;
+  useFetchRecipes(urlFood);
   useEffect(() => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     async function fetchResult() {
@@ -17,6 +23,29 @@ function DrinksRecipies(props) {
     }
     fetchResult();
   }, []);
+
+  const renderFoods = () => {
+    const magic = 6;
+    if (recipes.meals.length > magic) {
+      const foods = recipes.meals.slice(0, magic);
+      return foods.map((food, index) => (
+        <Link
+          key={ index }
+          to={ `/comidas/${food.idMeal}` }
+        >
+          <div data-testid={ `${index}-recomendation-card` }>
+            <h3 data-testid={ `${index}-card-name` }>{ food.strMeal }</h3>
+            <img
+              src={ food.strMealThumb }
+              alt={ food.strMeal }
+              data-testid={ `${index}-card-img` }
+              className="foods"
+            />
+          </div>
+        </Link>
+      ));
+    }
+  };
 
   const renderDetails = () => {
     const urlShare = window.location.href;
@@ -50,7 +79,6 @@ function DrinksRecipies(props) {
           </ul>
           <h4 data-testid="recipe-category">{ details.strAlcoholic }</h4>
           <p data-testid="instructions">{ details.strInstructions }</p>
-          <p data-testid="0-recomendation-card">Card</p>
           <Button
             testID="start-recipe-btn"
             className="initRecipes"
@@ -58,9 +86,9 @@ function DrinksRecipies(props) {
           >
             Iniciar Receita
           </Button>
-          {console.log(details.strDrinkThumb)}
-          {console.log(details)}
-
+          <div className="carousel">
+            { recipes.meals !== undefined ? renderFoods() : null }
+          </div>
         </section>
       );
     }
