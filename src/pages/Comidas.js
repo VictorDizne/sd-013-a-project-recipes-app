@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Card from '../components/Card';
@@ -64,9 +64,8 @@ export default function Comidas({ history }) {
           ? <Loading />
           : (
             <>
-              <button
-                type="button"
-                data-testid="All-category-filter"
+              <ButtonFilter
+                categoryName="All"
                 onClick={ () => {
                   handleBtnClick({
                     input: '',
@@ -74,9 +73,10 @@ export default function Comidas({ history }) {
                     radio: 'Nome',
                   });
                 } }
+                isMeal="meal"
               >
                 All
-              </button>
+              </ButtonFilter>
               {
                 mealsCategories.map((category) => (
                   <ButtonFilter
@@ -88,20 +88,14 @@ export default function Comidas({ history }) {
               }
               {
                 meals.map((meal, index) => (
-                  <Link
-                    data-testid={ `${index}-recipe-card` }
-                    to={ `/comidas/${meal.idMeal}` }
+                  <Card
                     key={ meal.idMeal }
-                  >
-                    <Card
-                      key={ meal.idMeal }
-                      index={ index }
-                      recipe={ meal }
-                      recipeImage={ meal.strMealThumb }
-                      recipeName={ meal.strMeal }
-                      link={ `/comidas/${meal.idMeal}` }
-                    />
-                  </Link>
+                    index={ index }
+                    recipe={ meal }
+                    recipeImage={ meal.strMealThumb }
+                    recipeName={ meal.strMeal }
+                    link={ `/comidas/${meal.idMeal}` }
+                  />
                 ))
               }
             </>

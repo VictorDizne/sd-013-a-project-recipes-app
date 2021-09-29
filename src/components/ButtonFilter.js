@@ -9,11 +9,9 @@ function ButtonFilter({ categoryName, onClick, isMeal }) {
   const toggle = (isFilteredParam) => {
     // setIsLoading(true);
     if (isFilteredParam) {
-      console.log('primeira vez');
       onClick(categoryName);
       setIsFiltered(false);
     } else {
-      console.log('segunda vez');
       handleBtnClick({
         input: '',
         isMeal: isMeal === 'meal',

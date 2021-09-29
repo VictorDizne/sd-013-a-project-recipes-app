@@ -14,7 +14,7 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
   const { toggleFavoriteBtn, isFavorite } = useContext(RecipesContext);
   const recipeIngredients = [];
 
-  const geraArrayProFilhoDaPutaQueNaoFez = () => {
+  const getIngredients = () => {
     const MAX_INGREDIENTS = 16;
     for (let i = 0; i < MAX_INGREDIENTS; i += 1) {
       const auxObj = { name: '', measure: '' };
@@ -55,13 +55,16 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
 
   return (
     <div>
+
       <img
         className="recipe-thumbnail"
         data-testid="recipe-photo"
         src={ isMeal ? recipe.strMealThumb : recipe.strDrinkThumb }
         alt={ isMeal ? 'foto da comida' : 'foto do drink' }
       />
+
       <h2 data-testid="recipe-title">{isMeal ? recipe.strMeal : recipe.strDrink}</h2>
+
       <input
         type="image"
         src={ shareIcon }
@@ -69,6 +72,7 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
         data-testid="share-btn"
         onClick={ handleShareBtn }
       />
+
       <input
         type="image"
         src={ isFavorite ? favoritedIcon : unfavoritedIcon }
@@ -76,13 +80,15 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
         data-testid="favorite-btn"
         onClick={ handleFavoriteBtn }
       />
+
       <h3
         data-testid="recipe-category"
       >
         {`${recipe.strCategory} ${isMeal ? '' : recipe.strAlcoholic}`}
 
       </h3>
-      {geraArrayProFilhoDaPutaQueNaoFez()}
+
+      {getIngredients()}
       <p data-testid="instructions">{recipe.strInstructions}</p>
       {isMeal && <a data-testid="video" href={ recipe.strVideo }>Video</a>}
       <div className="recomendation-content">

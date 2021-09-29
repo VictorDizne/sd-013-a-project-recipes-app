@@ -23,7 +23,7 @@ import {
 
 function App() {
   return (
-    <div>
+    <div className="main">
       <BrowserRouter>
         <RecipesContextProvider>
           <Switch>
