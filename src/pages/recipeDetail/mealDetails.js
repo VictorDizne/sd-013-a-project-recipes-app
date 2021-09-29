@@ -45,8 +45,11 @@ function MealDetails({ match: { params: { id } } }) {
   };
 
   const checkFavorite = () => {
-    const receitas = JSON.parse(localStorage.favoriteRecipes);
-    return receitas.some((recipe) => ((recipe).id) === id);
+    if (localStorage.favoriteRecipes) {
+      const receitas = JSON.parse(localStorage.favoriteRecipes);
+      return receitas.some((recipe) => ((recipe).id) === id);
+    }
+    return false;
   };
 
   const favoritar = () => {
@@ -58,9 +61,12 @@ function MealDetails({ match: { params: { id } } }) {
       name: details.strMeal,
       image: details.strMealThumb,
     };
-    const parseVersion = JSON.parse(localStorage.favoriteRecipes);
-    localStorage.favoriteRecipes = JSON.stringify([...parseVersion, (obj)]);
-    setFavRecipes(true);
+    if (localStorage.favoriteRecipes) {
+      const parseVersion = JSON.parse(localStorage.favoriteRecipes);
+      localStorage.favoriteRecipes = JSON.stringify([...parseVersion, (obj)]);
+      return setFavRecipes(true);
+    }
+    localStorage.favoriteRecipes = JSON.stringify([obj]);
   };
 
   const desfavoritar = () => {

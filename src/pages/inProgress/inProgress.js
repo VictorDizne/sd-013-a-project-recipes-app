@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import recipesContext from '../../context';
 
 function InProgress() {
-  const { details, medida, ingredientes } = useContext(recipesContext);
+  const { details /* , medida, ingredientes */ } = useContext(recipesContext);
   const saveThisRecipe = () => {
     if (localStorage.finishRecipes) {
       const parseVersion = JSON.parse(localStorage.finishRecipes);
