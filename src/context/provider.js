@@ -11,6 +11,7 @@ const Provider = ({ children }) => {
   const [btnState, setBtnState] = useState({ category: '' });
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
+  const [idIngredient, setidIngredient] = useState([]);
   /* const [stateButton, setStateButton] = useState([]); */
 
   useEffect(() => {
@@ -44,6 +45,8 @@ const Provider = ({ children }) => {
     isFiltered,
     setIsFiltered,
     setCategoryFilter,
+    idIngredient,
+    setidIngredient,
   };
 
   return (
