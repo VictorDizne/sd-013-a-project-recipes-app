@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import fetchDrinkById from '../services/fetchDrinkById';
+import fetchRecipeById from '../services/fetchRecipeById';
+import IngredientsListDrink from '../components/IngredientsListDrink';
 
-function BebidasProgress({ match }) {
+function BebidasProgress({ match, history }) {
   const { recipeId } = match.params;
 
   const [drink, setDrink] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [ingredientList, setIngredientList] = useState([]);
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [compareCheckBox, setCompareCheckBox] = useState(0);
+  const checkboxes = document.querySelectorAll('.checkboxes');
 
   useEffect(() => {
     const getDrink = async (id) => {
-      const result = await fetchDrinkById(id);
+      const result = await fetchRecipeById(id, false);
       setDrink(result);
     };
     getDrink(recipeId);
     setIsLoading(false);
-    // loadPage();
-  }, [setDrink, recipeId]);
+  }, [recipeId]);
 
   const ingredients = [
     drink.strIngredient1,
@@ -43,41 +46,63 @@ function BebidasProgress({ match }) {
   ];
 
   const handleCheckbox = ({ target }, index) => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (target.checked === true) {
+      setCompareCheckBox(compareCheckBox + 1);
       target.parentElement.style.textDecorationLine = 'line-through';
       target.parentElement.style.textDecorationStyle = 'solid';
       setIngredientList([...ingredientList, target.value]);
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        cocktails: {
-          [recipeId]: [...ingredientList, target.value],
-        },
-      }));
+      if (inProgressRecipes !== null) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          cocktails: {
+            [recipeId]: [...ingredientList, target.value],
+          },
+        }));
+      } else {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          cocktails: {
+            [recipeId]: [...ingredientList, target.value],
+          },
+        }));
+      }
     } else if (target.checked === false) {
+      setCompareCheckBox(compareCheckBox - 1);
       target.parentElement.style.textDecorationLine = '';
       target.parentElement.style.textDecorationStyle = '';
       ingredientList.splice(index, 1);
       setIngredientList(ingredientList);
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        cocktails: {
+          [recipeId]: ingredientList,
+        },
+      }));
+    }
+    if (compareCheckBox === checkboxes.length - 1) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
     }
   };
 
-  /* const loadPage = () => {
-    const listRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const checked = document.getElementsByTagName('input');
-    const teste = Object.keys(listRecipe.cocktails);
-
-    if (Number(teste) === Number(recipeId)) {
-      console.log('teste');
-      checked.forEach((check, index) => {
-        console.log(check);
-        if (checked.value === Object.values(listRecipe.cocktails)[index]) {
-          checked.checked = true;
-        }
-      });
-    }
-    // console.log(teste);
-    // console.log(Object.keys(listRecipe.cocktails))
-    // console.log(Object.values(listRecipe.cocktails)[0])
-  }; */
+  const handleOnClick = () => {
+    const arrayList = [
+      {
+        id: recipeId,
+        type: 'drink',
+        area: '',
+        category: drink.strCategory,
+        alcoholicOrNot: drink.strAlcoholic,
+        name: drink.strDrink,
+        image: drink.strDrinkThumb,
+        doneDate: drink.dateModified,
+        tags: '',
+      },
+    ];
+    localStorage.setItem('doneRecipes', JSON.stringify(arrayList));
+    history.push('/receitas-feitas');
+  };
 
   if (isLoading) return <h1>Loading...</h1>;
 
@@ -99,32 +124,23 @@ function BebidasProgress({ match }) {
 
       <h4>Ingredientes</h4>
       <ul>
-        {ingredients.filter((ingredient) => typeof ingredient === 'string'
-        && ingredient !== '')
-          .map((ingredient, index) => (
-            <div
-              key={ ingredient }
-            >
-              <label
-                htmlFor={ index }
-                key={ ingredient }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  value={ ingredient }
-                  id={ index }
-                  type="checkbox"
-                  onClick={ ({ target }) => handleCheckbox({ target }, index) }
-                />
-                {ingredient}
-              </label>
-            </div>))}
+        <IngredientsListDrink
+          handleCheckbox={ handleCheckbox }
+          ingredients={ ingredients }
+          checkboxes={ checkboxes }
+          recipeId={ recipeId }
+        />
       </ul>
 
       <h4>Instruções</h4>
       <p data-testid="instructions">{drink.strInstructions}</p>
 
-      <button type="button" data-testid="finish-recipe-btn">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        onClick={ handleOnClick }
+        disabled={ disabledButton }
+      >
         Finalizar Receita
       </button>
 
@@ -138,6 +154,7 @@ BebidasProgress.propTypes = {
       recipeId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  history: PropTypes.arrayOf([]).isRequired,
 };
 
 export default BebidasProgress;

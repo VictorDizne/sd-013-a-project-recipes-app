@@ -1,24 +1,38 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import Context from '../context';
-import fetchDrinksFilterCategories from '../services/fetchDrinksFilterCategories';
+import fetchRecipesByCategories from '../services/fetchRecipesByCategories';
 
 const NUM_CATEGORIES = 5;
 
-function DrinksCategories() {
+function Categories({ isMeal }) {
   const {
+    meals,
+    mealsCategories,
     drinks,
     drinksCategories,
-    toggleOn, setToggleOn, setFilteredDrinks } = useContext(Context);
+    toggleOn, setToggleOn,
+    setFilteredMeals,
+    setFilteredDrinks,
+  } = useContext(Context);
 
   const filteredByCategory = async (category) => {
     const selected = category;
     if (toggleOn === selected || selected === 'All') {
-      setFilteredDrinks(drinks);
+      if (isMeal) {
+        setFilteredMeals(meals);
+      } else {
+        setFilteredDrinks(drinks);
+      }
       setToggleOn('All');
     } else {
-      const results = await fetchDrinksFilterCategories(category);
+      const results = await fetchRecipesByCategories(category, isMeal);
       setToggleOn(selected);
-      setFilteredDrinks(results);
+      if (isMeal) {
+        setFilteredMeals(results);
+      } else {
+        setFilteredDrinks(results);
+      }
     }
   };
 
@@ -26,9 +40,13 @@ function DrinksCategories() {
     filteredByCategory(category);
   };
 
+  const categories = isMeal ? mealsCategories : drinksCategories;
+
+  if (!categories) return <h1>Loading...</h1>;
+
   return (
     <nav>
-      {drinksCategories
+      {categories
         .filter((_cat, idx) => idx < NUM_CATEGORIES)
         .map(({ strCategory }) => (
           <button
@@ -51,4 +69,8 @@ function DrinksCategories() {
   );
 }
 
-export default DrinksCategories;
+Categories.propTypes = {
+  isMeal: PropTypes.bool.isRequired,
+};
+
+export default Categories;

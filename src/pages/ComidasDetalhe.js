@@ -16,7 +16,7 @@ function ComidasDetalhes({ match }) {
     };
     getMeal(recipeId);
     setIsLoading(false);
-  }, [setMeal, recipeId]);
+  }, [recipeId]);
 
   if (isLoading) return <h1>Loading...</h1>;
 
@@ -46,16 +46,6 @@ function ComidasDetalhes({ match }) {
 
       <h4>Instruções</h4>
       <p data-testid="instructions">{meal.strInstructions}</p>
-
-      <iframe
-        width="560"
-        height="315"
-        src={ String(meal.strYoutube).replace(/watch\?v=/, 'embed/') }
-        title={ meal.strMeal }
-        frameBorder="0"
-        allowFullScreen
-        data-testid="video"
-      />
 
       <h4>Recomendações</h4>
       <p data-testid="0-recomendation-card">Ver o que é isso.</p>

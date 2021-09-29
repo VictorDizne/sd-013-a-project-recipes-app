@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '.';
 import fetchMeals from '../services/fetchMeals';
-import fetchMealsCategories from '../services/fetchMealsCategories';
+import fetchCategories from '../services/fetchCategories';
 import fetchDrinks from '../services/fetchDrinks';
-import fetchDrinksCategories from '../services/fetchDrinksCategories';
 
 function Provider({ children }) {
   const [meals, setMeals] = useState([]);
@@ -27,7 +26,7 @@ function Provider({ children }) {
     getMeals();
 
     const getMealsCategories = async () => {
-      const results = await fetchMealsCategories();
+      const results = await fetchCategories(true);
       setMealsCategories(results);
     };
     getMealsCategories();
@@ -40,7 +39,7 @@ function Provider({ children }) {
     getDrinks();
 
     const getDrinksCategories = async () => {
-      const results = await fetchDrinksCategories();
+      const results = await fetchCategories(false);
       setDrinksCategories(results);
     };
     getDrinksCategories();
