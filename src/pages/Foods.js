@@ -40,6 +40,7 @@ function Foods() {
               src={ food.strMealThumb }
               alt={ food.strMeal }
               data-testid={ `${index}-card-img` }
+              className="foods"
             />
           </div>
         </Link>

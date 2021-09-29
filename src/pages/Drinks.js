@@ -42,6 +42,7 @@ function Drinks() {
               src={ recipe.strDrinkThumb }
               alt={ recipe.strDrink }
               data-testid={ `${index}-card-img` }
+              className="drinks"
             />
           </div>
         </Link>

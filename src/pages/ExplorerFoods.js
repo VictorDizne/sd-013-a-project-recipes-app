@@ -1,23 +1,18 @@
 import { useHistory } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function ExplorerFoods() {
   const history = useHistory();
-  // const [food, setfood] = useState();
-
-  // async function fetchAPI() {
-  //   const response = await fetch('www.themealdb.com/api/json/v1/1/random.php')
-  //     .then((data) => data.json())
-  //     .then((e) => e.meals.idMeal);
-  //   console.log(response);
-  //   return response;
-  // }
-
-  // useEffect(() => {
-  //   fetchAPI().then((resp) => setfood(resp));
-  // }, []);
+  useEffect(() => {
+    localStorage.clear();
+    fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+      .then((r) => r.json())
+      .then((rJson) => rJson.meals[0].idMeal)
+      // .then((rJson) => console.log(typeof rJson))
+      .then((id) => localStorage.setItem('idFood', id));
+  }, []);
 
   return (
     <div>
@@ -39,8 +34,8 @@ function ExplorerFoods() {
       <button
         type="button"
         data-testid="explore-surprise"
-        // onClick={ () => history.push(`/comidas/${food}`) }
-
+        // onClick={ fetchRandom }
+        onClick={ () => history.push(`/comidas/${localStorage.getItem('idFood')}`) }
       >
         Me Surpreenda!
       </button>
@@ -50,3 +45,17 @@ function ExplorerFoods() {
 }
 
 export default ExplorerFoods;
+
+// const [food, setfood] = useState();
+
+// async function fetchAPI() {
+//   const response = await fetch('www.themealdb.com/api/json/v1/1/random.php')
+//     .then((data) => data.json())
+//     .then((e) => e.meals.idMeal);
+//   console.log(response);
+//   return response;
+// }
+
+// useEffect(() => {
+//   fetchAPI().then((resp) => setfood(resp));
+// }, []);

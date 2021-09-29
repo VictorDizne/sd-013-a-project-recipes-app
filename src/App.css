@@ -76,3 +76,11 @@ footer {
     transform: rotate(-10deg);
   }
 }
+
+
+
+.foods, .drinks{
+  width: 100px;
+  height: 100px;
+}
+
