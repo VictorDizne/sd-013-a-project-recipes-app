@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,6 +6,7 @@ import '../styles/Profile.css';
 
 function Profile() {
   const history = useHistory();
+  const [email, setEmail] = useState('');
 
   const handleClickFavorite = () => {
     history.push('/receitas-feitas');
@@ -20,7 +21,12 @@ function Profile() {
     history.push('/');
   };
 
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    const getEmail = JSON.parse(localStorage.getItem('user'));
+    if (getEmail) {
+      setEmail(getEmail.email);
+    }
+  }, []);
 
   return (
     <div>

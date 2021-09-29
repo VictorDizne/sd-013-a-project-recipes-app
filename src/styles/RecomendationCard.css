@@ -1,0 +1,14 @@
+.recomendation-card {
+  background-color: rgb(206, 201, 201);
+  border-radius: 5px;
+  box-shadow: 1px 1px 6px 2px black;
+  box-sizing: border-box;
+  margin-right: 4%;
+  min-width: 48%;
+  padding: 15px;
+  text-align: center;
+}
+
+.recomendation-card:last-child {
+  margin-right: 0;
+}

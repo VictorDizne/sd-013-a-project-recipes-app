@@ -32,8 +32,11 @@ function DrinkDetails() {
   useEffect(() => {
     const getRecipe = async () => {
       const drink = await fetchDrinksById(historyId);
-      setIngredients(getIngredients(drink));
-      setRecipe(drink);
+      console.log(drink);
+      if (drink) {
+        setIngredients(getIngredients(drink));
+        setRecipe(drink);
+      }
     };
     getRecipe();
   }, [historyId]);
@@ -45,6 +48,32 @@ function DrinkDetails() {
     };
     getRecomendations();
   }, []);
+
+  const createList = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const date = `${day}/${month}/${year}`;
+
+    const { idDrink,
+      strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe;
+    const doneRecipes = [{
+      id: idDrink,
+      type: 'meal',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: date,
+      tags: strTags || [],
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+    // btnStartRecipe.style.display = 'none';
+    btnStartRecipe.hidden = true;
+  };
 
   return (
     <div className="food-container">
@@ -82,27 +111,24 @@ function DrinkDetails() {
       { (recipe.length === 1)
         && <p data-testid="instructions">{ recipe[0].strInstructions }</p> }
 
-      {/* <h3>Video</h3>
-      { (recipe.length === 1)
-        && recipe[0].strVideo
-        && (<iframe
-          width="425"
-          height="350"
-          src={ recipe[0].strVideo }
-          title={ recipe[0].strDrink }
-          data-testid="video"
-        />)} */}
-
-      { recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
-        <RecomendationCard
-          key={ idx }
-          recipe={ rec }
-          idx={ idx }
-          page="drinks"
-        />
-      ))}
-
-      <Link to={ `/comidas/${historyId}/in-progress` } data-testid="start-recipe-btn">
+      <h3>Recomendadas</h3>
+      <div className="recomandation-container">
+        { recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
+          <RecomendationCard
+            key={ idx }
+            recipe={ rec }
+            idx={ idx }
+            page="drinks"
+          />
+        ))}
+      </div>
+      <Link
+        to={ `/comidas/${historyId}/in-progress` }
+        data-testid="start-recipe-btn"
+        className="iniciar-receita"
+        id="btn-iniciar-receita"
+        onClick={ createList }
+      >
         Iniciar Receita
       </Link>
     </div>
