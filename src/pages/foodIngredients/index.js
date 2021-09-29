@@ -49,7 +49,9 @@ function FoodIngredients() {
   return (
     <>
       <Header title="Explorar Ingredientes" />
-      { loadingPage ? <p>CARREGANDO...</p> : showCard() }
+      <div className="div-cards">
+        { loadingPage ? <p>CARREGANDO...</p> : showCard() }
+      </div>
       <Footer />
     </>
   );

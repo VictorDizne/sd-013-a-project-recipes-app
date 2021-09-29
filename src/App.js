@@ -36,7 +36,7 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/receitas-favoritas" component={ FavRecipes } />
       <Route component={ NotFoundPage } />
-      {/*<Route exact path="/bebidas/:id-da-receita/in-progress" component={} />
+      {/* <Route exact path="/bebidas/:id-da-receita/in-progress" component={} />
       <Route exact path="/receitas-feitas" component={} /> */}
     </Switch>
   );
