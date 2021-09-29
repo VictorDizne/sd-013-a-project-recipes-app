@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 
 function Card({ index, recipeImage, recipeName, link }) {
   return (
+
     <Link
       to={ link }
       data-testid={ `${index}-recipe-card` }
     >
+
+    <div className="recipe-card">
+
       <img
         src={ recipeImage }
         alt={ recipeName }

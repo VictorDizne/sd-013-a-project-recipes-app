@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import RecipeDetails from '../components/RecipeDetails';
+import RecipesContext from '../context/RecipesContext';
 
-export default function DetalhesComida({ match: { params: { recipeId } } }) {
+function DetalhesComida({ match: { params: { recipeId } }, history }) {
   const [meal, setMeal] = useState({});
   const isTrue = true;
+  const [startRecipeBtn, setStartRecipeBtn] = useState(true);
+  const { setBtnText, setIsFavorite } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetching = async () => {
@@ -17,9 +20,55 @@ export default function DetalhesComida({ match: { params: { recipeId } } }) {
     fetching();
   }, [recipeId]);
 
+  useEffect(() => {
+    const getRecipeStorage = localStorage.getItem('doneRecipes');
+    if (getRecipeStorage) {
+      const recipeExists = JSON.parse(getRecipeStorage).some((r) => (
+        r.idMeal === meal.idMeal));
+      if (recipeExists) {
+        setStartRecipeBtn(true);
+      } else {
+        setStartRecipeBtn(false);
+      }
+    }
+  }, [meal.idMeal]);
+
+  useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+
+    if (favoriteRecipes) {
+      const favoriteRecipesExists = JSON.parse(favoriteRecipes).some((r) => (
+        r.id === meal.idMeal
+      ));
+
+      if (favoriteRecipesExists) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    }
+  }, [meal.idMeal, setIsFavorite]);
+
+  useEffect(() => {
+    const inProgressRecipe = localStorage.getItem('inProgressRecipes');
+
+    if (inProgressRecipe) {
+      const recipeExists = JSON.parse(inProgressRecipe);
+
+      if (recipeExists.meals[meal.idMeal]) setBtnText('Continuar Receita');
+    }
+  }, [meal.idMeal, setBtnText]);
+
   return (
     <div>
-      <RecipeDetails recipe={ meal } isMeal={ isTrue } />
+
+      <RecipeDetails
+        history={ history }
+        showBtn={ startRecipeBtn }
+        recipe={ meal }
+        isMeal={ isTrue }
+      />
+
     </div>
   );
 }
@@ -30,4 +79,9 @@ DetalhesComida.propTypes = {
       recipeId: PropTypes.string,
     }),
   }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
+
+export default DetalhesComida;

@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/blackHeartIcon.svg';
+import favoritedIcon from '../images/blackHeartIcon.svg';
+import unfavoritedIcon from '../images/whiteHeartIcon.svg';
+import RecipeRecomendations from './RecipeRecomendations';
+import './css/RecipeDetails.css';
+import StartRecipeBtn from './StartRecipeBtn';
+import RecipesContext from '../context/RecipesContext';
 
-const RecipeDetails = ({ recipe, isMeal }) => {
+const copy = require('clipboard-copy');
+
+const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
+  const { toggleFavoriteBtn, isFavorite } = useContext(RecipesContext);
   const recipeIngredients = [];
 
   const getIngredients = () => {
@@ -31,10 +39,25 @@ const RecipeDetails = ({ recipe, isMeal }) => {
     );
   };
 
+  const handleShareBtn = () => {
+    const { location: { pathname } } = history;
+    copy(`http://localhost:3000${pathname}`);
+
+    const h4 = document.createElement('h4');
+    h4.textContent = 'Link copiado!';
+    const father = document.querySelector('[data-testid="recipe-category"]');
+    father.insertAdjacentElement('afterend', h4);
+  };
+
+  const handleFavoriteBtn = () => {
+    toggleFavoriteBtn(recipe, isMeal);
+  };
+
   return (
     <div>
 
       <img
+        className="recipe-thumbnail"
         data-testid="recipe-photo"
         src={ isMeal ? recipe.strMealThumb : recipe.strDrinkThumb }
         alt={ isMeal ? 'foto da comida' : 'foto do drink' }
@@ -47,27 +70,37 @@ const RecipeDetails = ({ recipe, isMeal }) => {
         src={ shareIcon }
         alt="compartilhar receita"
         data-testid="share-btn"
+        onClick={ handleShareBtn }
       />
 
       <input
         type="image"
-        src={ favoriteIcon }
+        src={ isFavorite ? favoritedIcon : unfavoritedIcon }
         alt="favoritar receita"
         data-testid="favorite-btn"
+        onClick={ handleFavoriteBtn }
       />
 
       <h3
         data-testid="recipe-category"
       >
-        {`${recipe.strCategory} ${recipe.strAlcoholic}`}
+        {`${recipe.strCategory} ${isMeal ? '' : recipe.strAlcoholic}`}
 
       </h3>
 
       {getIngredients()}
       <p data-testid="instructions">{recipe.strInstructions}</p>
       {isMeal && <a data-testid="video" href={ recipe.strVideo }>Video</a>}
-      <p data-testid="0-recomendation-card">Ae</p>
-      <button type="button" data-testid="start-recipe-btn">Começar receita</button>
+      <div className="recomendation-content">
+        <div className="recomendation-container">
+          <RecipeRecomendations isMeal={ isMeal } />
+        </div>
+      </div>
+      {showBtn && <StartRecipeBtn
+        history={ history }
+        recipe={ recipe }
+        isMeal={ isMeal }
+      />}
     </div>
   );
 };
@@ -83,8 +116,18 @@ RecipeDetails.propTypes = {
     strVideo: PropTypes.string,
     strIngredient: PropTypes.string,
     strAlcoholic: PropTypes.string,
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
   }).isRequired,
   isMeal: PropTypes.bool.isRequired,
+  showBtn: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      search: PropTypes.string,
+      pathname: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default RecipeDetails;
