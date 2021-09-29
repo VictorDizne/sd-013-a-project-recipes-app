@@ -2,7 +2,6 @@ import React from 'react';
 // import { fetchFoodById } from '../services/comidasApi';
 
 function FoodProgress() {
-
   // useEffect(() => {
   //   const getRecipe = async () => {
   //     const meal = await fetchFoodById(historyId);
