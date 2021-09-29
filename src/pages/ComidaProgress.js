@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import fetchRecipeById from '../services/fetchRecipeById';
+import IngredientsListMeals from '../components/IngredientsListMeals';
 
-function ComidaProgress({ match }) {
+function ComidaProgress({ match, history }) {
   const { recipeId } = match.params;
 
   const [meal, setMeal] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [ingredientList, setIngredientList] = useState([]);
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [compareCheckBox, setCompareCheckBox] = useState(0);
+  const checkboxes = document.querySelectorAll('.checkboxes');
 
   useEffect(() => {
     const getMeal = async (id) => {
-      const result = await fetchRecipeById(id);
+      const result = await fetchRecipeById(id, true);
       setMeal(result);
     };
     getMeal(recipeId);
     setIsLoading(false);
-  }, [setMeal, recipeId]);
+  }, [recipeId]);
 
   const ingredients = [
     meal.strIngredient1,
@@ -42,23 +46,62 @@ function ComidaProgress({ match }) {
   ];
 
   const handleCheckbox = ({ target }, index) => {
-    const teste = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(teste);
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (target.checked === true) {
+      setCompareCheckBox(compareCheckBox + 1);
       target.parentElement.style.textDecorationLine = 'line-through';
       target.parentElement.style.textDecorationStyle = 'solid';
       setIngredientList([...ingredientList, target.value]);
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        meals: {
-          [recipeId]: [...ingredientList, target.value],
-        },
-      }));
+      if (inProgressRecipes !== null) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...inProgressRecipes,
+          meals: {
+            [recipeId]: [...ingredientList, target.value],
+          },
+        }));
+      } else {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          meals: {
+            [recipeId]: [...ingredientList, target.value],
+          },
+        }));
+      }
     } else if (target.checked === false) {
+      setCompareCheckBox(compareCheckBox - 1);
       target.parentElement.style.textDecorationLine = '';
       target.parentElement.style.textDecorationStyle = '';
       ingredientList.splice(index, 1);
       setIngredientList(ingredientList);
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        meals: {
+          [recipeId]: ingredientList,
+        },
+      }));
     }
+    if (compareCheckBox === checkboxes.length - 1) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  };
+
+  const handleOnClick = () => {
+    const arrayList = [
+      {
+        id: recipeId,
+        type: 'meal',
+        area: '',
+        category: meal.strCategory,
+        alcoholicOrNot: meal.strAlcoholic,
+        name: meal.strMeal,
+        image: meal.strMealThumb,
+        doneDate: meal.dateModified,
+        tags: '',
+      },
+    ];
+    localStorage.setItem('doneRecipes', JSON.stringify(arrayList));
+    history.push('/receitas-feitas');
   };
 
   if (isLoading) return <h1>Loading...</h1>;
@@ -81,32 +124,23 @@ function ComidaProgress({ match }) {
 
       <h4>Ingredientes</h4>
       <ul>
-        {ingredients.filter((ingredient) => typeof ingredient === 'string'
-        && ingredient !== '')
-          .map((ingredient, index) => (
-            <div
-              key={ ingredient }
-            >
-              <label
-                htmlFor={ index }
-                key={ ingredient }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  value={ ingredient }
-                  id={ index }
-                  type="checkbox"
-                  onClick={ ({ target }) => handleCheckbox({ target }, index) }
-                />
-                {ingredient}
-              </label>
-            </div>))}
+        <IngredientsListMeals
+          handleCheckbox={ handleCheckbox }
+          ingredients={ ingredients }
+          checkboxes={ checkboxes }
+          recipeId={ recipeId }
+        />
       </ul>
 
       <h4>Instruções</h4>
       <p data-testid="instructions">{meal.strInstructions}</p>
 
-      <button type="button" data-testid="finish-recipe-btn">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        onClick={ handleOnClick }
+        disabled={ disabledButton }
+      >
         Finalizar Receita
       </button>
 
@@ -120,6 +154,7 @@ ComidaProgress.propTypes = {
       recipeId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  history: PropTypes.arrayOf({}).isRequired,
 };
 
 export default ComidaProgress;
