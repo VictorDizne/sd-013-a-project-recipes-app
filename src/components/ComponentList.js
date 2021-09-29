@@ -5,7 +5,6 @@ import ComponentCard from './ComponentCard';
 function ComponentList() {
   const currentContext = useContext(recipeContext).ContextCard;
   const { recipeList, loading } = currentContext;
-  console.log(recipeList);
 
   const quantity = 12;
   const twelveArray = recipeList.slice(0, quantity);

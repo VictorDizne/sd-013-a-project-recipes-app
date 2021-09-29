@@ -15,7 +15,7 @@ function Provider({ children }) {
 
   const [showInput, setShowInput] = useDebugState('ShowInput', false);
   const [dataForFetch, setDataForFetch] = useDebugState('DataForFetch', fetchData);
-  const [recipeList, setRecipeList] = useDebugState('RecipeList', []);
+  const [recipeList, setRecipeList] = useDebugState('RecipeList', '');
   const [categoryList, setCategoryList] = useDebugState('CategoryList', '');
   const [currentID, setCurrentID] = useDebugState('CurentID', 0);
   const [loading, setLoading] = useDebugState('Loading', true);
@@ -43,11 +43,6 @@ function Provider({ children }) {
       .then((response) => setRecipeList(response));
   };
 
-  const fetchDetails = (currentPage, buttonState, letter, foodsCategory) => {
-    FetchAPI(currentPage, buttonState, letter, foodsCategory)
-      .then((response) => setDetails(response));
-  };
-
   const handleShowInput = () => {
     setShowInput(!showInput);
   };
@@ -73,11 +68,13 @@ function Provider({ children }) {
       });
   };
 
+  const fetchDetails = (currentPage, lookup, letter, id) => {
+    FetchAPI(currentPage, lookup, letter, id)
+      .then((response) => setDetails(response[0]));
+  };
+
   useEffect(() => {
     if (currentID !== 0) {
-      const recipeDetails = recipeList.find((element) => (element.idMeal === currentID)
-      || (element.idDrink === currentID));
-      setDetails(recipeDetails);
       setDataForFetch({ ...dataForFetch, redirectState: true });
     }
   }, [currentID]);
@@ -92,24 +89,24 @@ function Provider({ children }) {
     }
   }, [recipeList, categoryList]);
 
-  const ContextCard = { recipeList,
+  const ContextCard = {
+    recipeList,
     dataForFetch,
     loading,
     categoryList,
     fetchFoodsOfCategory,
     setCurrentID,
   };
-  const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
   const ContextFoods = {
-    showInput, handleCurrentPage, dataForFetch, currentID, loading, handleFetch };
-  const ContextDetails = {
-    details,
+    showInput,
+    handleCurrentPage,
     dataForFetch,
     currentID,
-    handleCurrentPage,
-    recipeList,
-    fetchDetails,
+    loading,
+    handleFetch,
   };
+  const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
+  const ContextDetails = { details, fetchDetails };
 
   const context = {
     ContextCard,

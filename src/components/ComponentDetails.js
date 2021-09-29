@@ -1,31 +1,68 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import recipeContext from '../context';
+import ComponentDetailsContent from './ComponentDetailsContent';
+import ComponentSugestions from './ComponentSugestions';
 
 function ComponentDetails() {
-  const { dataForFetch: { currentPage }, handleCurrentPage,
-    recipeList, fetchDetails } = useContext(recipeContext).ContextDetails;
-
+  const { fetchDetails } = useContext(recipeContext).ContextDetails;
   const { id } = useParams();
-  const firstRender = useRef(true);
+  const currentPage = useHistory().location.pathname.includes('/comidas');
+  const history = useHistory();
 
   useEffect(() => {
-    handleCurrentPage();
-  }, []);
-
-  useEffect(() => {
-    if (!firstRender.current) {
-      fetchDetails(currentPage, 'lookup', 'i', id);
+    if (currentPage) {
+      fetchDetails('themealdb', 'lookup', 'i', id);
     } else {
-      firstRender.current = false;
+      fetchDetails('thecocktaildb', 'lookup', 'i', id);
     }
-  }, [currentPage]);
+  }, [currentPage, id]);
 
-  console.log(recipeList);
+  const handleClick = () => {
+    history.push(`${id}/in-progress`);
+  };
 
+  const keysMeal = {
+    title: 'strMeal',
+    category: 'strCategory',
+    typeK: 'comida',
+    id: 'idMeal',
+    alcoholicOrNot: '',
+    thumb: 'strMealThumb',
+    area: 'strArea',
+    instructions: 'strInstructions',
+    video: 'strYoutube',
+    iframe: true,
+  };
+
+  const keysDrink = {
+    title: 'strDrink',
+    category: 'strCategory',
+    typeK: 'bebida',
+    id: 'idDrink',
+    alcoholicOrNot: 'strAlcoholic',
+    thumb: 'strDrinkThumb',
+    area: '',
+    instructions: 'strInstructions',
+    video: '',
+    iframe: false,
+  };
   return (
     <div>
-      <h1>Details</h1>
+      { currentPage
+        ? <ComponentDetailsContent keys={ keysMeal } />
+        : <ComponentDetailsContent keys={ keysDrink } /> }
+      <ComponentSugestions />
+      <div className="btn-container">
+        <button
+          className="btn-start"
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ handleClick }
+        >
+          Iniciar receita
+        </button>
+      </div>
     </div>
   );
 }
