@@ -76,7 +76,7 @@ function FoodsRecipies(props) {
             handleClick={ () => {
               favHeart ? setFavHeart(false) : setFavHeart(true);
             } }
-            
+
           >
             Favoritar
           </Button>
