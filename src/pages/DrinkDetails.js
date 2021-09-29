@@ -31,7 +31,9 @@ function saveOnStorage(id) {
   }
   const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const { cocktails } = payload;
-  cocktails[id] = [];
+  if (!cocktails[id]) {
+    cocktails[id] = [];
+  }
 
   const updated = { ...payload, cocktails };
   localStorage.setItem('inProgressRecipes', JSON.stringify(updated));
