@@ -32,8 +32,11 @@ function DrinkDetails({ match: { params: { id } } }) {
   };
 
   const checkFavorite = () => {
-    const receitas = JSON.parse(localStorage.favoriteRecipes);
-    return receitas.some((recipe) => ((recipe).id) === id);
+    if (localStorage.favoriteRecipes) {
+      const receitas = JSON.parse(localStorage.favoriteRecipes);
+      return receitas.some((recipe) => ((recipe).id) === id);
+    }
+    return false;
   };
 
   const initRecipe = (info) => {
@@ -55,9 +58,12 @@ function DrinkDetails({ match: { params: { id } } }) {
       name: details.strDrink,
       image: details.strDrinkThumb,
     };
-    const parseVersion = JSON.parse(localStorage.favoriteRecipes);
-    localStorage.favoriteRecipes = JSON.stringify([...parseVersion, (obj)]);
-    return setFavRecipes(true);
+    if (localStorage.favoriteRecipes) {
+      const parseVersion = JSON.parse(localStorage.favoriteRecipes);
+      localStorage.favoriteRecipes = JSON.stringify([...parseVersion, (obj)]);
+      return setFavRecipes(true);
+    }
+    localStorage.favoriteRecipes = JSON.stringify([obj]);
   };
 
   const desfavoritar = () => {
