@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert } from '@mui/material';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import './css/Card.css';
@@ -19,7 +18,6 @@ const RecipeDoneCard = ({ recipe, index, history }) => {
     const father = document
       .querySelector(`[data-testid="${recipeIndex}-horizontal-share-btn"]`);
     father.insertAdjacentElement('afterend', h4);
-    // <Alert variant="filled" severity="success">Link copiado!</Alert>);
   };
 
   const handleTitleImgClick = (rec) => {
