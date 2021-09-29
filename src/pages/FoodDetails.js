@@ -7,6 +7,7 @@ import '../styles/PageDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { getIngredients, createDate, favoriteRecipe } from '../services/helpers';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
@@ -20,24 +21,13 @@ function FoodDetails() {
   const history = useHistory();
   const historyFilter = history.location.pathname;
   const historyId = historyFilter.substr(INITIAL_VALUE);
-  // solução feita a partir do repositório https://github.com/tryber/sd-013-a-project-recipes-app/blob/main-group-3-requisito-28/src/components/RecipeDetailCard.jsx
-  const getIngredients = (meal) => {
-    const strMeal = Object.entries(meal[0]);
-    const strIngredient = strMeal.filter(([key, value]) => key
-      .includes('strIngredient') && value);
-    const strMeasure = strMeal.filter(([key, value]) => key
-      .includes('strMeasure') && value);
-    return strIngredient.map((item, index) => `${item[1]} - ${strMeasure[index][1]}`);
-  };
+  const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
   useEffect(() => {
-    const previousRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (previousRecipes) {
-      const verify = previousRecipes.some((item) => item.id === historyId);
-      if (verify) {
-        const btnStartRecipe = document.getElementById('btn-iniciar-receita');
-        btnStartRecipe.hidden = true;
-      }
-    }
+    const verify = savedDoneRecipes.some((item) => item.id === historyId);
+    const btnStartRecipe = document.getElementById('btn-iniciar-receita');
+    btnStartRecipe.hidden = verify;
   }, []);
   useEffect(() => {
     const getRecipe = async () => {
@@ -56,18 +46,11 @@ function FoodDetails() {
   }, []);
   const createList = () => {
     let doneRecipes = [];
-    const previousRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const date = `${day}/${month}/${year}`;
     const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = recipe[0];
     const tagsArray = (strTags === null) ? [] : strTags.split(',');
-    console.log(recipe);
-    if (previousRecipes) {
+    if (savedDoneRecipes) {
       doneRecipes = [
-        ...previousRecipes,
+        ...savedDoneRecipes,
         {
           id: idMeal,
           type: 'comida',
@@ -76,7 +59,7 @@ function FoodDetails() {
           alcoholicOrNot: '',
           name: strMeal,
           image: strMealThumb,
-          doneDate: date,
+          doneDate: createDate(),
           tags: tagsArray,
         },
       ];
@@ -90,7 +73,7 @@ function FoodDetails() {
           alcoholicOrNot: '',
           name: strMeal,
           image: strMealThumb,
-          doneDate: date,
+          doneDate: createDate(),
           tags: tagsArray,
         },
       ];
@@ -110,61 +93,16 @@ function FoodDetails() {
     }, SET_TIME_OUT);
   };
 
-  const favoriteRecipe = () => {
-    let favoriteRecipes = [];
-    const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe[0];
-    if (previousRecipes) {
-      favoriteRecipes = [
-        ...previousRecipes,
-        {
-          id: idMeal,
-          type: 'comida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: '',
-          name: strMeal,
-          image: strMealThumb,
-        },
-      ];
-    } else {
-      favoriteRecipes = [
-        {
-          id: idMeal,
-          type: 'comida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: '',
-          name: strMeal,
-          image: strMealThumb,
-        },
-      ];
-    }
+  useEffect(() => {
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const verify = favRecipes.find((item) => item.id === historyId);
+    setFavorite(verify);
+  }, []);
 
-    if (!favorite) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    }
-
-    if (favorite) {
-      const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const removeRecipe = favRecipes
-        .filter((favRecipe) => favRecipe.id !== historyId);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(removeRecipe));
-    }
+  const handleClick = () => {
+    favoriteRecipe(recipe, previousRecipes, favorite, historyId);
     setFavorite(!favorite);
   };
-
-  useEffect(() => {
-    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-    if (favRecipes) {
-      const verify = favRecipes.find((item) => item.id === historyId);
-
-      if (verify) {
-        setFavorite(true);
-      }
-    }
-  }, []);
 
   return (
     <div className="food-container">
@@ -182,7 +120,7 @@ function FoodDetails() {
             <p>{messageAlert}</p>
             <button
               type="button"
-              onClick={ favoriteRecipe }
+              onClick={ handleClick }
             >
               {favorite
                 ? <img src={ blackHeartIcon } alt="heart" data-testid="favorite-btn" />
