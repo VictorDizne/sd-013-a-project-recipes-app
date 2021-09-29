@@ -2,15 +2,21 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import { handleAPI } from '../service/GetAPI';
+import { handleAPIDrinks } from '../service/GetAPIDrinks';
+import { handleAPIFoods } from '../service/GetAPIFoods';
+
 import '../PaginasCss/Header.css';
+// import Context from '../Context/Context';
 
 function Header() {
+  // const { clickLoading } = useContext(Context);
+  const [data, setData] = useState([]);
   const [showInput, setShowInput] = useState(true);
   const [inputRadio, setInputRadio] = useState('');
   const [inputText, setInputText] = useState('');
   const maxCharacters = 14;
   const path = useLocation().pathname.replace('/', '');
+
   const pathRotesVerify = path === 'explorar'
   || path === 'explorar/comidas'
   || path === 'explorar/bebidas'
@@ -42,8 +48,15 @@ function Header() {
     setInputRadio(target.value);
   };
 
-  const handleClickFetch = () => {
-    handleAPI(inputRadio, inputText);
+  const handleClickFetch = async () => {
+    if (path === 'comidas') {
+      const dataComidas = await handleAPIFoods(inputRadio, inputText);
+      setData(dataComidas);
+    }
+    if (path === 'bebidas') {
+      const dataBebidas = await handleAPIDrinks(inputRadio, inputText);
+      setData(dataBebidas);
+    }
   };
 
   return (
@@ -107,6 +120,11 @@ function Header() {
           Buscar
         </button>
       </div>
+      {/* //Essa map é só pra testar se tava funcioandno */}
+      {
+        data.map((el) => <div key={ el.idDrink }>{el.idDrink}</div>)
+      }
+
     </div>
   );
 }
