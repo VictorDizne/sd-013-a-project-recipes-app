@@ -4,6 +4,7 @@ import RecipeDetails from '../components/RecipeDetails';
 
 export default function DetalhesComida({ match: { params: { recipeId } } }) {
   const [meal, setMeal] = useState({});
+  const isTrue = true;
 
   useEffect(() => {
     const fetching = async () => {
@@ -18,7 +19,7 @@ export default function DetalhesComida({ match: { params: { recipeId } } }) {
 
   return (
     <div>
-      <RecipeDetails recipe={ meal } isMeal />
+      <RecipeDetails recipe={ meal } isMeal={ isTrue } />
     </div>
   );
 }
