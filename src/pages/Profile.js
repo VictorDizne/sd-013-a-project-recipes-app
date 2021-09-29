@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
   const getEmail = () => {
-    const { email } = JSON.parse(localStorage.getItem('user'));
-    return email;
+    if (localStorage.getItem('user') !== null) {
+      const { email } = JSON.parse(localStorage.getItem('user'));
+      return email;
+    }
   };
 
   const clearLocalStorage = () => {
@@ -20,7 +23,7 @@ function Profile() {
   return (
     <div>
       <Header title="Perfil" search={ false } />
-      <h3 data-testid="profile-email">{ getEmail() }</h3>
+      <h3 data-testid="profile-email">{getEmail()}</h3>
       <div>
         <Link to="/receitas-feitas">
           <div data-testid="profile-done-btn">
@@ -42,7 +45,9 @@ function Profile() {
           </button>
         </Link>
       </div>
+      <Footer />
     </div>
   );
 }
+
 export default Profile;
