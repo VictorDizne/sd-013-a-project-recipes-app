@@ -15,7 +15,7 @@ describe(`1 - Verifica elementos da tela de explorar ingredientes respeitando
         visible={ false }
       />,
     );
-
+    
     for (let index = 0; index < QTD; index += 1) {
       expect(await findByTestId(`${index}-ingredient-card`)).toBeInTheDocument();
       expect(await findByTestId(`${index}-card-img`)).toBeInTheDocument();

@@ -3,6 +3,7 @@ import { screen, fireEvent } from '@testing-library/react';
 import DoneRecipes from '../pages/DoneRecipes';
 import renderWithRouter from './renderWithRouter';
 
+const FILTER_BY_ALL_BTN = 'filter-by-all-btn'
 const doneRecipes = [
   {
     id: '52771',
@@ -50,7 +51,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
     const { getByTestId } = renderWithRouter(
       <DoneRecipes title="Receitas Feitas" visible={ false } />,
     );
-    const btnAll = getByTestId('filter-by-all-btn');
+    const btnAll = getByTestId(FILTER_BY_ALL_BTN);
     const btnFood = getByTestId('filter-by-food-btn');
     const btnDrink = getByTestId('filter-by-drink-btn');
     expect(btnAll).toBeInTheDocument();
@@ -61,7 +62,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
   test('Verifica se a tela contem 3 botões', () => {
     renderWithRouter(<DoneRecipes title="Receitas Feitas" visible={ false } />);
 
-    expect(screen.getByTestId('filter-by-all-btn')).toBeInTheDocument();
+    expect(screen.getByTestId(FILTER_BY_ALL_BTN)).toBeInTheDocument();
     expect(screen.getByTestId('filter-by-food-btn')).toBeInTheDocument();
     expect(screen.getByTestId('filter-by-drink-btn')).toBeInTheDocument();
   });
@@ -107,7 +108,7 @@ describe('2 - Verifica se uma receita feita é carregada', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
     const { getAllByTestId, getByTestId } = renderWithRouter(<DoneRecipes title="Receitas Feitas" visible={ false } />);
 
-    const buttonAll = getByTestId('filter-by-all-btn');
+    const buttonAll = getByTestId(FILTER_BY_ALL_BTN);
     const buttonFood = getByTestId('filter-by-food-btn');
     const buttonDrink = getByTestId('filter-by-drink-btn');
 

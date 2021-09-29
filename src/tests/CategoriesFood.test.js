@@ -2,8 +2,6 @@ import React from 'react';
 import CategoriesFood from '../components/CategoriesFood';
 import renderWithRouter from './renderWithRouter';
 
-import App from '../App';
-
 describe('Verifica o componente CategoriesFood', () => {
   it('Verifica se botão "All" de categorias existe', () => {
     const { getByTestId } = renderWithRouter(<CategoriesFood />);
