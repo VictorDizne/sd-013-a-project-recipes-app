@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { BsArrowReturnLeft } from 'react-icons/bs';
@@ -23,16 +23,14 @@ function HandleHeader({ title, setSearchBarStatus }) {
   const history = useHistory();
 
   const profileButton = (
-    <Link to="/perfil">
-      <Button
-        className="profileIconBtn"
-        buttonType="BackgroundButton"
-        // onClick={ () => history.push('/perfil') }
-        buttonText={
-          <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
-        }
-      />
-    </Link>
+    <Button
+      className="profileIconBtn"
+      buttonType="BackgroundButton"
+      onClick={ () => history.push('/perfil') }
+      buttonText={
+        <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
+      }
+    />
   );
 
   if (title !== 'Bebidas' && title !== 'Comidas' && title !== 'Explorar Orígem'
