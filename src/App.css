@@ -71,4 +71,11 @@
   100% {
     transform: rotate(-10deg);
   }
+<<<<<<< HEAD
 } */
+
+body {
+  height: 640px;
+  margin: 0 auto;
+  width: 360px;
+}
