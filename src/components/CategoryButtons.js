@@ -74,7 +74,7 @@ function CategoryButtons() {
       }
     };
     fetchData();
-  }, []);
+  }, [location.pathname]);
 
   async function getAllCategorys() {
     // console.log('Okkk!');

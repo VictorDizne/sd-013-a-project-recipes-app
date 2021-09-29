@@ -2,9 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchDetails, fetchRecipes } from '../services';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Recomendations from '../components/Recomendations';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 const MAX_RECOMENDATION = 6;
 
@@ -70,7 +72,7 @@ function DrinkDetails({ match: { params: { id } } }) {
     };
     fetchRecipe();
     fetchRecomendations();
-  }, []);
+  }, [id, location.pathname]);
 
   useEffect(() => {
     const checkStorage = async () => {
@@ -98,13 +100,8 @@ function DrinkDetails({ match: { params: { id } } }) {
         alt={ recipe.strDrink }
       />
       <h3 data-testid="recipe-title">{recipe.strDrink}</h3>
-      <input type="image" data-testid="share-btn" src={ shareIcon } alt="Share" />
-      <input
-        type="image"
-        data-testid="favorite-btn"
-        src={ whiteHeartIcon }
-        alt="Favorite Icon"
-      />
+      <ShareButton id={ id } type="bebidas" />
+      <FavoriteButton id={ id } type="bebida" recipe={ recipe } />
       <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
       <div>
         {

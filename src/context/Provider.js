@@ -5,6 +5,12 @@ import { fetchRecipes } from '../services';
 export const MainContext = createContext();
 const erro = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
+function initStorage() {
+  if (localStorage.getItem('favoriteRecipes') === null) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  }
+}
+
 export function Provider({ children }) {
   const [searchSettings, setSearchSettings] = useState({
     query: '',
@@ -39,6 +45,7 @@ export function Provider({ children }) {
       fetchData();
     } else {
       initialRender.current = true;
+      initStorage();
     }
   }, [searchSettings]);
 
