@@ -1,21 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/blackHeartIcon.svg';
+import blackFavoriteIcon from '../images/blackHeartIcon.svg';
+import whiteFavoriteIcon from '../images/whiteHeartIcon.svg';
 import Ingredients from './Ingredients';
+import CopyLinkModal from './CopyLinkModal';
+import formatRecipeToFavorite from '../utils/formatRecipeToFavorite';
 
 function RecipeInProgress({ recipe, isMeal }) {
   const [allChecked, setAllChecked] = useState(false);
+  const [shouldDisplayMessage, setShouldDisplayMessage] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [
+    favoriteRecipes,
+    setFavoriteRecipes,
+  ] = useState(JSON.parse(localStorage.getItem('favoriteRecipes')) || []);
+
+  useEffect(() => {
+    const favorite = favoriteRecipes
+      .some((favoriteRecipe) => favoriteRecipe.id === recipe.idMeal
+          || favoriteRecipe.id === recipe.idDrink);
+
+    setIsFavorite(favorite);
+
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }, [favoriteRecipes, recipe]);
+
+  const history = useHistory();
 
   const isAllChecked = (ingredients) => {
     const isChecked = ingredients.every((ingredient) => ingredient.checked);
     setAllChecked(isChecked);
   };
 
-  const history = useHistory();
-  const goToRecipesDone = () => {
-    history.push('/receitas-feitas');
+  const goToRecipesDone = () => history.push('/receitas-feitas');
+
+  const handleCopy = () => {
+    const routeWithoutInProgress = history.location.pathname.replace('/in-progress', '');
+    copy(`http://localhost:3000${routeWithoutInProgress}`);
+    setShouldDisplayMessage(true);
+  };
+
+  const saveFavoriteRecipe = (favoriteRecipe) => {
+    const favorite = formatRecipeToFavorite(favoriteRecipe, isMeal);
+
+    setFavoriteRecipes([
+      ...favoriteRecipes,
+      favorite,
+    ]);
+  };
+
+  const removeFavoriteRecipe = (currentRecipe) => {
+    favoriteRecipes
+      .filter((favoriteRecipe) => favoriteRecipe.id !== currentRecipe.idMeal
+        || favoriteRecipe.id !== currentRecipe.idDrink);
+  };
+
+  const toggle = (favorite) => {
+    if (favorite) {
+      removeFavoriteRecipe(recipe);
+      setIsFavorite(false);
+    } else {
+      saveFavoriteRecipe(recipe);
+      setIsFavorite(true);
+    }
   };
 
   return (
@@ -25,6 +75,7 @@ function RecipeInProgress({ recipe, isMeal }) {
         data-testid="recipe-photo"
         src={ isMeal ? recipe.strMealThumb : recipe.strDrinkThumb }
         alt={ isMeal ? 'foto da comida' : 'foto do drink' }
+        style={ { width: '100vw' } }
       />
 
       <h2 data-testid="recipe-title">{isMeal ? recipe.strMeal : recipe.strDrink}</h2>
@@ -32,15 +83,22 @@ function RecipeInProgress({ recipe, isMeal }) {
       <input
         type="image"
         src={ shareIcon }
-        alt="compartilhar receita"
+        alt="Link copiado!"
         data-testid="share-btn"
+        onClick={ handleCopy }
       />
+
+      { shouldDisplayMessage
+        && <CopyLinkModal
+          setShouldDisplayMessage={ setShouldDisplayMessage }
+        /> }
 
       <input
         type="image"
-        src={ favoriteIcon }
+        src={ isFavorite ? blackFavoriteIcon : whiteFavoriteIcon }
         alt="favoritar receita"
         data-testid="favorite-btn"
+        onClick={ () => toggle(isFavorite) }
       />
 
       <h3
