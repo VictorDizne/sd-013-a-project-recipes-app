@@ -16,7 +16,7 @@ function FoodProgress() {
   const [recipe, setRecipe] = useState([]);
   const [messageAlert, setMessageAlert] = useState('');
   const [favorite, setFavorite] = useState(false);
-  /* const [ingredientsSave, setIngredientsSave] = useState([]); */
+  const [ingredientsSave, setIngredientsSave] = useState([]);
 
   const history = useHistory();
   const historyFilter = history.location.pathname;
@@ -43,26 +43,15 @@ function FoodProgress() {
     }, SET_TIME_OUT);
   };
 
-  const handleLineThrough = ({ target }) => {
-    const ingredientsList = [];
-    const ingredientsContainer = target.parentElement;
-    ingredientsContainer.classList.toggle('line-through');
+  const handleLineThrough = (ingredient) => {
+    // verifica se o ingrediente clicado já está na lista de ingredientes salvos
+    const isIngredientSaved = ingredientsSave.includes(ingredient);
 
-    const ingredientsArray = Array
-      .from(document.getElementById('ingredients-container').children);
-
-    ingredientsArray.forEach((item) => {
-      if (item.firstChild.checked) {
-        ingredientsList.push(item.innerText);
-      }
-    });
-
-    const listUnstructured = {
-      cocktails: {},
-      meals: {
-        [historyId]: ingredientsList,
-      },
-    };
+    // O ingrdiente esta na lista de ingredientes salvos?
+    const newIngredientsSave = isIngredientSaved
+      ? ingredientsSave.filter((i) => i !== ingredient) // remove da lista se ingrediente ja está na lista
+      : [...ingredientsSave, ingredient]; // adiciona na lista
+    setIngredientsSave(newIngredientsSave);
 
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
@@ -71,33 +60,33 @@ function FoodProgress() {
         ...inProgressRecipes,
         meals: {
           ...inProgressRecipes.meals,
-          [historyId]: ingredientsList,
+          [historyId]: newIngredientsSave, // uso a const da linha 51
+          // nao uso o state, pq no primeiro click ele retorna o array desatualizado ( [] ), apesar da gente estar
+          // setando na linha 54. Isso pq o setState soh funciona depois que o codigo todo é lido,
+          // aí ele faz o setState. Entao quando chegava aqui ele ainda tava desatualizado
         },
       };
 
       localStorage.setItem('inProgressRecipes', JSON.stringify(newList));
     } else {
+      const listUnstructured = {
+        cocktails: {},
+        meals: {
+          [historyId]: newIngredientsSave,
+        },
+      };
+
       localStorage.setItem('inProgressRecipes', JSON.stringify(listUnstructured));
     }
   };
 
   useEffect(() => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'))
-      .meals[historyId];
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-    setIngredientsSave(inProgressRecipes);
-  }, []);
-
-  /*  useEffect(() => {
-    console.log(ingredientsSave, 'save');
-    if (ingredientsSave) {
-      ingredientsSave.forEach((item) => {
-        const name = item.toLowerCase().split(' ').join('-');
-        const testeId = document.getElementById('minced-beef---500g');
-        console.log(testeId);
-      });
+    if (inProgressRecipes) {
+      setIngredientsSave(inProgressRecipes.meals[historyId]);
     }
-  }, [ingredientsSave]); */
+  }, []);
 
   return (
     <div className="food-container">
@@ -134,12 +123,14 @@ function FoodProgress() {
             htmlFor={ ingredient }
             data-testid={ `${index}-ingredient-step` }
             key={ index }
+            className={ `${ingredientsSave.includes(ingredient) ? 'line-through' : ''}` } // para o toggle do estilo
           >
             <input
               type="checkbox"
               value={ ingredient }
-              id={ ingredient.toLowerCase().split(' ').join('-') }
-              onClick={ handleLineThrough }
+              id={ ingredient }
+              checked={ ingredientsSave.includes(ingredient) } // para o toggle do check
+              onChange={ () => handleLineThrough(ingredient) } // onChange engloba mais eventos e quando clica na label tbm funciona.
             />
             {ingredient}
           </label>
