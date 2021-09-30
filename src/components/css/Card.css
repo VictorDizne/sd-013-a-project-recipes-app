@@ -6,3 +6,15 @@
   margin: 0 auto;
   max-width: 340px;
 }
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 360px;
+}
+
+a:hover {
+  text-decoration: none;
+}

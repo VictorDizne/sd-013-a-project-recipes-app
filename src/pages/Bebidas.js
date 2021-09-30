@@ -62,29 +62,30 @@ export default function Bebidas({ history }) {
           ? <Loading />
           : (
             <>
-              <ButtonFilter
-                categoryName="All"
-                onClick={ () => {
-                  handleBtnClick({
-                    input: '',
-                    isMeal: false,
-                    radio: 'Nome',
-                  });
-                } }
-                isMeal="drink"
-              >
-                All
-              </ButtonFilter>
-              {
-                drinksCategories.map((category) => (
-                  <ButtonFilter
-                    key={ category.strCategory }
-                    categoryName={ category.strCategory }
-                    onClick={ getDrinksByCategory }
-                    isMeal="drink"
-                  />))
-              }
-
+              <div className="button-container">
+                <ButtonFilter
+                  categoryName="All"
+                  onClick={ () => {
+                    handleBtnClick({
+                      input: '',
+                      isMeal: false,
+                      radio: 'Nome',
+                    });
+                  } }
+                  isMeal="drink"
+                >
+                  All
+                </ButtonFilter>
+                {
+                  drinksCategories.map((category) => (
+                    <ButtonFilter
+                      key={ category.strCategory }
+                      categoryName={ category.strCategory }
+                      onClick={ getDrinksByCategory }
+                      isMeal="drink"
+                    />))
+                }
+              </div>
               { drinks.map((drink, index) => (
                 <Card
                   key={ drink.idDrink }
