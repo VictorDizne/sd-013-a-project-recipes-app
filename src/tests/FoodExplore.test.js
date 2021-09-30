@@ -86,3 +86,46 @@ a rota deve mudar para tela de explorar por local de origem`, () => {
     expect(pathname).toBe('/explorar/comidas/area');
   });
 });
+
+describe('testa a pagina Explorar Comidas ', () => {
+  test('testa se a rota está correta', async () => {
+    const { history } = renderWithRouter(<FoodExplore
+      title="Explorar Comidas"
+      visible={ false }
+    />);
+    history.push('/explorar/comidas');
+  });
+
+  test('testa se a página contém o título "Explorar Comidas"', async () => {
+    const { findByTestId } = renderWithRouter(<FoodExplore
+      title="Explorar Comidas"
+      visible={ false }
+    />);
+    const title = await findByTestId('page-title');
+    expect(title).toBeInTheDocument();
+  });
+
+  test('testa se clicando no botão "Por Ingredientes" é redirecionado'
+  + 'para explorar/comidas/ingredientes', async () => {
+    const { history, findByTestId } = renderWithRouter(<FoodExplore
+      title="Explorar Comidas"
+      visible={ false }
+    />);
+    const exploreIngredient = await findByTestId('explore-by-ingredient');
+    userEvent.click(exploreIngredient);
+    const path = history.location.pathname;
+    expect(path).toBe('/explorar/comidas/ingredientes');
+  });
+
+  test('testa se clicando no botão "Por Local de Origem" é redirecionado'
+  + 'para explorar/comidas/area', async () => {
+    const { history, findByTestId } = renderWithRouter(<FoodExplore
+      title="Explorar Comidas"
+      visible={ false }
+    />);
+    const exploreArea = await findByTestId('explore-by-area');
+    userEvent.click(exploreArea);
+    const path = history.location.pathname;
+    expect(path).toBe('/explorar/comidas/area');
+  });
+});
