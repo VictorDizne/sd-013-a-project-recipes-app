@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import fetchRecipeById from '../services/fetchRecipeById';
@@ -7,6 +7,7 @@ import Img from '../components/Img';
 import Ingredients from '../components/Ingredients';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
+import Recomendations from '../components/Recomendations';
 
 function ReceitaDetalhes({ match }) {
   const [recipe, setRecipe] = useState({});
@@ -43,7 +44,7 @@ function ReceitaDetalhes({ match }) {
       <Video meal={ isMeal } recipe={ recipe } />
 
       <h4>Recomendações</h4>
-      <p data-testid="0-recomendation-card">Ver o que é isso.</p>
+      <Recomendations isMeal={ isMeal } />
 
       <Link
         to={ `${isMeal ? '/comidas/' : '/bebidas/'}${recipeId}/in-progress` }
