@@ -86,8 +86,9 @@ describe('testa se a página de comidas é renderizada', () => {
   });
 
   test('testa a quantidade dos cards de comida', async () => {
-    const {
-      history, findByText, findAllByTestId } = renderWithRouter(<Foods title="Comidas" />);
+    const { history, findByText, findAllByTestId } = renderWithRouter(
+      <Foods title="Comidas" />,
+    );
     history.push('/comidas');
 
     const meal = await findByText(/lasagne/i);
@@ -125,7 +126,9 @@ describe('testa se a página de comidas é renderizada', () => {
   });
 
   test('testa o click em um botão da categoria', async () => {
-    const { history, findByTestId, findByText } = renderWithRouter(<Foods title="Comidas" />);
+    const { history, findByTestId, findByText } = renderWithRouter(
+      <Foods title="Comidas" />,
+    );
     history.push('/comidas');
 
     const breakfastButton = await findByTestId(breakfastIdTest);

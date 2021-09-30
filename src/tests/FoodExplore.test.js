@@ -95,7 +95,7 @@ describe('testa a pagina Explorar Comidas ', () => {
     />);
     history.push('/explorar/comidas');
   });
-  
+
   test('testa se a página contém o título "Explorar Comidas"', async () => {
     const { findByTestId } = renderWithRouter(<FoodExplore
       title="Explorar Comidas"

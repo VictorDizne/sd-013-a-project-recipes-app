@@ -85,8 +85,11 @@ describe('testa a página de bebidas ', () => {
   });
 
   test('testa a quantidade de cards de bebidas', async () => {
-    const {
-      history, findByText, findAllByTestId } = renderWithRouter(<Drinks title="Bebidas" />);
+    const { history, findByText, findAllByTestId } = renderWithRouter(
+      <Drinks
+        title="Bebidas"
+      />,
+    );
     history.push('/bebidas');
 
     const drink = await findByText(/B-53/i);
@@ -124,7 +127,9 @@ describe('testa a página de bebidas ', () => {
   });
 
   test('testa o click em um botão da categoria', async () => {
-    const { history, findByTestId, findByText } = renderWithRouter(<Drinks title="Bebidas" />);
+    const { history, findByTestId, findByText } = renderWithRouter(
+      <Drinks title="Bebidas" />,
+    );
     history.push('/bebidas');
 
     const btnOrdinary = await findByTestId(btnDrinkId);
