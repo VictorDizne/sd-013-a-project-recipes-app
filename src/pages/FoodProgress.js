@@ -6,6 +6,8 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
+import '../styles/Progress.css';
+
 const INITIAL_VALUE = 9;
 const FINAL_VALUE = 5;
 
@@ -32,11 +34,16 @@ function FoodProgress() {
   const shareRecipe = () => {
     const url = `http://localhost:3000/comidas/${historyId}`;
     const SET_TIME_OUT = 1000;
+
     navigator.clipboard.writeText(url);
     setMessageAlert('Link copiado!');
     setTimeout(() => {
       setMessageAlert('');
     }, SET_TIME_OUT);
+  };
+
+  const handleLineThrough = ({ target }) => {
+    target.parentElement.classList.toggle('line-through');
   };
 
   return (
@@ -69,16 +76,21 @@ function FoodProgress() {
       )}
 
       <h3>Ingredientes</h3>
-      <ul>
-        {ingredients.map((ingredient, index) => (
-          <li
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            {ingredient}
-          </li>
-        ))}
-      </ul>
+      {ingredients.map((ingredient, index) => (
+        <label
+          htmlFor={ `ingredient-${index}` }
+          data-testid={ `${index}-ingredient-step` }
+          key={ index }
+        >
+          <input
+            type="checkbox"
+            value={ ingredient }
+            id={ `ingredient-${index}` }
+            onClick={ handleLineThrough }
+          />
+          {ingredient}
+        </label>
+      ))}
 
       <h3>Instruções</h3>
       {(recipe.length === 1)

@@ -19,13 +19,11 @@ function DrinkProgress() {
   const historyFilter = history.location.pathname;
   const historyId = historyFilter.substr(INITIAL_VALUE, FINAL_VALUE);
 
-  console.log(historyId);
-
   useEffect(() => {
     const getRecipe = async () => {
-      const meal = await fetchDrinksById(historyId);
-      setIngredients(getIngredients(meal));
-      setRecipe(meal);
+      const drink = await fetchDrinksById(historyId);
+      setIngredients(getIngredients(drink));
+      setRecipe(drink);
       setFavorite(false);// coloquei soh pro lint nao reclamar. É para apagar o setFavorite => Aham sei
     };
     getRecipe();
@@ -40,6 +38,10 @@ function DrinkProgress() {
     setTimeout(() => {
       setMessageAlert('');
     }, SET_TIME_OUT);
+  };
+
+  const handleLineThrough = ({ target }) => {
+    target.parentElement.classList.toggle('line-through');
   };
 
   return (
@@ -72,16 +74,21 @@ function DrinkProgress() {
       )}
 
       <h3>Ingredientes</h3>
-      <ul>
-        {ingredients.map((ingredient, index) => (
-          <li
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            {ingredient}
-          </li>
-        ))}
-      </ul>
+      {ingredients.map((ingredient, index) => (
+        <label
+          htmlFor={ `ingredient-${index}` }
+          data-testid={ `${index}-ingredient-step` }
+          key={ index }
+        >
+          <input
+            type="checkbox"
+            value={ ingredient }
+            id={ `ingredient-${index}` }
+            onClick={ handleLineThrough }
+          />
+          {ingredient}
+        </label>
+      ))}
 
       <h3>Instruções</h3>
       {(recipe.length === 1)

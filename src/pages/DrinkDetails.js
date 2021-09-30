@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { fetchDrinksById } from '../services/bebidasApi';
 import { fetchRecommendedMeals } from '../services/comidasApi';
+import { getIngredients, createDate, favoriteDrinkRecipe } from '../services/helpers';
 import RecomendationCard from '../components/RecomendationCard';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { getIngredients, createDate, favoriteDrinkRecipe } from '../services/helpers';
 
 const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
