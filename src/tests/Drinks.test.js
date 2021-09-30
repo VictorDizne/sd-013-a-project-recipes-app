@@ -11,6 +11,15 @@ describe('1 - Verifica o funcionamento da tela de bebidas', () => {
     expect(pageTitle).toBeInTheDocument();
     expect(pageTitle.innerHTML).toBe('Bebidas');
   });
+
+  test('Verifica de exite o botão perfil e se funciona corretamente', () => {
+    const { getByTestId, history } = renderWithRouter(<Drinks title="Bebidas" />);
+    const btnProfile = getByTestId('profile-top-btn');
+    userEvent.click(btnProfile);
+    const { pathname } = history.location;
+    expect(btnProfile).toBeInTheDocument();
+    expect(pathname).toBe('/perfil');
+  });
 });
 
 describe('2 - Verifica as funcionalidades da tela de receitas de bebidas', () => {
