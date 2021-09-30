@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 
 const ReceitasFavoritas = () => {
-  const [favorites, setFavorites] = useState('');
+  const [setFavorites] = useState('');
 
   useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
