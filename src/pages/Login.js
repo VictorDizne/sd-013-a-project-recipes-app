@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { TextField, Button } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Login';
+import Logo from '../images/logo.svg';
+import './css/Login.css';
 
 export default function Login({ history }) {
   const [email, setEmail] = useState('');
@@ -47,35 +51,50 @@ export default function Login({ history }) {
 
   return (
     <>
-      <h1> Login </h1>
+      <div className="logo">
+        <img className="logo-image" src={ Logo } alt="logo" />
+      </div>
       <form onSubmit={ handleSubmit }>
-
-        <input
-          type="email"
-          data-testid="email-input"
+        <TextField
+          id="name-text-input"
+          label="Email"
+          variant="outlined"
           name="email"
-          placeholder="Email"
+          onChange={ handleChange }
           value={ email }
-          onChange={ handleChange }
+          type="email"
+          margin="dense"
+          size="small"
+          inputProps={ {
+            'data-testid': 'email-input',
+          } }
+          fullWidth
         />
-
-        <input
-          type="password"
-          data-testid="password-input"
+        <TextField
+          id="password-text-field"
+          label="Password"
+          variant="outlined"
           name="password"
-          placeholder="Senha"
-          value={ password }
           onChange={ handleChange }
+          value={ password }
+          size="small"
+          type="password"
+          margin="dense"
+          inputProps={ {
+            'data-testid': 'password-input',
+          } }
+          fullWidth
         />
-
-        <button
-          type="submit"
+        <Button
+          variant="contained"
           data-testid="login-submit-btn"
           disabled={ !validEmail || !validPassword }
+          startIcon={ <LoginIcon /> }
+          type="submit"
+          fullWidth
         >
-          Entrar
-        </button>
-
+          Login
+        </Button>
       </form>
     </>
   );

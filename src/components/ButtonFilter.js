@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
 import RecipesContext from '../context/RecipesContext';
 
 function ButtonFilter({ categoryName, onClick, isMeal }) {
@@ -22,13 +23,14 @@ function ButtonFilter({ categoryName, onClick, isMeal }) {
   };
 
   return (
-    <button
-      type="button"
+    <Button
       data-testid={ `${categoryName}-category-filter` }
       onClick={ () => toggle(isFiltered) }
+      size="large"
     >
       {categoryName}
-    </button>
+    </Button>
+
   );
 }
 

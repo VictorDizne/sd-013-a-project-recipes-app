@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import RecomendationCard from './RecomendationCard';
+import './css/RecipeDetails.css';
 
 const RecipeRecomendations = ({ isMeal }) => {
   const [recomendation, setRecomendation] = useState([]);
@@ -22,25 +24,35 @@ const RecipeRecomendations = ({ isMeal }) => {
     fetching();
   }, [isMeal]);
 
-  return recomendation.length > 0 && recomendation.map((recipe, i) => {
-    if (isMeal) {
-      return (
-        <RecomendationCard
-          key={ `${recipe} ${i}` }
-          name={ recipe.strDrink }
-          thumb={ recipe.strDrinkThumb }
-          index={ i }
-        />
-      );
-    }
-    return (
-      <RecomendationCard
-        key={ `${recipe} ${i}` }
-        name={ recipe.strMeal }
-        thumb={ recipe.strMealThumb }
-        index={ i }
-      />);
-  });
+  return (
+    <div className="recomendation-container">
+      {
+        recomendation.length > 0 && recomendation.map((recipe, i) => {
+          if (isMeal) {
+            return (
+              <RecomendationCard
+                key={ `${recipe} ${i}` }
+                name={ recipe.strDrink }
+                thumb={ recipe.strDrinkThumb }
+                index={ i }
+              />
+            );
+          }
+          return (
+            <RecomendationCard
+              key={ `${recipe} ${i}` }
+              name={ recipe.strMeal }
+              thumb={ recipe.strMealThumb }
+              index={ i }
+            />);
+        })
+      }
+    </div>
+  );
+};
+
+RecipeRecomendations.propTypes = {
+  isMeal: PropTypes.bool.isRequired,
 };
 
 export default RecipeRecomendations;

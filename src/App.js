@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import { Container } from '@mui/material';
 import RecipesContextProvider from './context/RecipesContextProvider';
 import {
   Bebidas, Comidas,
@@ -23,7 +24,7 @@ import {
 
 function App() {
   return (
-    <div className="main">
+    <Container maxWidth="xs">
       <BrowserRouter>
         <RecipesContextProvider>
           <Switch>
@@ -66,7 +67,7 @@ function App() {
           </Switch>
         </RecipesContextProvider>
       </BrowserRouter>
-    </div>
+    </Container>
   );
 }
 

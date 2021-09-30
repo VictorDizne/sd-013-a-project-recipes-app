@@ -99,6 +99,9 @@ const RecipesContextProvider = ({ children }) => {
   }, []);
 
   const handleBtnClick = useCallback(({ input, isMeal, radio }) => {
+    console.log(input);
+    console.log(isMeal);
+    console.log(radio);
     const radioIdsObj = {
       Ingrediente: isMeal ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`
         : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`,

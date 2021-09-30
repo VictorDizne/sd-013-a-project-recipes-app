@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import './css/Header.css';
 
 const Header = ({ pageTitle, history, isMeal }) => {
   const [showBar, setShowBar] = useState(false);
@@ -18,16 +19,17 @@ const Header = ({ pageTitle, history, isMeal }) => {
   };
 
   return (
-    <header>
-      <input
-        type="image"
-        src={ profileIcon }
-        data-testid="profile-top-btn"
-        alt="profile icon"
-        onClick={ () => history.push('/perfil') }
-      />
-      <h2 data-testid="page-title">{ pageTitle }</h2>
-      {checkObj[pageTitle]
+    <>
+      <header className="header-container">
+        <input
+          type="image"
+          src={ profileIcon }
+          data-testid="profile-top-btn"
+          alt="profile icon"
+          onClick={ () => history.push('/perfil') }
+        />
+        <h2 data-testid="page-title">{ pageTitle }</h2>
+        {checkObj[pageTitle]
         && <input
           type="image"
           data-testid="search-top-btn"
@@ -35,9 +37,9 @@ const Header = ({ pageTitle, history, isMeal }) => {
           src={ searchIcon }
           onClick={ handleSearchBtnClick }
         />}
+      </header>
       {showBar && <SearchBar isMeal={ isMeal } />}
-
-    </header>
+    </>
   );
 };
 
