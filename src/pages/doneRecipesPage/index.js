@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import DoneDrinkCard from '../../components/doneDrinkCard';
-import DoneMealCard from '../../components/doneMealCard';
+import DoneRecipeCard from '../../components/doneRecipeCard';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 
@@ -20,38 +19,31 @@ function DoneRecipesPage() {
   }
   // Busca a chave de receitas feitas do localStorage
   const currentDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  // Filtra apenas as comidas e faz os cartões
+  // Filtra apenas as comidas
   const everyDoneMeal = currentDoneRecipes.filter((recipe) => recipe.type === 'comida');
-  function everyMealCard() {
-    return everyDoneMeal.map((meal, index) => (
-      <DoneMealCard
-        key={ index }
-        area={ meal.area }
-        tags={ meal.tags }
-        date={ meal.doneDate }
-        cardName={ meal.name }
-        index={ index }
-        image={ meal.image }
-        id={ meal.id }
-        category={ meal.strCategory }
-      />));
-  }
   // Filtra apenas as bebidas
   const everyDoneDrink = currentDoneRecipes.filter((recipe) => recipe.type === 'bebida');
-  function everyDrinkCard() {
-    return everyDoneDrink.map((drink, index) => (
-      <DoneDrinkCard
-        key={ index }
+  // Essa função gera os cards de acordo com o filtro do usuário
+  function generatesCards(recipes) {
+    return recipes.map((recipe, index) => (
+      <DoneRecipeCard
+        recipe={ recipe }
         index={ index }
-        image={ drink.image }
-        name={ drink.name }
-        alcoholicOrNot={ drink.alcoholicOrNot }
-        doneDate={ drink.doneDate }
-        id={ drink.id }
+        key={ index }
       />
     ));
   }
-  // Filtra cards de bebida ou comida ou ambos
+  // Manda para a função que gera os cards apenas os elementos filtrados
+  function showCards() {
+    if (showMeals && showDrinks) {
+      return generatesCards(currentDoneRecipes);
+    } if (showMeals) {
+      return generatesCards(everyDoneMeal);
+    } if (showDrinks) {
+      return generatesCards(everyDoneDrink);
+    }
+  }
+  // Filtra cards de bebida ou comida ou ambos de acordo com o botão clicado
   function handleClick(shouldShow) {
     switch (shouldShow) {
     case 'Meals':
@@ -96,8 +88,7 @@ function DoneRecipesPage() {
           Drinks
         </button>
       </div>
-      { showMeals ? everyMealCard() : null }
-      { showDrinks ? everyDrinkCard() : null }
+      { showCards() }
       <Footer />
     </>
 

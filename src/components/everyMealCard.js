@@ -6,11 +6,11 @@ import SingleCard from './singleCard';
 function EveryMealCard() {
   const { meals: { meals } } = useContext(recipesContext);
   // Checa se foi encontrado algum resultado na pesquisa
-  if (meals === null) {
+  const maxResults = 12;
+  if (!meals) {
     global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     return <p>Nenhum resultado encontrado</p>;
   }
-  const maxResults = 12;
   const everyRecipe = Object.values(meals).slice(0, maxResults);
   const everyCard = everyRecipe
     .map((recipe, index) => (
