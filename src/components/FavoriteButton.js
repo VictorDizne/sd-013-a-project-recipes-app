@@ -32,6 +32,7 @@ const FavoriteButton = ({ recipeDetails }) => {
       return changeFavoriteImg(whiteHeartIcon);
     }
     changeFavoriteImg(blackHeartIcon);
+    const allFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
     let favoriteLocalStorageObject = {
       id: '',
@@ -63,11 +64,19 @@ const FavoriteButton = ({ recipeDetails }) => {
         image: recipeDetails.strMealThumb,
       };
     }
-    localStorage.setItem(
-      'favoriteRecipes', JSON.stringify(
-        [favoriteLocalStorageObject],
-      ),
-    );
+    if (allFavorite) {
+      localStorage.setItem(
+        'favoriteRecipes', JSON.stringify(
+          [...allFavorite, favoriteLocalStorageObject],
+        ),
+      );
+    } else {
+      localStorage.setItem(
+        'favoriteRecipes', JSON.stringify(
+          [favoriteLocalStorageObject],
+        ),
+      );
+    }
   }
 
   function button() {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
 
 const ReceitasFavoritas = () => {
@@ -7,7 +7,7 @@ const ReceitasFavoritas = () => {
   useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavorites(favoriteRecipes);
-  });
+  }, []);
   // [{ id, type, area, category, alcoholicOrNot, name, image }]
   return (
     <div>
