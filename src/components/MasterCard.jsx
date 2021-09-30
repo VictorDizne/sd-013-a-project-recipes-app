@@ -1,11 +1,11 @@
-// import React from 'react';
+import React from 'react';
 // import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-// const Img = styled.img`
-//   max-width: 45vw;
-// `;
+const Img = styled.img`
+  max-width: 45vw;
+`;
 
 // function MasterCard(props) {
 //   const {
@@ -195,3 +195,22 @@
 // }.isRequired;
 
 // export default MasterCard;
+
+function RecipeCard({ title, src, index }) {
+  return (
+    <div data-testid={ `${index}-recipe-card` }>
+      <Img src={ src } alt={ title } data-testid={ `${index}-card-img` } />
+      <h3 data-testid={ `${index}-card-name` }>{ title }</h3>
+    </div>
+  );
+}
+
+const { string } = PropTypes;
+
+RecipeCard.propTypes = {
+  index: string,
+  title: string,
+  url: string,
+}.isRequired;
+
+export default RecipeCard;
