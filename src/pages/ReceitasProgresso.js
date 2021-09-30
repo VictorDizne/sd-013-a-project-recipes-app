@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import fetchRecipeById from '../services/fetchRecipeById';
-import Video from '../components/Video';
 import Img from '../components/Img';
-import Ingredients from '../components/Ingredients';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
+import IngredientsList from '../components/IngredientsList';
+import Context from '../context';
+import FinishButton from '../components/FinishButton';
 
-function ReceitaDetalhes({ match }) {
+function ReceitasProgresso({ match }) {
   const [recipe, setRecipe] = useState({});
+  const [disabledButton, setDisabledButton] = useState(true);
+  const { compareCheckBox } = useContext(Context);
+  const checkboxes = document.querySelectorAll('.checkboxes');
+  const url = match.url.split('/in')[0];
 
   const { recipeId } = match.params;
 
@@ -24,6 +28,15 @@ function ReceitaDetalhes({ match }) {
     getRecipe(recipeId);
   }, [setRecipe, recipeId, isMeal]);
 
+  // funcao para habilitar ou desabilitar o botao Finalizar Receita
+  const disableButton = () => {
+    if (compareCheckBox === checkboxes.length - 1) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  };
+
   const renderContent = () => (
     <>
       <Img meal={ isMeal } recipe={ recipe } />
@@ -31,34 +44,41 @@ function ReceitaDetalhes({ match }) {
       <h2 data-testid="recipe-category">
         {isMeal ? recipe.strCategory : recipe.strAlcoholic}
       </h2>
-      <ShareButton url={ match.url } />
-      <FavoriteButton recipe={ recipe } isMeal={ isMeal } />
-      {/* <button type="button" data-testid="share-btn">Share</button> */}
+      <ShareButton
+        url={ url }
+      />
+      <FavoriteButton
+        recipe={ recipe }
+        isMeal={ isMeal }
+      />
 
-      <Ingredients recipe={ recipe } />
+      <IngredientsList
+        recipe={ recipe }
+        isMeal={ isMeal }
+        disableButton={ disableButton }
+        recipeId={ recipeId }
+      />
 
       <h4>Instruções</h4>
       <p data-testid="instructions">{recipe.strInstructions}</p>
 
-      <Video meal={ isMeal } recipe={ recipe } />
-
       <h4>Recomendações</h4>
       <p data-testid="0-recomendation-card">Ver o que é isso.</p>
 
-      <Link
-        to={ `${isMeal ? '/comidas/' : '/bebidas/'}${recipeId}/in-progress` }
-        className="btn btn-primary"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </Link>
+      <FinishButton
+        disabledButton={ disabledButton }
+        recipeId={ recipeId }
+        isMeal={ isMeal }
+        recipe={ recipe }
+      />
+
     </>
   );
 
   return recipe ? renderContent() : <h1>Loading...</h1>;
 }
 
-ReceitaDetalhes.propTypes = {
+ReceitasProgresso.propTypes = {
   match: PropTypes.shape({
     path: PropTypes.string.isRequired,
     params: PropTypes.shape({
@@ -68,4 +88,4 @@ ReceitaDetalhes.propTypes = {
   }).isRequired,
 };
 
-export default ReceitaDetalhes;
+export default ReceitasProgresso;
