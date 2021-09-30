@@ -27,6 +27,9 @@ function FoodDetails() {
         cocktails: {}, meals: {},
       }));
     }
+    if (JSON.parse(localStorage.getItem('doneRecipes')) === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
   useEffect(() => {
@@ -50,6 +53,14 @@ function FoodDetails() {
       return setInProgress(true);
     }
   }, [id]);
+
+  const isDoneRecipe = () => {
+    const doneRecipesLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesLocal === null) {
+      return false;
+    }
+    return doneRecipesLocal.some((doneRecipe) => doneRecipe.id === id);
+  };
 
   const buttonStartRecipe = () => {
     // coloca a receita em progresso quando clicamos para iniciar progresso.
@@ -115,6 +126,7 @@ function FoodDetails() {
           style={ { position: 'fixed', bottom: '0' } }
           onClick={ () => buttonStartRecipe() }
           data-testid="start-recipe-btn"
+          hidden={ isDoneRecipe() }
         >
           { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
