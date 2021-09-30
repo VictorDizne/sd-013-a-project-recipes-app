@@ -17,7 +17,7 @@ import {
   getAPIdataID,
   alimentosSugestions } from '../services/funcAuxDetails';
 
-const DetalheComidas = ({ match: { params: { id }, url }, history, location: { pathname } }) => {
+const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
   const [drinksDetails, setDrinkDetails] = useState([]);
   const [btnState, setBtnState] = useState('Iniciar Receita');
@@ -65,7 +65,6 @@ const DetalheComidas = ({ match: { params: { id }, url }, history, location: { p
   };
   const handleFavorite = () => {
     changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
-    console.log(pathname);
   };
 
   const handleShare = () => {
