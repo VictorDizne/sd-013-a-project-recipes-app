@@ -16,6 +16,7 @@ import {
   InProgressBebidas,
   InProgressComidas,
   Login,
+  NotFound,
   Perfil,
   ReceitasFavoritas,
   ReceitasFeitas,
@@ -59,6 +60,11 @@ function App() {
               exact
               path="/explorar/comidas/area"
               component={ ExplorarComidasArea }
+            />
+            <Route
+              exact
+              path="/explorar/bebidas/area"
+              component={ NotFound }
             />
             <Route exact path="/perfil" component={ Perfil } />
             <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />

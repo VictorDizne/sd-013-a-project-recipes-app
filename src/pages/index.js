@@ -9,6 +9,7 @@ export { default as ExplorarComidas } from './ExplorarComidas';
 export { default as ExplorarComidasArea } from './ExplorarComidasArea';
 export { default as ExplorarComidasIngredientes } from './ExplorarComidasIngredientes';
 export { default as Login } from './Login';
+export { default as NotFound } from './NotFound';
 export { default as InProgressBebidas } from './InProgressBebidas';
 export { default as InProgressComidas } from './InProgressComidas';
 export { default as Perfil } from './Perfil';
