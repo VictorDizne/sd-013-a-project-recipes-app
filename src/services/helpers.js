@@ -1,5 +1,4 @@
 // solução feita a partir do repositório https://github.com/tryber/sd-013-a-project-recipes-app/blob/main-group-3-requisito-28/src/components/RecipeDetailCard.jsx
-
 export const getIngredients = (meal) => {
   const strMeal = Object.entries(meal[0]);
   const strIngredient = strMeal.filter(([key, value]) => key

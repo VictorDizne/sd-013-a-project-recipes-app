@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { fetchFoodById } from '../services/comidasApi';
+import { getIngredients } from '../services/helpers';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { getIngredients } from '../services/helpers';
 
 const INITIAL_VALUE = 9;
 const FINAL_VALUE = 5;
@@ -12,12 +12,12 @@ const FINAL_VALUE = 5;
 function FoodProgress() {
   const [ingredients, setIngredients] = useState([]);
   const [recipe, setRecipe] = useState([]);
+  const [messageAlert, setMessageAlert] = useState('');
+  const [favorite, setFavorite] = useState(false);
+
   const history = useHistory();
   const historyFilter = history.location.pathname;
   const historyId = historyFilter.substr(INITIAL_VALUE, FINAL_VALUE);
-
-  const [messageAlert, setMessageAlert] = useState('');
-  const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
     const getRecipe = async () => {
