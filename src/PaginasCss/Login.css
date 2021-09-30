@@ -1,22 +1,21 @@
 .login-title {
-    text-align: center;
 }
 
 
 .input {
+  border-radius: 15px;
   font-size: large;
   text-align:left;
   width: 200px;
-  margin-inline: 80px;
   
 
 }
 
 .login-submit-btn {
   background-color:#4dd464;
-  font-size: 15px;
-  font-family: 'Courier New', Courier, monospace;
-  margin-inline: 80px;
+  border-radius: 15px;
+  font-size: 25px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   width: 200px;
   }
 
