@@ -8,6 +8,7 @@ import App from '../App';
 const FILTER_BY_ALL_BTN = 'filter-by-all-btn';
 const FILTER_BY_FOOD_BTN = 'filter-by-food-btn';
 const FILTER_BY_DRINK_BTN = 'filter-by-drink-btn';
+const RECEITAS_FEITAS = 'Receitas Feitas';
 
 const doneRecipes = [
   {
@@ -42,7 +43,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
         visible={ false }
       />,
     );
-    const title = getByText('Receitas Feitas');
+    const title = getByText(RECEITAS_FEITAS);
 
     expect(title).toBeInTheDocument();
   });
@@ -54,7 +55,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
 
     const pageTitle = getByTestId('page-title');
     expect(pageTitle).toBeInTheDocument();
-    expect(pageTitle.innerHTML).toBe('Receitas Feitas');
+    expect(pageTitle.innerHTML).toBe(RECEITAS_FEITAS);
   });
 
   test('Verifica se os botões de filtro estão presentes', () => {
@@ -208,7 +209,7 @@ describe('Testando mais da página de receitas feitas', () => {
 
     history.push(PAGE_MOCK);
 
-    const filterByAllBtn = getByTestId('filter-by-all-btn');
+    const filterByAllBtn = getByTestId(FILTER_BY_ALL_BTN);
     userEvent.click(filterByAllBtn);
 
     expect(getByTestId(DONE_IMG_TESTID)).toBeInTheDocument();
@@ -223,7 +224,7 @@ describe('Testando mais da página de receitas feitas', () => {
 
     history.push(PAGE_MOCK);
 
-    const filterByFoodBtn = getByTestId('filter-by-food-btn');
+    const filterByFoodBtn = getByTestId(FILTER_BY_FOOD_BTN);
     userEvent.click(filterByFoodBtn);
 
     expect(getByTestId(DONE_IMG_TESTID)).toBeInTheDocument();
@@ -238,7 +239,7 @@ describe('Testando mais da página de receitas feitas', () => {
 
     history.push(PAGE_MOCK);
 
-    const filterByDrinkBtn = getByTestId('filter-by-drink-btn');
+    const filterByDrinkBtn = getByTestId(FILTER_BY_DRINK_BTN);
     userEvent.click(filterByDrinkBtn);
 
     expect(queryByTestId(DONE_IMG_TESTID)).toBeInTheDocument();
