@@ -43,7 +43,7 @@ function DrinkSearchBar({ setSearchBarStatus, setDrinkRecipes }) {
     if (!response.drinks) return searchBarAlert();
 
     if (response.drinks.length === 1) {
-      setLoneDrink(response.drinks[0].idDrinks);
+      setLoneDrink(response.drinks[0].idDrink);
       setRedirect(true);
     } else {
       setDrinkRecipes(response.drinks.slice(0, RETURN_LENGTH));
