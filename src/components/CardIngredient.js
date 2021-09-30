@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 
 function CardIngredient({ index, IngredientName, isMeal }) {
-  // const history = useHistory();
+  const { handleBtnClick } = useContext(RecipesContext);
+  const history = useHistory();
 
-  // const FilterByIngredient = () => {
-  //   history.push(HOME COM COMIDAS/BEBIDAS FILTRADAS PELO INGREDIENTE SELECIONADO);
-  // };
+  const filterByIngredient = async () => {
+    await handleBtnClick({
+      input: IngredientName,
+      isMeal,
+      radio: 'Ingrediente',
+    });
+
+    if (isMeal) history.push('/comidas');
+    else history.push('/bebidas');
+  };
 
   return (
 
     <button
       type="button"
-      // onClick={ FilterByIngredient }
+      onClick={ filterByIngredient }
       data-testid={ `${index}-ingredient-card` }
     >
 
@@ -25,7 +34,7 @@ function CardIngredient({ index, IngredientName, isMeal }) {
           }
           alt={ IngredientName }
           data-testid={ `${index}-card-img` }
-          style={ { width: '100vw', maxWidth: '500px' } }
+          // style={ { width: '100vw', maxWidth: '500px' } }
         />
 
         <div data-testid={ `${index}-card-name` }>

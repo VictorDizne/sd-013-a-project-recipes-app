@@ -25,14 +25,8 @@ export default function Bebidas({ history }) {
   }, [drinks, history]);
 
   useEffect(() => {
-    handleBtnClick({
-      input: '',
-      isMeal: false,
-      radio: 'Nome',
-    });
-
     getDrinksCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
-  }, [getDrinksCategories, handleBtnClick]);
+  }, [getDrinksCategories]);
 
   useEffect(() => {
     if (drinks.length > 0 && drinksCategories) setIsLoading(false);

@@ -7,7 +7,7 @@ import Header from '../components/Header';
 export default function Explorar({ history }) {
   return (
     <>
-      <Header pageTitle="Explorar" history={ history } />
+      <Header pageTitle="Explorar" history={ history } isMeal />
       <Link to="/explorar/comidas" data-testid="explore-food">Explorar Comidas</Link>
       <Link to="/explorar/bebidas" data-testid="explore-drinks">Explorar Bebidas</Link>
       <Footer />

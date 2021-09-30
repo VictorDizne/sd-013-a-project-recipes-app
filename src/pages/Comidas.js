@@ -26,14 +26,8 @@ export default function Comidas({ history }) {
   }, [history, meals]);
 
   useEffect(() => {
-    handleBtnClick({
-      input: '',
-      isMeal: true,
-      radio: 'Nome',
-    });
-
     getMealsCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-  }, [getMealsCategories, handleBtnClick]);
+  }, [getMealsCategories]);
 
   useEffect(() => {
     if (meals.length > 0 && mealsCategories) setIsLoading(false);
