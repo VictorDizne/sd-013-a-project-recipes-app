@@ -16,7 +16,12 @@ const FavoriteButton = ({ recipeDetails }) => {
     if (favoriteLocalStorage) {
       const favoritesFilter = favoriteLocalStorage.map((obj) => (
         Object.values(obj).some((key) => key === recipeId)));
-      return favoritesFilter[0] ? changeFavoriteImg(blackHeartIcon) : null;
+      console.log(favoriteLocalStorage);
+      favoritesFilter.forEach((favorite) => {
+        if (favorite) {
+          changeFavoriteImg(blackHeartIcon);
+        }
+      });
     }
   }
 
