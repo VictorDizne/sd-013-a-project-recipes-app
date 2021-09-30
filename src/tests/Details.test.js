@@ -1,13 +1,15 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import App from '../App';
 
 describe('Verifica o funcionamento de tela de detalhes', () => {
+  const path = '/comidas/52977';
   it('Verifica se é renderizado o card de comida', async () => {
     const { history } = renderWithRouter(<App />);
-    history.push('/comidas/52977');
+    history.push(path);
 
     const loading = screen.getByText(/carregando/i);
     expect(loading).toBeInTheDocument();
@@ -36,7 +38,7 @@ describe('Verifica o funcionamento de tela de detalhes', () => {
   });
 
   it('Verifica o botão de iniciar receita', async () => {
-    const url = '/comidas/52977';
+    const url = path;
     const { history } = renderWithRouter(<App />);
     history.push(url);
 
@@ -47,5 +49,15 @@ describe('Verifica o funcionamento de tela de detalhes', () => {
     history.push(url);
 
     expect(btnIniciar.innerText).toBe(/continuar receita/i);
+  });
+  it('Verifica o funcionamento do botão favoritos', async () => {
+    const url = path;
+    const { history } = renderWithRouter(<App />);
+    history.push(url);
+
+    const btnFavoriteRecipe = await screen.findByTestId('favorite-btn');
+
+    fireEvent.click(btnFavoriteRecipe);
+    expect(btnFavoriteRecipe).toHaveAttribute('src', blackHeartIcon);
   });
 });
