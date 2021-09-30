@@ -6,7 +6,7 @@ const Img = styled.img`
   max-width: 45vw;
 `;
 
-function RecipeCard({ title, src, index }) {
+function MasterCard({ title, src, index }) {
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <Img src={ src } alt={ title } data-testid={ `${index}-card-img` } />
@@ -17,10 +17,10 @@ function RecipeCard({ title, src, index }) {
 
 const { string } = PropTypes;
 
-RecipeCard.propTypes = {
+MasterCard.propTypes = {
   index: string,
   title: string,
   url: string,
 }.isRequired;
 
-export default RecipeCard;
+export default MasterCard;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import RecipeCard from '../components/RecipeCard';
+import MasterCard from '../components/MasterCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FilterRecipes from '../components/FilterRecipes';
@@ -80,7 +80,7 @@ const Drink = () => {
               key={ `${drinkRecipe}${index}` }
               className="recipeCard"
             >
-              <RecipeCard
+              <MasterCard
                 index={ index }
                 src={ drinkRecipe.strDrinkThumb }
                 title={ drinkRecipe.strDrink }
