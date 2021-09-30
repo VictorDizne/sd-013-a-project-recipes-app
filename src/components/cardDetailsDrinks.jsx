@@ -69,9 +69,10 @@ const CardDetailsDrinks = (id) => {
         {produtoDrinks.strAlcoholic}
       </h4>
       <img
-        src={ produtoDrinks.strDrinksThumb }
+        src={ produtoDrinks.strDrinkThumb }
         alt={ produtoDrinks.strDrink }
         data-testid="recipe-photo"
+        width="150px"
       />
       <ul>
         <h3>

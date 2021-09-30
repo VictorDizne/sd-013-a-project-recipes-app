@@ -10,7 +10,7 @@ const StartRecipeButton = ({ id, mealOrDrink, bebidasORcomidas }) => {
   function checkJson() {
     const localstora = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (localstora) {
-      console.log(localstora);
+      // console.log(localstora);
       setStartedRecipe(CONTINUAR_RECEITA);
     }
   }
