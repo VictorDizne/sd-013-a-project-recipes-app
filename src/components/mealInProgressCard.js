@@ -60,29 +60,6 @@ function MealInProgressCard() {
     return checkFavorite() ? desfavoritar() : favoritar();
   }
 
-  // function classOfCheckBox() {
-  //   const onRiskClass = 'risk';
-  //   const nonRiskClass = 'nonrisk';
-
-  //   if (target.className === 'risk') {
-  //     target.className = nonRiskClass;
-  //   } else {
-  //     target.className = onRiskClass;
-  //   }
-  // }
-
-  // function checkBoxClass() {
-  //   const onRiskClass = 'risk';
-  //   const nonRiskClass = 'non-risk';
-  //   // const classe = document.getElementsByClassName
-
-  //   if ( === onRiskClass ) {
-  //     return nonRiskClass;
-  //   } else {
-  //     return onRiskClass;
-  //   }
-  // }
-
   function handleChange({ target }) {
     const { checked } = target;
 
@@ -130,7 +107,6 @@ function MealInProgressCard() {
         {ingredientes.map((ingrediente, index) => (
           <div key className="recipe-checkbox">
             <label
-              className="non-risk"
               htmlFor={ ingrediente }
               id="input"
             >
