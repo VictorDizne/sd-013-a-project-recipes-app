@@ -85,6 +85,8 @@ export const fetchIngredients = async (path) => {
   return json[dataKey];
 };
 
+export const getStorage = (key) => JSON.parse(localStorage.getItem(key));
+
 // export const fetchIArea = async (area) => {
 //   const response = await fetch(`www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
 //   const json = await response.json();
