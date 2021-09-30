@@ -214,4 +214,3 @@ describe('3 - Testa se quanto uma imagem ou título de receita é clicado', () =
     expect(pathname).toBe('/bebidas/178319');
   });
 });
-

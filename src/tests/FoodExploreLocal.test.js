@@ -58,6 +58,9 @@ describe('1 - Verifica os testes da página de Explorar origem', () => {
 
     const link3 = screen.getByTestId(/food-bottom-btn/i);
     expect(link3).toBeInTheDocument();
+
+    const footerField = screen.getByTestId('footer');
+    expect(footerField).toBeInTheDocument();
   });
 
   test('Verifica se existe uma label para o elemento select', async () => {

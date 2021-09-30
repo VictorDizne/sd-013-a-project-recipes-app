@@ -42,3 +42,29 @@ describe('2 - Verifica as funcionalidades da tela de receitas de bebidas', () =>
     expect(history.location.pathname).toBe('/bebidas/17222');
   });
 });
+
+describe('3 - Elementos na Página Drinks', () => {
+  it('Verifica se Footer é renderizado', () => {
+    renderWithRouter(<Drinks title="Bebidas" />);
+    const footerField = screen.getByTestId('footer');
+    expect(footerField).toBeInTheDocument();
+  });
+
+  it('Verifica se drinkIcon é renderizado', () => {
+    renderWithRouter(<Drinks title="Bebidas" />);
+    const drinkButton = screen.getByTestId('drinks-bottom-btn');
+    expect(drinkButton).toBeInTheDocument();
+  });
+
+  it('Verifica se searchIcon é renderizado', () => {
+    renderWithRouter(<Drinks title="Bebidas" />);
+    const searchButton = screen.getByTestId('explore-bottom-btn');
+    expect(searchButton).toBeInTheDocument();
+  });
+
+  it('Verifica se foodIcon é renderizado', () => {
+    renderWithRouter(<Drinks title="Bebidas" />);
+    const foodButton = screen.getByTestId('food-bottom-btn');
+    expect(foodButton).toBeInTheDocument();
+  });
+});
