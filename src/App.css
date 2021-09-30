@@ -2,6 +2,7 @@
   border: none;
   margin: 0;
   padding: 0;
+  text-decoration: none;
 }
 
 @media screen and ( max-width : 360px ) and ( max-height : 640px ) {
@@ -194,19 +195,46 @@
     width: 120px;
   }
 
-  /*
-  #iceLeft {
-    animation: clink .8s infinite ease;
-    opacity: 0.6;
-    transform-origin: 36px 66px;
+  .start-recipe, .finish-recipe {
+    margin-bottom: 70px;
   }
 
-  #iceRight {
-    animation: clink .8s .2s infinite ease;
-    opacity: 0.6;
-    transform-origin: 60px 78px;
+  .detail-header {
+    background-color: #efefef;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
   }
-  */
+
+  .detail-button {
+    border: 1px solid black;
+    margin-top: 5px;
+    max-height: 30px;
+    max-width: 32px;
+  }
+
+  .recipe-checkboxs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recipe-checkbox {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3px;
+  }
+
+  .recipe-input {
+    margin: 4px;
+  }
+
+  .non-risk {
+    text-decoration: none;
+  }
+
+  .risk {
+    text-decoration: line-through;
+  }
 
   .meals > .logo {
     animation: shake 1.5s infinite ease;

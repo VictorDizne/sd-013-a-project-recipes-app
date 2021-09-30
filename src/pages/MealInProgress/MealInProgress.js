@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Footer from '../../components/footer';
-import Header from '../../components/header';
 import MealInProgressCard from '../../components/mealInProgressCard';
 import recipesContext from '../../context';
 
@@ -46,7 +45,6 @@ function MealInProgress() {
   };
   return (
     <>
-      <Header title="?" />
       <MealInProgressCard
         info={ details }
         medidas={ medida }
@@ -54,6 +52,7 @@ function MealInProgress() {
         id={ id }
       />
       <button
+        className="finish-recipe"
         onClick={ saveThisRecipe }
         type="button"
         data-testid="finish-recipe-btn"
