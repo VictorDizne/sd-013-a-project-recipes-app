@@ -28,18 +28,4 @@ describe('Componente Header', () => {
     expect(searchTopBtn).toBeInTheDocument();
   });
 
-  test('Search Ingredients page has correct'
-    + 'elements and title "Explorar Ingredientes', () => {
-    const { getByText, queryByRole, history } = renderWithRouter(<FoodExploreIngredients />);
-
-    const title = getByText(/Explorar Ingredientes/i);
-
-    const searchBtn = queryByRole('img', { name: /search icon/i });
-    const profileLink = queryByRole('img', { name: /profile icon/i });
-
-    expect(title).toBeInTheDocument();
-    expect(searchBtn).not.toBeInTheDocument();
-    userEvent.click(profileLink);
-    expect(history.location.pathname).toBe('/explorar/comidas/ingredientes');
-  });
 });
