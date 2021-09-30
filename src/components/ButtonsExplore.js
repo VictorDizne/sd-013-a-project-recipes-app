@@ -5,19 +5,22 @@ import { Link } from 'react-router-dom';
 function ButtonsExplore({ isMeal, recipeType, fetchRandom }) {
   return (
     <>
+
       <Link
         data-testid="explore-by-ingredient"
         to={ `/explorar/${recipeType}/ingredientes` }
       >
         Por Ingredientes
       </Link>
-      { isMeal && (
+
+      {isMeal && (
         <Link
           data-testid="explore-by-area"
           to="/explorar/comidas/area"
         >
           Por Local de Origem
         </Link>)}
+
       <button
         type="button"
         data-testid="explore-surprise"
@@ -25,6 +28,7 @@ function ButtonsExplore({ isMeal, recipeType, fetchRandom }) {
       >
         Me Surpreenda!
       </button>
+
     </>
   );
 }

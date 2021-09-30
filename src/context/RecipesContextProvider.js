@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import RecipesContext from './RecipesContext';
 
 const RecipesContextProvider = ({ children }) => {
@@ -140,6 +140,20 @@ const RecipesContextProvider = ({ children }) => {
       })
       .catch((err) => console.log(err.message));
   }, []);
+
+  useEffect(() => {
+    handleBtnClick({
+      input: '',
+      isMeal: true,
+      radio: 'Nome',
+    });
+
+    handleBtnClick({
+      input: '',
+      isMeal: false,
+      radio: 'Nome',
+    });
+  }, [handleBtnClick]);
 
   const contextValue = {
     meals,
