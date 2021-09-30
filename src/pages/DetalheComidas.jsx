@@ -173,3 +173,4 @@ DetalheComidas.propTypes = {
 }.isRequired;
 
 export default DetalheComidas;
+/* //testes */
