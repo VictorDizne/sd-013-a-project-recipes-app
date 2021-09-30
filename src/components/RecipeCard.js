@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Redirect } from 'react-router-dom';
 
 export default function ReciperCard({ name, index, img, idRecipe }) {
   const history = useHistory();
   const location = useLocation();
 
   const handleClick = () => {
-    history.push(`${location.pathname}/${idRecipe}`);
+    if (location.pathname === '/explorar/comidas/area') {
+      // eturn <Redirect to={ `/comidas/${idRecipe}` } />;
+      history.push(`/comidas/${idRecipe}`);
+    } else {
+      history.push(`${location.pathname}/${idRecipe}`);
+    }
   };
 
   return (
