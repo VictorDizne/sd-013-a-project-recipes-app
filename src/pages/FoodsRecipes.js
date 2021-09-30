@@ -5,18 +5,16 @@ import PropTypes from 'prop-types';
 import Context from '../Context/Context';
 import Button from '../components/Button';
 import useFetchRecipes from '../Hooks/useFetchRecipes';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import FavoriteMeal from '../components/FavoriteMeal';
 
 function FoodsRecipies(props) {
-  const { recipes } = useContext(Context);
+  const { recipes, setFavorite, setId } = useContext(Context);
+  const urlDrink = 'thecocktail';
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
-  const [favHeart, setFavHeart] = useState(false);
 
   const history = useHistory();
   const { match: { params: { id } } } = props;
-  const urlDrink = 'thecocktail';
   useFetchRecipes(urlDrink);
   useEffect(() => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -24,6 +22,8 @@ function FoodsRecipies(props) {
       const result = await (await fetch(url)).json();
       const obj = result.meals;
       setDetails(obj[0]);
+      setFavorite(obj[0]);
+      setId(obj[0].idMeal);
     }
     fetchResult();
   }, []);
@@ -53,10 +53,10 @@ function FoodsRecipies(props) {
 
   const renderDetails = () => {
     const urlShare = window.location.href;
+    const video = details.strYoutube;
+    const youtube = video.replace('watch?v=', 'embed/');
+    // https://qastack.com.br/programming/20498831/refused-to-display-in-a-frame-because-it-set-x-frame-options-to-sameorigin
     if (details !== undefined) {
-      const video = details.strYoutube;
-      const youtube = video.replace('watch?v=', 'embed/');
-      // https://qastack.com.br/programming/20498831/refused-to-display-in-a-frame-because-it-set-x-frame-options-to-sameorigin
       return (
         <section>
           <img src={ details.strMealThumb } alt="" data-testid="recipe-photo" />
@@ -71,16 +71,8 @@ function FoodsRecipies(props) {
             Compartilhar
           </Button>
           { message ? <h5>Link copiado!</h5> : null }
-          <Button
-            testID="favorite-btn"
-            handleClick={ () => {
-              favHeart ? setFavHeart(false) : setFavHeart(true);
-            } }
+          <FavoriteMeal />
 
-          >
-            Favoritar
-          </Button>
-          {favHeart ? <img src={blackHeartIcon}/> : <img src={whiteHeartIcon}/> }
           <ul>
             <h3>Ingredientes</h3>
             {Object.keys(details)
@@ -113,7 +105,7 @@ function FoodsRecipies(props) {
 
   return (
     <div>
-      { renderDetails() }
+      { details ? renderDetails() : null }
     </div>
   );
 }

@@ -5,15 +5,13 @@ import PropTypes from 'prop-types';
 import Context from '../Context/Context';
 import Button from '../components/Button';
 import useFetchRecipes from '../Hooks/useFetchRecipes';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import FavoriteDrink from '../components/FavoriteDrink';
 
 function DrinksRecipies(props) {
-  const { recipes } = useContext(Context);
+  const { recipes, setFavorite, setId } = useContext(Context);
   const urlFood = 'themeal';
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
-  const [favHeart, setFavHeart] = useState(false);
 
   const history = useHistory();
   const { match: { params: { id } } } = props;
@@ -24,6 +22,8 @@ function DrinksRecipies(props) {
       const result = await (await fetch(url)).json();
       const obj = result.drinks;
       setDetails(obj[0]);
+      setFavorite(obj[0]);
+      setId(obj[0].idDrink);
     }
     fetchResult();
   }, []);
@@ -53,7 +53,6 @@ function DrinksRecipies(props) {
 
   const renderDetails = () => {
     const urlShare = window.location.href;
-    console.log(urlShare, 'pedro');
     if (details !== undefined) {
       return (
         <section>
@@ -69,17 +68,10 @@ function DrinksRecipies(props) {
             Compartilhar
           </Button>
           { message ? <h4>Link copiado!</h4> : null }
-          <Button
-            testID="favorite-btn"
-            handleClick={ () => {
-              setFavHeart(true);
-            } }
-            image={favHeart ? blackHeartIcon : whiteHeartIcon }
-          >
-            Favoritar
-          </Button>
-          
-          <ul data-testid="0-ingredient-name-and-measure">
+          <FavoriteDrink />
+
+          <ul>
+            <h3>Ingredientes</h3>
             {Object.keys(details)
               .filter((detail) => detail.includes('strIngredient'))
               .filter((ing) => details[ing] !== null)
@@ -109,7 +101,7 @@ function DrinksRecipies(props) {
 
   return (
     <div>
-      { renderDetails() }
+      { details !== null ? renderDetails() : null }
     </div>
   );
 }

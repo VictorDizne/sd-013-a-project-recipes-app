@@ -8,6 +8,7 @@ function Provider(props) {
   const [category, setCategory] = useState();
   const [filter, setFilter] = useState('All');
   const [id, setId] = useState('');
+  const [favorite, setFavorite] = useState();
   const { children } = props;
   const contextValue = {
     data,
@@ -19,7 +20,10 @@ function Provider(props) {
     id,
     setId,
     filter,
-    setFilter };
+    setFilter,
+    favorite,
+    setFavorite,
+  };
 
   return (
     <Context.Provider value={ contextValue }>

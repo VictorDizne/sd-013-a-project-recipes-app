@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 
 function Drinks() {
   const urlDrink = 'thecocktail';
-  const { data, recipes, category, setId, filter, setFilter } = useContext(Context);
+  const { data, recipes, category, filter, setFilter } = useContext(Context);
   const history = useHistory();
   const secondButton = true;
   useFetchRecipes(urlDrink);
@@ -35,7 +35,6 @@ function Drinks() {
         <Link
           key={ index }
           to={ `/bebidas/${recipe.idDrink}` }
-          onClick={ () => setId(recipe.idDrink) }
         >
           <div data-testid={ `${index}-recipe-card` }>
             <h3 data-testid={ `${index}-card-name` }>{ recipe.strDrink }</h3>
@@ -54,7 +53,6 @@ function Drinks() {
         <Link
           key={ index }
           to={ `/bebidas/${drink.idDrink}` }
-          onClick={ () => setId(drink.idDrink) }
         >
           <div key={ index } data-testid={ `${index}-recipe-card` }>
             <h3 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h3>

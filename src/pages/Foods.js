@@ -10,7 +10,7 @@ import useFetchFilter from '../Hooks/useFetchFilter';
 import Footer from '../components/Footer';
 
 function Foods() {
-  const { recipes, data, category, setId, filter, setFilter } = useContext(Context);
+  const { recipes, data, category, filter, setFilter } = useContext(Context);
   const history = useHistory();
   const urlFood = 'themeal';
   const secondButton = true;
@@ -35,7 +35,6 @@ function Foods() {
         <Link
           key={ index }
           to={ `/comidas/${food.idMeal}` }
-          onClick={ () => setId(food.idMeal) }
         >
           <div data-testid={ `${index}-recipe-card` }>
             <h3 data-testid={ `${index}-card-name` }>{ food.strMeal }</h3>
