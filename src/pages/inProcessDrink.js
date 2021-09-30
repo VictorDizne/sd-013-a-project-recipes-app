@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import appContext from '../contexts/appContext';
 import FavoriteButton from '../components/favoriteButton';
 import ShareButton from '../components/shareButton';
 
-function ProcessDrink({ props }) {
+function ProcessDrink() {
   const [drink, setDrink] = useState({});
   const [render, setRender] = useState(true);
   const { getIngredients } = useContext(appContext);
   const { id } = useParams();
+  const history = useHistory();
   const { ingredients } = getIngredients(drink);
 
   useEffect(() => {
@@ -20,6 +22,9 @@ function ProcessDrink({ props }) {
       setDrink(drinks[0]);
     };
     getDrink();
+    if (!JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: { [id]: [] }, meals: {},
@@ -27,20 +32,53 @@ function ProcessDrink({ props }) {
     }
   }, []);
 
-  const finishRecipe = () => {
-    props.history.push('/receitas-feitas');
+  const isFinishDisabled = () => {
+    const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (ingredientsLocal === null) {
+      return false;
+    }
+    const currentIngredients = ingredientsLocal.cocktails[id];
+    return (currentIngredients.length === ingredients.length);
   };
 
-  const checkDisable = () => {
-    const allCheckBox = document.querySelectorAll('.checkbox');
-    console.log(allCheckBox);
+  const finishRecipe = () => {
+    const currentDate = new Date();
+    const createDate = `${currentDate.getDate()}
+    /${currentDate.getMonth()}/${currentDate.getFullYear()}`;
+    const { idDrink, strAlcoholic, strGlass, strCategory, strDrinkThumb,
+    } = drink;
+    if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
+      localStorage.setItem('doneRecipes', JSON.stringify([
+        { id: idDrink,
+          type: 'bebida',
+          area: '',
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strGlass,
+          image: strDrinkThumb,
+          doneDate: createDate,
+          tags: [] }]));
+    } else {
+      const oldDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      localStorage.setItem('doneRecipes', JSON.stringify([...oldDoneRecipes, {
+        id: idDrink,
+        type: 'bebida',
+        area: '',
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strGlass,
+        image: strDrinkThumb,
+        doneDate: createDate,
+        tags: [] }]));
+    }
+    return history.push('/receitas-feitas');
   };
 
   const isChecked = (ingredientName) => {
     const NOT_FOUND = -1;
     const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (ingredientsLocal.cocktails[id] && ingredientsLocal.cocktails[id]
-      .indexOf(ingredientName) === NOT_FOUND) {
+      .indexOf(ingredientName) !== NOT_FOUND) {
       return true;
     }
     return false;
@@ -52,20 +90,21 @@ function ProcessDrink({ props }) {
     const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const oldCocktails = ingredientsLocal.cocktails;
     if (isMarked) {
+      const oldIngredients = ingredientsLocal.cocktails[id];
+      const newObject = { ...ingredientsLocal,
+        cocktails: { ...oldCocktails, [id]: [...oldIngredients, ingredientName] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
+      setRender(!render);
+    } else {
       const ingredientsNotChecked = ingredientsLocal.cocktails[id]
         .filter((ingredient) => ingredient !== ingredientName);
       const newObject = { ...ingredientsLocal,
         cocktails: { ...oldCocktails, [id]: ingredientsNotChecked } };
       localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
       setRender(!render);
-    } else {
-      const oldIngredients = ingredientsLocal.cocktails[id];
-      const newObject = { ...ingredientsLocal,
-        cocktails: { ...oldCocktails, [id]: [...oldIngredients, ingredientName] } };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
-      setRender(!render);
     }
   };
+
   return (
     <div>
       <h1>bebida em processo</h1>
@@ -98,24 +137,21 @@ function ProcessDrink({ props }) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        disabled={ checkDisable }
+        disabled={ !isFinishDisabled() }
         onClick={ finishRecipe }
       >
         Finalizar Receita
       </button>
-      <ShareButton data-testid="share-btn" />
-      <FavoriteButton data-testid="favorite-btn" drink={ drink } />
+      <ShareButton dataTestId="share-btn" />
+      <FavoriteButton drink={ drink } />
     </div>
   );
 }
 
 ProcessDrink.propTypes = {
-  props: PropTypes.shape({
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }),
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
-  history: PropTypes.shape().isRequired,
 };
 
 export default ProcessDrink;

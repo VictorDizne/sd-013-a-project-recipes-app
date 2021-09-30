@@ -1,12 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import appContext from '../contexts/appContext';
+import ShareButton from '../components/shareButton';
+import FavoriteButton from '../components/favoriteButton';
 
-function ProcessFood({ props }) {
+function ProcessFood() {
   const [meal, setMeal] = useState({});
-  const [render, setRender] = useState(true);
+  const [check, setCheck] = useState(true);
   const { getIngredients } = useContext(appContext);
+  const history = useHistory();
   const { id } = useParams();
   const { ingredients } = getIngredients(meal);
 
@@ -18,47 +21,58 @@ function ProcessFood({ props }) {
       setMeal(meals[0]);
     };
     getMeal();
+    if (!JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         meals: { [id]: [] }, cocktails: {},
       }));
     }
-  }, []);
+  }, [id]);
 
-  // localStorage.inProgressRecipes = JSON.stringify({
-  // cocktails: {
-  //   id-da-bebida: [lista-de-ingredientes-utilizados],
-  //   ...
-  // },
-  //   meals: {
-  //   id-da-comida: [lista-de-ingredientes-utilizados],
-  //   ...
-  //   }
-  // });
-
-  // const [localState, setLocalState] = useState({cocktails: {
-  //   id-da-bebida: [lista-de-ingredientes-utilizados],
-  //   ...
-  // },
-  // meals: {
-  //   id-da-comida: [lista-de-ingredientes-utilizados],
-  //   ...
-  // }})
-
-  const finishRecipe = () => {
-    props.history.push('/receitas-feitas');
+  const isFinishDisabled = () => {
+    const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (ingredientsLocal === null) {
+      return false;
+    }
+    const currentIngredients = ingredientsLocal.meals[id];
+    return (currentIngredients.length === ingredients.length);
   };
 
-  const checkDisable = () => {
-    const allCheckBox = document.querySelectorAll('.checkbox');
-    console.log(allCheckBox);
+  const finishRecipe = () => {
+    const currentDate = new Date();
+    const createDate = `${currentDate
+      .getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`;
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = meal;
+    const tagsMeals = strTags !== null ? strTags.split(',') : [];
+    const mealFinished = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: createDate,
+      tags: tagsMeals,
+    };
+    if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
+      localStorage.setItem('doneRecipes', JSON.stringify([mealFinished]));
+    } else {
+      const oldDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      localStorage.setItem(
+        'doneRecipes', JSON.stringify([...oldDoneRecipes, mealFinished]),
+      );
+    }
+    return history.push('/receitas-feitas');
   };
 
   const isChecked = (ingredientName) => {
     const NOT_FOUND = -1;
     const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (ingredientsLocal.meals[id] && ingredientsLocal.meals[id]
-      .indexOf(ingredientName) === NOT_FOUND) {
+      .indexOf(ingredientName) !== NOT_FOUND) {
       return true;
     }
     return false;
@@ -70,18 +84,16 @@ function ProcessFood({ props }) {
     const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const oldMeals = ingredientsLocal.meals;
     if (isMarked) {
+      const oldIngredients = ingredientsLocal.meals[id];
+      const newObject = { ...ingredientsLocal,
+        meals: { ...oldMeals, [id]: [...oldIngredients, ingredientName] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
+    } else {
       const ingredientsNotChecked = ingredientsLocal.meals[id]
         .filter((ingredient) => ingredient !== ingredientName);
       const newObject = { ...ingredientsLocal,
         meals: { ...oldMeals, [id]: ingredientsNotChecked } };
       localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
-      setRender(!render);
-    } else {
-      const oldIngredients = ingredientsLocal.meals[id];
-      const newObject = { ...ingredientsLocal,
-        meals: { ...oldMeals, [id]: [...oldIngredients, ingredientName] } };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
-      setRender(!render);
     }
   };
 
@@ -109,7 +121,10 @@ function ProcessFood({ props }) {
             value={ ingredient }
             name="ingredients"
             checked={ isChecked(ingredient) }
-            onChange={ (e) => onChangeIngredient(e.target.value) }
+            onChange={ (e) => {
+              onChangeIngredient(e.target.checked, e.target.value);
+              setCheck(!check);
+            } }
           />
         </label>
       ))}
@@ -117,38 +132,21 @@ function ProcessFood({ props }) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        disabled={ checkDisable }
+        disabled={ !isFinishDisabled() }
         onClick={ finishRecipe }
       >
         Finalizar Receita
       </button>
-      <button
-        type="button"
-        data-testid="share-btn"
-        disabled=""
-        onClick=""
-      >
-        Compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        disabled=""
-        onClick=""
-      >
-        Favoritar
-      </button>
+      <ShareButton dataTestId="share-btn" />
+      <FavoriteButton meal={ meal } />
     </div>
   );
 }
 
 ProcessFood.propTypes = {
-  props: PropTypes.shape({
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }),
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
-  history: PropTypes.shape().isRequired,
 };
 
 export default ProcessFood;

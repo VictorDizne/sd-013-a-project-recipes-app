@@ -1,9 +1,13 @@
 import React from 'react';
+import FavoriteCard from '../components/favoriteCard';
 import Header from '../components/header';
 
 function FavoriteRecipes() {
   return (
-    <Header name="Receitas Favoritas" search={ false } />
+    <div>
+      <Header name="Receitas Favoritas" search={ false } />
+      <FavoriteCard />
+    </div>
   );
 }
 
