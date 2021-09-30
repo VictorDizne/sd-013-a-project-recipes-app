@@ -12,6 +12,8 @@ const Provider = ({ children }) => {
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
   const [searchBarFilters, setSearchBarFilters] = useState([]);
+  // const [shouldRedirect, setShouldRedirect] = useState(false);
+  // const [idUnico, setIdUnico] = useState(0)
   console.log(searchBarFilters);
   /* const [stateButton, setStateButton] = useState([]); */
 
@@ -30,6 +32,13 @@ const Provider = ({ children }) => {
     };
     categoryDrinkRequest();
   }, []);
+
+  // useEffect(() => {
+  //   if (searchBarFilters.length === 1) {
+  //     setShouldRedirect(true);
+  //     setIdUnico(searchBarFilters[0].idMeal);
+  //   }
+  // }, [searchBarFilters]);
 
   const contextValue = {
     dataFood,

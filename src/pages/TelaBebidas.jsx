@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Filters from '../components/Filters';
 import Loading from '../components/Loading';
 import MyContext from '../context/myContext';
@@ -7,7 +8,7 @@ import createCard from '../services/createCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-const TelaBebidas = () => {
+const TelaBebidas = ({ history }) => {
   const {
     dataDrink,
     categoryDrink,
@@ -37,10 +38,13 @@ const TelaBebidas = () => {
 
   const renderCards = () => {
     if (categoryFilter !== null) {
-      return createCard(categoryFilter, 'Meal');
-    } if (searchBarFilters.length !== 0) {
-      return createCard(searchBarFilters, 'Meal');
-    } return createCard(dataDrink, 'Meal');
+      return createCard(categoryFilter, 'Drink');
+    } if (searchBarFilters.length > 1) {
+      return createCard(searchBarFilters, 'Drink');
+    } if (searchBarFilters.length === 1) {
+      const id = searchBarFilters[0].idDrink;
+      history.push(`/bebidas/${id}`);
+    } return createCard(dataDrink, 'Drink');
   };
 
   return !dataDrink ? <Loading /> : (
@@ -54,5 +58,11 @@ const TelaBebidas = () => {
     </>
   );
 };
+
+TelaBebidas.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
 export default TelaBebidas;

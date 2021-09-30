@@ -19,7 +19,7 @@ const Header = ({ pageName, hasLupa }) => {
       ? setInputFilter(value) : setRadioFilter(value);
 
     if (radioFilter === 'primeira-letra'
-      && type === 'text' && value.length > 1) {
+        && type === 'text' && value.length > 1) {
       // setDisableSearchInput(!disableSearchInput);
       return global.alert('Sua busca deve conter somente 1 (um) caracter')
         && setInputFilter('');
@@ -27,31 +27,46 @@ const Header = ({ pageName, hasLupa }) => {
     return filtersType;
   };
 
-  const filterByClick = async () => {
-    console.log('entrou');
-    console.log(pageName);
+  const filterByClickDrink = async () => {
     if (radioFilter === 'ingrediente') {
       const drinkRequestI = await cocktailsAPIRequest('filter', `i=${inputFilter}`);
-      const foodRequestI = await foodAPIRequest('filter', `i=${inputFilter}`);
-      const filterIngredient = pageName.includes('Comidas') ? foodRequestI : drinkRequestI;
-      setSearchBarFilters(filterIngredient);
+      setSearchBarFilters(drinkRequestI);
       setInputFilter('');
       console.log('ingredients');
     }
 
     if (radioFilter === 'nome') {
       const drinkRequestS = await cocktailsAPIRequest('search', `s=${inputFilter}`);
-      const foodRequestS = await foodAPIRequest('search', `s=${inputFilter}`);
-      const filterName = pageName.includes('comida') ? foodRequestS : drinkRequestS;
-      setSearchBarFilters(filterName);
+      setSearchBarFilters(drinkRequestS);
       setInputFilter('');
     }
 
     if (radioFilter === 'primeira-letra') {
       const drinkRequest = await cocktailsAPIRequest('search', `f=${inputFilter}`);
+      setSearchBarFilters(drinkRequest);
+      setInputFilter('');
+    }
+  };
+
+  const filterByClick = async () => {
+    console.log('entrou');
+    console.log(pageName);
+    if (radioFilter === 'ingrediente') {
+      const foodRequestI = await foodAPIRequest('filter', `i=${inputFilter}`);
+      setSearchBarFilters(foodRequestI);
+      setInputFilter('');
+      console.log('ingredients');
+    }
+
+    if (radioFilter === 'nome') {
+      const foodRequestS = await foodAPIRequest('search', `s=${inputFilter}`);
+      setSearchBarFilters(foodRequestS);
+      setInputFilter('');
+    }
+
+    if (radioFilter === 'primeira-letra') {
       const foodRequest = await foodAPIRequest('search', `f=${inputFilter}`);
-      const filterFirstLetter = pageName.includes('comida') ? foodRequest : drinkRequest;
-      setSearchBarFilters(filterFirstLetter);
+      setSearchBarFilters(foodRequest);
       setInputFilter('');
     }
   };
@@ -59,6 +74,8 @@ const Header = ({ pageName, hasLupa }) => {
   const showSearchBar = () => {
     setHidden(!hidden);
   };
+
+  const outraFunc = pageName === 'Bebidas' ? filterByClickDrink : filterByClick;
 
   const searchInput = (
     <>
@@ -107,7 +124,7 @@ const Header = ({ pageName, hasLupa }) => {
       <button
         data-testid="exec-search-btn"
         type="button"
-        onClick={ filterByClick }
+        onClick={ outraFunc }
       >
         Buscar
       </button>

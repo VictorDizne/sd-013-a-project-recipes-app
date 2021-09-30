@@ -1,4 +1,6 @@
 import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import MyContext from '../context/myContext';
 import createCard from '../services/createCard';
 import Filters from '../components/Filters';
@@ -7,7 +9,7 @@ import { foodAPIRequest } from '../services/APIrequest';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-const TelaComidas = () => {
+const TelaComidas = ({ history }) => {
   const {
     dataFood,
     categoryFood,
@@ -16,6 +18,8 @@ const TelaComidas = () => {
     btnState,
     setDataFood,
     searchBarFilters,
+    shouldRedirect,
+    idUnico,
   } = useContext(MyContext);
 
   useEffect(() => {
@@ -38,8 +42,11 @@ const TelaComidas = () => {
   const renderCards = () => {
     if (categoryFilter !== null) {
       return createCard(categoryFilter, 'Meal');
-    } if (searchBarFilters.length !== 0) {
+    } if (searchBarFilters.length > 1) {
       return createCard(searchBarFilters, 'Meal');
+    } if (searchBarFilters.length === 1) {
+      const id = searchBarFilters[0].idMeal;
+      history.push(`/comidas/${id}`);
     } return createCard(dataFood, 'Meal');
   };
 
@@ -54,5 +61,11 @@ const TelaComidas = () => {
     </div>
   );
 };
+
+TelaComidas.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
 export default TelaComidas;
