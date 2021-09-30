@@ -136,4 +136,21 @@ describe('testa se a página de comidas é renderizada', () => {
     const text = await findByText('English Breakfast');
     expect(text).toBeInTheDocument();
   });
+
+  test('testa a quantidade dos cards de comida', async () => {
+    const { history, findByText, findAllByTestId } = renderWithRouter(
+      <Foods title="Comidas" />,
+    );
+    history.push('/comidas');
+
+    const meal = await findByText(/lasagne/i);
+    expect(meal).toBeInTheDocument();
+
+    const cardsMeal = await findAllByTestId(/recipe-card/i);
+    expect(cardsMeal.length).toBe(mealsAmount);
+
+    cardsMeal.forEach((mealCard) => {
+      expect(mealCard).toBeInTheDocument();
+    });
+  });
 });
