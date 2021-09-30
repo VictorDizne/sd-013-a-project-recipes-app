@@ -1,5 +1,6 @@
 import React from 'react';
 // import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import ButtonFavorite from '../components/ButtonFavorite';
 
@@ -72,5 +73,18 @@ describe('1 - Verifica os testes do componente ButtonFavorite', () => {
 
     const btnFavoriteRecipe = getByTestId('favorite-btn');
     expect(btnFavoriteRecipe).toBeInTheDocument();
+  });
+
+  test('testa se quando a imagem da receita é clicada, a pagina é redirecionada', () => {
+    const { getByTestId } = renderWithRouter(<ButtonFavorite
+      objDetail={ exemploObjDetail }
+      id={ exemploId }
+      urlText={ exemploUrlText }
+    />);
+
+    const buttonClick = getByTestId('favorite-btn');
+    userEvent.click(buttonClick);
+
+    expect(pathname).toBe('/comidas/52771');
   });
 });
