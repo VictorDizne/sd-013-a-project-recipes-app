@@ -18,6 +18,7 @@ function Header({ title, search }) {
         {/* Redireciona para a página de Perfil */}
         <Link to="/perfil">
           <img
+            id="profile-top-btn"
             data-testid="profile-top-btn"
             src={ profileIcon }
             alt="profile-top-btn"

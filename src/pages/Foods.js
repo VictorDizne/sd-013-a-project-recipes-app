@@ -37,6 +37,7 @@ function Foods() {
           {el.strMeal}
         </span>
         <img
+          id="img"
           data-testid={ `${i}-card-img` }
           src={ el.strMealThumb }
           alt={ el.strMealThumb }

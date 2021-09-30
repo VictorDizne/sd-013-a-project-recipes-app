@@ -1,5 +1,5 @@
 .header {
-  background-color: rgba(68, 223, 215, 0.26);
+  background-color: rgba(238, 180, 141, 0.411);
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -28,4 +28,11 @@ body {
 	border-radius: 4px;
 	margin-bottom: 30px;
 	font-weight: bold;
+}
+
+#profile-top-btn {
+  width: 50px;
+  height: 50px;
+  margin: 0px 0px 45px;
+  padding: 10px;
 }
