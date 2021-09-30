@@ -1,35 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import FilterTypesButtons from '../components/FilterTypesButtons';
 import FilteredCards from '../components/FilteredCards';
 
-const doneRecipes = [
-  {
-    id: '52771',
-    type: 'comida',
-    area: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'bebida',
-    area: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-];
+// PRECISA DE LOADING PRA SO RODAR O MAP QUANDO O ARRAY CARREGAR OS ITENS DO STORAGE
+
+// url = ${type}/${id}
 
 function ReceitasFeitas() {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loading = () => {
+      if (isLoading) {
+        setIsLoading(false);
+      }
+    };
+    loading();
+  }, []);
+
   const [recipes, setRecipes] = useState(doneRecipes);
+  console.log(recipes);
 
   const filterType = (type) => {
     let newRecipes = doneRecipes;
@@ -44,12 +36,15 @@ function ReceitasFeitas() {
     return setRecipes(newRecipes);
   };
 
+  // const Loading = <h1>Carregando...</h1>;
+
   return (
-    <div>
-      <Header tela="Receitas Feitas" showSearch={ false } />
-      <FilterTypesButtons filterType={ filterType } />
-      <FilteredCards recipes={ recipes } />
-    </div>
+    isLoading ? 'Carregando...' : (
+      <div>
+        <Header tela="Receitas Feitas" showSearch={ false } />
+        <FilterTypesButtons filterType={ filterType } />
+        <FilteredCards recipes={ recipes } />
+      </div>)
   );
 }
 

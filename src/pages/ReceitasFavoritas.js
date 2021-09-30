@@ -26,6 +26,7 @@ const favoriteRecipes = [
 
 function ReceitasFavoritas() {
   const [recipes, setRecipes] = useState(favoriteRecipes);
+  const isMeal = /comidas/.test(match.path);
 
   const filterType = (type) => {
     let newRecipes = favoriteRecipes;

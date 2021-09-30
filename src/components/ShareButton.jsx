@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
-function ShareButton({ url }) {
+function ShareButton({ url, testID }) {
   const [copied, setCopied] = useState(false);
 
   const handleClick = () => {
@@ -19,7 +19,7 @@ function ShareButton({ url }) {
         type="image"
         src={ shareIcon }
         alt="Ícone de compartilhar"
-        data-testid="share-btn"
+        data-testid={ testID !== undefined && testID.length > 0 ? testID : 'share-btn' }
         onClick={ handleClick }
       />
       {

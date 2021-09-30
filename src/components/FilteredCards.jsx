@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/blackHeartIcon.svg';
+import ShareButton from './ShareButton';
+import FavoriteButton from './FavoriteButton';
 
 function FilteredCards({ recipes, favoriteOrDone = 'done' }) {
   return (
@@ -34,26 +34,19 @@ function FilteredCards({ recipes, favoriteOrDone = 'done' }) {
               && (
                 <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
               )}
-              <input
-                data-testid={ `${index}-horizontal-share-btn` }
-                type="image"
-                alt="Ícone de compartilhar"
-                src={ shareIcon }
+              <ShareButton
+                url={ `/${type}s/${id}` }
+                testID={ `${index}-horizontal-share-btn` }
               />
               { favoriteOrDone === 'favorite'
               && (
-                <input
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  type="image"
-                  alt="Ícone de compartilhar"
-                  src={ favoriteIcon }
-                />
+                <FavoriteButton testID={ `${index}-horizontal-favorite-btn` } />
               )}
               { favoriteOrDone === 'done'
               && (
                 <div>
                   {
-                    tags.map((tag, i) => (
+                    tags === '' ? '' : tags.map((tag, i) => (
                       <p
                         data-testid={ `${index}-${tag}-horizontal-tag` }
                         key={ i }

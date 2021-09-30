@@ -8,6 +8,7 @@ import IngredientsList from '../components/IngredientsList';
 import Context from '../context';
 import FinishButton from '../components/FinishButton';
 
+// ARRUMAR BUG NO LOCALSTORAGE E NO CHECKBOX
 function ReceitasProgresso({ match }) {
   const [recipe, setRecipe] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
