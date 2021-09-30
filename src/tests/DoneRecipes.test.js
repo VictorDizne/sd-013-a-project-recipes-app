@@ -244,4 +244,17 @@ describe('Testando mais da página de receitas feitas', () => {
 
     expect(queryByTestId(DONE_IMG_TESTID)).toBeInTheDocument();
   });
+
+  test('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx', () => {
+    const { getByTestId, history } = renderWithRouter(<App />);
+
+    userEvent.type(getByTestId(EMAIL_TEST_ID), MOCK_EMAIL);
+    userEvent.type(getByTestId(PASSWORD_TEST_ID), '1234567');
+    userEvent.click(getByTestId(LOGIN_BTN_TEST_ID));
+
+    history.push(PAGE_MOCK);
+
+    const filterByAllkBtn = getByTestId(FILTER_BY_ALL_BTN);
+    userEvent.click(filterByAllkBtn);
+  });
 });
