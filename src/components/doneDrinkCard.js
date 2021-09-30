@@ -5,7 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function DoneDrinkCard({ index, image, name, alcoholicOrNot, doneDate, id }) {
+function DoneDrinkCard({ alcoholicOrNot, doneDate, id, index, image, name }) {
   function shareDrinkRecipe() {
     copy(`http://localhost:3000/bebidas/${id}`);
     global.alert('Link copiado!');

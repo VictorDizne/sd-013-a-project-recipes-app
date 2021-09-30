@@ -5,7 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function DoneMealCard({ area, tags, date, cardName, index, image, id, category }) {
+function DoneMealCard({ area, category, date, id, index, image, name, tags }) {
   function shareMealRecipe() {
     copy(`http://localhost:3000/comidas/${id}`);
     global.alert('Link copiado!');
@@ -32,7 +32,7 @@ function DoneMealCard({ area, tags, date, cardName, index, image, id, category }
       </Link>
       <Link to={ `/comidas/${id}` }>
         <p data-testid={ `${index}-horizontal-name` }>
-          { cardName }
+          { name }
         </p>
       </Link>
       <p data-testid={ `${index}-horizontal-done-date` }>
@@ -61,7 +61,7 @@ DoneMealCard.propTypes = {
   area: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  cardName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
