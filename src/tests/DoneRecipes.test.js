@@ -3,6 +3,10 @@ import { screen, fireEvent } from '@testing-library/react';
 import DoneRecipes from '../pages/DoneRecipes';
 import renderWithRouter from './renderWithRouter';
 
+const FILTER_BY_ALL_BTN = 'filter-by-all-btn';
+const FILTER_BY_FOOD_BTN = 'filter-by-food-btn';
+const FILTER_BY_DRINK_BTN = 'filter-by-drink-btn';
+
 const doneRecipes = [
   {
     id: '52771',
@@ -30,7 +34,12 @@ const doneRecipes = [
 
 describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
   test('Verifica se a pagina de Receitas Feitas é renderizada', () => {
-    const { getByText } = renderWithRouter(<DoneRecipes title="Receitas Feitas" visible={ false } />);
+    const { getByText } = renderWithRouter(
+      <DoneRecipes
+        title="Receitas Feitas"
+        visible={ false }
+      />,
+    );
     const title = getByText('Receitas Feitas');
 
     expect(title).toBeInTheDocument();
@@ -50,9 +59,9 @@ describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
     const { getByTestId } = renderWithRouter(
       <DoneRecipes title="Receitas Feitas" visible={ false } />,
     );
-    const btnAll = getByTestId('filter-by-all-btn');
-    const btnFood = getByTestId('filter-by-food-btn');
-    const btnDrink = getByTestId('filter-by-drink-btn');
+    const btnAll = getByTestId(FILTER_BY_ALL_BTN);
+    const btnFood = getByTestId(FILTER_BY_FOOD_BTN);
+    const btnDrink = getByTestId(FILTER_BY_DRINK_BTN);
     expect(btnAll).toBeInTheDocument();
     expect(btnFood).toBeInTheDocument();
     expect(btnDrink).toBeInTheDocument();
@@ -61,9 +70,9 @@ describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
   test('Verifica se a tela contem 3 botões', () => {
     renderWithRouter(<DoneRecipes title="Receitas Feitas" visible={ false } />);
 
-    expect(screen.getByTestId('filter-by-all-btn')).toBeInTheDocument();
-    expect(screen.getByTestId('filter-by-food-btn')).toBeInTheDocument();
-    expect(screen.getByTestId('filter-by-drink-btn')).toBeInTheDocument();
+    expect(screen.getByTestId(FILTER_BY_ALL_BTN)).toBeInTheDocument();
+    expect(screen.getByTestId(FILTER_BY_FOOD_BTN)).toBeInTheDocument();
+    expect(screen.getByTestId(FILTER_BY_DRINK_BTN)).toBeInTheDocument();
   });
 });
 
@@ -105,11 +114,16 @@ describe('2 - Verifica se uma receita feita é carregada', () => {
 
   test('Verifica se os filtros estão funcionando', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    const { getAllByTestId, getByTestId } = renderWithRouter(<DoneRecipes title="Receitas Feitas" visible={ false } />);
+    const { getAllByTestId, getByTestId } = renderWithRouter(
+      <DoneRecipes
+        title="Receitas Feitas"
+        visible={ false }
+      />,
+    );
 
-    const buttonAll = getByTestId('filter-by-all-btn');
-    const buttonFood = getByTestId('filter-by-food-btn');
-    const buttonDrink = getByTestId('filter-by-drink-btn');
+    const buttonAll = getByTestId(FILTER_BY_ALL_BTN);
+    const buttonFood = getByTestId(FILTER_BY_FOOD_BTN);
+    const buttonDrink = getByTestId(FILTER_BY_DRINK_BTN);
 
     const allCard = getAllByTestId(/-horizontal-name/i);
 

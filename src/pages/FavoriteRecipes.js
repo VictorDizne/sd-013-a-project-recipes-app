@@ -38,7 +38,6 @@ function FavoriteRecipes() {
 
   return (
     <div className="done-recipes-body">
-      <div className="background-color" />
       <Header title="Receitas Favoritas" search={ false } />
       <div>
         <button
