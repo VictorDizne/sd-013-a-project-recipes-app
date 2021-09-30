@@ -1,5 +1,5 @@
 .food-title {
-    color:rgb(163, 37, 37);
+    color:rgb(255, 255, 255);
     padding: 15px;
     max-width: fit-content;
 }
@@ -21,7 +21,7 @@
 
 .comidas-body .card, .bebidas-body .card {
     backdrop-filter: blur(5px);
-    background-color: rgb(187, 194, 207);
+    background-color: rgba(238, 180, 141, 0.411);
     border-radius: 6px;
     box-shadow: 0 0 15px rgb(177, 177, 177);
     margin: 20px;

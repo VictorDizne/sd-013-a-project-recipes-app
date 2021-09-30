@@ -1,0 +1,70 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a, a:hover {
+	text-decoration: none;
+}
+
+.clearfix:after {
+	clear:both;
+}
+
+
+
+input {
+	border: none;
+	background: none;
+	margin-bottom: 45px;
+	padding:10px;
+	color: #B0B0B0;
+}
+
+/*****************************************/
+
+body {
+	background-color: rgba(238, 180, 141, 0.411);
+	background-image: url("../styles/img/recipe.jpg");
+}
+
+.main-box {
+    margin: 100px auto;
+    background-color: #F5F5F5;
+    max-width: max-content;
+    border-radius: 4px;
+    padding-bottom: 30px;
+}
+
+.box-form {
+	padding: 0 8vw;
+    padding: 10%;
+}
+
+#email {
+	border-bottom: 2px solid #C8C8C8;
+	width: 100%;
+}
+
+#password {
+	border-bottom: 2px solid #C8C8C8;
+	width: 100%;
+}
+
+/* .bg-check::before {
+	background: #246694;
+	height: 16px;
+	font-weight: bold;
+} */
+
+#button {
+	padding: 16px 45px;
+	background: rgba(38, 29, 86, 0.5);
+	color: white;
+	border-radius: 4px;
+	margin: 30px;
+	font-weight: bold;
+}
+
+
+/*************************/

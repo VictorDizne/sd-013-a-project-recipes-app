@@ -32,6 +32,7 @@ function CategoriesDrink() {
   return (
     <div className="categorias">
       <button
+        id="btn"
         onClick={ handleClick }
         data-testid="All-category-filter"
         type="button"
@@ -45,6 +46,7 @@ function CategoriesDrink() {
         if (index < MIN_CATEG) {
           return (
             <button
+              id="btn"
               className=".drink-btn"
               data-testid={ `${elem.strCategory}-category-filter` }
               type="button"
