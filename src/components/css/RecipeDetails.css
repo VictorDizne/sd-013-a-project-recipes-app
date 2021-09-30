@@ -1,5 +1,22 @@
-.recipe-thumbnail {
-  width: 100%;
+.ingredient-list {
+  margin: 12px 0 0 16px;
+}
+
+.instructions-paragraph {
+  margin-top: 12px;
+}
+
+.share-favorite-icons {
+  margin-top: 8px;
+}
+
+.share-favorite-icons input {
+  margin-right: 8px;
+}
+
+.recomendation-container {
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .start-recipe-btn {

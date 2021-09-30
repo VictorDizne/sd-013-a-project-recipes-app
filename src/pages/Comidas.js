@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Card from '../components/Card';
@@ -58,28 +57,30 @@ export default function Comidas({ history }) {
           ? <Loading />
           : (
             <>
-              <ButtonFilter
-                categoryName="All"
-                onClick={ () => {
-                  handleBtnClick({
-                    input: '',
-                    isMeal: true,
-                    radio: 'Nome',
-                  });
-                } }
-                isMeal="meal"
-              >
-                All
-              </ButtonFilter>
-              {
-                mealsCategories.map((category) => (
-                  <ButtonFilter
-                    key={ category.strCategory }
-                    categoryName={ category.strCategory }
-                    onClick={ getMealsByCategory }
-                    isMeal="meal"
-                  />))
-              }
+              <div className="button-container">
+                <ButtonFilter
+                  categoryName="All"
+                  onClick={ () => {
+                    handleBtnClick({
+                      input: '',
+                      isMeal: true,
+                      radio: 'Nome',
+                    });
+                  } }
+                  isMeal="meal"
+                >
+                  All
+                </ButtonFilter>
+                {
+                  mealsCategories.map((category) => (
+                    <ButtonFilter
+                      key={ category.strCategory }
+                      categoryName={ category.strCategory }
+                      onClick={ getMealsByCategory }
+                      isMeal="meal"
+                    />))
+                }
+              </div>
               {
                 meals.map((meal, index) => (
                   <Card
