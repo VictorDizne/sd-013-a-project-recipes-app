@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Input, Button } from '../components';
+import { setDefaultLocalStorage } from '../services/localStorageFunctions';
 
 const Login = () => {
   const [login, setLogin] = useState({
@@ -31,9 +32,7 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    localStorage.setItem('user', JSON.stringify({ email: login.email }));
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
+    setDefaultLocalStorage(login.email);
 
     history.push('/comidas');
   };
