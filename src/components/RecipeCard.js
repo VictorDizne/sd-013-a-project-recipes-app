@@ -7,7 +7,12 @@ export default function ReciperCard({ name, index, img, idRecipe }) {
   const location = useLocation();
 
   const handleClick = () => {
-    history.push(`${location.pathname}/${idRecipe}`);
+    if (location.pathname === '/explorar/comidas/area') {
+      // eturn <Redirect to={ `/comidas/${idRecipe}` } />;
+      history.push(`/comidas/${idRecipe}`);
+    } else {
+      history.push(`${location.pathname}/${idRecipe}`);
+    }
   };
 
   return (

@@ -12,6 +12,7 @@ import {
   IngredientsMealsExplore,
   IngredientsDrinksExplore,
   ExploreMealsArea,
+  ExploreDrinksArea,
   Perfil,
   MadeRecipes,
   FavoriteRecipes,
@@ -86,6 +87,11 @@ const Routes = () => (
         exact
         path="/explorar/comidas/area"
         component={ ExploreMealsArea }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/area"
+        component={ ExploreDrinksArea }
       />
       <Route
         exact
