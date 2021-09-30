@@ -12,7 +12,7 @@ const ReceitasFavoritas = () => {
   return (
     <div>
       <HeaderWithoutSearch page="Receitas Favoritas" />
-      {favorites.forEach((recipe) => {
+      {/* {favorites.forEach((recipe) => {
         if (recipe.type === 'meal') {
           return (
             <button type="submit" key="">
@@ -23,7 +23,7 @@ const ReceitasFavoritas = () => {
             </button>
           );
         }
-      })}
+      })} */}
     </div>
   );
 };
