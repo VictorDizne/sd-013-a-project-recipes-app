@@ -1,50 +1,41 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import { handleAPI } from '../service/GetAPI';
-import '../PaginasCss/Header.css';
 
+import '../PaginasCss/Header.css';
+import Context from '../Context/Context';
+
+const maxCharacters = 14;
+const maxCard = 11;
 function Header() {
+  const {
+    handleInputText,
+    handleInputRadio,
+    path,
+    pathRotesVerify,
+    pathLong,
+    shortPath,
+    handleClickFetch,
+    data,
+    changePage,
+  } = useContext(Context);
+
+  const history = useHistory();
   const [showInput, setShowInput] = useState(true);
-  const [inputRadio, setInputRadio] = useState('');
-  const [inputText, setInputText] = useState('');
-  const maxCharacters = 14;
-  const path = useLocation().pathname.replace('/', '');
-  const pathRotesVerify = path === 'explorar'
-    || path === 'explorar/comidas'
-    || path === 'explorar/bebidas'
-    || path === 'explorar/comidas/ingredientes'
-    || path === 'explorar/bebidas/ingredientes'
-    || path === 'perfil'
-    || path === 'receitas-feitas'
-    || path === 'receitas-favoritas';
-  const pathLong = path.replace(/\//g, ' ').replace(/-/g, ' ').replace('comidas ', '')
-    .replace('bebidas ', '')
-    .replace('area', 'Origem')
-    .toLowerCase()
-    .replace(/(?:^|\s)(?!da|de|do)\S/g, (l) => l.toUpperCase());
-  const shortPath = path.toLowerCase()
-    .replace(/(?:^|\s)(?!da|de|do)\S/g, (l) => l.toUpperCase());
   const formataNome = () => (
     path.length > maxCharacters
       ? pathLong : shortPath
   );
+
   const clickDisable = () => {
     setShowInput(!showInput);
   };
 
-  const handleInputText = ({ target }) => {
-    setInputText(target.value);
-  };
-
-  const handleInputRadio = ({ target }) => {
-    setInputRadio(target.value);
-  };
-
-  const handleClickFetch = () => {
-    handleAPI(inputRadio, inputText);
-  };
+  useEffect(() => {
+    changePage();
+  }, [changePage, data, history, path]);
 
   return (
     <main>
@@ -109,7 +100,23 @@ function Header() {
           Buscar
         </button>
       </div>
-    </main>
+
+      {
+        data.filter((el, i) => (i <= maxCard ? el : false))
+          .map(({ strDrink, strDrinkThumb, strMeal, strMealThumb }, i) => (
+            <div
+              data-testid={ `${i}-recipe-card` }
+              key={ i }
+            >
+              <img
+                alt={ strDrink || strMeal }
+                data-testid={ `${i}-card-img` }
+                src={ strDrinkThumb || strMealThumb }
+              />
+              <h1 data-testid={ `${i}-card-name` }>{ strDrink || strMeal }</h1>
+            </div>))
+      }
+    </div>
   );
 }
 export default Header;
