@@ -8,7 +8,6 @@ function ButtonFilter({ categoryName, onClick, isMeal }) {
   const [isFiltered, setIsFiltered] = useState(true);
 
   const toggle = (isFilteredParam) => {
-    // setIsLoading(true);
     if (isFilteredParam) {
       onClick(categoryName);
       setIsFiltered(false);
