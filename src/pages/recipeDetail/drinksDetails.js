@@ -7,6 +7,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import Footer from '../../components/footer';
 import recipesContext from '../../context';
+import DrinkIngredients from '../../components/DrinkIngredients';
 
 const copy = require('clipboard-copy');
 
@@ -45,6 +46,8 @@ function DrinkDetails({ match: { params: { id } } }) {
       pathname: `/bebidas/${idDaReceita}/in-progress`,
       info,
     };
+    // Chave para utilizar as informacoes na pagina de inProgressRecipe
+    localStorage.toDoRecipes = JSON.stringify([details, medida, ingredientes]);
     return iniciar;
   };
 
@@ -52,7 +55,6 @@ function DrinkDetails({ match: { params: { id } } }) {
     const obj = {
       id: details.idDrink,
       type: 'Drink',
-      area: null,
       category: details.strCategory,
       alcoholicOrNot: details.strAlcoholic,
       name: details.strDrink,
@@ -134,17 +136,7 @@ function DrinkDetails({ match: { params: { id } } }) {
           alt="Favoritar"
         />
       </button>
-      <ul data-testid={ `${id}-ingredient-name-and-measure` }>
-        {ingredientes
-          .map((ing, index) => (
-            <li
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ index }
-            >
-              {`${medida[index]} of ${ing}`}
-            </li>
-          ))}
-      </ul>
+      <DrinkIngredients props={ id } />
       <p data-testid="instructions">{ details.strInstructions }</p>
       <Link to={ () => initRecipe(details) }>
         <button

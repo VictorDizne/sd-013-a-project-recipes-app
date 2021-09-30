@@ -84,6 +84,8 @@ function MealDetails({ match: { params: { id } } }) {
       pathname: `/comidas/${idDaReceita}/in-progress`,
       info,
     };
+    // Chave para utilizar as informacoes na pagina de inProgressRecipe
+    localStorage.toDoRecipes = JSON.stringify([details, medida, ingredientes]);
     return iniciar;
   };
 
