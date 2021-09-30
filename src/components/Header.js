@@ -1,63 +1,42 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import { handleAPIDrinks } from '../service/GetAPIDrinks';
-import { handleAPIFoods } from '../service/GetAPIFoods';
 
 import '../PaginasCss/Header.css';
-// import Context from '../Context/Context';
+import Context from '../Context/Context';
 
+const maxCharacters = 14;
+const maxCard = 11;
 function Header() {
-  // const { clickLoading } = useContext(Context);
-  const [data, setData] = useState([]);
-  const [showInput, setShowInput] = useState(true);
-  const [inputRadio, setInputRadio] = useState('');
-  const [inputText, setInputText] = useState('');
-  const maxCharacters = 14;
-  const path = useLocation().pathname.replace('/', '');
+  const {
+    handleInputText,
+    handleInputRadio,
+    path,
+    pathRotesVerify,
+    pathLong,
+    shortPath,
+    handleClickFetch,
+    data,
+    changePage,
+  } = useContext(Context);
 
-  const pathRotesVerify = path === 'explorar'
-  || path === 'explorar/comidas'
-  || path === 'explorar/bebidas'
-  || path === 'explorar/comidas/ingredientes'
-  || path === 'explorar/bebidas/ingredientes'
-  || path === 'perfil'
-  || path === 'receitas-feitas'
-  || path === 'receitas-favoritas';
-  const pathLong = path.replace(/\//g, ' ').replace(/-/g, ' ').replace('comidas ', '')
-    .replace('bebidas ', '')
-    .replace('area', 'Origem')
-    .toLowerCase()
-    .replace(/(?:^|\s)(?!da|de|do)\S/g, (l) => l.toUpperCase());
-  const shortPath = path.toLowerCase()
-    .replace(/(?:^|\s)(?!da|de|do)\S/g, (l) => l.toUpperCase());
+  const history = useHistory();
+  const [showInput, setShowInput] = useState(true);
+
   const formataNome = () => (
     path.length > maxCharacters
       ? pathLong : shortPath
   );
+
   const clickDisable = () => {
     setShowInput(!showInput);
   };
 
-  const handleInputText = ({ target }) => {
-    setInputText(target.value);
-  };
-
-  const handleInputRadio = ({ target }) => {
-    setInputRadio(target.value);
-  };
-
-  const handleClickFetch = async () => {
-    if (path === 'comidas') {
-      const dataComidas = await handleAPIFoods(inputRadio, inputText);
-      setData(dataComidas);
-    }
-    if (path === 'bebidas') {
-      const dataBebidas = await handleAPIDrinks(inputRadio, inputText);
-      setData(dataBebidas);
-    }
-  };
+  useEffect(() => {
+    changePage();
+  }, [changePage, data, history, path]);
 
   return (
     <div className="header">
@@ -120,11 +99,22 @@ function Header() {
           Buscar
         </button>
       </div>
-      {/* //Essa map é só pra testar se tava funcioandno */}
-      {
-        data.map((el) => <div key={ el.idDrink }>{el.idDrink}</div>)
-      }
 
+      {
+        data.filter((el, i) => (i <= maxCard ? el : false))
+          .map(({ strDrink, strDrinkThumb, strMeal, strMealThumb }, i) => (
+            <div
+              data-testid={ `${i}-recipe-card` }
+              key={ i }
+            >
+              <img
+                alt={ strDrink || strMeal }
+                data-testid={ `${i}-card-img` }
+                src={ strDrinkThumb || strMealThumb }
+              />
+              <h1 data-testid={ `${i}-card-name` }>{ strDrink || strMeal }</h1>
+            </div>))
+      }
     </div>
   );
 }
