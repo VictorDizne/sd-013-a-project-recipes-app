@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import appContext from '../contexts/appContext';
+import FavoriteButton from '../components/favoriteButton';
+import ShareButton from '../components/shareButton';
 
 function ProcessFood({ props }) {
   const [meal, setMeal] = useState({});
@@ -122,22 +124,8 @@ function ProcessFood({ props }) {
       >
         Finalizar Receita
       </button>
-      <button
-        type="button"
-        data-testid="share-btn"
-        disabled=""
-        onClick=""
-      >
-        Compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        disabled=""
-        onClick=""
-      >
-        Favoritar
-      </button>
+      <ShareButton />
+      <FavoriteButton meal={ meal } />
     </div>
   );
 }

@@ -8,11 +8,12 @@ const ShareButton = () => {
   const [clipped, setClipped] = useState(false);
 
   const copy = () => {
-    const SIX = 6000;
+    // const SIX = 6000;
     copytoclipboard(`http://localhost:3000${pathname}`);
     console.log(pathname);
     setClipped(true);
-    setTimeout(() => setClipped(false), SIX);
+    setClipped(false);
+    // setTimeout(() => setClipped(false), SIX);
   };
 
   return (

@@ -6,6 +6,7 @@ import FavoriteButton from '../components/favoriteButton';
 import ShareButton from '../components/shareButton';
 
 function ProcessDrink({ props }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [drink, setDrink] = useState({});
   const [render, setRender] = useState(true);
   const { getIngredients } = useContext(appContext);
@@ -20,6 +21,7 @@ function ProcessDrink({ props }) {
       setDrink(drinks[0]);
     };
     getDrink();
+    setIsLoading(false);
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: { [id]: [] }, meals: {},
@@ -103,8 +105,8 @@ function ProcessDrink({ props }) {
       >
         Finalizar Receita
       </button>
-      <ShareButton data-testid="share-btn" />
-      <FavoriteButton data-testid="favorite-btn" drink={ drink } />
+      <ShareButton />
+      { (!isLoading && <FavoriteButton data-testid="favorite-btn" drink={ drink } />) }
     </div>
   );
 }
