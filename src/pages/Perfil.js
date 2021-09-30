@@ -7,6 +7,10 @@ export default function Perfil({ history }) {
   return (
     <>
       <Header pageTitle="Perfil" history={ history } />
+      <div data-testid="profile-email"> E-mail </div>
+      <div data-testid="profile-done-btn"> Receitas Feitas </div>
+      <div data-testid="profile-favorite-btn">Receitas Favoritas</div>
+      <div data-testid="profile-logout-btn">Sair</div>
       <Footer />
     </>
   );
