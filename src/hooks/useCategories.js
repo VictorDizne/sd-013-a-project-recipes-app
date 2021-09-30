@@ -10,10 +10,14 @@ export default function useCategories() {
 
   useEffect(() => {
     const fetchApiCategories = async (url, length) => {
-      const response = await (await fetch(url)).json();
-      const responseKeys = Object.keys(response)[0];
+      try {
+        const response = await (await fetch(url)).json();
+        const responseKeys = Object.keys(response)[0];
 
-      return response[responseKeys].slice(0, length - 1);
+        return response[responseKeys].slice(0, length - 1);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     setFoodCategories(fetchApiCategories(foodFilter, LENGTH_LIMIT));
