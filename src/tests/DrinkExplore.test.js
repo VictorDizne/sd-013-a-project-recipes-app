@@ -86,3 +86,34 @@ a rota deve mudar para tela de explorar por local de origem`, () => {
     expect(pathname).toBe('/explorar/bebidas/area');
   });
 });
+
+describe('testa a pagina Explorar Bebidas ', () => {
+  test('testa se a rota está correta', async () => {
+    const { history } = renderWithRouter(<DrinkExplore
+      title="Explorar Bebidas"
+      visible={ false }
+    />);
+    history.push('/explorar/bebidas');
+  });
+
+  test('testa se a página contém o título "Explorar Bebidas"', async () => {
+    const { findByTestId } = renderWithRouter(<DrinkExplore
+      title="Explorar Bebidas"
+      visible={ false }
+    />);
+    const title = await findByTestId('page-title');
+    expect(title).toBeInTheDocument();
+  });
+
+  test('testa se clicando no botão "Por Ingredientes" é redirecionado'
+  + 'para explorar/bebidas/ingredientes', async () => {
+    const { history, findByTestId } = renderWithRouter(<DrinkExplore
+      title="Explorar Bebidas"
+      visible={ false }
+    />);
+    const exploreIngredient = await findByTestId('explore-by-ingredient');
+    userEvent.click(exploreIngredient);
+    const path = history.location.pathname;
+    expect(path).toBe('/explorar/bebidas/ingredientes');
+  });
+});
