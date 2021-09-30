@@ -4,7 +4,7 @@ import clipboardCopy from 'clipboard-copy';
 import Loading from './loadingComponent';
 import RecomendationCardDrinks from './recomendationCardDrinks';
 import StartRecipeButton from './StartRecipeButton';
-
+import FavoriteButton from './FavoriteButton';
 // const copy = require('clipboard-copy');
 
 const CardDetailsMeal = (id) => {
@@ -63,6 +63,7 @@ const CardDetailsMeal = (id) => {
       <button type="button" data-testid="share-btn" onClick={ () => copyText() }>
         Compartilhar receita
       </button>
+      <FavoriteButton recipeDetails={ produto } />
       <p>{copiado}</p>
       <h1 data-testid="recipe-title">
         {produto.strMeal}
@@ -109,10 +110,6 @@ const CardDetailsMeal = (id) => {
         mealOrDrink="meals"
         filterIngredients={ filtrarIngredients() }
       />
-
-      <button type="button" data-testid="favorite-btn">
-        Favoritar receita
-      </button>
       <RecomendationCardDrinks data-testid="recomendation-card" />
     </div>
   );
