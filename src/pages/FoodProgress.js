@@ -16,6 +16,7 @@ function FoodProgress() {
   const [recipe, setRecipe] = useState([]);
   const [messageAlert, setMessageAlert] = useState('');
   const [favorite, setFavorite] = useState(false);
+  /* const [ingredientsSave, setIngredientsSave] = useState([]); */
 
   const history = useHistory();
   const historyFilter = history.location.pathname;
@@ -43,8 +44,60 @@ function FoodProgress() {
   };
 
   const handleLineThrough = ({ target }) => {
-    target.parentElement.classList.toggle('line-through');
+    const ingredientsList = [];
+    const ingredientsContainer = target.parentElement;
+    ingredientsContainer.classList.toggle('line-through');
+
+    const ingredientsArray = Array
+      .from(document.getElementById('ingredients-container').children);
+
+    ingredientsArray.forEach((item) => {
+      if (item.firstChild.checked) {
+        ingredientsList.push(item.innerText);
+      }
+    });
+
+    const listUnstructured = {
+      cocktails: {},
+      meals: {
+        [historyId]: ingredientsList,
+      },
+    };
+
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (inProgressRecipes) {
+      const newList = {
+        ...inProgressRecipes,
+        meals: {
+          ...inProgressRecipes.meals,
+          [historyId]: ingredientsList,
+        },
+      };
+
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newList));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(listUnstructured));
+    }
   };
+
+  useEffect(() => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'))
+      .meals[historyId];
+
+    setIngredientsSave(inProgressRecipes);
+  }, []);
+
+  /*  useEffect(() => {
+    console.log(ingredientsSave, 'save');
+    if (ingredientsSave) {
+      ingredientsSave.forEach((item) => {
+        const name = item.toLowerCase().split(' ').join('-');
+        const testeId = document.getElementById('minced-beef---500g');
+        console.log(testeId);
+      });
+    }
+  }, [ingredientsSave]); */
 
   return (
     <div className="food-container">
@@ -74,24 +127,24 @@ function FoodProgress() {
           <p data-testid="recipe-category">{recipe[0].strCategory}</p>
         </div>
       )}
-
       <h3>Ingredientes</h3>
-      {ingredients.map((ingredient, index) => (
-        <label
-          htmlFor={ `ingredient-${index}` }
-          data-testid={ `${index}-ingredient-step` }
-          key={ index }
-        >
-          <input
-            type="checkbox"
-            value={ ingredient }
-            id={ `ingredient-${index}` }
-            onClick={ handleLineThrough }
-          />
-          {ingredient}
-        </label>
-      ))}
-
+      <div id="ingredients-container">
+        {ingredients.map((ingredient, index) => (
+          <label
+            htmlFor={ ingredient }
+            data-testid={ `${index}-ingredient-step` }
+            key={ index }
+          >
+            <input
+              type="checkbox"
+              value={ ingredient }
+              id={ ingredient.toLowerCase().split(' ').join('-') }
+              onClick={ handleLineThrough }
+            />
+            {ingredient}
+          </label>
+        ))}
+      </div>
       <h3>Instruções</h3>
       {(recipe.length === 1)
         && <p data-testid="instructions">{recipe[0].strInstructions}</p>}
