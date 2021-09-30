@@ -7,15 +7,17 @@ import LowerMenu from '../components/LowerMenu';
 import SearchDrinkCategories from '../components/searchDrinkCategories';
 
 function HomeDrinks() {
-  const { state, setState, state: { drinks } } = useContext(appContext);
+  const { state, setState, state: { drinks, key } } = useContext(appContext);
 
   const MAX_DRINKS = 12;
   useEffect(() => {
-    const fetchData = async () => {
-      const defaultDrinks = await fetchByName('thecocktaildb', '');
-      setState({ ...state, drinks: [...defaultDrinks] });
-    };
-    fetchData();
+    if (!key) {
+      const fetchData = async () => {
+        const defaultDrinks = await fetchByName('thecocktaildb', '');
+        setState({ ...state, drinks: [...defaultDrinks] });
+      };
+      fetchData();
+    }
   }, []);
 
   return (

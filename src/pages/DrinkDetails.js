@@ -25,6 +25,9 @@ function DrinkDetail() {
         cocktails: {}, meals: {},
       }));
     }
+    if (JSON.parse(localStorage.getItem('doneRecipes')) === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
   useEffect(() => {
@@ -33,7 +36,6 @@ function DrinkDetail() {
       const response = await fetch(URL);
       const { drinks } = await response.json();
       setDrink(drinks[0]);
-      console.log(drinks);
     };
     getDrink();
     const getRecomendations = async () => {
@@ -50,6 +52,14 @@ function DrinkDetail() {
     }
   }, [id]);
 
+  const isDoneRecipe = () => {
+    const doneRecipesLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesLocal === null) {
+      return false;
+    }
+    return doneRecipesLocal.some((doneRecipe) => doneRecipe.id === id);
+  };
+
   const buttonStartRecipe = () => { // desenvolver essa função
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (inProgressRecipes.cocktails[id]) {
@@ -59,7 +69,7 @@ function DrinkDetail() {
 
     const cocktails = {
       ...inProgressRecipes.cocktails,
-      [id]: ingredients,
+      [id]: [],
     };
     console.log({ ...inProgressRecipes, cocktails });
     localStorage
@@ -114,6 +124,7 @@ function DrinkDetail() {
           style={ { position: 'fixed', bottom: '0' } }
           onClick={ () => buttonStartRecipe() }
           data-testid="start-recipe-btn"
+          hidden={ isDoneRecipe() }
         >
           { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>

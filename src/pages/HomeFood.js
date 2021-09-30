@@ -7,11 +7,12 @@ import LowerMenu from '../components/LowerMenu';
 import SearchFoodCategories from '../components/searchFoodCategories';
 
 const HomeFood = () => {
-  const { state, setState, state: { foods, key } } = useContext(appContext);
+  const { state, setState, state: { foods, key, keyExplorer } } = useContext(appContext);
   const MAX_FOODS = 12;
 
   useEffect(() => {
-    if (!key) {
+    console.log(keyExplorer);
+    if (!key && !keyExplorer) {
       const fetchData = async () => {
         const defaultMeals = await fetchByName('themealdb', '');
         setState({ ...state, foods: [...defaultMeals] });
