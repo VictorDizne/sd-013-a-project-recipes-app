@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import DrinksInProgressCard from '../../components/drinksInProgress';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
-import MealInProgressCard from '../../components/mealInProgressCard';
 import recipesContext from '../../context';
 
-function MealInProgress() {
+function DrinkInProgress() {
   const { details, medida, ingredientes } = useContext(recipesContext);
   const history = useHistory();
   const id = useParams();
@@ -20,13 +20,12 @@ function MealInProgress() {
     }
     // Cria o objeto da comida
     const newMeal = {
-      id: details.idMeal,
-      type: 'comida',
-      area: details.strArea,
+      id: details.idDrink,
+      type: 'bebida',
       category: details.strCategory,
-      alcoholicOrNot: '',
-      name: details.strMeal,
-      image: details.strMealThumb,
+      alcoholicOrNot: details.strAlcoholic,
+      name: details.strDrink,
+      image: details.strDrinkThumb,
       doneDate,
       tags,
     };
@@ -47,7 +46,7 @@ function MealInProgress() {
   return (
     <>
       <Header title="?" />
-      <MealInProgressCard
+      <DrinksInProgressCard
         info={ details }
         medidas={ medida }
         ingredientes={ ingredientes }
@@ -65,4 +64,4 @@ function MealInProgress() {
   );
 }
 
-export default MealInProgress;
+export default DrinkInProgress;
