@@ -17,10 +17,9 @@ function DrinkDetailInProgressPage({ match }) {
   const [checkFavorite, setCheckFavorite] = useState(false);
   const [checkProgress, setCheckProgress] = useState('Iniciar Receita');
   const [copySuccess, setCopySuccess] = useState('');
-  // const [isChecked, setIsChecked ] = useState(true)
-  // const [copySuccess, setCopySuccess] = useState('');
   const [checkDone, setCheckDone] = useState(false);
   const { params: { id } } = match;
+  const [checkIngredients, setCheckIngredients] = useState('')
 
   const getIdRecipe = async () => {
     const { drinks } = await myFunc.fetchRecipesDetails(id, 'thecocktaildb');
@@ -32,13 +31,6 @@ function DrinkDetailInProgressPage({ match }) {
     myFuncStorage.setFavoriteRecipe(id, details, 'Drink');
     setCheckFavorite(myFuncStorage.checkFavoriteRecipe(id));
   };
-
-  const verifyCheckedInput = (type, ingredient) => {
-    const progressRecipesToAddIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const verifyIngredient = progressRecipesToAddIngredient[type][id] !== undefined && 
-    progressRecipesToAddIngredient[type][id].some((item) => item === ingredient)
-    return verifyIngredient
-  }
 
   useEffect(() => {
     getIdRecipe();
@@ -53,32 +45,16 @@ function DrinkDetailInProgressPage({ match }) {
       type: 'cocktails',
     };
     myFuncStorage.setAllLocalStorage(paramsValue);
-
-    // console.log(progressRecipes.cocktails[id])
-
-      // console.log(progressRecipes.cocktails[id])
-    
-    // if ( !ingredients ) {
-    // }
-    // JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails[id] !== undefined && 
-    // JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails[id]
-
   }, []);
 
-  const checked = (ingredient, type ) => {
-    myFuncHelper.handleIngredient(ingredient, id, type)
-    const isChecked = progressRecipes.cocktails[id].some((item) => item === ingredient);
-    console.log(document.getElementById(ingredient))
-  }
-
-  const returnListOfIngredients = (index, ingredient) => {
-    const isChecked = progressRecipes.cocktails[id].some((item) => item === ingredient);
+  const returnListOfIngredients = (index, ingredient) => {    
     return (
       <div data-testid={ `${index}-ingredient-step` }>
         <input
           id={ ingredient }
           type="checkbox" 
-          onClick={ () => checked(ingredient, 'cocktails') }
+          onClick={ () => myFuncHelper.handleIngredient(ingredient, id, 'cocktails', setCheckIngredients)}
+          checked={ progressRecipes.cocktails[id].some((item) => item === ingredient ) }
         /> 
         <label
           htmlFor={ ingredient }
@@ -127,9 +103,9 @@ function DrinkDetailInProgressPage({ match }) {
 
       <div>
       {ingredients.map((ingredient, index) => ((
-          ingredient !== undefined || ingredient !== null)
-          && returnListOfIngredients(index, ingredient)))}
-      { progressRecipes.cocktails[id].forEach((item) => document.getElementById(item))}
+        ingredient !== undefined || ingredient !== null)
+        && returnListOfIngredients(index, ingredient)
+        ))}
       </div>
 
       <p data-testid="instructions">{details.strInstructions}</p>

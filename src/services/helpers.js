@@ -23,7 +23,7 @@ export const copyToClipBoard = async (copyMe, setCopySuccess) => {
   }
 };
 
-export const handleIngredient = (ingredient, id, type) => {
+export const handleIngredient = (ingredient, id, type, setCheckIngredients) => {
   const progressRecipesToAddIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const verifyIngredient = progressRecipesToAddIngredient[type][id] !== undefined && 
   progressRecipesToAddIngredient[type][id].some((item) => item === ingredient)
@@ -39,6 +39,7 @@ export const handleIngredient = (ingredient, id, type) => {
       },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
+    setCheckIngredients(newProgressRecipe)
   } else {
     const newProgressRecipe = {
       ...progressRecipesToAddIngredient,
@@ -48,6 +49,7 @@ export const handleIngredient = (ingredient, id, type) => {
       },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
+    setCheckIngredients(newProgressRecipe)
   }
-  
 }
+

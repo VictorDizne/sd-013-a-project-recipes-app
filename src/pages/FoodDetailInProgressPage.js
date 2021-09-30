@@ -22,6 +22,7 @@ function FoodDetailInProgressPage({ match }) {
   const [copySuccess, setCopySuccess] = useState('');
   const [checkDone, setCheckDone] = useState(false);
   const { params: { id } } = match;
+  // const [checkIngredients, setCheckIngredients] = useState(progressRecipes.meals[id])
 
   const getIdRecipe = async () => {
     const { meals } = await myFunc.fetchRecipesDetails(id, 'themealdb');
@@ -54,7 +55,8 @@ function FoodDetailInProgressPage({ match }) {
       <input 
         id={ ingredient }
         type="checkbox"
-        onClick={ () => myFuncHelper.handleIngredient(ingredient,id, 'meals') } 
+        onClick={ () => myFuncHelper.handleIngredient(ingredient,id, 'meals') }
+        // checked={ progressRecipes.meals[id].some((item) => item === ingredient ) } 
       />
       <label
         htmlFor={ ingredient }

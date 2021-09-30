@@ -1,14 +1,16 @@
 // IN PROGRESS RECIPE LOCAL STORAGE
 export const setProgressRecipe = (id, type) => {
   const progressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const newProgressRecipe = {
-    ...progressRecipe,
-    [type]: {
-      ...progressRecipe[type],
-      [id]: [],
-    },
-  };
-  localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
+  if ( !progressRecipe[type][id].length ) {
+    const newProgressRecipe = {
+      ...progressRecipe,
+      [type]: {
+        ...progressRecipe[type],
+        [id]: [],
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
+  }
 };
 
 export const checkProgressRecipe = (id, type) => {
@@ -86,12 +88,14 @@ export const setAllLocalStorage = (paramsValue) => {
 
   if (!doneRecipes) {
     setDoneRecipesLocalStorage();
+    console.log('s')
   } else {
     setCheckDone(checkDoneRecipe(id));
   }
 
   if (!progressRecipes) {
     setInProgressRecipeLocalStorage();
+    setProgressRecipe(id, type);
   } else {
     setCheckProgress(checkProgressRecipe(id, type)
       ? 'Continuar Receita' : 'Iniciar Receita');
