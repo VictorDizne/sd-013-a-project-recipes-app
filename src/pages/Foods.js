@@ -12,11 +12,13 @@ function Foods() {
     isDrinkOrMealLoading,
     cameFromIngredient,
     foodsOrDrinksByIngredient,
+    setCameFromIngredient,
   } = useContext(RecipeContext);
 
   // useEffect com comportamento de ComponentDidMount
   useEffect(() => {
     directRequestFood();
+    return (() => setCameFromIngredient(false));
   }, []);
 
   const element = !isDrinkOrMealLoading ? (

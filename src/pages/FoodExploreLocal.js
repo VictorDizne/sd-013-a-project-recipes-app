@@ -30,7 +30,7 @@ function FoodExploreLocal() {
   useEffect(() => {
     getAllFoodsOrigin();
     directRequestFood();
-  }, []);
+  });
 
   const handleChange = ({ target }) => {
     const { value } = target;

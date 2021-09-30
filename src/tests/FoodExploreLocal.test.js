@@ -4,6 +4,69 @@ import renderWithRouter from './renderWithRouter';
 import FoodExploreLocal from '../pages/FoodExploreLocal';
 
 describe('1 - Verifica os testes da página de Explorar origem', () => {
+  afterEach(() => jest.clearAllMocks());
+
+  // const meals = [{
+  //   idMeal: '52977',
+  //   strMeal: 'Corba',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+  // },
+  // {
+  //   idMeal: '53060',
+  //   strMeal: 'Burek',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg',
+  // },
+  // {
+  //   idMeal: '52978',
+  //   strMeal: 'Kumpir',
+  //   strMealThumb: '"https://www.themealdb.com/images/media/meals/mlchx21564916997.jpg"',
+  // },
+  // {
+  //   idMeal: '53026',
+  //   strMeal: 'Tamiya',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/n3xxd91598732796.jpg',
+  // },
+  // {
+  //   idMeal: '52785',
+  //   strMeal: 'Dal fry',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg',
+  // },
+  // {
+  //   idMeal: '52804',
+  //   strMeal: 'Poutine',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/uuyrrx1487327597.jpg',
+  // },
+  // {
+  //   idMeal: '52844',
+  //   strMeal: 'Lasagne',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/wtsvxx1511296896.jpg',
+  // },
+  // {
+  //   idMeal: '52929',
+  //   strMeal: 'Timbits',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
+  // },
+  // {
+  //   idMeal: '52948',
+  //   strMeal: 'Wontons',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/1525876468.jpg',
+  // },
+  // {
+  //   idMeal: '52971',
+  //   strMeal: 'Kafteji',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/1bsv1q1560459826.jpg',
+  // },
+  // {
+  //   idMeal: '53013',
+  //   strMeal: 'Big Mac',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg',
+  // },
+  // {
+  //   idMeal: '53027',
+  //   strMeal: 'Koshari',
+  //   strMealThumb: 'https://www.themealdb.com/images/media/meals/4er7mj1598733193.jpg',
+  // }];
+
   const options = [
     { strArea: 'American' },
     { strArea: 'British' },
@@ -33,6 +96,46 @@ describe('1 - Verifica os testes da página de Explorar origem', () => {
     { strArea: 'Unknown' },
     { strArea: 'Vietnamese' },
   ];
+
+  // const japaneseMeals = {
+  //   meals: [
+  //     {
+  //       strMeal: 'Chicken Karaage',
+  //       strMealThumb: 'https://www.themealdb.com/images/media/meals/tyywsw1505930373.jpg',
+  //       idMeal: '52831',
+  //     },
+  //     {
+  //       strMeal: 'Honey Teriyaki Salmon',
+  //       strMealThumb: 'https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg',
+  //       idMeal: '52773',
+  //     },
+  //     {
+  //       strMeal: 'Katsu Chicken curry',
+  //       strMealThumb: 'https://www.themealdb.com/images/media/meals/vwrpps1503068729.jpg',
+  //       idMeal: '52820',
+  //     },
+  //     {
+  //       strMeal: 'Teriyaki Chicken Casserole',
+  //       strMealThumb: 'https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg',
+  //       idMeal: '52772',
+  //     },
+  //     {
+  //       strMeal: 'Yaki Udon',
+  //       strMealThumb: 'https://www.themealdb.com/images/media/meals/wrustq1511475474.jpg',
+  //       idMeal: '52871',
+  //     },
+  //   ],
+  // };
+
+  // test('Verifica se o componente inicia com as receitas corretas', () => {
+  //   const response = { json: jest.fn().mockImplementation(() => Promise.resolve(meals)) };
+  //   global.fetch = jest.fn().mockResolvedValue(response);
+  //   // const fetchApi = { json: jest.fn(() => Promise.resolve(meals)) };
+  //   // const fetchApi = { json: jest.fn().mockResolvedValue(meals)) };
+  //   renderWithRouter(<FoodExploreLocal />);
+
+  //   expect(global.fetch).toBeCalledTimes(1);
+  // });
 
   test('Verifica se está com o header com os componentes corretos', () => {
     renderWithRouter(<FoodExploreLocal />);
@@ -83,6 +186,8 @@ describe('1 - Verifica os testes da página de Explorar origem', () => {
       expect(option.value).toBe(strArea);
     });
   });
+
+  //
 
   test('Verifica se possui treze  elementos h1 ao iniciar a tela ', () => {
     const { getAllByRole } = renderWithRouter(<FoodExploreLocal />);

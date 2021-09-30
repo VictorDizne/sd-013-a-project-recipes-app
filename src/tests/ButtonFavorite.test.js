@@ -1,4 +1,5 @@
 import React from 'react';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import userEvent from '@testing-library/user-event';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
@@ -65,7 +66,17 @@ const exemploObjDetail = {
 };
 
 describe('1 - Verifica os testes do componente ButtonFavorite', () => {
-  test('Verifica se os elementos estão presentes na tela', () => {
+  // const localStorage = [{
+  //   alcoholicOrNot: '',
+  //   area: 'Croatian',
+  //   category: 'Side',
+  //   id: '53060',
+  //   image: 'https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg',
+  //   name: 'Burek',
+  //   type: 'comida',
+  // }];
+
+  test('Verifica se os elementos estão presentes na tela', async () => {
     const { getByTestId } = renderWithRouter(<ButtonFavorite
       objDetail={ exemploObjDetail }
       id={ exemploId }
@@ -74,6 +85,7 @@ describe('1 - Verifica os testes do componente ButtonFavorite', () => {
 
     const btnFavoriteRecipe = getByTestId('favorite-btn');
     expect(btnFavoriteRecipe).toBeInTheDocument();
+    expect(btnFavoriteRecipe).toHaveAttribute('src', whiteHeartIcon);
   });
 
   test('testa se quando a imagem da receita é clicada, a pagina é redirecionada', () => {
