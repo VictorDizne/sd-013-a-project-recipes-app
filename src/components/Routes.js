@@ -12,8 +12,7 @@ import Perfil from '../pages/Perfil';
 import ReceitasFeitas from '../pages/ReceitasFeitas';
 import ReceitasFavoritas from '../pages/ReceitasFavoritas';
 import ReceitasDetalhes from '../pages/ReceitaDetalhes';
-import ComidaProgress from '../pages/ComidaProgress';
-import BebidaProgress from '../pages/BebidaProgress';
+import ReceitasProgresso from '../pages/ReceitasProgresso';
 
 function Routes() {
   return (
@@ -25,11 +24,11 @@ function Routes() {
       <Route exact path="/bebidas/:recipeId" component={ ReceitasDetalhes } />
       <Route
         path="/comidas/:recipeId/in-progress"
-        component={ ComidaProgress }
+        component={ ReceitasProgresso }
       />
       <Route
         path="/bebidas/:recipeId/in-progress"
-        component={ BebidaProgress }
+        component={ ReceitasProgresso }
       />
       <Route exact path="/explorar" component={ Explorar } />
       <Route exact path="/explorar/comidas" component={ ExplorarComidas } />

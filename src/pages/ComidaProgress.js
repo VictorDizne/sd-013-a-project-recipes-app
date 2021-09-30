@@ -22,29 +22,6 @@ function ComidaProgress({ match, history }) {
     setIsLoading(false);
   }, [recipeId]);
 
-  const ingredients = [
-    meal.strIngredient1,
-    meal.strIngredient2,
-    meal.strIngredient3,
-    meal.strIngredient4,
-    meal.strIngredient5,
-    meal.strIngredient6,
-    meal.strIngredient7,
-    meal.strIngredient8,
-    meal.strIngredient9,
-    meal.strIngredient10,
-    meal.strIngredient11,
-    meal.strIngredient12,
-    meal.strIngredient13,
-    meal.strIngredient14,
-    meal.strIngredient15,
-    meal.strIngredient16,
-    meal.strIngredient17,
-    meal.strIngredient18,
-    meal.strIngredient19,
-    meal.strIngredient20,
-  ];
-
   const handleCheckbox = ({ target }, index) => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (target.checked === true) {

@@ -17,6 +17,8 @@ function Provider({ children }) {
 
   const [toggleOn, setToggleOn] = useState('');
 
+  const [compareCheckBox, setCompareCheckBox] = useState(0);
+
   useEffect(() => {
     const getMeals = async () => {
       const results = await fetchMeals();
@@ -64,6 +66,9 @@ function Provider({ children }) {
 
     toggleOn,
     setToggleOn,
+
+    compareCheckBox,
+    setCompareCheckBox,
   };
 
   return (
