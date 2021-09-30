@@ -58,6 +58,9 @@ describe('1 - Verifica os testes da página de Explorar origem', () => {
 
     const link3 = screen.getByTestId(/food-bottom-btn/i);
     expect(link3).toBeInTheDocument();
+
+    const footerField = screen.getByTestId('footer');
+    expect(footerField).toBeInTheDocument();
   });
 
   test('Verifica se existe uma label para o elemento select', async () => {
@@ -93,5 +96,35 @@ describe('1 - Verifica os testes da página de Explorar origem', () => {
     const imgNumber = 13;
     const img = await screen.findAllByRole('img');
     expect(img.length).toBe(imgNumber);
+  });
+});
+
+// ================= MAIS TESTES ===================================
+const btnSelect = 'explore-by-area-dropdown';
+
+describe('Verifica a página FoodExploreLocal ', () => {
+  test('testa se página contém o título "Explorar Origem" ', async () => {
+    const { findByText } = renderWithRouter(<FoodExploreLocal />);
+
+    const title = await findByText(/Explorar Origem/i);
+    expect(title).toBeInTheDocument();
+  });
+
+  test('testa se página contém um dropdown', async () => {
+    const { findByTestId } = renderWithRouter(<FoodExploreLocal />);
+    const dropDown = await findByTestId(btnSelect);
+    expect(dropDown).toBeInTheDocument('explore-by-area-dropdown');
+  });
+
+  test('testa se o dropdown contém as opções de países', async () => {
+    const { findByTestId } = renderWithRouter(<FoodExploreLocal />);
+    const americanOption = await findByTestId('American-option');
+    expect(americanOption).toBeInTheDocument();
+    const britishOption = await findByTestId('British-option');
+    expect(britishOption).toBeInTheDocument();
+    const turkishOption = await findByTestId('Turkish-option');
+    expect(turkishOption).toBeInTheDocument();
+    const vietnameseOption = await findByTestId('Vietnamese-option');
+    expect(vietnameseOption).toBeInTheDocument();
   });
 });

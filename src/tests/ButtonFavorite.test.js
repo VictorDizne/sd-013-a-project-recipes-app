@@ -1,6 +1,8 @@
 import React from 'react';
+// import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import ButtonFavorite from '../components/ButtonFavorite';
+import App from '../App';
 
 const exemploUrlText = '/comidas/52965';
 const exemploId = '52965';
@@ -72,4 +74,5 @@ describe('1 - Verifica os testes do componente ButtonFavorite', () => {
     const btnFavoriteRecipe = getByTestId('favorite-btn');
     expect(btnFavoriteRecipe).toBeInTheDocument();
   });
+
 });
