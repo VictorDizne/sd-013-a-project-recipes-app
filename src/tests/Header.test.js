@@ -2,8 +2,9 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import Header from '../components/Header';
+import '@testing-library/jest-dom';
 
-describe('Component Header', () => {
+describe('Componente Header', () => {
   test('Há um elemento botão de Perfil', () => {
     renderWithRouter(<Header title="Comidas" />);
 

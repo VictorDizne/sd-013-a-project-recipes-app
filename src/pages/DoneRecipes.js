@@ -36,7 +36,6 @@ function DoneRecipes() {
 
   return (
     <div className="done-recipes-body">
-      <div className="background-color" />
       <Header title="Receitas Feitas" search={ false } />
       <div>
         <button

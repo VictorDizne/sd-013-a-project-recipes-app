@@ -37,7 +37,7 @@ describe('2 - Verifica se os botões redirecionam para a rota corretamente', () 
     const { pathname } = history.location;
     expect(pathname).toBe('/explorar/comidas');
   });
-  
+
   test('Verifica se botão "Explorar Bebidas" redireciona corretamente', () => {
     const { getByTestId, history } = renderWithRouter(
       <Explore title="Explorar" visible={ false } />,

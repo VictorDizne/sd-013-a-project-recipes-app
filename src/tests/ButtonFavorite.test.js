@@ -1,6 +1,10 @@
 import React from 'react';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import ButtonFavorite from '../components/ButtonFavorite';
+import { isfavoriteRecipe } from '../services/setFavorites';
 
 const exemploUrlText = '/comidas/52965';
 const exemploId = '52965';
@@ -11,7 +15,7 @@ const exemploObjDetail = {
   strDrinkAlternate: null,
   strCategory: 'Breakfast',
   strArea: 'Canadian',
-  strInstructions: 'Before you do anything, freeze your bacon slices that way when you\'re ready to prep, it\'ll be so much easier to chop!\r\nWash the potatoes and cut medium dice into square pieces. To prevent any browning, place the already cut potatoes in a bowl filled with water.\r\nIn the meantime, heat 1-2 tablespoons of oil in a large skillet over medium-high heat. Tilt the skillet so the oil spreads evenly.\r\nOnce the oil is hot, drain the potatoes and add to the skillet. Season with salt, pepper, and Old Bay as needed.\r\nCook for 10 minutes, stirring the potatoes often, until brown. If needed, add a tablespoon more of oil.\r\nChop up the bacon and add to the potatoes. The bacon will start to render and the fat will begin to further cook the potatoes. Toss it up a bit! The bacon will take 5-6 minutes to crisp.\r\nOnce the bacon is cooked, reduce the heat to medium-low, add the minced garlic and toss. Season once more. Add dried or fresh parsley. Control heat as needed.\r\nLet the garlic cook until fragrant, about one minute.\r\nJust before serving, drizzle over the maple syrup and toss. Let that cook another minute, giving the potatoes a caramelized effect.\r\nServe in a warm bowl with a sunny side up egg!',
+  strInstructions: 'Before you do anything, freeze your bacon slices that way when ',
   strMealThumb: 'https://www.themealdb.com/images/media/meals/1550441882.jpg',
   strTags: 'Breakfast,Brunch,',
   strYoutube: 'https://www.youtube.com/watch?v=BoD0TIO9nE4',
@@ -62,7 +66,17 @@ const exemploObjDetail = {
 };
 
 describe('1 - Verifica os testes do componente ButtonFavorite', () => {
-  test('Verifica se os elementos estão presentes na tela', () => {
+  // const localStorage = [{
+  //   alcoholicOrNot: '',
+  //   area: 'Croatian',
+  //   category: 'Side',
+  //   id: '53060',
+  //   image: 'https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg',
+  //   name: 'Burek',
+  //   type: 'comida',
+  // }];
+
+  test('Verifica se os elementos estão presentes na tela', async () => {
     const { getByTestId } = renderWithRouter(<ButtonFavorite
       objDetail={ exemploObjDetail }
       id={ exemploId }
@@ -71,5 +85,20 @@ describe('1 - Verifica os testes do componente ButtonFavorite', () => {
 
     const btnFavoriteRecipe = getByTestId('favorite-btn');
     expect(btnFavoriteRecipe).toBeInTheDocument();
+    expect(btnFavoriteRecipe).toHaveAttribute('src', whiteHeartIcon);
+  });
+
+  test('testa se quando a imagem da receita é clicada, a pagina é redirecionada', () => {
+    const { getByTestId } = renderWithRouter(<ButtonFavorite
+      objDetail={ exemploObjDetail }
+      id={ exemploId }
+      urlText={ exemploUrlText }
+    />);
+
+    const buttonClick = getByTestId('favorite-btn');
+    userEvent.click(buttonClick);
+    userEvent.dblClick(buttonClick);
+
+    expect(pathname).toBe('/comidas/52771');
   });
 });
