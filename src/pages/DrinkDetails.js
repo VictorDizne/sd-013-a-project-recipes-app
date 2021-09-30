@@ -36,7 +36,6 @@ function DrinkDetail() {
       const response = await fetch(URL);
       const { drinks } = await response.json();
       setDrink(drinks[0]);
-      console.log(drinks);
     };
     getDrink();
     const getRecomendations = async () => {

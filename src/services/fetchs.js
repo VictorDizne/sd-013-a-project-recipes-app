@@ -57,6 +57,13 @@ export const fetchSurpriseMe = async (type) => {
   return (type === 'themealdb' ? json.meals : json.drinks);
 };
 
+export const fetchIngredients = async (type) => {
+  const URL = `https://www.${type}.com/api/json/v1/1/list.php?i=list`;
+  const res = await fetch(URL);
+  const json = await res.json();
+  return (type === 'themealdb' ? json.meals : json.drinks);
+};
+
 /* export const fetchAllCategories = async () => {
   const URL = 'https://www.themealdb.com/api/json/v1/1/categories.php';
   const res = await fetch(URL);

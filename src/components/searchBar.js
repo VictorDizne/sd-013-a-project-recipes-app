@@ -11,6 +11,7 @@ const SearchBar = () => {
   const history = useHistory();
 
   useEffect(() => {
+    // redirect to details case the search to be equal one meal or drink
     const { foods, drinks } = state;
     if (foods.length === 1) {
       history.push(`/comidas/${foods[0].idMeal}`);
