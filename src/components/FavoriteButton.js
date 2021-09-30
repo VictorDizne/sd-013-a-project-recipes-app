@@ -7,32 +7,45 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const FavoriteButton = ({ recipeDetails }) => {
   const history = useHistory();
   const [favoriteImg, changeFavoriteImg] = useState(whiteHeartIcon);
-  // const [mealOrDrink, toggleMealOrDrink] = useState('');
   const { pathname } = history.location;
   const recipeId = pathname.includes('bebidas')
     ? recipeDetails.idDrink : recipeDetails.idMeal;
 
-  useEffect(() => {
+  function filter() {
     const favoriteLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favoriteLocalStorage);
-    function filter() {
-      if (favoriteLocalStorage) {
-        const favoritesFilter = favoriteLocalStorage.map((obj) => (
-          Object.values(obj).some((key) => key === recipeId)));
-        if (favoritesFilter[0]) {
-          changeFavoriteImg(blackHeartIcon);
-        }
-      }
+    if (favoriteLocalStorage) {
+      const favoritesFilter = favoriteLocalStorage.map((obj) => (
+        Object.values(obj).some((key) => key === recipeId)));
+      return favoritesFilter[0] ? changeFavoriteImg(blackHeartIcon) : null;
     }
+  }
+
+  useEffect(() => {
     filter();
   }, []);
+
+  function SetLocalStorage(newFavorite) {
+    const allFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (allFavorite) {
+      return localStorage.setItem(
+        'favoriteRecipes', JSON.stringify(
+          [...allFavorite, newFavorite],
+        ),
+      );
+    }
+
+    return localStorage.setItem(
+      'favoriteRecipes', JSON.stringify(
+        [newFavorite],
+      ),
+    );
+  }
 
   function handleClickFavorite() {
     if (favoriteImg === blackHeartIcon) {
       return changeFavoriteImg(whiteHeartIcon);
     }
     changeFavoriteImg(blackHeartIcon);
-    const allFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
     let favoriteLocalStorageObject = {
       id: '',
@@ -64,19 +77,21 @@ const FavoriteButton = ({ recipeDetails }) => {
         image: recipeDetails.strMealThumb,
       };
     }
-    if (allFavorite) {
-      localStorage.setItem(
-        'favoriteRecipes', JSON.stringify(
-          [...allFavorite, favoriteLocalStorageObject],
-        ),
-      );
-    } else {
+    SetLocalStorage(favoriteLocalStorageObject);
+    /* if (allFavorite) { */
+    /* localStorage.setItem(
+      'favoriteRecipes', JSON.stringify(
+        [favoriteLocalStorageObject],
+      ),
+    ); */
+    /* } */
+    /* else {
       localStorage.setItem(
         'favoriteRecipes', JSON.stringify(
           [favoriteLocalStorageObject],
         ),
       );
-    }
+    } */
   }
 
   function button() {
