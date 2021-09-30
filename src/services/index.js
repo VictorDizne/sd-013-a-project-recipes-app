@@ -85,6 +85,8 @@ export const fetchIngredients = async (path) => {
   return json[dataKey];
 };
 
+export const getStorage = (key) => JSON.parse(localStorage.getItem(key));
+
 export const fetchIAreaMeals = async (area) => {
   const dataKey = 'meals';
   if (area === 'All') {

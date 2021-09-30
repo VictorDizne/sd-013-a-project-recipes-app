@@ -1,23 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchDetails, fetchRecipes } from '../services';
-// import shareIcon from '../images/shareIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { fetchDetails, fetchRecipes, getStorage } from '../services';
 import Recomendations from '../components/Recomendations';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 
 const MAX_RECOMENDATION = 6;
-
-function getStorage() {
-  const payload = localStorage.getItem('inProgressRecipes');
-  if (payload === null) {
-    localStorage
-      .setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
-  }
-  return JSON.parse(localStorage.getItem('inProgressRecipes'));
-}
 
 function checkProgress(id, recipes) {
   const recipesIds = Object.keys(recipes);
@@ -76,7 +65,7 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   useEffect(() => {
     const checkStorage = async () => {
-      const data = await getStorage();
+      const data = await getStorage('inProgressRecipes');
       setInProgressRecipes(data.cocktails);
     };
     checkStorage();
