@@ -11,6 +11,7 @@ export { default as ExploreDrinks } from './ExploreDrinks';
 export { default as IngredientsMealsExplore } from './IngredientsMealsExplore';
 export { default as IngredientsDrinksExplore } from './IngredientsDrinksExplore';
 export { default as ExploreMealsArea } from './ExploreMealsArea';
+export { default as ExploreDrinksArea } from './ExploreDrinksArea';
 export { default as Perfil } from './Perfil';
 export { default as MadeRecipes } from './MadeRecipes';
 export { default as FavoriteRecipes } from './FavoriteRecipes';

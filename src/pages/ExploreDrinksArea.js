@@ -5,8 +5,9 @@ import Footer from '../components/Footer';
 function ExploreDrinksArea() {
   return (
     <>
-      <Header />
-      <Footer />
+      {/* <Header />
+      <Footer /> */}
+      <p>Not Found</p>
     </>
   );
 }
