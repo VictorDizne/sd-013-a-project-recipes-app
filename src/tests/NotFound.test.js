@@ -9,7 +9,7 @@ describe('1 - Verifica os testes da página de NotFound', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/notfound');
     const notFound = screen
-      .getByRole('heading', { name: 'A página que você procura não foi encontrada' });
+      .getByRole('heading', { name: 'Not Found' });
     expect(notFound).toBeInTheDocument();
   });
 });

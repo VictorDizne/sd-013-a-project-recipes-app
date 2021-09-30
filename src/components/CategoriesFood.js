@@ -43,6 +43,7 @@ function CategoriesFood() {
         if (index < MIN_CATEG) {
           return (
             <button
+              className="category-buttons"
               data-testid={ `${elem.strCategory}-category-filter` }
               type="button"
               value={ elem.strCategory }
