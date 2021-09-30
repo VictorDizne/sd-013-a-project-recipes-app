@@ -17,11 +17,8 @@ const FavoriteButton = ({ recipeDetails }) => {
       const favoritesFilter = favoriteLocalStorage.map((obj) => (
         Object.values(obj).some((key) => key === recipeId)));
       console.log(favoriteLocalStorage);
-      favoritesFilter.forEach((favorite) => {
-        if (favorite) {
-          changeFavoriteImg(blackHeartIcon);
-        }
-      });
+      favoritesFilter
+        .forEach((favorite) => favorite && changeFavoriteImg(blackHeartIcon));
     }
   }
 
@@ -83,20 +80,6 @@ const FavoriteButton = ({ recipeDetails }) => {
       };
     }
     SetLocalStorage(favoriteLocalStorageObject);
-    /* if (allFavorite) { */
-    /* localStorage.setItem(
-      'favoriteRecipes', JSON.stringify(
-        [favoriteLocalStorageObject],
-      ),
-    ); */
-    /* } */
-    /* else {
-      localStorage.setItem(
-        'favoriteRecipes', JSON.stringify(
-          [favoriteLocalStorageObject],
-        ),
-      );
-    } */
   }
 
   function button() {
