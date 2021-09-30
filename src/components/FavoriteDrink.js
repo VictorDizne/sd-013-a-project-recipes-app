@@ -10,7 +10,6 @@ function FavoriteDrink() {
   useEffect(() => {
     const listFavorite = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
     const newArray = listFavorite.filter((list) => list.id === id);
-    console.log(newArray);
     if (newArray[0]) {
       return setFavHeart(true);
     }

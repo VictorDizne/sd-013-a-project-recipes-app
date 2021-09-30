@@ -16,7 +16,7 @@ const useRecipesSearch = (value, input, page) => {
 
     async function fetchResult() {
       const result = await (await fetch(url)).json();
-      console.log(result, 'result');
+      // console.log(result, 'result');
       setRecipes(result);
     }
     if (data.search && data.text) {

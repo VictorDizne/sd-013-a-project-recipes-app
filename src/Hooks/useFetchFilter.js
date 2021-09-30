@@ -12,7 +12,7 @@ const useFetchFilter = (page) => {
         const result = await fetch(url);
         const json = await result.json();
         setRecipes(json);
-        console.log(json);
+        // console.log(json);
       } catch (error) {
         console.log(error);
       }
