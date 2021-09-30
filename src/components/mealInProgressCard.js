@@ -60,6 +60,16 @@ function MealInProgressCard() {
     return checkFavorite() ? desfavoritar() : favoritar();
   }
 
+  function handleChange({ target }) {
+    const { checked } = target;
+
+    if (checked) {
+      target.parentNode.style.textDecoration = 'line-through';
+    } else {
+      target.parentNode.style.textDecoration = '';
+    }
+  }
+
   return (
     <div>
       <img
@@ -67,46 +77,59 @@ function MealInProgressCard() {
         src={ info.strMealThumb }
         alt="Receita"
       />
-      <h2 data-testid="recipe-title">{ info.strMeal }</h2>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ compartilhar }
-      >
-        <img
-          src={ shareIcon }
-          alt="share button"
-        />
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ handleFavButton }
-      >
-        <img
-          src={ checkFavorite() ? blackHeartIcon : whiteHeartIcon }
-          alt="Favoritar"
-        />
-      </button>
-      <h3 data-testid="recipe-category">{ info.strCategory }</h3>
-      {ingredientes.map((ingrediente, index) => (
-        <>
-          <label htmlFor="input">
-            { ingrediente }
-            { `- ${medidas[index]}` }
-          </label>
-          <input
-            id="input"
-            type="checkbox"
-            data-testid={ `${index}-ingredient-step` }
-            key={ index }
+      <div className="detail-header">
+        <h2 data-testid="recipe-title">{ info.strMeal }</h2>
+        <button
+          className="detail-button"
+          data-testid="share-btn"
+          type="button"
+          onClick={ compartilhar }
+        >
+          <img
+            src={ shareIcon }
+            alt="share button"
           />
-        </>
-      ))}
-      <h2 data-testid="instructions">
-        Instrucoes:
+        </button>
+        <button
+          className="detail-button"
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ handleFavButton }
+        >
+          <img
+            src={ checkFavorite() ? blackHeartIcon : whiteHeartIcon }
+            alt="Favoritar"
+          />
+        </button>
+      </div>
+      <h3 data-testid="recipe-category">{ info.strCategory }</h3>
+      <div className="recipe-checkboxs">
+        {ingredientes.map((ingrediente, index) => (
+          <div key className="recipe-checkbox">
+            <label
+              htmlFor={ ingrediente }
+              id="input"
+            >
+              <input
+                className="recipe-input"
+                id={ ingrediente }
+                type="checkbox"
+                data-testid={ `${index}-ingredient-step` }
+                key={ index }
+                onChange={ handleChange }
+              />
+              { ingrediente }
+              { ` - ${medidas[index]}` }
+            </label>
+          </div>
+        ))}
+      </div>
+      <h4 className="recipe-instructions" data-testid="instructions">
+        Instruções:
+      </h4>
+      <p>
         { info.strInstructions }
-      </h2>
+      </p>
     </div>
   );
 }

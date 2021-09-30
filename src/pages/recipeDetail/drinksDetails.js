@@ -115,31 +115,36 @@ function DrinkDetails({ match: { params: { id } } }) {
         src={ details.strDrinkThumb }
         alt="Meal"
       />
-      <h2 data-testid="recipe-title">{details.strDrink}</h2>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ compartilhar }
-      >
-        <img
-          src={ shareIcon }
-          alt="share button"
-        />
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ handleFavButton }
-      >
-        <img
-          src={ checkFavorite() ? blackHeartIcon : whiteHeartIcon }
-          alt="Favoritar"
-        />
-      </button>
+      <div className="detail-header">
+        <h2 data-testid="recipe-title">{details.strDrink}</h2>
+        <button
+          className="detail-button"
+          type="button"
+          data-testid="share-btn"
+          onClick={ compartilhar }
+        >
+          <img
+            src={ shareIcon }
+            alt="share button"
+          />
+        </button>
+        <button
+          className="detail-button"
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ handleFavButton }
+        >
+          <img
+            src={ checkFavorite() ? blackHeartIcon : whiteHeartIcon }
+            alt="Favoritar"
+          />
+        </button>
+      </div>
       <DrinkIngredients props={ id } />
       <p data-testid="instructions">{ details.strInstructions }</p>
       <Link to={ () => initRecipe(details) }>
         <button
+          className="start-recipe"
           type="button"
           data-testid="start-recipe-btn"
         >
