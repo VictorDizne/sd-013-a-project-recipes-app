@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import shareIcon from '../images/shareIcon.svg';
 
-function DoneMealCard({ area, tags, date, cardName, index, image, id }) {
+const copy = require('clipboard-copy');
+
+function DoneMealCard({ area, tags, date, cardName, index, image, id, category }) {
+  function shareMealRecipe() {
+    copy(`http://localhost:3000/comidas/${id}`);
+    global.alert('Link copiado!');
+  }
+
   const twoTags = tags
     .map((tagName, tagIndex) => (
       <p
@@ -13,24 +21,39 @@ function DoneMealCard({ area, tags, date, cardName, index, image, id }) {
         { tagName }
       </p>));
   return (
-    <Link to={ `/comidas/${id}` }>
-      <button className="eachFood" type="button">
+    <div className="eachFood">
+      <Link to={ `/comidas/${id}` }>
         <img
           className="foodImage"
           src={ image }
           alt="Recipe thumbnail"
           data-testid={ `${index}-horizontal-image` }
         />
+      </Link>
+      <Link to={ `/comidas/${id}` }>
         <p data-testid={ `${index}-horizontal-name` }>
           { cardName }
         </p>
-        <p data-testid={ `${index}-horizontal-done-date` }>
-          { date }
-        </p>
-        <p>{ area }</p>
-        { twoTags }
+      </Link>
+      <p data-testid={ `${index}-horizontal-done-date` }>
+        { date }
+      </p>
+      <p data-testid={ `${index}-horizontal-top-text` }>
+        { category }
+      </p>
+      <p>{ area }</p>
+      { twoTags }
+      <button
+        type="button"
+        onClick={ shareMealRecipe }
+        data-testid={ `${index}-horizontal-share-btn` }
+      >
+        <img
+          src={ shareIcon }
+          alt="share button"
+        />
       </button>
-    </Link>
+    </div>
   );
 }
 
@@ -42,6 +65,7 @@ DoneMealCard.propTypes = {
   image: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default DoneMealCard;
