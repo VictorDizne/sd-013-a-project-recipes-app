@@ -5,7 +5,7 @@ export const setProgressRecipe = (id, type) => {
     ...progressRecipe,
     [type]: {
       ...progressRecipe[type],
-      [id]: ['lista-de-ingredientes-utilizados'],
+      [id]: [],
     },
   };
   localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));

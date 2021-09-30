@@ -1,13 +1,13 @@
-export const setListOfIngredientsAndQuantity = (meals, setQuanitity, setIngredients) => {
+export const setListOfIngredientsAndQuantity = (type, setQuanitity, setIngredients) => {
   const arrayIngredients = [];
   const arrayQuantity = [];
   const number = 20;
   for (let index = 1; index < number; index += 1) {
-    if (meals[`strIngredient${index}`] !== '') {
-      arrayIngredients.push(meals[`strIngredient${index}`]);
+    if (type[`strIngredient${index}`] !== '' && type[`strIngredient${index}`] !== null && type[`strIngredient${index}`] !== undefined ) {
+      arrayIngredients.push(type[`strIngredient${index}`]);
     }
-    if (meals[`strMeasure${index}`] !== null) {
-      arrayQuantity.push(meals[`strMeasure${index}`]);
+    if (type[`strMeasure${index}`] !== null && type[`strIngredient${index}`] !== undefined) {
+      arrayQuantity.push(type[`strMeasure${index}`]);
     }
   }
   setQuanitity(arrayQuantity);
@@ -22,3 +22,32 @@ export const copyToClipBoard = async (copyMe, setCopySuccess) => {
     setCopySuccess('Failed to copy!');
   }
 };
+
+export const handleIngredient = (ingredient, id, type) => {
+  const progressRecipesToAddIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const verifyIngredient = progressRecipesToAddIngredient[type][id] !== undefined && 
+  progressRecipesToAddIngredient[type][id].some((item) => item === ingredient)
+
+  if (!verifyIngredient) {
+    const newProgressRecipe = {
+      ...progressRecipesToAddIngredient,
+    [type]: {
+        ...progressRecipesToAddIngredient[type],
+        [id]: progressRecipesToAddIngredient[type][id] === undefined 
+          ? [ingredient]
+          : [...progressRecipesToAddIngredient[type][id], ingredient],
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
+  } else {
+    const newProgressRecipe = {
+      ...progressRecipesToAddIngredient,
+    [type]: {
+        ...progressRecipesToAddIngredient[type],
+        [id]: progressRecipesToAddIngredient[type][id].filter((item) => item !== ingredient)
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
+  }
+  
+}
