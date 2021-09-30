@@ -1,29 +1,100 @@
-import React /* { useState, useEffect } */ from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderWithoutSearch from '../components/HeaderWithoutSearch';
+import FavoriteCard from '../components/FavoriteCard';
 
-const ReceitasFavoritas = () => (
-  /* const [setFavorites] = useState('');
+const ReceitasFavoritas = () => {
+  const [favorites, setFavorites] = useState('');
+
+  /* src={ favoriteImg === whiteHeartIcon ? whiteHeartIcon : blackHeartIcon } */
+  function resetFilter() {
+    const favoriteRecipes = JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    );
+    setFavorites(favoriteRecipes);
+  }
 
   useEffect(() => {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setFavorites(favoriteRecipes);
-  }, []); */
-  // [{ id, type, area, category, alcoholicOrNot, name, image }]
+    resetFilter();
+  }, []);
 
-  <div>
-    <HeaderWithoutSearch page="Receitas Favoritas" />
-  </div>
-);
-/* {favorites.forEach((recipe) => {
-      if (recipe.type === 'meal') {
-        return (
-          <button type="submit" key="">
-            <img src={ recipe.image } alt={ recipe.name } />
-            <h3>{ recipe.name }</h3>
-            <h3>{ recipe.category }</h3>
-            <h3>{ recipe.area }</h3>
+  function filterFavorites(mealOrDrink) {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newFavorites = favoriteRecipes
+      .filter((favorite) => favorite.type === mealOrDrink);
+    setFavorites(newFavorites);
+  }
+
+  function markFavorite(id) {
+    const newFavorites = favorites.filter((favorite) => favorite.id !== id);
+    setFavorites(newFavorites);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+  }
+
+  // [{ id, type, area, category, alcoholicOrNot, name, image }]
+  if (favorites) {
+    return (
+      <div>
+        <HeaderWithoutSearch page="Receitas Favoritas" />
+        <div>
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ () => resetFilter() }
+          >
+            All
           </button>
-        );
-      }
-})} */
+          <button
+            onClick={ () => filterFavorites('bebida') }
+            type="button"
+            data-testid="filter-by-drink-btn"
+          >
+            Bebidas
+          </button>
+          <button
+            onClick={ () => filterFavorites('comida') }
+            type="button"
+            data-testid="filter-by-food-btn"
+          >
+            Comidas
+          </button>
+        </div>
+        {favorites.map((recipe, index) => (
+          <FavoriteCard
+            key={ index }
+            recipe={ recipe }
+            index={ index }
+            markFavorite={ markFavorite }
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <HeaderWithoutSearch page="Receitas Favoritas" />
+      <div>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+        >
+          Bebidas
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+        >
+          Comidas
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export default ReceitasFavoritas;
