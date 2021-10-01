@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import Header from '../components/Header';
 import FilterRecipes from '../components/FilterRecipes';
 import MasterCard from '../components/MasterCard';
 import { getFavRecipes } from '../services/localStorageFunctions';
+
+const Main = styled.main`
+  margin-top: 68px;
+`;
 
 const FavoritedRecipes = () => {
   const [favoritedRecipes, setFavoritedRecipes] = useState([]);
@@ -10,23 +15,21 @@ const FavoritedRecipes = () => {
   const [favFoodRecipes, setFavFoodRecipes] = useState([]);
   const [favDrinkRecipes, setFavDrinkecipes] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('All');
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     getFavRecipes(
       setFavoritedRecipes, setFavFoodRecipes, setFavDrinkecipes, setDisableFilters,
     );
-  }, []);
+  }, [selected]);
 
   const handleFilter = ({ target: { name } }) => {
     switch (name) {
-    case 'All':
-      setSelectedFilter('All');
+    case 'Food':
+      setSelectedFilter('Food');
       break;
-    case 'Foods':
-      setSelectedFilter('Foods');
-      break;
-    case 'Drinks':
-      setSelectedFilter('Drinks');
+    case 'Drink':
+      setSelectedFilter('Drink');
       break;
     default:
       setSelectedFilter('All');
@@ -51,11 +54,12 @@ const FavoritedRecipes = () => {
             favOrDone="true"
             alcoholicOrNot={ favRecipe.alcoholicOrNot }
             recipe={ favRecipe }
+            refreshFav={ () => setSelected(!selected) }
           />
         ))
       );
     }
-    if (selectedFilter === 'Foods') {
+    if (selectedFilter === 'Food') {
       return (
         favFoodRecipes.map((favFood, idx) => (
           <MasterCard
@@ -71,11 +75,12 @@ const FavoritedRecipes = () => {
             favOrDone="true"
             alcoholicOrNot={ favFood.alcoholicOrNot }
             recipe={ favFood }
+            refreshFav={ () => setSelected(!selected) }
           />
         ))
       );
     }
-    if (selectedFilter === 'Drinks') {
+    if (selectedFilter === 'Drink') {
       return (
         favDrinkRecipes.map((favDrink, idx) => (
           <MasterCard
@@ -91,19 +96,21 @@ const FavoritedRecipes = () => {
             favOrDone="true"
             alcoholicOrNot={ favDrink.alcoholicOrNot }
             recipe={ favDrink }
+            refreshFav={ () => setSelected(!selected) }
           />
         ))
       );
     }
   }
+
   return (
-    <main>
+    <Main>
       <Header title="Receitas Favoritas" />
       { !disableFilters
         && <FilterRecipes pageTitle="both" handleFilter={ handleFilter } /> }
       { disableFilters && <p>Parece que você não tem nenhuma receita favorita</p> }
-      { renderFavRecipes }
-    </main>
+      { renderFavRecipes() }
+    </Main>
   );
 };
 

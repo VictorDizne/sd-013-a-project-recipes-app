@@ -32,7 +32,9 @@ function FilterRecipes({ pageTitle, handleFilter }) {
             name={ category.strCategory }
             key={ index }
             type="button"
-            id={ `${category.strCategory}-category-filter` }
+            id={ pageTitle === 'both'
+              ? `filter-by-${category.strCategory.toLowerCase()}-btn`
+              : `${category.strCategory}-category-filter` }
             buttonText={ category.strCategory }
             onClick={ handleFilter }
           />

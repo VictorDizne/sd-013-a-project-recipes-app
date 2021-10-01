@@ -22,11 +22,14 @@ function MasterCard(props) {
     area,
     type,
     recipe,
+    refreshFav,
     // props usadas nas receitas feitas
-    tags,
+    tags = [],
     doneDate,
     // prop usada nas receitas feitas e favoritas
     favOrDone = false,
+    testID,
+    alcoholicOrNot,
   } = props;
 
   const favBtn = () => (
@@ -35,6 +38,7 @@ function MasterCard(props) {
       favOrDone={ favOrDone }
       idx={ index }
       recipe={ recipe }
+      refreshFav={ refreshFav }
     />
   );
 
@@ -42,6 +46,8 @@ function MasterCard(props) {
     <ShareButton
       id={ id }
       type={ type }
+      testID={ testID }
+      index={ index }
     />
   );
 
@@ -98,10 +104,10 @@ function MasterCard(props) {
           >
             { type === 'comida'
               ? `${area} - ${category}`
-              : `${category}` }
+              : `${alcoholicOrNot}` }
           </span>
-          { shareButton }
-          { favBtn }
+          { shareButton() }
+          { favBtn() }
         </div>
         <Link
           to={ `${type}s/${id}` }

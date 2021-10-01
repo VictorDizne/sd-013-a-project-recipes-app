@@ -106,7 +106,8 @@ export function getFavRecipes(
     if (favDrinkRecipes) setFavDrinkecipes(favDrinkRecipes);
     setFavoritedRecipes(fav);
     setDisableFilters(false);
-  } else {
+  }
+  if (fav.length < 1) {
     setDisableFilters(true);
   }
 }
