@@ -44,9 +44,6 @@ const TelaComidas = ({ history }) => {
       return createCard(categoryFilter, 'Meal');
     } if (searchBarFilters.length > 1) {
       return createCard(searchBarFilters, 'Meal');
-    } if (searchBarFilters.length === 1) {
-      const id = searchBarFilters[0].idMeal;
-      history.push(`/comidas/${id}`);
     } return createCard(dataFood, 'Meal');
   };
 
@@ -55,7 +52,8 @@ const TelaComidas = ({ history }) => {
       <Header hasLupa pageName="Comidas" />
       <div className="main">
         <Filters alimento={ categoryFood } />
-        { renderCards() }
+        { searchBarFilters.length === 1 ? history
+          .push(`/comidas/${searchBarFilters[0].idMeal}`) : renderCards() }
       </div>
       <Footer />
     </div>
