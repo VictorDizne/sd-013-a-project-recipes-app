@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { fetchFoodById } from '../services/comidasApi';
-import { getIngredients } from '../services/helpers';
+import { getIngredients,
+  doneMealsList, favoriteMealRecipe, shareMealHelper } from '../services/helpers';
+import { setMealsProgress } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-
 import '../styles/Progress.css';
-
-const INITIAL_VALUE = 9;
-const FINAL_VALUE = 5;
 
 function FoodProgress() {
   const [ingredients, setIngredients] = useState([]);
@@ -17,76 +15,60 @@ function FoodProgress() {
   const [messageAlert, setMessageAlert] = useState('');
   const [favorite, setFavorite] = useState(false);
   const [ingredientsSave, setIngredientsSave] = useState([]);
+  const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
-  const history = useHistory();
-  const historyFilter = history.location.pathname;
-  const historyId = historyFilter.substr(INITIAL_VALUE, FINAL_VALUE);
+  const params = useParams(); // esse metodo ja retira da url somente o id
+  const historyId = params.id;
 
   useEffect(() => {
     const getRecipe = async () => {
       const meal = await fetchFoodById(historyId);
       setIngredients(getIngredients(meal));
       setRecipe(meal);
-      setFavorite(false);// coloquei soh pro lint nao reclamar. É para apagar o setFavorite
     };
     getRecipe();
   }, [historyId]);
 
   const shareRecipe = () => {
-    const url = `http://localhost:3000/comidas/${historyId}`;
-    const SET_TIME_OUT = 1000;
-
-    navigator.clipboard.writeText(url);
-    setMessageAlert('Link copiado!');
-    setTimeout(() => {
-      setMessageAlert('');
-    }, SET_TIME_OUT);
+    shareMealHelper(historyId, setMessageAlert);
   };
 
   const handleLineThrough = (ingredient) => {
     // verifica se o ingrediente clicado já está na lista de ingredientes salvos
     const isIngredientSaved = ingredientsSave.includes(ingredient);
 
-    // O ingrdiente esta na lista de ingredientes salvos?
+    // O ingrediente esta na lista de ingredientes salvos?
     const newIngredientsSave = isIngredientSaved
       ? ingredientsSave.filter((i) => i !== ingredient) // remove da lista se ingrediente ja está na lista
       : [...ingredientsSave, ingredient]; // adiciona na lista
     setIngredientsSave(newIngredientsSave);
 
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (inProgressRecipes) {
-      const newList = {
-        ...inProgressRecipes,
-        meals: {
-          ...inProgressRecipes.meals,
-          [historyId]: newIngredientsSave, // uso a const da linha 51
-          // nao uso o state, pq no primeiro click ele retorna o array desatualizado ( [] ), apesar da gente estar
-          // setando na linha 54. Isso pq o setState soh funciona depois que o codigo todo é lido,
-          // aí ele faz o setState. Entao quando chegava aqui ele ainda tava desatualizado
-        },
-      };
-
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newList));
-    } else {
-      const listUnstructured = {
-        cocktails: {},
-        meals: {
-          [historyId]: newIngredientsSave,
-        },
-      };
-
-      localStorage.setItem('inProgressRecipes', JSON.stringify(listUnstructured));
-    }
+    setMealsProgress(historyId, newIngredientsSave);
   };
 
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-    if (inProgressRecipes) {
+    if (inProgressRecipes && inProgressRecipes.meals[historyId]) {
       setIngredientsSave(inProgressRecipes.meals[historyId]);
     }
   }, []);
+
+  useEffect(() => {
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const verify = favRecipes.find((item) => item.id === historyId);
+    setFavorite(verify);
+  }, []);
+
+  const handleClickFavorite = () => {
+    favoriteMealRecipe(recipe, previousRecipes, favorite, historyId);
+    setFavorite(!favorite);
+  };
+
+  const handleDoneRecipes = () => {
+    const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    doneMealsList(recipe, savedDoneRecipes);
+  };
 
   return (
     <div className="food-container">
@@ -104,6 +86,7 @@ function FoodProgress() {
             <p>{messageAlert}</p>
             <button
               type="button"
+              onClick={ handleClickFavorite }
             >
               {favorite
                 ? <img src={ blackHeartIcon } alt="heart" data-testid="favorite-btn" />
@@ -116,6 +99,7 @@ function FoodProgress() {
           <p data-testid="recipe-category">{recipe[0].strCategory}</p>
         </div>
       )}
+
       <h3>Ingredientes</h3>
       <div id="ingredients-container">
         {ingredients.map((ingredient, index) => (
@@ -123,19 +107,20 @@ function FoodProgress() {
             htmlFor={ ingredient }
             data-testid={ `${index}-ingredient-step` }
             key={ index }
-            className={ `${ingredientsSave.includes(ingredient) ? 'line-through' : ''}` } // para o toggle do estilo
+            className={ `${ingredientsSave.includes(ingredient) ? 'line-through' : ''}` }
           >
             <input
               type="checkbox"
               value={ ingredient }
               id={ ingredient }
-              checked={ ingredientsSave.includes(ingredient) } // para o toggle do check
-              onChange={ () => handleLineThrough(ingredient) } // onChange engloba mais eventos e quando clica na label tbm funciona.
+              checked={ ingredientsSave.includes(ingredient) }
+              onChange={ () => handleLineThrough(ingredient) }
             />
             {ingredient}
           </label>
         ))}
       </div>
+
       <h3>Instruções</h3>
       {(recipe.length === 1)
         && <p data-testid="instructions">{recipe[0].strInstructions}</p>}
@@ -145,6 +130,7 @@ function FoodProgress() {
         data-testid="finish-recipe-btn"
         className="iniciar-receita"
         id="btn-iniciar-receita"
+        onClick={ handleDoneRecipes }
       >
         Finalizar Receita
       </Link>
