@@ -49,7 +49,7 @@ export const handleIngredient = (ingredient, id, type, setCheckIngredients) => {
       },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
-    setCheckIngredients(newProgressRecipe)
+  setCheckIngredients(newProgressRecipe)
   }
 }
 
