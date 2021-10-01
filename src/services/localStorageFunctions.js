@@ -142,3 +142,22 @@ export async function fetchRecipesByIngredients(setFoodRecipes, state, type) {
   const result = await response.json();
   setFoodRecipes(result[type].slice(0, LENGTH));
 }
+
+const AREAS_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+
+export async function fetchFoodRecipeOrigins() {
+  const response = await fetch(AREAS_ENDPOINT);
+  const result = await response.json();
+
+  console.log(result.meals);
+  return result.meals;
+}
+
+const FILTER_BY_AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+
+export async function fetchFoodsByOrigin(setFoodRecipes, origin) {
+  const response = await fetch(`${FILTER_BY_AREA}${origin}`);
+  const result = await response.json();
+
+  setFoodRecipes(result.meals.slice(0, LENGTH));
+}
