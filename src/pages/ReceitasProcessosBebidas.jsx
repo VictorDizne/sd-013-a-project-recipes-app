@@ -70,7 +70,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
       localGet.cocktails[id] = [...localGet.cocktails[id], name];
     } else {
       const nIndex = localGet.cocktails[id].indexOf(name);
-      localGet.cocktails[id].slice(nIndex, 1);
+      localGet.cocktails[id].splice(nIndex, 1);
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
   };

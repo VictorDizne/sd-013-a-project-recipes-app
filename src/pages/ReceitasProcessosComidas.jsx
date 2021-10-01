@@ -17,11 +17,26 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
+  /* const { inputs, setInputs } = useContext(MyContext);
+  console.log(inputs); */
 
   useEffect(() => {
     getAPIdataID(id, setfoodDetail, 'food');
     btnFavoritar(id, setBtnFavorite);
   }, []);
+
+ /*  useEffect(() => {
+    const progressRecipe = JSON.parse(localStorage
+      .getItem('inProgressRecipes')).meals[id];
+    const checkboxes = inputs;
+    const checkText = checkboxes.map((checkbox) => checkbox.innerHTML);
+    console.log([...checkboxes]);
+    if (progressRecipe.length !== 0) {
+      const progressChecked = progressRecipe
+        .filter((receita) => checkText.includes(receita));
+      progressChecked.forEach((ingredient) => ingredient.checked === true);
+    }
+  }, []); */
 
   const {
     strMeal,
@@ -60,9 +75,26 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
     const measures = ingredientMeasures(foodDetail, 'medida');
 
     const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
+    // setInputs(receitas);
     return receitas;
   };
 
+/*   const changeCheckBox = ({ target: { name, checked } }) => {
+    const localGet = JSON.parse(localStorage.getItem('inProgressRecipes')); */
+    // if (localGet.length > 0) {
+    //   localGet.map((ingredient) => setInputs(ingredient));
+    // }
+    /*  const get = localGet.meal.[id].checked = checked */
+  /*   if (checked) {
+      localGet.meals[id] = [...localGet.meals[id], name];
+    } else {
+      const nIndex = localGet.meals[id].indexOf(name);
+      localGet.meals[id].splice(nIndex, 1);
+    }
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localGet)); */
+ /*  };
+ */
   return (foodDetail.length === 0) ? <Loading /> : (
     <div>
       <img
@@ -102,7 +134,10 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
               data-testid={ `${i}-ingredient-step` }
             >
               <input
+                name={ ingredient }
+                className="inProcess"
                 type="checkbox"
+                /* onChange={ /* changeCheckBox */
               />
               { ingredient }
             </label>
@@ -110,7 +145,7 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
       </div>
       <p data-testid="instructions">{strInstructions}</p>
       <button
-        id={ id }
+        // id={ id }
         onClick={ handleRecipe }
         className="iniciar"
         data-testid="finish-recipe-btn"
