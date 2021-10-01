@@ -130,6 +130,7 @@ function DrinkDetails({ match: { params: { id } } }) {
           />
         </button>
         <button
+          // implementar src=""
           className="detail-button"
           type="button"
           data-testid="favorite-btn"
