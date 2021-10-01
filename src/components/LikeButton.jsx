@@ -11,6 +11,8 @@ function LikeButton({ recipe, id, favOrDone = false, idx }) {
 
   const addToFavorites = (thisRecipe) => {
     if (localStorage.favoriteRecipes) {
+      console.log('LikeButton');
+      console.log(thisRecipe);
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       const oneMoreFav = [...favoriteRecipes, thisRecipe];
       localStorage.setItem('favoriteRecipes', JSON.stringify(oneMoreFav));
@@ -28,7 +30,9 @@ function LikeButton({ recipe, id, favOrDone = false, idx }) {
   const handleClick = () => {
     // se esta receita estiver com coração branco, adiciona ela no localStorage e trnasforma o coração em preto
     if (heartType === whiteHeartIcon) {
-      addToFavorites(() => formatedFavoriteRecipe(recipe));
+      console.log('TESTE2');
+      console.log(recipe);
+      addToFavorites(formatedFavoriteRecipe(recipe));
       setHeartType(blackHeartIcon);
       setHeartAlt('black');
     }
