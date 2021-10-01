@@ -85,6 +85,7 @@ const Drink = () => {
                 src={ drinkRecipe.strDrinkThumb }
                 title={ drinkRecipe.strDrink }
                 className="recipeCard"
+                cardType="drinkRecipe"
               />
             </Link>
           ))

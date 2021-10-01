@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ShareButton from './ShareButton';
-import LikeButton from './LikeButton';
+import ShareButton from './src/components/ShareButton';
+import LikeButton from './src/components/LikeButton';
 
 const Img = styled.img`
   max-width: 45vw;
@@ -174,13 +174,13 @@ function MasterCard(props) {
   );
 
   const renderObject = {
-    foodRecipe: recipeCard(),
-    ingredient: ingredientCard(),
-    drinkRecipe: recipeCard(),
-    foodRecomended: recomendedCard(),
-    drinkRecomended: recomendedCard(),
-    favorited: favoritedCard(),
-    doneRecipe: doneRecipe(),
+    foodRecipe: () => recipeCard(),
+    ingredient: () => ingredientCard(),
+    drinkRecipe: () => recipeCard(),
+    foodRecomended: () => recomendedCard(),
+    drinkRecomended: () => recomendedCard(),
+    favorited: () => favoritedCard(),
+    doneRecipe: () => doneRecipe(),
   };
 
   return (

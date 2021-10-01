@@ -53,7 +53,6 @@ const Foods = () => {
   const filterRecipes = (
     <FilterRecipes
       pageTitle="Comidas"
-      cardType="foodRecipe"
       handleFilter={ handleFilter }
     />
   );
@@ -82,6 +81,7 @@ const Foods = () => {
               <MasterCard
                 index={ index }
                 src={ foodRecipe.strMealThumb }
+                cardType="foodRecipe"
                 title={ foodRecipe.strMeal }
                 className="recipeCard"
               />
