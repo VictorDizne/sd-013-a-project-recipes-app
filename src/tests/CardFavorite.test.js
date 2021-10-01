@@ -1,7 +1,7 @@
 import React from 'react';
 // import userEvent from '@testing-library/user-event';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from './renderWithRouter';
+import renderWithRouterAndProvider from './renderWithRouterAndProvider';
 import CardFavorite from '../components/CardFavorite';
 
 const exemploObjDetail = {
@@ -16,18 +16,37 @@ const exemploObjDetail = {
   tags: ['Pasta', 'Curry'],
 };
 
+const testFavoriteRecipe = [
+  {
+    alcoholicOrNot: '',
+    area: 'Canadian',
+    category: 'Dessert',
+    id: '52929',
+    image:
+        'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
+    name: 'Timbits',
+    type: 'comida',
+  },
+];
+
 describe('1 - Verifica os testes do componente CardFavorite', () => {
+  afterEach(localStorage.clear);
+
   test('testa se quando o card é clicado ', () => {
-    const { getByTestId } = renderWithRouter(
+    const obj = { receitasFav: testFavoriteRecipe };
+    localStorage.setItem('favoriteRecipes', JSON.stringify(testFavoriteRecipe));
+
+    const { getByTestId, queryByTestId } = renderWithRouterAndProvider(
       <CardFavorite
         objDetail={ exemploObjDetail }
         index="0"
-      />,
+      />, { context: obj },
     );
 
-    const buttonClick = getByTestId(`${index}-horizontal-favorite-btn`);
+    const buttonClick = getByTestId('0-horizontal-favorite-btn');
     userEvent.click(buttonClick);
 
-    expect(pathname).toBe('/comidas/52771');
+    const buttonNull = queryByTestId('0-horizontal-favorite-btn');
+    expect(buttonNull).toBe(null);
   });
 });

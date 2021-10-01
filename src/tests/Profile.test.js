@@ -4,6 +4,8 @@ import renderWithRouter from './renderWithRouter';
 import Profile from '../pages/Profile';
 
 describe('1 - Verifica os testes da página de Perfil', () => {
+  afterEach(localStorage.clear);
+  
   test('Verifica o texto', () => {
     const emailStructure = {
       email: 'mateuscoury@gmail.com',

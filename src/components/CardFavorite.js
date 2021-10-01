@@ -12,7 +12,7 @@ import '../styles/CardDone.css';
 function CardFavorite({ objDetail, index }) {
   const { setCopied, setReceitasFav } = useContext(RecipeContext);
   const TWO_SECONDS = 2000;
-
+ 
   const handleCopied = () => {
     setCopied(true);
     setTimeout(() => {
@@ -29,7 +29,7 @@ function CardFavorite({ objDetail, index }) {
       const updatedFavorites = favoriteRecipes.filter((elem) => elem.id !== objDetail.id);
       // Atualiza localStorage
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavorites));
-      setReceitasFav(updatedFavorites);
+      // setReceitasFav(updatedFavorites);
     }
   };
 
