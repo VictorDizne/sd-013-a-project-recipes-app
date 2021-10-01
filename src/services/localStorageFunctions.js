@@ -112,11 +112,20 @@ export function getFavRecipes(
 }
 
 const FOOD_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const DRINK_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const LENGTH = 12;
 
-export async function fetchIngredients() {
-  const response = await fetch(FOOD_INGREDIENTS);
-  const result = await response.json();
+export async function fetchIngredients(type) {
+  if (type === 'comidas') {
+    const response = await fetch(FOOD_INGREDIENTS);
+    const result = await response.json();
 
-  return result.meals.slice(0, LENGTH);
+    return result.meals.slice(0, LENGTH);
+  }
+  if (type === 'bebidas') {
+    const response = await fetch(DRINK_INGREDIENTS);
+    const result = await response.json();
+
+    return result.drinks.slice(0, LENGTH);
+  }
 }
