@@ -66,9 +66,9 @@ function DoneRecipeCard({ recipe, index }) {
       <button
         type="button"
         onClick={ shareRecipeDetails }
-        data-testid={ `${index}-horizontal-share-btn` }
       >
         <img
+          data-testid={ `${index}-horizontal-share-btn` }
           src={ shareIcon }
           alt="share button"
         />
