@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player/youtube';
 import fetchAPI from '../../services/fetchAPI';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -154,7 +154,7 @@ function MealDetails({ match: { params: { id } } }) {
       </ul>
       <p data-testid="instructions">{ details.strInstructions }</p>
       <h2>Video</h2>
-      {/* <ReactPlayer data-testid="video" url={ details.strYoutube } /> */}
+      <ReactPlayer data-testid="video" url={ details.strYoutube } />
       <RecommendMeals />
       <Link to={ () => initRecipe(details) }>
         <button
