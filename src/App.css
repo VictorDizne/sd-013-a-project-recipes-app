@@ -7,6 +7,11 @@
 
 @media screen and ( max-width : 360px ) and ( max-height : 640px ) {
 
+  * {
+    max-width: 360px;
+    /* max-height: 640px; */
+  }
+
   .meal-pic {
     box-shadow: 10px 10px 10px;
     display: flex;
@@ -196,7 +201,14 @@
   }
 
   .start-recipe, .finish-recipe {
-    margin-bottom: 70px;
+    border: 1px solid black;
+    bottom: 0;
+    position: fixed;
+    width: 100px;
+  }
+
+  .paragraph {
+    margin-bottom: 40px;
   }
 
   .detail-header {
@@ -262,6 +274,7 @@
     text-align: center;
     width: 290px;
   }
+
 }
 
 @keyframes shake {

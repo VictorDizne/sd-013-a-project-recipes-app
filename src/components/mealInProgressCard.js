@@ -127,7 +127,7 @@ function MealInProgressCard() {
       <h4 className="recipe-instructions" data-testid="instructions">
         Instruções:
       </h4>
-      <p>
+      <p className="paragraph">
         { info.strInstructions }
       </p>
     </div>

@@ -142,7 +142,7 @@ function DrinkDetails({ match: { params: { id } } }) {
         </button>
       </div>
       <DrinkIngredients props={ id } />
-      <p data-testid="instructions">{ details.strInstructions }</p>
+      <p className="paragraph" data-testid="instructions">{ details.strInstructions }</p>
       <RecommendPageDrinks />
       <Link to={ () => initRecipe(details) }>
         <button
