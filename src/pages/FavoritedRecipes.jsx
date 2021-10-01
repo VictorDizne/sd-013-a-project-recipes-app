@@ -55,6 +55,7 @@ const FavoritedRecipes = () => {
             alcoholicOrNot={ favRecipe.alcoholicOrNot }
             recipe={ favRecipe }
             refreshFav={ () => setSelected(!selected) }
+            testID="horizontal"
           />
         ))
       );
@@ -76,6 +77,7 @@ const FavoritedRecipes = () => {
             alcoholicOrNot={ favFood.alcoholicOrNot }
             recipe={ favFood }
             refreshFav={ () => setSelected(!selected) }
+            testID="horizontal"
           />
         ))
       );
@@ -97,6 +99,7 @@ const FavoritedRecipes = () => {
             alcoholicOrNot={ favDrink.alcoholicOrNot }
             recipe={ favDrink }
             refreshFav={ () => setSelected(!selected) }
+            testID="horizontal"
           />
         ))
       );

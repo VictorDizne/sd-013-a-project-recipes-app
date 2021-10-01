@@ -135,7 +135,7 @@ const DrinkRecipesDetails = () => {
           </div>
 
           <Buttons>
-            <ShareButton id={ id } type="bebidas" />
+            <ShareButton id={ id } type="bebidas" testID="regular" />
             <LikeButton id={ id } recipe={ drinkRecipeDetails } />
           </Buttons>
 
