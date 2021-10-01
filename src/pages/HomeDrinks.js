@@ -11,11 +11,13 @@ function HomeDrinks() {
 
   const MAX_DRINKS = 12;
   useEffect(() => {
-    const fetchData = async () => {
-      const defaultDrinks = await fetchByName('thecocktaildb', '');
-      setState({ ...state, drinks: [...defaultDrinks] });
-    };
-    fetchData();
+    if (!key) {
+      const fetchData = async () => {
+        const defaultDrinks = await fetchByName('thecocktaildb', '');
+        setState({ ...state, drinks: [...defaultDrinks] });
+      };
+      fetchData();
+    }
   }, []);
 
   return (
