@@ -16,7 +16,7 @@ const FoodsExplorerByIngredient = () => {
 
   useEffect(() => {
     const fetchStorageIngredientes = async () => {
-      setIngredients(await fetchIngredients());
+      setIngredients(await fetchIngredients('comidas'));
     };
     fetchStorageIngredientes();
   }, []);
