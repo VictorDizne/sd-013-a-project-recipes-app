@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ReactPlayer from 'react-player/youtube';
 import fetchAPI from '../../services/fetchAPI';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import Footer from '../../components/footer';
 import recipesContext from '../../context';
+import RecommendMeals from '../../components/recommendPageMeals';
 
 const copy = require('clipboard-copy');
 
@@ -114,6 +115,7 @@ function MealDetails({ match: { params: { id } } }) {
       />
       <div className="detail-header">
         <h2 data-testid="recipe-title">{details.strMeal}</h2>
+        <h4 data-testid="recipe-category">{ details.strCategory }</h4>
         <button
           className="detail-button"
           type="button"
@@ -149,6 +151,9 @@ function MealDetails({ match: { params: { id } } }) {
           ))}
       </ul>
       <p data-testid="instructions">{ details.strInstructions }</p>
+      <h2>Video</h2>
+      <ReactPlayer data-testid="video" url={ details.strYoutube } />
+      <RecommendMeals />
       <Link to={ () => initRecipe(details) }>
         <button
           className="start-recipe"
@@ -158,7 +163,6 @@ function MealDetails({ match: { params: { id } } }) {
           Iniciar Receita
         </button>
       </Link>
-      <Footer />
     </>
   );
 }

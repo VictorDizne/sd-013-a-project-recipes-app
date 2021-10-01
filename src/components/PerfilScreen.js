@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Footer from './footer';
 
 function Perfil() {
   const emailFromStorage = JSON.parse(localStorage.user).email;
@@ -37,7 +36,6 @@ function Perfil() {
       >
         Sair
       </button>
-      <Footer />
     </div>
   );
 }

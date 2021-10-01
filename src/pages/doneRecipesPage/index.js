@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import DoneRecipeCard from '../../components/doneRecipeCard';
-import Footer from '../../components/footer';
 import Header from '../../components/header';
 
 function DoneRecipesPage() {
@@ -13,7 +12,6 @@ function DoneRecipesPage() {
       <>
         <Header title="Receitas Feitas" />
         <p>Nenhuma receita foi marcada como completa</p>
-        <Footer />
       </>
     );
   }
@@ -89,7 +87,6 @@ function DoneRecipesPage() {
         </button>
       </div>
       { showCards() }
-      <Footer />
     </>
 
   );
