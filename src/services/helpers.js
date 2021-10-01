@@ -14,6 +14,7 @@ export const setListOfIngredientsAndQuantity = (meals, setQuanitity, setIngredie
   setIngredients(arrayIngredients);
 };
 
+// https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
 export const copyToClipBoard = async (copyMe, setCopySuccess) => {
   try {
     await navigator.clipboard.writeText(copyMe);
