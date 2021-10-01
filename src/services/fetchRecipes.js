@@ -1,4 +1,5 @@
 const LENGTH = 12;
+const RECOMENDATIONS_LIMIT = 6;
 
 const ALL_FOODS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const ALL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -53,6 +54,13 @@ export const fetchFoodDetails = async (id, setFoodRecipeDetails) => {
   setFoodRecipeDetails(result.meals[0]);
 };
 
+export const fetchDrinkDetails = async (id, setDrinkRecipeDetails) => {
+  const END_POINT = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(END_POINT);
+  const result = await response.json();
+  setDrinkRecipeDetails(result.drinks[0]);
+};
+
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -65,6 +73,12 @@ export const fetchFoodRecomendations = async (setRecomended) => {
   const END_POINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const response = await fetch(END_POINT);
   const results = await response.json();
-  const RECOMENDATIONS_LIMIT = 6;
   setRecomended(shuffleArray(results.drinks).slice(0, RECOMENDATIONS_LIMIT));
+};
+
+export const fetchDrinkRecomendations = async (setRecomended) => {
+  const END_POINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(END_POINT);
+  const results = await response.json();
+  setRecomended(shuffleArray(results.meals).slice(0, RECOMENDATIONS_LIMIT));
 };

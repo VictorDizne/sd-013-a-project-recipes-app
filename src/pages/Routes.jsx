@@ -37,16 +37,14 @@ function Routes() {
       />
       <Route exact path="/explorar/bebidas" component={ DrinksExplorer } />
       <Route
-        exact
         path="/explorar/comidas/ingredientes"
         component={ FoodsExplorerByIngredient }
       />
       <Route
-        exact
         path="/explorar/bebidas/ingredientes"
         component={ DrinksByIngredients }
       />
-      <Route exact path="/explorar/comidas/area" component={ FoodsExplorerByOrigin } />
+      <Route path="/explorar/comidas/area" component={ FoodsExplorerByOrigin } />
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavoritedRecipes } />
