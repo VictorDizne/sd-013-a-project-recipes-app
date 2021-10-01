@@ -131,12 +131,12 @@
     margin-top: 8px;
   }
 
-  .header {
+  .header, .non-header {
     align-content: center;
     background-color: rgba(221, 221, 221);
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-bottom: 10px;
     padding: 10px;
     text-align: center;
@@ -203,7 +203,7 @@
     border: 1px solid black;
     bottom: 0;
     position: fixed;
-    width: 100px;
+    width: 150px;
   }
 
   .paragraph {
@@ -268,7 +268,7 @@
     font-size: larger;
     justify-content: space-between;
     margin: 15px;
-    margin-bottom: 6px;
+    margin-bottom: 40px;
     overflow-x: scroll;
     text-align: center;
     width: 290px;

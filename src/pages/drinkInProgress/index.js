@@ -50,6 +50,7 @@ function DrinkInProgress() {
         id={ id }
       />
       <button
+        className="finish-recipe"
         onClick={ saveThisRecipe }
         type="button"
         data-testid="finish-recipe-btn"

@@ -4,6 +4,7 @@ function FavMealCard(r) {
   return (
     <div>
       <img
+        className="foodImage"
         alt="Food"
         src={ r.r.image }
       />
