@@ -6,7 +6,7 @@ import formatedFavoriteRecipe from '../helpers/formatedFavoriteRecipe';
 import { whiteHeartIcon, blackHeartIcon } from '../images';
 
 function LikeButton({ recipe, id, favOrDone = false, idx }) {
-  const [heartType, setHeartType] = useState();
+  const [heartType, setHeartType] = useState(whiteHeartIcon);
   const [heartAlt, setHeartAlt] = useState();
 
   const addToFavorites = (thisRecipe) => {
@@ -50,14 +50,14 @@ function LikeButton({ recipe, id, favOrDone = false, idx }) {
 
   return (
     <section>
-      <button
-        className="favBtn"
-        type="button"
+      <input
+        type="image"
         data-testid={ favOrDone ? `${idx}-horizontal-favorite-btn` : 'favorite-btn' }
+        src={ heartType }
+        alt={ `${heartAlt}heart` }
         onClick={ handleClick }
-      >
-        <img src={ heartType } alt={ `${heartAlt}heart` } />
-      </button>
+        className="favBtn"
+      />
     </section>
   );
 }

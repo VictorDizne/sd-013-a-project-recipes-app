@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -17,6 +17,10 @@ import { fetchDrinkDetails, fetchDrinkRecomendations } from '../services/fetchRe
 const Main = styled.main`
   /* display: flex; */
   margin-top: 68px;
+  .continueBtn {
+    position: fixed;
+    bottom: 0;
+  }
 `;
 
 const Img = styled.img`
@@ -74,7 +78,7 @@ const DrinkRecipesDetails = () => {
     fetchDrinkDetails(id, setDrinkRecipeDetails);
     fetchDrinkRecomendations(setRecomended);
     setInProgress(isThisRecipeInProgress(id, 'bebida'));
-    // setVisibility(isThisRecipeDone(id));
+    setVisibility(isThisRecipeDone(id));
   }, [id]);
 
   const ingredients = () => {
@@ -110,8 +114,7 @@ const DrinkRecipesDetails = () => {
         </button>
       );
     }
-    // return null;
-    return <p>Sem botão</p>;
+    return null;
   };
 
   return (
@@ -127,8 +130,8 @@ const DrinkRecipesDetails = () => {
         <CardHeader>
 
           <div>
-            <h2 data-testid="recipe-title">{ drinkRecipeDetails.strMeal }</h2>
-            <h3 data-testid="recipe-category">{ drinkRecipeDetails.strCategory }</h3>
+            <h2 data-testid="recipe-title">{ drinkRecipeDetails.strDrink }</h2>
+            <h3 data-testid="recipe-category">{ drinkRecipeDetails.strAlcoholic }</h3>
           </div>
 
           <Buttons>
@@ -147,14 +150,20 @@ const DrinkRecipesDetails = () => {
       <RecomendationsBoard>
         {
           recomended.map((foodRecipe, idx) => (
-            <MasterCard
-              src={ foodRecipe.strMealThumb }
-              index={ idx }
-              key={ `${foodRecipe}-${idx}` }
-              cardType="foodRecomended"
-              title={ foodRecipe.strMeal }
-              category={ foodRecipe.strCategory }
-            />
+            <Link
+              to={ `/comidas/${foodRecipe.idMeal}` }
+              key={ `${foodRecipe}${idx}` }
+              className="recipeCard"
+            >
+              <MasterCard
+                src={ foodRecipe.strMealThumb }
+                index={ idx }
+                key={ `${foodRecipe}-${idx}` }
+                cardType="foodRecomended"
+                title={ foodRecipe.strMeal }
+                category={ foodRecipe.strCategory }
+              />
+            </Link>
           ))
         }
       </RecomendationsBoard>

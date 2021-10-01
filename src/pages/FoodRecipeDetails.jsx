@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -17,6 +17,10 @@ import { fetchFoodDetails, fetchFoodRecomendations } from '../services/fetchReci
 const Main = styled.main`
   /* display: flex; */
   margin-top: 68px;
+  .continueBtn {
+    position: fixed;
+    bottom: 0;
+  }
 `;
 
 const Img = styled.img`
@@ -70,7 +74,7 @@ const FoodRecipeDetails = () => {
     fetchFoodDetails(id, setFoodRecipeDetails);
     fetchFoodRecomendations(setRecomended);
     setInProgress(isThisRecipeInProgress(id, 'comida'));
-    // setVisibility(isThisRecipeDone(id));
+    setVisibility(isThisRecipeDone(id));
   }, [id]);
 
   const embedVideo = () => {
@@ -123,8 +127,7 @@ const FoodRecipeDetails = () => {
         </button>
       );
     }
-    // return null;
-    return <p>Sem botão</p>;
+    return null;
   };
 
   return (
@@ -161,14 +164,20 @@ const FoodRecipeDetails = () => {
       <RecomendationsBoard>
         {
           recomended.map((drinkRecipe, idx) => (
-            <MasterCard
-              src={ drinkRecipe.strDrinkThumb }
-              index={ idx }
-              key={ `${drinkRecipe}-${idx}` }
-              cardType="drinkRecomended"
-              title={ drinkRecipe.strDrink }
-              category={ drinkRecipe.strAlcoholic }
-            />
+            <Link
+              to={ `/bebidas/${drinkRecipe.idDrink}` }
+              key={ `${drinkRecipe}${idx}` }
+              className="recipeCard"
+            >
+              <MasterCard
+                src={ drinkRecipe.strDrinkThumb }
+                index={ idx }
+                key={ `${drinkRecipe}-${idx}` }
+                cardType="drinkRecomended"
+                title={ drinkRecipe.strDrink }
+                category={ drinkRecipe.strAlcoholic }
+              />
+            </Link>
           ))
         }
       </RecomendationsBoard>

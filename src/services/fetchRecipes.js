@@ -61,24 +61,24 @@ export const fetchDrinkDetails = async (id, setDrinkRecipeDetails) => {
   setDrinkRecipeDetails(result.drinks[0]);
 };
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
+// function shuffleArray(array) {
+//   for (let i = array.length - 1; i > 0; i -= 1) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [array[i], array[j]] = [array[j], array[i]];
+//   }
+//   return array;
+// }
 
 export const fetchFoodRecomendations = async (setRecomended) => {
   const END_POINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const response = await fetch(END_POINT);
   const results = await response.json();
-  setRecomended(shuffleArray(results.drinks).slice(0, RECOMENDATIONS_LIMIT));
+  setRecomended(results.drinks.slice(0, RECOMENDATIONS_LIMIT));
 };
 
 export const fetchDrinkRecomendations = async (setRecomended) => {
   const END_POINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const response = await fetch(END_POINT);
   const results = await response.json();
-  setRecomended(shuffleArray(results.meals).slice(0, RECOMENDATIONS_LIMIT));
+  setRecomended(results.meals.slice(0, RECOMENDATIONS_LIMIT));
 };
