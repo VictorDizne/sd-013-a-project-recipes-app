@@ -55,10 +55,9 @@ function DoneRecipeCard({ recipe, index }) {
         Preparada em:
         { doneDate }
       </p>
-      <p>{ alcoholicOrNot }</p>
       <p>Categoria:</p>
       <p data-testid={ `${index}-horizontal-top-text` }>
-        { `${area} - ${category}` }
+        { type === 'bebida' ? alcoholicOrNot : `${area} - ${category}` }
       </p>
       <p>
         Tags:
