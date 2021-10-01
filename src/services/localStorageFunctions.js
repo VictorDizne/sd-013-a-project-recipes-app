@@ -94,3 +94,19 @@ export function getDoneRecipes(
     setDisableFilters(true);
   }
 }
+
+export function getFavRecipes(
+  setFavoritedRecipes, setFavFoodRecipes, setFavDrinkecipes, setDisableFilters,
+) {
+  const fav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (fav) {
+    const favfoodRecipes = fav.filter((favRecipe) => favRecipe.type === 'comida');
+    const favDrinkRecipes = fav.filter((favRecipe) => favRecipe.type === 'bebida');
+    if (favfoodRecipes) setFavFoodRecipes(favfoodRecipes);
+    if (favDrinkRecipes) setFavDrinkecipes(favDrinkRecipes);
+    setFavoritedRecipes(fav);
+    setDisableFilters(false);
+  } else {
+    setDisableFilters(true);
+  }
+}
