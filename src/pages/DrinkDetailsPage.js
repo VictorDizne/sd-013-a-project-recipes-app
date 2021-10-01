@@ -133,7 +133,7 @@ function DrinkDetailsPage({ match }) {
       { !checkDone
       && <StartRecipeButton
         id={ id }
-        onClick={ () => myFuncStorage.setProgressRecipe(id, 'meals') }
+        onClick={ () => myFuncStorage.setProgressRecipe(id, 'cocktails') }
         page="bebidas"
         title={ checkProgress }
       />}

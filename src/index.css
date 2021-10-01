@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* https://pt.stackoverflow.com/questions/31778/como-deixar-um-item-com-tra%C3%A7o-no-meio-com-del */
+input[type=checkbox]:checked ~ label {
+  text-decoration: line-through;
+}
