@@ -149,7 +149,6 @@ export async function fetchFoodRecipeOrigins() {
   const response = await fetch(AREAS_ENDPOINT);
   const result = await response.json();
 
-  console.log(result.meals);
   return result.meals;
 }
 
