@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import FilterTypesButtons from '../components/FilterTypesButtons';
 import FilteredCards from '../components/FilteredCards';
@@ -7,21 +7,14 @@ import FilteredCards from '../components/FilteredCards';
 
 // url = ${type}/${id}
 
+if (!localStorage.doneRecipes) {
+  const arrayDone = [];
+  localStorage.setItem('doneRecipes', JSON.stringify(arrayDone));
+}
+const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
 function ReceitasFeitas() {
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const loading = () => {
-      if (isLoading) {
-        setIsLoading(false);
-      }
-    };
-    loading();
-  }, [isLoading]);
-
   const [recipes, setRecipes] = useState(doneRecipes);
-  console.log(recipes);
 
   const filterType = (type) => {
     let newRecipes = doneRecipes;
@@ -36,15 +29,12 @@ function ReceitasFeitas() {
     return setRecipes(newRecipes);
   };
 
-  // const Loading = <h1>Carregando...</h1>;
-
   return (
-    isLoading ? 'Carregando...' : (
-      <div>
-        <Header tela="Receitas Feitas" showSearch={ false } />
-        <FilterTypesButtons filterType={ filterType } />
-        <FilteredCards recipes={ recipes } />
-      </div>)
+    <div>
+      <Header tela="Receitas Feitas" showSearch={ false } />
+      <FilterTypesButtons filterType={ filterType } />
+      <FilteredCards recipes={ recipes } />
+    </div>
   );
 }
 

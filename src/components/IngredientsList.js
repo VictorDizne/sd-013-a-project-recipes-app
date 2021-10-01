@@ -4,6 +4,7 @@ import Context from '../context';
 
 function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
   const [ingredientList, setIngredientList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { compareCheckBox, setCompareCheckBox,
     setIngredientsLength } = useContext(Context);
 
@@ -14,7 +15,6 @@ function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
       ingList.push(`${recipe[`strIngredient${i}`]}`);
       i += 1;
     }
-    setIngredientsLength(ingList.length);
     return ingList;
   };
 
@@ -40,6 +40,16 @@ function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
     };
     createLocalStore();
   }, [isMeal, recipeId, setCompareCheckBox]);
+
+  useEffect(() => {
+    const getLength = () => {
+      if (ingredients().length > 0 && isLoading === false) {
+        setIsLoading(true);
+        setIngredientsLength(ingredients().length);
+      }
+    };
+    getLength();
+  });
 
   // Funcao para adicionar o localStorage inProgressRecipes
   const addInProgress = (value) => {

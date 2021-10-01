@@ -40,7 +40,10 @@ function FilteredCards({ recipes, favoriteOrDone = 'done' }) {
               />
               { favoriteOrDone === 'favorite'
               && (
-                <FavoriteButton testID={ `${index}-horizontal-favorite-btn` } />
+                <FavoriteButton
+                  recipe={ recipes }
+                  testID={ `${index}-horizontal-favorite-btn` }
+                />
               )}
               { favoriteOrDone === 'done'
               && (
