@@ -114,6 +114,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
               data-testid={ `${i}-ingredient-step` }
             >
               <input
+                id={ id }
                 name={ ingredient }
                 onChange={ changeCheckBox }
                 type="checkbox"
