@@ -12,7 +12,7 @@ import '../styles/CardDone.css';
 function CardFavorite({ objDetail, index }) {
   const { setCopied, setReceitasFav } = useContext(RecipeContext);
   const TWO_SECONDS = 2000;
- 
+
   const handleCopied = () => {
     setCopied(true);
     setTimeout(() => {
