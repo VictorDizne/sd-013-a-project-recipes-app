@@ -18,6 +18,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
+  // const [checkedState, setCheckedState] = useState(false);
 
   useEffect(() => {
     getAPIdataID(id, setDrinkDetail, 'drink');
@@ -114,7 +115,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
               data-testid={ `${i}-ingredient-step` }
             >
               <input
-                id={ id }
+                // id={ id }
                 name={ ingredient }
                 onChange={ changeCheckBox }
                 type="checkbox"
@@ -125,7 +126,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
       </div>
       <p data-testid="instructions">{strInstructions}</p>
       <button
-        id={ id }
+        // id={ id }
         onClick={ handleRecipe }
         className="iniciar"
         data-testid="finish-recipe-btn"

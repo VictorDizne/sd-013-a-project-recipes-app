@@ -25,7 +25,7 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
     btnFavoritar(id, setBtnFavorite);
   }, []);
 
- /*  useEffect(() => {
+  /*  useEffect(() => {
     const progressRecipe = JSON.parse(localStorage
       .getItem('inProgressRecipes')).meals[id];
     const checkboxes = inputs;
@@ -79,22 +79,21 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
     return receitas;
   };
 
-/*   const changeCheckBox = ({ target: { name, checked } }) => {
-    const localGet = JSON.parse(localStorage.getItem('inProgressRecipes')); */
-    // if (localGet.length > 0) {
-    //   localGet.map((ingredient) => setInputs(ingredient));
-    // }
-    /*  const get = localGet.meal.[id].checked = checked */
-  /*   if (checked) {
-      localGet.meals[id] = [...localGet.meals[id], name];
-    } else {
-      const nIndex = localGet.meals[id].indexOf(name);
-      localGet.meals[id].splice(nIndex, 1);
-    }
+  // const changeCheckBox = ({ target: { name, checked } }) => {
+  // const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // if (localGet.length > 0) {
+  // localGet.map((ingredient) => setInputs(ingredient));
+  // }
+  // const get = localGet.meal.[id].checked = checked
+  // if (checked) {
+  // localGet.meals[id] = [...localGet.meals[id], name];
+  // } else {
+  // const nIndex = localGet.meals[id].indexOf(name);
+  // localGet.meals[id].splice(nIndex, 1);
+  // }
 
-    localStorage.setItem('inProgressRecipes', JSON.stringify(localGet)); */
- /*  };
- */
+  // localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
+
   return (foodDetail.length === 0) ? <Loading /> : (
     <div>
       <img
