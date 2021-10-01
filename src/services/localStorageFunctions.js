@@ -78,3 +78,19 @@ export function setDefaultLocalStorage(email) {
     );
   }
 }
+
+export function getDoneRecipes(
+  setDoneRecipes, setDoneFoodRecipes, setDoneDrinkecipes, setDisableFilters,
+) {
+  const done = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (done) {
+    const donefoodRecipes = done.filter((doneRecipe) => doneRecipe.type === 'comida');
+    const doneDrinkRecipes = done.filter((doneRecipe) => doneRecipe.type === 'bebida');
+    if (donefoodRecipes) setDoneFoodRecipes(donefoodRecipes);
+    if (doneDrinkRecipes) setDoneDrinkecipes(doneDrinkRecipes);
+    setDoneRecipes(done);
+    setDisableFilters(false);
+  } else {
+    setDisableFilters(true);
+  }
+}

@@ -8,4 +8,5 @@ const FoodRecipeDetails = () => (
     <p>{ window.location.href }</p>
   </>
 );
+
 export default FoodRecipeDetails;
