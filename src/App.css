@@ -254,13 +254,13 @@
     border-radius: 5px;
     box-shadow: 1px 1px 1px;
     display: flex;
-    justify-content: space-between;
     font-size: larger;
-    margin-bottom: 6px;
+    justify-content: space-between;
     margin: 15px;
+    margin-bottom: 6px;
+    overflow-x: scroll;
     text-align: center;
     width: 290px;
-    overflow-x:scroll;
   }
 }
 
