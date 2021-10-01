@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
+
+import styled from 'styled-components';
+
 import Header from '../components/Header';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
@@ -7,9 +10,57 @@ import MasterCard from '../components/MasterCard';
 import RecipeDetails from '../components/RecipeDetails';
 import {
   isThisRecipeDone,
-  isThisRecipeInProgress 
+  isThisRecipeInProgress,
 } from '../services/localStorageFunctions';
 import { fetchFoodDetails, fetchFoodRecomendations } from '../services/fetchRecipes';
+
+const Main = styled.main`
+  /* display: flex; */
+  margin-top: 68px;
+  .continueBtn {
+    position: fixed;
+    bottom: 0;
+  }
+`;
+
+const Img = styled.img`
+  max-width: 100vw;
+`;
+
+const RecomendationsBoard = styled.div`
+  /* width: 100%; */
+  display: flex;
+  overflow-x: scroll;
+  margin: 10px 10px;
+
+  img {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 5px;
+    max-width: 42vw;
+    margin-right: 10px;
+    box-shadow: 1px 1px 1px #16161660;
+  }
+
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  margin: 10px;
+
+  button {
+    border: none;
+    background: none;
+    width: 35px;
+    height: 35px;
+  }
+`;
+
+const CardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const FoodRecipeDetails = () => {
   const [foodRecipeDetails, setFoodRecipeDetails] = useState([]);
@@ -28,28 +79,39 @@ const FoodRecipeDetails = () => {
 
   const embedVideo = () => {
     const URL = foodRecipeDetails.strYoutube;
+    if (!URL) return <p>Sem vídeo</p>;
     const embed = URL.replace('watch?v=', 'embed/');
     return (
       <iframe
         width="360"
+        data-testid="video"
         src={ embed }
         title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay;
+        clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />
     );
   };
 
   const ingredients = () => {
-    const keys = Object.keys(foodRecipeDetails).filter((key) => key.includes('strIngredient'));
-    const ingredients = keys.map((key) => foodRecipeDetails[key]);
-    return ingredients.filter((ingredient) => ingredient !== null);
+    const keys = Object.keys(foodRecipeDetails)
+      .filter((key) => key.includes('strIngredient'));
+    const listIngredients = keys.map((key) => foodRecipeDetails[key]);
+
+    return listIngredients.filter((ingredient) => ingredient !== '');
   };
 
   const measures = () => {
-	  const measuresKeys = Object.keys(foodRecipeDetails).filter((key) => key.includes('strMeasure'));
+    const measuresKeys = Object.keys(foodRecipeDetails)
+      .filter((key) => key.includes('strMeasure'));
     const measuresList = measuresKeys.map((measure) => foodRecipeDetails[measure]);
-    return measuresList.filter((measure) => measure !== null);
+
+    return measuresList.filter((measure) => measure !== '');
+  };
+
+  const handleClickToProgress = () => {
+    window.location.href = `${location.pathname}/in-progress`;
   };
 
   const mainButton = () => {
@@ -68,50 +130,59 @@ const FoodRecipeDetails = () => {
     return null;
   };
 
-  const handleClickToProgress = () => {
-    window.location.href = `${location.pathname}/in-progress`;
-  };
-
   return (
-    <div>
+    <Main>
       <Header title="Detalhes da Receita" />
       <section>
-        <img
+        <Img
           className="recipeImage"
           src={ foodRecipeDetails.strMealThumb }
           alt="Imagem da comida"
           data-testid="recipe-photo"
         />
-        <div>
-          <h2>{ foodRecipeDetails.strMeal }</h2>
-          <h3>{ foodRecipeDetails.strCategory }</h3>
-        </div>
-        <div>
-          <ShareButton id={ id } type="comidas" />
-          <LikeButton id={ id } recipe={ foodRecipeDetails } />
-        </div>
+        <CardHeader>
+
+          <div>
+            <h2 data-testid="recipe-title">{ foodRecipeDetails.strMeal }</h2>
+            <h3 data-testid="recipe-category">{ foodRecipeDetails.strCategory }</h3>
+          </div>
+
+          <Buttons>
+            <ShareButton id={ id } type="comidas" />
+            <LikeButton id={ id } recipe={ foodRecipeDetails } />
+          </Buttons>
+
+        </CardHeader>
       </section>
       <RecipeDetails
         instructions={ foodRecipeDetails.strInstructions }
         ingredients={ ingredients() }
         ingredientMeasures={ measures() }
-        video={ embedVideo }
+        video={ embedVideo() }
         isFoodRecipe
       />
-      {
-        recomended.map((drinkRecipe, idx) => (
-          <MasterCard
-            src={ drinkRecipe.strDrinkThumb }
-            index={ idx }
-            key={ `${drinkRecipe}-${idx}` }
-            cardType="drinkRecomended"
-            title={ drinkRecipe.strDrink }
-            category={ drinkRecipe.strAlcoholic }
-          />
-        ))
-      }
-      { mainButton }
-    </div>
+      <RecomendationsBoard>
+        {
+          recomended.map((drinkRecipe, idx) => (
+            <Link
+              to={ `/bebidas/${drinkRecipe.idDrink}` }
+              key={ `${drinkRecipe}${idx}` }
+              className="recipeCard"
+            >
+              <MasterCard
+                src={ drinkRecipe.strDrinkThumb }
+                index={ idx }
+                key={ `${drinkRecipe}-${idx}` }
+                cardType="drinkRecomended"
+                title={ drinkRecipe.strDrink }
+                category={ drinkRecipe.strAlcoholic }
+              />
+            </Link>
+          ))
+        }
+      </RecomendationsBoard>
+      { mainButton() }
+    </Main>
   );
 };
 
