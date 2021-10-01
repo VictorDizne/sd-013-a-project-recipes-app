@@ -7,6 +7,7 @@ import { whiteHeartIcon, blackHeartIcon } from '../images';
 
 function LikeButton({ recipe, id, favOrDone = false, idx }) {
   const [heartType, setHeartType] = useState();
+  const [heartAlt, setHeartAlt] = useState();
 
   const addToFavorites = (thisRecipe) => {
     if (localStorage.favoriteRecipes) {
@@ -29,11 +30,13 @@ function LikeButton({ recipe, id, favOrDone = false, idx }) {
     if (heartType === whiteHeartIcon) {
       addToFavorites(() => formatedFavoriteRecipe(recipe));
       setHeartType(blackHeartIcon);
+      setHeartAlt('black');
     }
     // se esta receita estiver com coração preto, remove ela dos favoritos e transforma o coração em branco
     if (heartType === blackHeartIcon) {
       removeFromFavorites();
       setHeartType(whiteHeartIcon);
+      setHeartAlt('white');
     }
   };
 
@@ -53,7 +56,7 @@ function LikeButton({ recipe, id, favOrDone = false, idx }) {
         data-testid={ favOrDone ? `${idx}-horizontal-favorite-btn` : 'favorite-btn' }
         onClick={ handleClick }
       >
-        <img src={ heartType } alt={ `${heartIcon}heart` } />
+        <img src={ heartType } alt={ `${heartAlt}heart` } />
       </button>
     </section>
   );
