@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import DrinksInProgressCard from '../../components/drinksInProgress';
-import Header from '../../components/header';
 import recipesContext from '../../context';
 
 function DrinkInProgress() {
@@ -44,7 +43,6 @@ function DrinkInProgress() {
   };
   return (
     <>
-      <Header title="?" />
       <DrinksInProgressCard
         info={ details }
         medidas={ medida }

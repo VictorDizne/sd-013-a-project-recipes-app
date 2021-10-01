@@ -49,7 +49,7 @@ function DrinkIngredients() {
   }
   return (
     <>
-      <Header title="Explorar ingredientes" />
+      <Header title="Explorar Ingredientes" />
       <div className="div-cards">
         { loadingPageDrink ? <p>CARREGANDO...</p> : showCard() }
       </div>
