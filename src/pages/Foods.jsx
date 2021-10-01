@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import MasterCard from '../components/MasterCard';
 import Header from '../components/Header';
@@ -10,6 +10,7 @@ import {
   fetchAllFoodRecipes,
   fetchFoodRecipesByCategory,
 } from '../services/fetchRecipes';
+import { fetchRecipesByIngredients } from '../services/localStorageFunctions';
 
 const CardList = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const Main = styled.main`
   form{
     margin: 0 10px;
   }
+  margin-bottom: 68px;
 `;
 
 const Foods = () => {
@@ -30,9 +32,17 @@ const Foods = () => {
   const [foodRecipes, setFoodRecipes] = useState([]);
   const [prevCategory, setCategory] = useState('All');
 
+  const { state } = useLocation();
+
   useEffect(() => {
-    fetchAllFoodRecipes(setFoodRecipes);
-  }, []);
+    const fetchRecipes = async () => (
+      state
+        ? fetchRecipesByIngredients(setFoodRecipes, state, 'meals')
+        : fetchAllFoodRecipes(setFoodRecipes)
+    );
+
+    fetchRecipes();
+  }, [state]);
 
   const handleFilter = ({ target: { name } }) => {
     switch (name) {

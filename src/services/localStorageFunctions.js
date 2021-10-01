@@ -129,3 +129,16 @@ export async function fetchIngredients(type) {
     return result.drinks.slice(0, LENGTH);
   }
 }
+
+const FOOD_BY_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+
+const DRINK_BY_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+
+export async function fetchRecipesByIngredients(setFoodRecipes, state, type) {
+  let RECIPE_BY_INGREDIENT = '';
+  if (type === 'meals') RECIPE_BY_INGREDIENT = FOOD_BY_INGREDIENT;
+  if (type === 'drinks') RECIPE_BY_INGREDIENT = DRINK_BY_INGREDIENT;
+  const response = await fetch(`${RECIPE_BY_INGREDIENT}${state}`);
+  const result = await response.json();
+  setFoodRecipes(result[type].slice(0, LENGTH));
+}

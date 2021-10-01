@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import MasterCard from '../components/MasterCard';
 import Header from '../components/Header';
@@ -10,6 +10,7 @@ import {
   fetchAllDrinkRecipes,
   fetchDrinkRecipesByCategory,
 } from '../services/fetchRecipes';
+import { fetchRecipesByIngredients } from '../services/localStorageFunctions';
 
 const CardList = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const Main = styled.main`
   form{
     margin: 0 10px;
   }
+  margin-bottom: 68px;
 `;
 
 const Drink = () => {
@@ -30,9 +32,17 @@ const Drink = () => {
   const [drinkRecipes, setDrinkRecipes] = useState([]);
   const [prevCategory, setCategory] = useState('All');
 
+  const { state } = useLocation();
+
   useEffect(() => {
-    fetchAllDrinkRecipes(setDrinkRecipes);
-  }, []);
+    const fetchRecipes = async () => (
+      state
+        ? fetchRecipesByIngredients(setDrinkRecipes, state, 'drinks')
+        : fetchAllDrinkRecipes(setDrinkRecipes)
+    );
+
+    fetchRecipes();
+  }, [state]);
 
   const handleFilter = ({ target: { name } }) => {
     switch (name) {
