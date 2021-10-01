@@ -7,7 +7,7 @@ import MasterCard from '../components/MasterCard';
 import RecipeDetails from '../components/RecipeDetails';
 import {
   isThisRecipeDone,
-  isThisRecipeInProgress 
+  isThisRecipeInProgress
 } from '../services/localStorageFunctions';
 import { fetchFoodDetails, fetchFoodRecomendations } from '../services/fetchRecipes';
 
@@ -41,15 +41,21 @@ const FoodRecipeDetails = () => {
   };
 
   const ingredients = () => {
-    const keys = Object.keys(foodRecipeDetails).filter((key) => key.includes('strIngredient'));
-    const ingredients = keys.map((key) => foodRecipeDetails[key]);
-    return ingredients.filter((ingredient) => ingredient !== null);
+    const keys = Object.keys(foodRecipeDetails)
+      .filter((key) => key.includes('strIngredient'));
+    const ingredientsList = keys.map((key) => foodRecipeDetails[key]);
+    return ingredientsList.filter((ingredient) => ingredient !== null);
   };
 
   const measures = () => {
-	  const measuresKeys = Object.keys(foodRecipeDetails).filter((key) => key.includes('strMeasure'));
+    const measuresKeys = Object.keys(foodRecipeDetails)
+      .filter((key) => key.includes('strMeasure'));
     const measuresList = measuresKeys.map((measure) => foodRecipeDetails[measure]);
     return measuresList.filter((measure) => measure !== null);
+  };
+
+  const handleClickToProgress = () => {
+    window.location.href = `${location.pathname}/in-progress`;
   };
 
   const mainButton = () => {
@@ -66,10 +72,6 @@ const FoodRecipeDetails = () => {
       );
     }
     return null;
-  };
-
-  const handleClickToProgress = () => {
-    window.location.href = `${location.pathname}/in-progress`;
   };
 
   return (
