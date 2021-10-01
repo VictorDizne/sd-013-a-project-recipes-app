@@ -10,7 +10,6 @@ function RecipeDetails(props) {
     isFoodRecipe,
   } = props;
 
-  console.log(ingredients);
   return (
     <section className="recipeDetails">
       <h3>Ingredientes</h3>
@@ -22,7 +21,6 @@ function RecipeDetails(props) {
               data-testid={ `${idx}-ingredient-name-and-measure` }
             >
               { ingredient }
-              -
               { ingredientMeasures[idx] }
             </li>
           ))

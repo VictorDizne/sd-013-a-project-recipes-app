@@ -99,7 +99,7 @@ const FoodsExplorerByOrigin = () => {
         {
           foodRecipes.map((foodRecipe, index) => (
             <Link
-              to={ `comidas/${foodRecipe.idMeal}` }
+              to={ `/comidas/${foodRecipe.idMeal}` }
               key={ `${foodRecipe}${index}` }
               className="recipeCard"
             >
