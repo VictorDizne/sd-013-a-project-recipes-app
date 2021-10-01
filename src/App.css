@@ -243,6 +243,25 @@
     font-size: 3em;
     font-weight: 900;
   }
+
+  .recommend-card {
+    margin-left: 20px;
+  }
+
+  .carousel-card {
+    align-content: space-between;
+    border: #ecdfdf1a;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px;
+    display: flex;
+    font-size: larger;
+    justify-content: space-between;
+    margin: 15px;
+    margin-bottom: 6px;
+    overflow-x: scroll;
+    text-align: center;
+    width: 290px;
+  }
 }
 
 @keyframes shake {

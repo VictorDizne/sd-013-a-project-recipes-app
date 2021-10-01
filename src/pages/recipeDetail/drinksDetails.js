@@ -5,9 +5,9 @@ import fetchAPI from '../../services/fetchAPI';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import Footer from '../../components/footer';
 import recipesContext from '../../context';
 import DrinkIngredients from '../../components/DrinkIngredients';
+import RecommendPageDrinks from '../../components/recommendPageDrinks';
 
 const copy = require('clipboard-copy');
 
@@ -117,6 +117,7 @@ function DrinkDetails({ match: { params: { id } } }) {
       />
       <div className="detail-header">
         <h2 data-testid="recipe-title">{details.strDrink}</h2>
+        <h4 data-testid="recipe-category">{details.strCategory}</h4>
         <button
           className="detail-button"
           type="button"
@@ -142,6 +143,7 @@ function DrinkDetails({ match: { params: { id } } }) {
       </div>
       <DrinkIngredients props={ id } />
       <p data-testid="instructions">{ details.strInstructions }</p>
+      <RecommendPageDrinks />
       <Link to={ () => initRecipe(details) }>
         <button
           className="start-recipe"
@@ -151,7 +153,6 @@ function DrinkDetails({ match: { params: { id } } }) {
           Iniciar Receita
         </button>
       </Link>
-      <Footer />
     </>
   );
 }

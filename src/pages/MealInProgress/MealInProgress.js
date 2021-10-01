@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import Footer from '../../components/footer';
 import MealInProgressCard from '../../components/mealInProgressCard';
 import recipesContext from '../../context';
 
@@ -59,7 +58,6 @@ function MealInProgress() {
       >
         Finalizar
       </button>
-      <Footer />
     </>
   );
 }
