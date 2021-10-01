@@ -62,6 +62,7 @@ function FavoriteButton({ recipe, isMeal, testID }) {
 FavoriteButton.propTypes = {
   recipe: PropTypes.string.isRequired,
   isMeal: PropTypes.string.isRequired,
+  testID: PropTypes.string.isRequired,
 };
 
 export default FavoriteButton;

@@ -12,8 +12,7 @@ import FinishButton from '../components/FinishButton';
 function ReceitasProgresso({ match }) {
   const [recipe, setRecipe] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
-  const { compareCheckBox } = useContext(Context);
-  const checkboxes = document.querySelectorAll('.checkboxes');
+  const { compareCheckBox, ingredientsLength  } = useContext(Context);
   const url = match.url.split('/in')[0];
 
   const { recipeId } = match.params;
@@ -31,10 +30,10 @@ function ReceitasProgresso({ match }) {
 
   // funcao para habilitar ou desabilitar o botao Finalizar Receita
   const disableButton = () => {
-    if (compareCheckBox === checkboxes.length - 1) {
-      setDisabledButton(false);
-    } else {
+    if (compareCheckBox !== ingredientsLength - 1) {
       setDisabledButton(true);
+    } else {
+      setDisabledButton(false);
     }
   };
 

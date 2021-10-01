@@ -18,7 +18,7 @@ function ReceitasFeitas() {
       }
     };
     loading();
-  }, []);
+  }, [isLoading]);
 
   const [recipes, setRecipes] = useState(doneRecipes);
   console.log(recipes);
