@@ -13,7 +13,7 @@ function ShareButton({ id, type }) {
 
   const handleShareLink = () => {
     // pode ser usando o href ou location.pathname
-    copy(`${hostName}${type}/${id}`);
+    copy(`${hostName}/${type}/${id}`);
     setVIsibility(true);
     setTimeout(() => {
       setVIsibility(false);
