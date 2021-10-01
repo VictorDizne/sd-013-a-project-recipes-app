@@ -75,7 +75,7 @@ const Header = ({ pageName, hasLupa }) => {
     setHidden(!hidden);
   };
 
-  const outraFunc = pageName === 'Bebidas' ? filterByClickDrink : filterByClick;
+  const outraFunc = pageName === 'Comidas' ? filterByClick : filterByClickDrink;
 
   const searchInput = (
     <>
