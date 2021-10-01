@@ -22,7 +22,7 @@ function Explorar() {
         >
           Explorar Bebidas
         </button>
-        
+
       </Link>
       <Footer />
     </div>
