@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import Header from '../components/Header';
 import MasterCard from '../components/MasterCard';
 import FilterRecipes from '../components/FilterRecipes';
 import { getDoneRecipes } from '../services/localStorageFunctions';
+
+const Main = styled.main`
+  margin-top: 68px;
+  form{
+    margin: 0 10px;
+  }
+`;
 
 const DoneRecipes = () => {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -20,19 +28,16 @@ const DoneRecipes = () => {
   const handleFilter = ({ target: { name } }) => {
     switch (name) {
     case 'All':
-      setSelectedFilter('All');
-      break;
-    case 'Foods':
-      setSelectedFilter('Foods');
-      break;
-    case 'Drinks':
-      setSelectedFilter('Drinks');
-      break;
+      return setSelectedFilter('All');
+    case 'Food':
+      return setSelectedFilter('Foods');
+    case 'Drink':
+      return setSelectedFilter('Drinks');
     default:
-      setSelectedFilter('All');
-      break;
+      return setSelectedFilter('All');
     }
   };
+
   function renderDoneRecipes() {
     if (selectedFilter === 'All') {
       return (
@@ -102,15 +107,13 @@ const DoneRecipes = () => {
     }
   }
   return (
-    <main>
+    <Main>
       <Header title="Receitas Feitas" />
-      {
-        !disableFilters
-          && <FilterRecipes pageTitle="both" handleFilter={ handleFilter } />
-      }
-      { disableFilters && <p>Parece que você não completou nenhuma receita</p> }
-      { renderDoneRecipes }
-    </main>
+      { !disableFilters
+        ? <FilterRecipes pageTitle="both" handleFilter={ handleFilter } />
+        : <p>Parece que você não completou nenhuma receita</p> }
+      { renderDoneRecipes() }
+    </Main>
   );
 };
 
