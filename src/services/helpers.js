@@ -30,7 +30,7 @@ export const handleIngredient = (ingredient, id, type, setCheckIngredients) => {
   const progressRecipesToAddIngredient = JSON
     .parse(localStorage.getItem('inProgressRecipes'));
   const verifyIngredient = progressRecipesToAddIngredient[type][id] !== undefined
-  && progressRecipesToAddIngredient[type][id].some((item) => item === ingredient)
+  && progressRecipesToAddIngredient[type][id].some((item) => item === ingredient);
 
   if (!verifyIngredient) {
     const newProgressRecipe = {
