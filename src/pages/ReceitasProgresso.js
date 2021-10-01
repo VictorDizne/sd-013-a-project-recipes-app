@@ -12,7 +12,7 @@ import FinishButton from '../components/FinishButton';
 function ReceitasProgresso({ match }) {
   const [recipe, setRecipe] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
-  const { compareCheckBox, ingredientsLength  } = useContext(Context);
+  const { compareCheckBox, ingredientsLength } = useContext(Context);
   const url = match.url.split('/in')[0];
 
   const { recipeId } = match.params;

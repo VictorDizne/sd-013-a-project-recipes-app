@@ -4,8 +4,9 @@ import Context from '../context';
 
 function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
   const [ingredientList, setIngredientList] = useState([]);
-  const { compareCheckBox, setCompareCheckBox, setIngredientsLength } = useContext(Context);
-  
+  const { compareCheckBox, setCompareCheckBox,
+    setIngredientsLength } = useContext(Context);
+
   const ingredients = () => {
     let i = 1;
     const ingList = [];
@@ -16,7 +17,6 @@ function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
     setIngredientsLength(ingList.length);
     return ingList;
   };
-
 
   useEffect(() => {
     const createLocalStore = () => {
@@ -39,7 +39,7 @@ function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
       }
     };
     createLocalStore();
-  }, [isMeal, recipeId]);
+  }, [isMeal, recipeId, setCompareCheckBox]);
 
   // Funcao para adicionar o localStorage inProgressRecipes
   const addInProgress = (value) => {
@@ -89,7 +89,7 @@ function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
   // Funcao de clique nos checkboxes
   const handleCheckbox = ({ target }, index) => {
     if (target.checked === true) {
-      console.log(compareCheckBox)
+      console.log(compareCheckBox);
       setCompareCheckBox(compareCheckBox + 1);
       setIngredientList([...ingredientList, target.value]);
       addInProgress(target.value);
