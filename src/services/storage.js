@@ -1,7 +1,7 @@
 // IN PROGRESS RECIPE LOCAL STORAGE
 export const setProgressRecipe = (id, type) => {
   const progressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if ( !progressRecipe[type][id].length ) {
+  if (!progressRecipe[type][id].length) {
     const newProgressRecipe = {
       ...progressRecipe,
       [type]: {
@@ -88,7 +88,7 @@ export const setAllLocalStorage = (paramsValue) => {
 
   if (!doneRecipes) {
     setDoneRecipesLocalStorage();
-    console.log('s')
+    console.log('s');
   } else {
     setCheckDone(checkDoneRecipe(id));
   }
