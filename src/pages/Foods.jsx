@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import RecipeCard from '../components/MasterCard';
+import MasterCard from '../components/MasterCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FoodSearchBar from '../components/FoodSearchBar';
@@ -53,6 +53,7 @@ const Foods = () => {
   const filterRecipes = (
     <FilterRecipes
       pageTitle="Comidas"
+      cardType="foodRecipe"
       handleFilter={ handleFilter }
     />
   );
@@ -78,7 +79,7 @@ const Foods = () => {
               key={ `${foodRecipe}${index}` }
               className="recipeCard"
             >
-              <RecipeCard
+              <MasterCard
                 index={ index }
                 src={ foodRecipe.strMealThumb }
                 title={ foodRecipe.strMeal }

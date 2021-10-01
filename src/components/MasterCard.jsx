@@ -2,6 +2,8 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+// import ShareButton from './ShareButton';
+// import LikeButton from './LikeButton';
 
 const Img = styled.img`
   max-width: 45vw;
@@ -24,7 +26,6 @@ const Img = styled.img`
 //     tags,
 //     doneDate,
 //     // prop usada nas receitas feitas e favoritas
-//     shareBtn,
 //     favOrDone = false,
 //   } = props;
 
@@ -37,7 +38,7 @@ const Img = styled.img`
 //     />
 //   );
 
-//   const shareBtn = () => (
+//   const shareButton = () => (
 //     <ShareButton
 //       id={ id }
 //       type={ type }
@@ -51,25 +52,25 @@ const Img = styled.img`
 //     </div>
 //   );
 
-//   // const ingredientCard = () => (
-//   //   <div
-//   //     className="ingredientCard"
-//   //     data-testid={ `${index}-ingredient-card` }
-//   //   >
-//   //     <img
-//   //       className="ingredientImg"
-//   //       data-testid={ `${index}-card-img` }
-//   //       src={ src }
-//   //       alt={ title }
-//   //     />
-//   //     <span
-//   //       className="ingredientName"
-//   //       data-testid={ `${index}-card-name` }
-//   //     >
-//   //       { name }
-//   //     </span>
-//   //   </div>
-//   // );
+//   const ingredientCard = () => (
+//     <div
+//       className="ingredientCard"
+//       data-testid={ `${index}-ingredient-card` }
+//     >
+//       <img
+//         className="ingredientImg"
+//         data-testid={ `${index}-card-img` }
+//         src={ src }
+//         alt={ title }
+//       />
+//       <span
+//         className="ingredientName"
+//         data-testid={ `${index}-card-name` }
+//       >
+//         { title }
+//       </span>
+//     </div>
+//   );
 
 //   const recomendedCard = () => (
 //     <div data-testid={ `${index}-recomendation-card` }>
@@ -99,7 +100,7 @@ const Img = styled.img`
 //               ? `${area} - ${category}`
 //               : `${category}` }
 //           </span>
-//           { shareBtn }
+//           { shareButton }
 //           { favBtn }
 //         </div>
 //         <Link
@@ -134,7 +135,7 @@ const Img = styled.img`
 //               ? `${area} - ${category}`
 //               : `${category}` }
 //           </span>
-//           { shareBtn }
+//           { shareButton }
 //         </div>
 //         <Link
 //           to={ `${type}s/${id}` }
@@ -173,14 +174,15 @@ const Img = styled.img`
 //   );
 
 //   const renderObject = {
-//     foodRecipe: () => recipe(),
-//     ingredient: () => ingredient(),
-//     drinkRecipe: () => recipe(),
-//     foodRecomended: () => recomended(),
-//     drinkRecomended: () => recomended(),
-//     favorited: () => favorited(),
+//     foodRecipe: () => recipeCard(),
+//     ingredient: () => ingredientCard(),
+//     drinkRecipe: () => recipeCard(),
+//     foodRecomended: () => recomendedCard(),
+//     drinkRecomended: () => recomendedCard(),
+//     favorited: () => favoritedCard(),
 //     doneRecipe: () => doneRecipe(),
-//   }
+//   };
+
 //   return (
 //     renderObject[cardType]
 //   );
