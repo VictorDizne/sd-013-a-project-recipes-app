@@ -18,8 +18,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
-  const [checkedState, setCheckedState] = useState([]);
-  // console.log(checkedState);
+  const [checkedState, setCheckedState] = useState(false);
 
   useEffect(() => {
     getAPIdataID(id, setDrinkDetail, 'drink');
