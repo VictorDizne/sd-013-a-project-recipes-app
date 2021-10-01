@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MasterCard from '../components/MasterCard';
 import { fetchIngredients } from '../services/localStorageFunctions';
+
+const Main = styled.main`
+  margin-top: 68px;
+  margin-bottom: 68px;
+`;
 
 const FoodsExplorerByIngredient = () => {
   const [ingredients, setIngredients] = useState();
@@ -21,7 +27,7 @@ const FoodsExplorerByIngredient = () => {
   };
 
   return (
-    <main>
+    <Main>
       <Header title="Explorar Ingredientes" />
       {
         ingredients ? ingredients.map((ingredient, index) => (
@@ -36,13 +42,13 @@ const FoodsExplorerByIngredient = () => {
               cardType="ingredient"
               index={ index }
               title={ ingredient.strIngredient }
-              src={ () => ingredientImage(ingredient.strIngredient) }
+              src={ ingredientImage(ingredient.strIngredient) }
             />
           </Link>
         )) : <p>loading...</p>
       }
       <Footer />
-    </main>
+    </Main>
   );
 };
 
