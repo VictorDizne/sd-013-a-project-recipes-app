@@ -110,3 +110,13 @@ export function getFavRecipes(
     setDisableFilters(true);
   }
 }
+
+const FOOD_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const LENGTH = 12;
+
+export async function fetchIngredients() {
+  const response = await fetch(FOOD_INGREDIENTS);
+  const result = await response.json();
+
+  return result.meals.slice(0, LENGTH);
+}
