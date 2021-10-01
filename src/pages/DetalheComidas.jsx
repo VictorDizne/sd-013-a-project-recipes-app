@@ -72,6 +72,14 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
     setIsHidden(false);
   };
 
+  const receitasIngMeas = () => {
+    const ingredients = ingredientMeasures(foodDetail, 'ingredientes');
+    const measures = ingredientMeasures(foodDetail, 'medida');
+
+    const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
+    return receitas;
+  };
+
   return (foodDetail.length === 0 && drinksDetails.length === 0) ? <Loading /> : (
     <div>
       <img
@@ -89,6 +97,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
       </button>
       <p hidden={ isHidden }>Link copiado!</p>
       <button
+        className="fav"
         onClick={ handleFavorite }
         type="button"
       >
@@ -104,7 +113,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
         <p>Ingredients</p>
         <div className="ingredients-measure">
           <ul>
-            {ingredientMeasures(foodDetail, 'ingredientes')
+            {receitasIngMeas()
               .map((ingredient, i) => (
                 <li
                   data-testid={ `${i}-ingredient-name-and-measure` }
@@ -113,7 +122,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
                   { ingredient }
                 </li>))}
           </ul>
-          <ul>
+          {/* <ul>
             {ingredientMeasures(foodDetail, 'medida')
               .map((measure, i) => (
                 <li
@@ -122,7 +131,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
                 >
                   { measure }
                 </li>))}
-          </ul>
+          </ul> */}
         </div>
       </section>
       <p data-testid="instructions">{strInstructions}</p>

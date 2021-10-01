@@ -49,3 +49,7 @@ body {
   scroll-snap-align: start;
   width: 40%;
 }
+
+.fav {
+  margin: 10px;
+}

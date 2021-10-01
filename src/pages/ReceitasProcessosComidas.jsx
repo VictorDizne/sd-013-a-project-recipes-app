@@ -13,7 +13,7 @@ import {
   getAPIdataID,
 } from '../services/funcAuxDetails';
 
-const ReceitasProcessosComidas = ({ match: { params: { id }, url }, history }) => {
+const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
@@ -50,8 +50,17 @@ const ReceitasProcessosComidas = ({ match: { params: { id }, url }, history }) =
   };
 
   const handleShare = () => {
+    const url = `/comidas/${id}`;
     copy(`http://localhost:3000${url}`);
     setIsHidden(false);
+  };
+
+  const receitasIngMeas = () => {
+    const ingredients = ingredientMeasures(foodDetail, 'ingredientes');
+    const measures = ingredientMeasures(foodDetail, 'medida');
+
+    const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
+    return receitas;
   };
 
   return (foodDetail.length === 0) ? <Loading /> : (
@@ -71,6 +80,7 @@ const ReceitasProcessosComidas = ({ match: { params: { id }, url }, history }) =
       </button>
       <p hidden={ isHidden }>Link copiado!</p>
       <button
+        className="fav"
         onClick={ handleFavorite }
         type="button"
       >
@@ -84,7 +94,7 @@ const ReceitasProcessosComidas = ({ match: { params: { id }, url }, history }) =
       <p data-testid="recipe-category">{strCategory}</p>
       <p>Ingredients</p>
       <div className="ingredients-measure">
-        {ingredientMeasures(foodDetail, 'ingredientes')
+        {receitasIngMeas()
           .map((ingredient, i) => (
             <label
               htmlFor={ ingredient }
@@ -98,19 +108,6 @@ const ReceitasProcessosComidas = ({ match: { params: { id }, url }, history }) =
             </label>
           ))}
       </div>
-      {ingredientMeasures(foodDetail, 'medida')
-        .map((measure, i) => (
-          <label
-            htmlFor={ measure }
-            key={ i }
-            data-testid={ `${i}-ingredient-step` }
-          >
-            <input
-              type="checkbox"
-            />
-            { measure }
-          </label>
-        ))}
       <p data-testid="instructions">{strInstructions}</p>
       <button
         id={ id }

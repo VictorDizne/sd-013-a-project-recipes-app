@@ -14,7 +14,7 @@ import {
   getAPIdataID,
 } from '../services/funcAuxDetails';
 
-const ReceitasProcessosBebidas = ({ match: { params: { id }, url }, history }) => {
+const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
@@ -41,6 +41,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id }, url }, history }) =
     id,
     type: 'bebida',
     area: '',
+    image: strDrinkThumb,
     category: strCategory,
     alcoholicOrNot: strAlcoholic,
     name: strDrink,
@@ -50,8 +51,28 @@ const ReceitasProcessosBebidas = ({ match: { params: { id }, url }, history }) =
   };
 
   const handleShare = () => {
+    const url = `/bebidas/${id}`;
     copy(`http://localhost:3000${url}`);
     setIsHidden(false);
+  };
+
+  const receitasIngMeas = () => {
+    const ingredients = ingredientMeasures(drinkDetail, 'ingredientes');
+    const measures = ingredientMeasures(drinkDetail, 'medida');
+
+    const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
+    return receitas;
+  };
+
+  const changeCheckBox = ({ target: { name, checked } }) => {
+    const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (checked) {
+      localGet.cocktails[id] = [...localGet.cocktails[id], name];
+    } else {
+      const nIndex = localGet.cocktails[id].indexOf(name);
+      localGet.cocktails[id].slice(nIndex, 1);
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
   };
 
   return (drinkDetail.length === 0) ? <Loading /> : (
@@ -71,6 +92,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id }, url }, history }) =
       </button>
       <p hidden={ isHidden }>Link copiado!</p>
       <button
+        className="fav"
         onClick={ handleFavorite }
         type="button"
       >
@@ -84,7 +106,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id }, url }, history }) =
       <p data-testid="recipe-category">{strCategory}</p>
       <p data-testid="recipe-category">{strAlcoholic}</p>
       <div className="ingredients-measure">
-        {ingredientMeasures(drinkDetail, 'ingredientes')
+        {receitasIngMeas()
           .map((ingredient, i) => (
             <label
               htmlFor={ ingredient }
@@ -92,25 +114,14 @@ const ReceitasProcessosBebidas = ({ match: { params: { id }, url }, history }) =
               data-testid={ `${i}-ingredient-step` }
             >
               <input
+                name={ ingredient }
+                onChange={ changeCheckBox }
                 type="checkbox"
               />
               { ingredient }
             </label>
           ))}
       </div>
-      {ingredientMeasures(drinkDetail, 'medida')
-        .map((measure, i) => (
-          <label
-            htmlFor={ measure }
-            key={ i }
-            data-testid={ `${i}-ingredient-step` }
-          >
-            <input
-              type="checkbox"
-            />
-            { measure }
-          </label>
-        ))}
       <p data-testid="instructions">{strInstructions}</p>
       <button
         id={ id }

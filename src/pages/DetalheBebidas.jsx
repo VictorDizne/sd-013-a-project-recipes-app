@@ -71,6 +71,14 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
     setIsHidden(false);
   };
 
+  const receitasIngMeas = () => {
+    const ingredients = ingredientMeasures(drinkDetail, 'ingredientes');
+    const measures = ingredientMeasures(drinkDetail, 'medida');
+
+    const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
+    return receitas;
+  };
+
   return (drinkDetail.length === 0 && foodsDetails.length === 0) ? <Loading /> : (
   /*  <Details
       alimentoDetail={ drinkDetail }
@@ -118,7 +126,7 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
         <p>Ingredients</p>
         <div className="ingredients-measure">
           <ul>
-            {ingredientMeasures(drinkDetail, 'ingredientes')
+            {receitasIngMeas()
               .map((ingredient, i) => (
                 <li
                   data-testid={ `${i}-ingredient-name-and-measure` }
@@ -127,7 +135,7 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
                   { ingredient }
                 </li>))}
           </ul>
-          <ul>
+          {/* <ul>
             {ingredientMeasures(drinkDetail, 'medida')
               .map((measurement, i) => (
                 <li
@@ -136,7 +144,7 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
                 >
                   { measurement }
                 </li>))}
-          </ul>
+          </ul> */}
         </div>
       </section>
       <p data-testid="instructions">{strInstructions}</p>
