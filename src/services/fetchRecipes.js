@@ -45,3 +45,26 @@ export const fetchRandomDrinkRecipe = async () => {
   const result = await response.json();
   return result.drinks[0].idDrink;
 };
+
+export const fetchFoodDetails = async (id, setFoodRecipeDetails) => {
+  const END_POINT = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(END_POINT);
+  const result = await response.json();
+  setFoodRecipeDetails(result.meals[0]);
+};
+
+export const fetchFoodRecomendations = async (setRecomended) => {
+  const END_POINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(END_POINT);
+  const results = await response.json();
+  const RECOMENDATIONS_LIMIT = 6;
+  setRecomended(shuffleArray(results.drinks).slice(0, RECOMENDATIONS_LIMIT));
+};
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
