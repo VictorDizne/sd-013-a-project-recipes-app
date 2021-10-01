@@ -28,7 +28,8 @@ function DrinkDetails({ match: { params: { id } } }) {
     const ingredients = arr
       .filter((k) => (k.includes('strIngredient') ? k : null))
       .map((values) => drinkInfo[values])
-      .filter((ingredient) => (ingredient));
+      .filter((ingredient) => (ingredient))
+      .filter((measure) => measure.length > 1);
     setIngredientes(ingredients);
   };
 
@@ -88,7 +89,8 @@ function DrinkDetails({ match: { params: { id } } }) {
     const measures = arr
       .filter((k) => (k.includes('strMeasure') ? k : null))
       .map((values) => drinksInfo[values])
-      .filter((measure) => (measure));
+      .filter((measure) => (measure))
+      .filter((measure) => measure.length > 1);
     setMedida(measures);
   };
 

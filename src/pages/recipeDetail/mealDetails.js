@@ -26,6 +26,7 @@ function MealDetails({ match: { params: { id } } }) {
     const ingredients = arr
       .filter((k) => (k.includes('strIngredient') ? k : null))
       .map((values) => mealInfo[values])
+      .filter((n) => n)
       .filter((ingredient) => ingredient.length > 1);
     setIngredientes(ingredients);
   };
@@ -39,6 +40,7 @@ function MealDetails({ match: { params: { id } } }) {
     const measures = arr
       .filter((k) => (k.includes('strMeasure') ? k : null))
       .map((values) => mealInfo[values])
+      .filter((n) => n)
       .filter((measure) => measure.length > 1);
     setMedida(measures);
   };
