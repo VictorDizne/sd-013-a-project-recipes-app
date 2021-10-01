@@ -63,32 +63,35 @@ function DoneRecipesPage() {
   return (
     <>
       <Header title="Receitas Feitas" />
-      <div className="done-recipes-filters">
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ () => handleClick('All') }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ () => handleClick('Meals') }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => handleClick('Drinks') }
-        >
-          Drinks
-        </button>
+      <div className="non-header">
+        <div className="done-recipes-filters">
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ () => handleClick('All') }
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ () => handleClick('Meals') }
+          >
+            Food
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => handleClick('Drinks') }
+          >
+            Drinks
+          </button>
+        </div>
       </div>
-      { showCards() }
+      <div className="div-cards">
+        { showCards() }
+      </div>
     </>
-
   );
 }
 

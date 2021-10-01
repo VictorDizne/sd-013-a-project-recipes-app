@@ -45,43 +45,50 @@ function CardMealRecipes() {
   };
 
   return (
-    <div>
-      <button onClick={ filterRecipes } name="Meals" type="button">Food</button>
-      <button onClick={ filterRecipes } name="Drink" type="button">Drinks</button>
-      <button onClick={ filterRecipes } name="All" type="button">All</button>
-      {render.map((recipe, i) => (
-        <div
-          name={ recipe.name }
-          key={ i }
-        >
-          {recipe.type === 'Drink'
-            ? <Link to={ () => DrinkURL(recipe.id) }><FavDrinkCard r={ recipe } /></Link>
-            : <Link to={ () => MealURL(recipe.id) }><FavMealCard r={ recipe } /></Link> }
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ compartilhar }
+    <>
+      <div className="non-header">
+        <button onClick={ filterRecipes } name="Meals" type="button">Food</button>
+        <button onClick={ filterRecipes } name="Drink" type="button">Drinks</button>
+        <button onClick={ filterRecipes } name="All" type="button">All</button>
+      </div>
+      <div className="div-cards">
+        {render.map((recip, i) => (
+          <div
+            className="eachFood"
+            name={ recip.name }
+            key={ i }
           >
-            <img
-              src={ shareIcon }
-              alt="share button"
-            />
-          </button>
-          <button
-            name={ recipe.name }
-            type="button"
-            data-testid="favorite-btn"
-            onClick={ desfavoritar }
-          >
-            <img
-              name={ recipe.name }
-              src={ whiteHeartIcon }
-              alt="Favoritar"
-            />
-          </button>
-        </div>
-      ))}
-    </div>
+            { recip.type === 'Drink'
+              ? <Link to={ () => DrinkURL(recip.id) }><FavDrinkCard r={ recip } /></Link>
+              : <Link to={ () => MealURL(recip.id) }><FavMealCard r={ recip } /></Link> }
+            <div className="detail-header">
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ compartilhar }
+              >
+                <img
+                  src={ shareIcon }
+                  alt="share button"
+                />
+              </button>
+              <button
+                name={ recip.name }
+                type="button"
+                data-testid="favorite-btn"
+                onClick={ desfavoritar }
+              >
+                <img
+                  name={ recip.name }
+                  src={ whiteHeartIcon }
+                  alt="Favoritar"
+                />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
