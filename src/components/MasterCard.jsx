@@ -139,9 +139,9 @@ function MasterCard(props) {
           >
             { type === 'comida'
               ? `${area} - ${category}`
-              : `${category}` }
+              : `${alcoholicOrNot}` }
           </span>
-          { shareButton }
+          { shareButton() }
         </div>
         <Link
           to={ `${type}s/${id}` }
