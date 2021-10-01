@@ -123,7 +123,7 @@ function DrinksInProgressCard() {
         ))}
       </div>
       <h2 data-testid="instructions">
-        Instrucoes
+        Instruções
       </h2>
       <p className="paragraph">
         { info.strInstructions }
