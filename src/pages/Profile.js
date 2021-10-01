@@ -9,8 +9,8 @@ function Profile() {
   useEffect(() => {
     const emailLocalStorage = JSON.parse(localStorage.getItem('user'));
     if (emailLocalStorage) {
-      setEmail(emailLocalStorage.email)
-    };
+      setEmail(emailLocalStorage.email);
+    }
   }, []);
 
   const logout = () => {
@@ -22,7 +22,7 @@ function Profile() {
       <Header title="Perfil" />
       <p data-testid="profile-email">{email}</p>
       <Link to="/receitas-feitas">
-        <button 
+        <button
           type="button"
           data-testid="profile-done-btn"
         >
@@ -30,7 +30,7 @@ function Profile() {
         </button>
       </Link>
       <Link to="/receitas-favoritas">
-        <button 
+        <button
           type="button"
           data-testid="profile-favorite-btn"
         >
@@ -38,12 +38,12 @@ function Profile() {
         </button>
       </Link>
       <Link to="/">
-        <button 
+        <button
           type="button"
           data-testid="profile-logout-btn"
-          onClick={() => logout() }
+          onClick={ () => logout() }
         >
-          Sair 
+          Sair
         </button>
       </Link>
       <Footer />

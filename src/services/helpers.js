@@ -5,7 +5,7 @@ export const setListOfIngredientsAndQuantity = (type, setQuanitity, setIngredien
   for (let index = 1; index < number; index += 1) {
     if (type[`strIngredient${index}`] !== ''
       && type[`strIngredient${index}`] !== null
-      && type[`strIngredient${index}`] !== undefined ) {
+      && type[`strIngredient${index}`] !== undefined) {
       arrayIngredients.push(type[`strIngredient${index}`]);
     }
     if (type[`strMeasure${index}`] !== null
@@ -27,7 +27,8 @@ export const copyToClipBoard = async (copyMe, setCopySuccess) => {
 };
 
 export const handleIngredient = (ingredient, id, type, setCheckIngredients) => {
-  const progressRecipesToAddIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const progressRecipesToAddIngredient = JSON
+    .parse(localStorage.getItem('inProgressRecipes'));
   const verifyIngredient = progressRecipesToAddIngredient[type][id] !== undefined
   && progressRecipesToAddIngredient[type][id].some((item) => item === ingredient)
 
@@ -37,12 +38,12 @@ export const handleIngredient = (ingredient, id, type, setCheckIngredients) => {
       [type]: {
         ...progressRecipesToAddIngredient[type],
         [id]: progressRecipesToAddIngredient[type][id] === undefined
-        ? [ingredient]
-        : [...progressRecipesToAddIngredient[type][id], ingredient],
+          ? [ingredient]
+          : [...progressRecipesToAddIngredient[type][id], ingredient],
       },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
-    setCheckIngredients(newProgressRecipe)
+    setCheckIngredients(newProgressRecipe);
   } else {
     const newProgressRecipe = {
       ...progressRecipesToAddIngredient,
@@ -52,8 +53,7 @@ export const handleIngredient = (ingredient, id, type, setCheckIngredients) => {
           .filter((item) => item !== ingredient),
       },
     };
-  localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
-  setCheckIngredients(newProgressRecipe);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipe));
+    setCheckIngredients(newProgressRecipe);
   }
-}
-
+};

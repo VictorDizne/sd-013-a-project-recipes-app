@@ -51,16 +51,16 @@ function FoodDetailInProgressPage({ match }) {
   }, []);
 
   const returnListOfIngredients = (index, ingredient) => (
-    <div data-testid={`${index}-ingredient-step`}>
+    <div data-testid={ `${index}-ingredient-step` }>
       <input
-        id={ingredient}
+        id={ ingredient }
         type="checkbox"
-        onClick={() => myFuncHelper.handleIngredient(ingredient, id, 'meals')}
+        onClick={ () => myFuncHelper.handleIngredient(ingredient, id, 'meals') }
         // checked={ progressRecipes.meals[id].some((item) => item === ingredient ) }
       />
       <label
-        htmlFor={ingredient}
-        key={index}
+        htmlFor={ ingredient }
+        key={ index }
       >
         { `-${ingredient} - ${quantity[index] !== ' ' ? quantity[index] : ''}` }
       </label>
@@ -112,7 +112,7 @@ function FoodDetailInProgressPage({ match }) {
 
       <Link to="/receitas-feitas">
         <button type="button" data-testid="finish-recipe-btn">
-            Finalizar Receita
+          Finalizar Receita
         </button>
       </Link>
     </div>
@@ -125,6 +125,6 @@ FoodDetailInProgressPage.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-}
+};
 
 export default FoodDetailInProgressPage;

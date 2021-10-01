@@ -108,8 +108,8 @@ function DrinkDetailInProgressPage({ match }) {
       </div>
 
       <p data-testid="instructions">{details.strInstructions}</p>
-      <Link to='/receitas-feitas'>
-        <button type='button' data-testid="finish-recipe-btn">
+      <Link to="/receitas-feitas">
+        <button type="button" data-testid="finish-recipe-btn">
           Finalizar Receita
         </button>
       </Link>
@@ -123,6 +123,6 @@ DrinkDetailInProgressPage.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-}
+};
 
 export default DrinkDetailInProgressPage;
