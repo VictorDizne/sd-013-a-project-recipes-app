@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // import Context from '../Context/Context';
 import Button from '../components/Button';
@@ -73,12 +73,14 @@ function DrinksProcess(props) {
           </ul>
           <h4 data-testid="recipe-category">{ details.strAlcoholic }</h4>
           <p data-testid="instructions">{ details.strInstructions }</p>
-          <Button
-            testID="finish-recipe-btn"
-            handleClick={ () => {} }
-          >
-            Finalizar Receita
-          </Button>
+          <Link to="/receitas-feitas">
+            <Button
+              testID="finish-recipe-btn"
+              handleClick={ () => {} }
+            >
+              Finalizar Receita
+            </Button>
+          </Link>
         </section>
       );
     }
