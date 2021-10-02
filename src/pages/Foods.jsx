@@ -9,8 +9,8 @@ import FilterRecipes from '../components/FilterRecipes';
 import {
   fetchAllFoodRecipes,
   fetchFoodRecipesByCategory,
+  fetchRecipesByIngredients,
 } from '../services/fetchRecipes';
-import { fetchRecipesByIngredients } from '../services/localStorageFunctions';
 
 const CardList = styled.div`
   display: flex;

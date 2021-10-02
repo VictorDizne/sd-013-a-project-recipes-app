@@ -5,11 +5,11 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MasterCard from '../components/MasterCard';
 import FoodSearchBar from '../components/FoodSearchBar';
-import { fetchAllFoodRecipes } from '../services/fetchRecipes';
 import {
   fetchFoodRecipeOrigins,
   fetchFoodsByOrigin,
-} from '../services/localStorageFunctions';
+  fetchAllFoodRecipes,
+} from '../services/fetchRecipes';
 
 const Main = styled.main`
   margin-top: 68px;

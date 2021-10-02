@@ -5,7 +5,7 @@ import { isThisRecipeFavorited } from '../services/localStorageFunctions';
 import formatedFavoriteRecipe from '../helpers/formatedFavoriteRecipe';
 import { whiteHeartIcon, blackHeartIcon } from '../images';
 
-function LikeButton({ recipe, id, favOrDone = false, idx, refreshFav }) {
+function LikeButton({ recipe, id, favOrDone = false, idx }) {
   const [heartType, setHeartType] = useState(whiteHeartIcon);
   const [heartAlt, setHeartAlt] = useState();
 
@@ -37,7 +37,6 @@ function LikeButton({ recipe, id, favOrDone = false, idx, refreshFav }) {
       removeFromFavorites();
       setHeartType(whiteHeartIcon);
       setHeartAlt('white');
-      refreshFav();
     }
   };
 
