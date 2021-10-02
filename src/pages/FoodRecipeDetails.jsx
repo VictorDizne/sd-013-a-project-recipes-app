@@ -10,7 +10,7 @@ import MasterCard from '../components/MasterCard';
 import RecipeDetails from '../components/RecipeDetails';
 import {
   isThisRecipeDone,
-  isThisRecipeInProgress
+  isThisRecipeInProgress,
 } from '../services/localStorageFunctions';
 import { fetchFoodDetails, fetchFoodRecomendations } from '../services/fetchRecipes';
 
@@ -97,14 +97,8 @@ const FoodRecipeDetails = () => {
   const ingredients = () => {
     const keys = Object.keys(foodRecipeDetails)
       .filter((key) => key.includes('strIngredient'));
-<<<<<<< HEAD
     const ingredientsList = keys.map((key) => foodRecipeDetails[key]);
     return ingredientsList.filter((ingredient) => ingredient !== null);
-=======
-    const listIngredients = keys.map((key) => foodRecipeDetails[key]);
-
-    return listIngredients.filter((ingredient) => ingredient !== '');
->>>>>>> 108f329b313a6dad72d81c80da6826812e142f38
   };
 
   const measures = () => {
@@ -113,10 +107,6 @@ const FoodRecipeDetails = () => {
     const measuresList = measuresKeys.map((measure) => foodRecipeDetails[measure]);
 
     return measuresList.filter((measure) => measure !== '');
-  };
-
-  const handleClickToProgress = () => {
-    window.location.href = `${location.pathname}/in-progress`;
   };
 
   const handleClickToProgress = () => {
