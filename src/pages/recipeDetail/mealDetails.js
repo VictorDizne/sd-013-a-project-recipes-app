@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player/youtube';
 import fetchAPI from '../../services/fetchAPI';
 import shareIcon from '../../images/shareIcon.svg';
@@ -8,6 +8,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import recipesContext from '../../context';
 import RecommendMeals from '../../components/recommendPageMeals';
+import saveRecipeonLS from '../../services/saveRecipeonLS';
 
 const copy = require('clipboard-copy');
 
@@ -20,6 +21,7 @@ function MealDetails({ match: { params: { id } } }) {
     setDetails,
     setIngredientes,
     setMedida } = useContext(recipesContext);
+  const history = useHistory();
   const [favRecipes, setFavRecipes] = useState();
   const ingredientsList = (mealInfo) => {
     const arr = Object.keys(mealInfo);
@@ -81,16 +83,11 @@ function MealDetails({ match: { params: { id } } }) {
     return checkFavorite() ? desfavoritar() : favoritar();
   }
 
-  const initRecipe = (info) => {
-    const idDaReceita = info.idMeal;
-    const iniciar = {
-      pathname: `/comidas/${idDaReceita}/in-progress`,
-      info,
-    };
-    // Chave para utilizar as informacoes na pagina de inProgressRecipe
-    localStorage.toDoRecipes = JSON.stringify([details, medida, ingredientes]);
-    return iniciar;
-  };
+  function startRecipe(recipe) {
+    const idDaReceita = recipe.idMeal;
+    saveRecipeonLS('Meal', recipe);
+    history.push(`/comidas/${idDaReceita}/in-progress`);
+  }
 
   useEffect(() => {
     const fetchByID = async () => {
@@ -157,15 +154,14 @@ function MealDetails({ match: { params: { id } } }) {
       <h2>Video</h2>
       <ReactPlayer data-testid="video" url={ details.strYoutube } />
       <RecommendMeals />
-      <Link to={ () => initRecipe(details) }>
-        <button
-          className="start-recipe"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar Receita
-        </button>
-      </Link>
+      <button
+        className="start-recipe"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => startRecipe(details) }
+      >
+        Iniciar Receita
+      </button>
     </>
   );
 }

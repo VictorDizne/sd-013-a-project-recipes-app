@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import fetchAPI from '../../services/fetchAPI';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -8,6 +8,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import recipesContext from '../../context';
 import DrinkIngredients from '../../components/DrinkIngredients';
 import RecommendPageDrinks from '../../components/recommendPageDrinks';
+import saveRecipeonLS from '../../services/saveRecipeonLS';
 
 const copy = require('clipboard-copy');
 
@@ -15,13 +16,12 @@ function DrinkDetails({ match: { params: { id } } }) {
   const { details,
     loading,
     setLoading,
-    ingredientes,
-    medida,
     setDetails,
     setIngredientes,
     setMedida,
     setFavRecipes,
     favRecipes } = useContext(recipesContext);
+  const history = useHistory();
 
   const ingredientsList = (drinkInfo) => {
     const arr = Object.keys(drinkInfo);
@@ -39,17 +39,6 @@ function DrinkDetails({ match: { params: { id } } }) {
       return receitas.some((recipe) => ((recipe).id) === id);
     }
     return false;
-  };
-
-  const initRecipe = (info) => {
-    const idDaReceita = info.idDrink;
-    const iniciar = {
-      pathname: `/bebidas/${idDaReceita}/in-progress`,
-      info,
-    };
-    // Chave para utilizar as informacoes na pagina de inProgressRecipe
-    localStorage.toDoRecipes = JSON.stringify([details, medida, ingredientes]);
-    return iniciar;
   };
 
   const favoritar = () => {
@@ -93,6 +82,12 @@ function DrinkDetails({ match: { params: { id } } }) {
       .filter((measure) => measure.length > 1);
     setMedida(measures);
   };
+
+  function startRecipe(recipe) {
+    const idDaReceita = recipe.idDrink;
+    saveRecipeonLS('Drink', recipe);
+    history.push(`/bebidas/${idDaReceita}/in-progress`);
+  }
 
   useEffect(() => {
     const fetchByID = async () => {
@@ -147,15 +142,14 @@ function DrinkDetails({ match: { params: { id } } }) {
       <DrinkIngredients props={ id } />
       <p className="paragraph" data-testid="instructions">{ details.strInstructions }</p>
       <RecommendPageDrinks />
-      <Link to={ () => initRecipe(details) }>
-        <button
-          className="start-recipe"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar Receita
-        </button>
-      </Link>
+      <button
+        className="start-recipe"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => startRecipe(details) }
+      >
+        Iniciar Receita
+      </button>
     </>
   );
 }

@@ -11,6 +11,21 @@
     max-width: 360px;
   }
 
+  .ingredients-list {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .ingredient-option {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .checked-ingredient {
+    text-decoration: line-through;
+  }
+
   .meal-pic {
     box-shadow: 10px 10px 10px;
     display: flex;
@@ -147,7 +162,9 @@
   }
 
   .meal-img {
-    width: 360px;
+    display: block;
+    width: 300px;
+    margin: auto;
   }
 
   .rocksGlass {

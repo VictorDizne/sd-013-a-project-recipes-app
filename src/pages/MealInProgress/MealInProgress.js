@@ -1,13 +1,48 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import MealInProgressCard from '../../components/mealInProgressCard';
+import IngredientCheckBox from '../../components/ingredientCheckBox';
+// import MealInProgressCard from '../../components/mealInProgressCard';
 import recipesContext from '../../context';
+import fetchAPI from '../../services/fetchAPI';
+import generatesIngredientList from '../../services/generatesIngredientList';
+// import shareIcon from '../images/shareIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+
+// FAZER A LÓGICA DE HABILITAR O BOTÃO DE FINALIZAR APENAS QUANDO TODAS OS INGREDIENTES
+// ESTIVEREM MARCADOS
 
 function MealInProgress() {
-  const { details, medida, ingredientes } = useContext(recipesContext);
+  const { details } = useContext(recipesContext);
+  const [currentMeal, setCurrentMeal] = useState({});
+  const [loadingPage, setLoadingPage] = useState(true);
   const history = useHistory();
-  const id = useParams();
-  const saveThisRecipe = () => {
+  const { id } = useParams();
+
+  // Faz o fetch a partir do id da presente receita assim que a página carrega
+  useEffect(() => {
+    async function fetchMeal() {
+      const { meals } = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      setCurrentMeal(meals[0]);
+    }
+    fetchMeal();
+    setLoadingPage(false);
+  }, [id]);
+
+  function showIngredients() {
+    const ingredients = generatesIngredientList(currentMeal);
+    // Faz um map do array gerado acima, criando uma checkbox para cada ingrediente da lista
+    return ingredients.map((ingredient, index) => (
+      <IngredientCheckBox
+        ingredient={ ingredient }
+        key={ index }
+        index={ index }
+        id={ id }
+      />
+    ));
+  }
+
+  function saveThisRecipe() {
     // Cria a chave de data de acordo com o sistema da pessoa usuaria
     const today = new Date();
     const doneDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
@@ -36,20 +71,33 @@ function MealInProgress() {
       const newDoneRecipes = [...currentDoneRecipes, newMeal];
       localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
     } else {
-      // Casoc contrário, adiciona a comida atual na chave do LocalStorage
+      // Caso contrário, adiciona a comida atual na chave do LocalStorage
       localStorage.setItem('doneRecipes', JSON.stringify([newMeal]));
     }
     // Por último, redireciona o usuário para a página de receitas finalizadas
     history.push('/receitas-feitas');
-  };
+  }
+
+  if (loadingPage) return <p>CARREGANDO...</p>;
   return (
     <>
-      <MealInProgressCard
-        info={ details }
-        medidas={ medida }
-        ingredientes={ ingredientes }
-        id={ id }
+      {/* Título da receita */}
+      <h1 data-testid="recipe-title">{ currentMeal.strMeal }</h1>
+      {/* Imagem da receita */}
+      <img
+        className="meal-img"
+        src={ currentMeal.strMealThumb }
+        data-testid="recipe-photo"
+        alt={ `${currentMeal.strMeal} thumbnail` }
       />
+      <h3 data-testid="recipe-category">
+        Categoria:
+        { currentMeal.strCategory }
+      </h3>
+      <h3>Ingredientes:</h3>
+      <div className="ingredients-list">
+        { showIngredients() }
+      </div>
       <button
         className="finish-recipe"
         onClick={ saveThisRecipe }
