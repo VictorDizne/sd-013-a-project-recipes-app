@@ -21,7 +21,7 @@ export function isThisRecipeInProgress(id, type) {
 
 export function setDoneRecipe(recipe, typ) {
   const done = JSON.parse(localStorage.doneRecipes);
-  localStorage.setItem('doneRecipes', JSON.stringfy([
+  localStorage.setItem('doneRecipes', JSON.stringify([
     ...done,
     {
       id: typ === 'comida' ? recipe.idMeal : recipe.idDrink,
@@ -149,11 +149,11 @@ export function addIngredientInProgressRecipe(id, idx, type) {
   }
 }
 
-export function removeIngredientInProgressRecipe(id, idx, type) {
+export function removeIngredientInProgressRecipe(id, idx, type, finalized = false) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const recipesFromType = inProgressRecipes[type];
 
-  if (recipesFromType[id].length === 1) {
+  if (recipesFromType[id].length === 1 || finalized) {
     delete (recipesFromType[id]);
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       ...inProgressRecipes,

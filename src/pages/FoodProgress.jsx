@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import {
   addIngredientInProgressRecipe,
   removeIngredientInProgressRecipe,
-  getIngredientsList } from '../services/localStorageFunctions';
+  getIngredientsList,
+  setDoneRecipe } from '../services/localStorageFunctions';
 import { fetchFoodDetails } from '../services/fetchRecipes';
 
 function FoodProgress() {
@@ -14,6 +15,7 @@ function FoodProgress() {
   const [ingredientsChecked, setIngredientsChecked] = useState(0);
   const [ingredientsList, setIngredientsList] = useState([]);
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     fetchFoodDetails(id, setFoodRecipeDetails);
@@ -21,8 +23,16 @@ function FoodProgress() {
   }, [id, ingredientsChecked]);
 
   useEffect(() => {
-    setIngredientsChecked(ingredientsList.length);
+    if (ingredientsList) {
+      setIngredientsChecked(ingredientsList.length);
+    }
   }, [ingredientsList]);
+
+  // useEffect(() => {
+  //   if (ingredientsList.lengh === ingredientsChecked) {
+  //     setDisabled(false);
+  //   }
+  // }, [ingredientsList]);
 
   function ingredients() {
     // pega as chaves strIngredientXX
@@ -31,7 +41,7 @@ function FoodProgress() {
     // pega os valores das chaves (que são os ingredientes), e reotrna um array só com os ingredientes
     const inProgressIngredients = keys.map((key) => foodRecipeDetails[key]);
     // retorna só os valores que não são nulos
-    return (inProgressIngredients.filter((ingredient) => ingredient !== null));
+    return (inProgressIngredients.filter((ingredient) => ingredient !== ''));
   }
 
   // faz a mesma coisa da função de cima, porém pegando as medidas agora
@@ -48,7 +58,9 @@ function FoodProgress() {
   }
 
   const handleClickToFinish = () => {
-
+    setDoneRecipe(foodRecipeDetails, 'comida');
+    removeIngredientInProgressRecipe(id, 0, 'meals', true);
+    history.push('/receitas-feitas');
   };
 
   const mainButton = () => (
@@ -127,7 +139,7 @@ function FoodProgress() {
           }
         </ul>
       </section>
-      { mainButton }
+      { mainButton() }
     </div>
   );
 }
