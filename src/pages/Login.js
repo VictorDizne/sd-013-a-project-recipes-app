@@ -2,6 +2,7 @@
 import { shape, func } from 'prop-types';
 // Importação do hook useState
 import React, { useState } from 'react';
+import '../styles/Login.css';
 
 // Componente funcional Local, desconstruindo o history para buscar rota para push
 function Login({ history }) {
@@ -27,6 +28,8 @@ function Login({ history }) {
   };
 
   return (
+    <div className="main-box">
+    <div className="box-form">
     <form>
       <label htmlFor="email">
         Email:
@@ -54,6 +57,7 @@ function Login({ history }) {
       </label>
       <button
         type="button"
+        id="button"
         data-testid="login-submit-btn"
         disabled={ !checkValidity() }
         onClick={ saveToken }
@@ -61,6 +65,8 @@ function Login({ history }) {
         Entrar
       </button>
     </form>
+    </div>
+    </div>
   );
 }
 
