@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import Header from '../components/Header';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import MasterCard from '../components/MasterCard';
@@ -120,7 +119,6 @@ const DrinkRecipesDetails = () => {
 
   return (
     <Main>
-      <Header title="Detalhes da Receita" />
       <section>
         <Img
           className="recipeImage"

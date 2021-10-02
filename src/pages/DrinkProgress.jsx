@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import Header from '../components/Header';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import {
@@ -89,8 +88,6 @@ function DrinkProgress() {
 
   return (
     <div>
-      <Header title="Receita em Progresso" />
-
       <section>
         <img
           className="recipeImage"
@@ -99,8 +96,8 @@ function DrinkProgress() {
           data-testid="recipe-photo"
         />
         <div>
-          <h2>{ drinkRecipeDetails.strDrink }</h2>
-          <h3>{ drinkRecipeDetails.strAlcoholic }</h3>
+          <h2 data-testid="recipe-title">{ drinkRecipeDetails.strDrink }</h2>
+          <h3 data-testid="recipe-category">{ drinkRecipeDetails.strAlcoholic }</h3>
         </div>
         <div>
           <ShareButton id={ id } type="bebida" />
@@ -116,10 +113,10 @@ function DrinkProgress() {
               <label
                 htmlFor={ `ingredientCheck-${idx}` }
                 key={ `${ingredient}-${idx}` }
+                data-testid={ `${idx}-ingredient-step` }
               >
                 <input
                   type="checkbox"
-                  data-testid={ `${idx}-ingredient-step` }
                   id={ `ingredientCheck-${idx}` }
                   checked={ ingredientsList
                     && ingredientsList.some((el) => el === idx) }
