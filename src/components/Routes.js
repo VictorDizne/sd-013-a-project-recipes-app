@@ -3,8 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import Login from '../pages/Login';
 import Recipes from '../pages/Recipes';
 import Explorar from '../pages/Explorar';
-import ExplorarComidas from '../pages/ExplorarComidas';
-import ExplorarBebidas from '../pages/ExplorarBebidas';
 import ExplorarComidasIng from '../pages/ExplorarComidasIng';
 import ExplorarBebidasIng from '../pages/ExplorarBebidasIng';
 import ExplorarComidasOri from '../pages/ExplorarComidasOri';
@@ -13,6 +11,7 @@ import ReceitasFeitas from '../pages/ReceitasFeitas';
 import ReceitasFavoritas from '../pages/ReceitasFavoritas';
 import ReceitasDetalhes from '../pages/ReceitaDetalhes';
 import ReceitasProgresso from '../pages/ReceitasProgresso';
+import ExplorarReceitas from '../pages/ExplorarReceitas';
 
 function Routes() {
   return (
@@ -31,8 +30,8 @@ function Routes() {
         component={ ReceitasProgresso }
       />
       <Route exact path="/explorar" component={ Explorar } />
-      <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
-      <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+      <Route exact path="/explorar/comidas" component={ ExplorarReceitas } />
+      <Route exact path="/explorar/bebidas" component={ ExplorarReceitas } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ ExplorarComidasIng }

@@ -14,6 +14,7 @@ function ReceitasProgresso({ match }) {
   const [disabledButton, setDisabledButton] = useState(true);
   const { compareCheckBox, ingredientsLength } = useContext(Context);
   const url = match.url.split('/in')[0];
+  console.log(match.url);
 
   const { recipeId } = match.params;
 
