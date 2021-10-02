@@ -33,12 +33,6 @@ function FoodProgress() {
     }
   }, [ingredientsList]);
 
-  // useEffect(() => {
-  //   if (ingredientsList.lengh === ingredientsChecked) {
-  //     setDisabled(false);
-  //   }
-  // }, [ingredientsList]);
-
   function ingredients() {
     // pega as chaves strIngredientXX
     const keys = Object.keys(foodRecipeDetails)
@@ -46,7 +40,8 @@ function FoodProgress() {
     // pega os valores das chaves (que são os ingredientes), e reotrna um array só com os ingredientes
     const inProgressIngredients = keys.map((key) => foodRecipeDetails[key]);
     // retorna só os valores que não são nulos
-    return (inProgressIngredients.filter((ingredient) => ingredient !== ''));
+    return (inProgressIngredients.filter((ingredient) => ingredient
+      && ingredient !== ''));
   }
 
   // faz a mesma coisa da função de cima, porém pegando as medidas agora
@@ -55,7 +50,7 @@ function FoodProgress() {
       .filter((key) => key.includes('strMeasure'));
     const measuresList = measuresKeys.map((measure) => foodRecipeDetails[measure]);
 
-    return measuresList.filter((measure) => measure !== '');
+    return measuresList.filter((measure) => measure && measure !== '');
   };
 
   function allChecked() {
@@ -96,6 +91,8 @@ function FoodProgress() {
     }
   };
 
+  const i = ingredients();
+  console.log(i);
   const ingredientMeasures = measures();
 
   return (
@@ -112,7 +109,7 @@ function FoodProgress() {
           <h3 data-testid="recipe-category">{ foodRecipeDetails.strCategory }</h3>
         </div>
         <div>
-          <ShareButton id={ id } type="comida" />
+          <ShareButton id={ id } type="comida" testID="regular" />
           <LikeButton id={ id } recipe={ foodRecipeDetails } />
         </div>
       </section>
@@ -121,26 +118,32 @@ function FoodProgress() {
         <h3>Ingredientes</h3>
         <ul>
           {
-            ingredients().map((ingredient, idx) => (
-              <label
-                htmlFor={ `ingredientCheck-${idx}` }
+            i.map((ingredient, idx) => (
+              <li
                 key={ `${ingredient}-${idx}` }
-                data-testid={ `${idx}-ingredient-step` }
               >
-                <input
-                  type="checkbox"
-                  id={ `ingredientCheck-${idx}` }
-                  checked={ ingredientsList
+                <label
+                  htmlFor={ `ingredientCheck-${idx}` }
+                  data-testid={ `${idx}-ingredient-step` }
+                >
+                  <input
+                    type="checkbox"
+                    id={ `ingredientCheck-${idx}` }
+                    checked={ ingredientsList
                     && ingredientsList.some((el) => el === idx) }
-                  onChange={ ((e) => handleChange(e.target, idx)) }
-                />
-                { ingredient }
-                -
-                { ingredientMeasures[idx] }
-              </label>
+                    onChange={ ((e) => handleChange(e.target, idx)) }
+                  />
+                  { ingredient }
+                  {' '}
+                  -
+                  {' '}
+                  { ingredientMeasures[idx] }
+                </label>
+              </li>
             ))
           }
         </ul>
+        <p data-testid="instructions">{foodRecipeDetails.strInstructions}</p>
       </section>
       { mainButton() }
     </div>

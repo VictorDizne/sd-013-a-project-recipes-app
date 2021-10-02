@@ -40,7 +40,8 @@ function DrinkProgress() {
     // pega os valores das chaves (que são os ingredientes), e reotrna um array só com os ingredientes
     const inProgressIngredients = keys.map((key) => drinkRecipeDetails[key]);
     // retorna só os valores que não são nulos
-    return (inProgressIngredients.filter((ingredient) => ingredient !== null));
+    return (inProgressIngredients.filter((ingredient) => ingredient
+      && ingredient !== null));
   }
 
   // faz a mesma coisa da função de cima, porém pegando as medidas agora
@@ -49,7 +50,7 @@ function DrinkProgress() {
       .filter((key) => key.includes('strMeasure'));
     const measuresList = measuresKeys.map((measure) => drinkRecipeDetails[measure]);
 
-    return measuresList.filter((measure) => measure !== null);
+    return measuresList.filter((measure) => measure && measure !== null);
   };
 
   function allChecked() {
@@ -106,7 +107,7 @@ function DrinkProgress() {
           <h3 data-testid="recipe-category">{ drinkRecipeDetails.strAlcoholic }</h3>
         </div>
         <div>
-          <ShareButton id={ id } type="bebida" />
+          <ShareButton id={ id } type="bebida" testID="regular" />
           <LikeButton id={ id } recipe={ drinkRecipeDetails } />
         </div>
       </section>
@@ -116,25 +117,29 @@ function DrinkProgress() {
         <ul>
           {
             ingredients().map((ingredient, idx) => (
-              <label
-                htmlFor={ `ingredientCheck-${idx}` }
+              <li
                 key={ `${ingredient}-${idx}` }
-                data-testid={ `${idx}-ingredient-step` }
               >
-                <input
-                  type="checkbox"
-                  id={ `ingredientCheck-${idx}` }
-                  checked={ ingredientsList
+                <label
+                  htmlFor={ `ingredientCheck-${idx}` }
+                  data-testid={ `${idx}-ingredient-step` }
+                >
+                  <input
+                    type="checkbox"
+                    id={ `ingredientCheck-${idx}` }
+                    checked={ ingredientsList
                     && ingredientsList.some((el) => el === idx) }
-                  onChange={ ((e) => handleChange(e.target, idx)) }
-                />
-                { ingredient }
-                -
-                { ingredientMeasures[idx] }
-              </label>
+                    onChange={ ((e) => handleChange(e.target, idx)) }
+                  />
+                  { ingredient }
+                  -
+                  { ingredientMeasures[idx] }
+                </label>
+              </li>
             ))
           }
         </ul>
+        <p data-testid="instructions">{drinkRecipeDetails.strInstructions}</p>
       </section>
       { mainButton() }
     </div>
