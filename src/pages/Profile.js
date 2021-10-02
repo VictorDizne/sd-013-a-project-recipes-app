@@ -29,7 +29,6 @@ function Profile() {
           Receitas Feitas
         </button>
       </Link>
-
       <Link to="/receitas-favoritas">
         <button
           type="button"
@@ -38,7 +37,6 @@ function Profile() {
           Receitas Favoritas
         </button>
       </Link>
-
       <Link to="/">
         <button
           type="button"

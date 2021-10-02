@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import * as myFunc from '../services/api';
 import * as myFuncHelper from '../services/helpers';
 import * as myFuncStorage from '../services/storage';
+
+// ICONES
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
