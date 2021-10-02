@@ -63,7 +63,7 @@ function MasterCard(props) {
       className="ingredientCard"
       data-testid={ `${index}-ingredient-card` }
     >
-      <img
+      <Img
         className="ingredientImg"
         data-testid={ `${index}-card-img` }
         src={ src }
@@ -129,7 +129,7 @@ function MasterCard(props) {
       <Link
         to={ `/${type}s/${id}` }
       >
-        <img
+        <Img
           data-testid={ `${index}-horizontal-image` }
           src={ src }
           alt={ title }

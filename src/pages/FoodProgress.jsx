@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import {
   addIngredientInProgressRecipe,
   removeIngredientInProgressRecipe,
   getIngredientsList,
-  setDoneRecipe } from '../services/localStorageFunctions';
+  setDoneRecipe,
+} from '../services/localStorageFunctions';
 import { fetchFoodDetails } from '../services/fetchRecipes';
+
+const Img = styled.img`
+  max-width: 100vw;
+`;
 
 function FoodProgress() {
   const [foodRecipeDetails, setFoodRecipeDetails] = useState({});
@@ -95,7 +101,7 @@ function FoodProgress() {
   return (
     <div>
       <section>
-        <img
+        <Img
           className="recipeImage"
           src={ foodRecipeDetails.strMealThumb }
           alt="Imagem da comida"

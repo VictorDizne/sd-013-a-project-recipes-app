@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import {
   addIngredientInProgressRecipe,
   removeIngredientInProgressRecipe,
   getIngredientsList,
-  setDoneRecipe } from '../services/localStorageFunctions';
+  setDoneRecipe,
+} from '../services/localStorageFunctions';
 import { fetchDrinkDetails } from '../services/fetchRecipes';
+
+const Img = styled.img`
+  max-width: 100vw;
+`;
 
 function DrinkProgress() {
   const [drinkRecipeDetails, setDrinkRecipeDetails] = useState({});
@@ -89,7 +95,7 @@ function DrinkProgress() {
   return (
     <div>
       <section>
-        <img
+        <Img
           className="recipeImage"
           src={ drinkRecipeDetails.strDrinkThumb }
           alt="Imagem da bebida"
