@@ -3,15 +3,15 @@ import { Switch, Route } from 'react-router-dom';
 import Login from '../pages/Login';
 import Recipes from '../pages/Recipes';
 import Explorar from '../pages/Explorar';
-import ExplorarComidasIng from '../pages/ExplorarComidasIng';
-import ExplorarBebidasIng from '../pages/ExplorarBebidasIng';
-import ExplorarComidasOri from '../pages/ExplorarComidasOri';
 import Perfil from '../pages/Perfil';
 import ReceitasFeitas from '../pages/ReceitasFeitas';
 import ReceitasFavoritas from '../pages/ReceitasFavoritas';
 import ReceitasDetalhes from '../pages/ReceitaDetalhes';
 import ReceitasProgresso from '../pages/ReceitasProgresso';
 import ExplorarReceitas from '../pages/ExplorarReceitas';
+import ExplorarIngredientes from '../pages/ExplorarIngredientes';
+import NotFoundPage from '../pages/NotFoundPage';
+import ExplorarOrigem from '../pages/ExplorarOrigem';
 
 function Routes() {
   return (
@@ -33,14 +33,17 @@ function Routes() {
       <Route exact path="/explorar/comidas" component={ ExplorarReceitas } />
       <Route exact path="/explorar/bebidas" component={ ExplorarReceitas } />
       <Route
+        exact
         path="/explorar/comidas/ingredientes"
-        component={ ExplorarComidasIng }
+        component={ ExplorarIngredientes }
       />
       <Route
+        exact
         path="/explorar/bebidas/ingredientes"
-        component={ ExplorarBebidasIng }
+        component={ ExplorarIngredientes }
       />
-      <Route path="/explorar/comidas/area" component={ ExplorarComidasOri } />
+      <Route path="/explorar/comidas/area" component={ ExplorarOrigem } />
+      <Route path="/explorar/bebidas/area" component={ NotFoundPage } />
       <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />

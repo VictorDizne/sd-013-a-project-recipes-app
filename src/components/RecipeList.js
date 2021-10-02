@@ -5,9 +5,19 @@ import Context from '../context';
 const NUM_RECIPES = 12;
 
 function RecipeList({ isMeal }) {
-  const { filteredMeals, filteredDrinks } = useContext(Context);
+  const { filteredMeals, filteredDrinks,
+    filteredByIngredient } = useContext(Context);
 
-  const filteredRecipes = isMeal ? filteredMeals : filteredDrinks;
+  let filteredRecipes = isMeal ? filteredMeals : filteredDrinks;
+
+  if (filteredByIngredient.length > 0) filteredRecipes = filteredByIngredient;
+
+  /* useEffect(() => () => {
+    const getFilteredNormal = () => {
+      setFilteredByIngredient([])
+    }
+    getFilteredNormal();
+  }) */
 
   if (!filteredRecipes) return <h1>Loading...</h1>;
 
