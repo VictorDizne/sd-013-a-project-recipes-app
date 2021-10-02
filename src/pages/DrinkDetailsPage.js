@@ -97,7 +97,7 @@ function DrinkDetailsPage({ match }) {
         type="button"
         data-testid="share-btn"
         onClick={ () => myFuncHelper
-          .copyToClipBoard(window.location.href, setCopySuccess) }
+          .copyToClipBoard(`http://localhost:3000/bebidas/${id}`, setCopySuccess) }
       >
         <img src={ shareIcon } alt="share-icon" />
         {copySuccess}
