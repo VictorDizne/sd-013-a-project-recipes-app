@@ -112,18 +112,18 @@ export function getFavRecipes(
   }
 }
 
-export async function getIngredientsList(id, type, setIngredientsList) {
+export function getIngredientsList(id, type, setIngredientsList) {
   if (localStorage.getItem('inProgressRecipes')) {
     const { meals, cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (type === 'comida') {
       const thisMeal = Object.keys(meals).filter((key) => key === id);
       console.log(meals[thisMeal]);
-      await setIngredientsList(meals[thisMeal]);
+      setIngredientsList(meals[thisMeal]);
     }
     if (type === 'bebida') {
       const thisCocktail = Object.keys(cocktails).filter((key) => key === id);
       console.log(cocktails[thisCocktail]);
-      await setIngredientsList(cocktails[thisCocktail]);
+      setIngredientsList(cocktails[thisCocktail]);
     }
   }
 }
