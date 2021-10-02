@@ -13,7 +13,11 @@ function ShareButton({ id, type, testID, index }) {
 
   const handleShareLink = () => {
     // pode ser usando o href ou location.pathname
-    copy(`${hostName}/${type}s/${id}`);
+    if (type === 'comida' || type === 'bebida') {
+      copy(`${hostName}/${type}s/${id}`);
+    } else {
+      copy(`${hostName}/${type}/${id}`);
+    }
     setVIsibility(true);
     setTimeout(() => {
       setVIsibility(false);
