@@ -117,19 +117,20 @@ export function getIngredientsList(id, type, setIngredientsList) {
     const { meals, cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (type === 'comida') {
       const thisMeal = Object.keys(meals).filter((key) => key === id);
-      console.log(meals[thisMeal]);
-      setIngredientsList(meals[thisMeal]);
+      return thisMeal.length === 0
+        ? setIngredientsList(thisMeal)
+        : setIngredientsList(meals[thisMeal]);
     }
     if (type === 'bebida') {
       const thisCocktail = Object.keys(cocktails).filter((key) => key === id);
-      console.log(cocktails[thisCocktail]);
-      setIngredientsList(cocktails[thisCocktail]);
+      return thisCocktail.length === 0
+        ? setIngredientsList([thisCocktail])
+        : setIngredientsList(cocktails[thisCocktail]);
     }
   }
 }
 
 export function addIngredientInProgressRecipe(id, idx, type) {
-  console.log(idx);
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const recipesFromType = inProgressRecipes[type];
   if (Object.keys(recipesFromType).some((key) => key === id)) {
@@ -137,7 +138,7 @@ export function addIngredientInProgressRecipe(id, idx, type) {
       ...inProgressRecipes,
       [type]: {
         ...recipesFromType,
-        [id]: [...recipesFromType[id], idx],
+        [id]: [...recipesFromType[id], `${idx}`],
       },
     }));
   } else {
@@ -145,7 +146,7 @@ export function addIngredientInProgressRecipe(id, idx, type) {
       ...inProgressRecipes,
       [type]: {
         ...recipesFromType,
-        [id]: [idx],
+        [id]: [`${idx}`],
       },
     }));
   }
@@ -166,7 +167,7 @@ export function removeIngredientInProgressRecipe(id, idx, type, finalized = fals
       ...inProgressRecipes,
       [type]: {
         ...recipesFromType,
-        [id]: recipesFromType[id].filter((el) => el !== idx),
+        [id]: recipesFromType[id].filter((el) => el !== `${idx}`),
       },
     }));
   }

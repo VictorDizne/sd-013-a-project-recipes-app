@@ -10,6 +10,7 @@ import {
   setDoneRecipe,
 } from '../services/localStorageFunctions';
 import { fetchFoodDetails } from '../services/fetchRecipes';
+import './CSS/inProgress.css';
 
 const Img = styled.img`
   max-width: 100vw;
@@ -23,7 +24,19 @@ function FoodProgress() {
   const history = useHistory();
 
   useEffect(() => {
+    if (!localStorage.inProgressRecipes) {
+      localStorage.setItem(
+        'inProgressRecipes',
+        JSON.stringify({ cocktails: {}, meals: {} }),
+      );
+    }
+  }, [id]);
+
+  useEffect(() => {
     fetchFoodDetails(id, setFoodRecipeDetails);
+  }, [id]);
+
+  useEffect(() => {
     getIngredientsList(id, 'comida', setIngredientsList);
   }, [id, ingredientsChecked]);
 
@@ -76,23 +89,20 @@ function FoodProgress() {
 
   const handleChange = (target, index) => {
     const { checked } = target;
-    console.log(index);
     if (checked) {
       // adiciona ingrediente ao localStorage
-      target.style.textDecoration = 'line-through';
       addIngredientInProgressRecipe(id, index, 'meals');
       setIngredientsChecked((prevState) => prevState + 1);
+      target.parentElement.classList.add('checked');
     }
     if (!checked) {
       // remove ingrediente do localstorage
-      target.style.textDecoration = 'none';
       removeIngredientInProgressRecipe(id, index, 'meals');
       setIngredientsChecked((prevState) => prevState - 1);
+      target.parentElement.classList.remove('checked');
     }
   };
 
-  const i = ingredients();
-  console.log(i);
   const ingredientMeasures = measures();
 
   return (
@@ -118,26 +128,25 @@ function FoodProgress() {
         <h3>Ingredientes</h3>
         <ul>
           {
-            i.map((ingredient, idx) => (
+            ingredients().map((ingredient, index) => (
               <li
-                key={ `${ingredient}-${idx}` }
+                key={ `${ingredient}-${index}` }
               >
                 <label
-                  htmlFor={ `ingredientCheck-${idx}` }
-                  data-testid={ `${idx}-ingredient-step` }
+                  data-testid={ `${index}-ingredient-step` }
+                  htmlFor={ `ingredientCheck-${index}` }
+                  className={ (ingredientsList && ingredientsList.includes(`${index}`))
+                    ? 'checked' : '' }
                 >
                   <input
                     type="checkbox"
-                    id={ `ingredientCheck-${idx}` }
-                    checked={ ingredientsList
-                    && ingredientsList.some((el) => el === idx) }
-                    onChange={ ((e) => handleChange(e.target, idx)) }
+                    id={ `ingredientCheck-${index}` }
+                    onChange={ ((e) => handleChange(e.target, index)) }
+                    checked={ ingredientsList && ingredientsList.includes(`${index}`) }
+                    value={ ingredient }
+                    name={ ingredient }
                   />
-                  { ingredient }
-                  {' '}
-                  -
-                  {' '}
-                  { ingredientMeasures[idx] }
+                  {`${ingredient} - ${ingredientMeasures[index]}`}
                 </label>
               </li>
             ))
