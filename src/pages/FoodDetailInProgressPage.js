@@ -18,11 +18,11 @@ function FoodDetailInProgressPage({ match }) {
   const [quantity, setQuanitity] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [checkFavorite, setCheckFavorite] = useState(false);
-  // const [checkProgress, setCheckProgress] = useState('Iniciar Receita');
+  const [checkProgress, setCheckProgress] = useState('Iniciar Receita');
   const [copySuccess, setCopySuccess] = useState('');
-  // const [checkDone, setCheckDone] = useState(false);
+  const [checkDone, setCheckDone] = useState(false);
   const { params: { id } } = match;
-  // const [checkIngredients, setCheckIngredients] = useState(progressRecipes.meals[id])
+  const [checkIngredients, setCheckIngredients] = useState(progressRecipes.meals[id]);
 
   const getIdRecipe = async () => {
     const { meals } = await myFunc.fetchRecipesDetails(id, 'themealdb');

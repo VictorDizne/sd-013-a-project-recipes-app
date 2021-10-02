@@ -16,11 +16,11 @@ function DrinkDetailInProgressPage({ match }) {
   const [quantity, setQuanitity] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [checkFavorite, setCheckFavorite] = useState(false);
-  // const [checkProgress, setCheckProgress] = useState('Iniciar Receita');
+  const [checkProgress, setCheckProgress] = useState('Iniciar Receita');
   const [copySuccess, setCopySuccess] = useState('');
-  // const [checkDone, setCheckDone] = useState(false);
+  const [checkDone, setCheckDone] = useState(false);
   const { params: { id } } = match;
-  // const [checkIngredients, setCheckIngredients] = useState('');
+  const [checkIngredients, setCheckIngredients] = useState('');
 
   const getIdRecipe = async () => {
     const { drinks } = await myFunc.fetchRecipesDetails(id, 'thecocktaildb');
