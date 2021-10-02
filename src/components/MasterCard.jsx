@@ -88,11 +88,13 @@ function MasterCard(props) {
 
   const favoritedCard = () => (
     <div className="favoritedCard">
-      <Link to={ `${type}s/${id}` }>
+      <Link
+        to={ `${type}s/${id}` }
+      >
         <img
+          data-testid={ `${index}-horizontal-image` }
           src={ src }
           alt={ title }
-          data-testid={ `${index}-horizontal-image` }
           className="favCardImg"
         />
       </Link>
@@ -112,8 +114,9 @@ function MasterCard(props) {
         <Link
           to={ `${type}s/${id}` }
           className="favNameLink"
+          data-testid={ `${index}-horizontal-name` }
         >
-          <span className="favName" data-testid={ `${index}-horizontal-name` }>
+          <span className="favName">
             { title }
           </span>
         </Link>
@@ -123,11 +126,13 @@ function MasterCard(props) {
 
   const doneRecipe = () => (
     <div className="doneCard">
-      <Link to={ `${type}s/${id}` }>
+      <Link
+        to={ `/${type}s/${id}` }
+      >
         <img
+          data-testid={ `${index}-horizontal-image` }
           src={ src }
           alt={ title }
-          data-testid={ `${index}-horizontal-image` }
           className="favCardImg"
         />
       </Link>
@@ -144,10 +149,11 @@ function MasterCard(props) {
           { shareButton() }
         </div>
         <Link
-          to={ `${type}s/${id}` }
+          to={ `/${type}s/${id}` }
           className="favNameLink"
+          data-testid={ `${index}-horizontal-name` }
         >
-          <span className="favName" data-testid={ `${index}-horizontal-name` }>
+          <span className="favName">
             { title }
           </span>
         </Link>

@@ -43,7 +43,7 @@ function DrinkProgress() {
       .filter((key) => key.includes('strMeasure'));
     const measuresList = measuresKeys.map((measure) => drinkRecipeDetails[measure]);
 
-    return measuresList.filter((measure) => measure !== '');
+    return measuresList.filter((measure) => measure !== null);
   };
 
   function allChecked() {
