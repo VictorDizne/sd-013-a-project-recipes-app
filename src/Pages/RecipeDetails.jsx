@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
 import RecomendationMap from '../Components/RecomendationMap';
 import ButtonRecipe from '../Components/ButtonRecipe';
-// import whiteHeartIcon from '../Images/whiteHeartIcon.svg';
-// import shareIcon from '../Images/shareIcon.svg';
+import whiteHeartIcon from '../Images/whiteHeartIcon.svg';
+import shareIcon from '../Images/shareIcon.svg';
 import useApiId from '../Hooks/useApiId';
 import useFetchApi from '../Hooks/useFetchApi';
 import youtubeLink from '../services/YoutubeLink';
@@ -49,6 +49,11 @@ function RecipeDetails(props) {
     : pathnameCheck(`/comidas/${id}`);
   const recomendationData = useFetchApi(pathnameReverse);
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+    global.alert('Link copiado!');
+  };
+
   return (
     <div>
       <h1>RecipeDetails</h1>
@@ -62,21 +67,26 @@ function RecipeDetails(props) {
 
         <h2 data-testid="recipe-title">{isMeal ? data.strMeal : data.strDrink}</h2>
 
-        {/* <ShareButton />
+        {/* <ShareButton /> */}
         <button
           type="button"
           src={ shareIcon }
           alt="compartilhar"
+          id="share-btn"
           data-testid="share-btn"
-          onClick={}
-        /> */}
-        {/* <FavoriteButton />
+          onClick={ () => copyToClipboard() }
+        >
+          Compartilhar
+        </button>
+        {/* <FavoriteButton /> */}
         <button
           type="button"
           src={ whiteHeartIcon }
           alt="favoritar receita"
           data-testid="favorite-btn"
-        /> */}
+        >
+          Favoritar
+        </button>
 
         <h2
           data-testid="recipe-category"
