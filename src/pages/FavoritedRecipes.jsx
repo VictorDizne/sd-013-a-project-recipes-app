@@ -15,23 +15,21 @@ const FavoritedRecipes = () => {
   const [favFoodRecipes, setFavFoodRecipes] = useState([]);
   const [favDrinkRecipes, setFavDrinkecipes] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('All');
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     getFavRecipes(
       setFavoritedRecipes, setFavFoodRecipes, setFavDrinkecipes, setDisableFilters,
     );
-  }, []);
+  }, [selected]);
 
   const handleFilter = ({ target: { name } }) => {
     switch (name) {
-    case 'All':
-      setSelectedFilter('All');
+    case 'Food':
+      setSelectedFilter('Food');
       break;
-    case 'Foods':
-      setSelectedFilter('Foods');
-      break;
-    case 'Drinks':
-      setSelectedFilter('Drinks');
+    case 'Drink':
+      setSelectedFilter('Drink');
       break;
     default:
       setSelectedFilter('All');
@@ -56,11 +54,13 @@ const FavoritedRecipes = () => {
             favOrDone="true"
             alcoholicOrNot={ favRecipe.alcoholicOrNot }
             recipe={ favRecipe }
+            refreshFav={ () => setSelected(!selected) }
+            testID="horizontal"
           />
         ))
       );
     }
-    if (selectedFilter === 'Foods') {
+    if (selectedFilter === 'Food') {
       return (
         favFoodRecipes.map((favFood, idx) => (
           <MasterCard
@@ -76,11 +76,13 @@ const FavoritedRecipes = () => {
             favOrDone="true"
             alcoholicOrNot={ favFood.alcoholicOrNot }
             recipe={ favFood }
+            refreshFav={ () => setSelected(!selected) }
+            testID="horizontal"
           />
         ))
       );
     }
-    if (selectedFilter === 'Drinks') {
+    if (selectedFilter === 'Drink') {
       return (
         favDrinkRecipes.map((favDrink, idx) => (
           <MasterCard
@@ -96,18 +98,21 @@ const FavoritedRecipes = () => {
             favOrDone="true"
             alcoholicOrNot={ favDrink.alcoholicOrNot }
             recipe={ favDrink }
+            refreshFav={ () => setSelected(!selected) }
+            testID="horizontal"
           />
         ))
       );
     }
   }
+
   return (
     <Main>
       <Header title="Receitas Favoritas" />
       { !disableFilters
         && <FilterRecipes pageTitle="both" handleFilter={ handleFilter } /> }
       { disableFilters && <p>Parece que você não tem nenhuma receita favorita</p> }
-      { renderFavRecipes }
+      { renderFavRecipes() }
     </Main>
   );
 };

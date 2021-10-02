@@ -30,9 +30,9 @@ const DoneRecipes = () => {
     case 'All':
       return setSelectedFilter('All');
     case 'Food':
-      return setSelectedFilter('Foods');
+      return setSelectedFilter('Food');
     case 'Drink':
-      return setSelectedFilter('Drinks');
+      return setSelectedFilter('Drink');
     default:
       return setSelectedFilter('All');
     }
@@ -57,11 +57,12 @@ const DoneRecipes = () => {
             tags={ doneRecipe.tags }
             alcoholicOrNot={ doneRecipe.alcoholicOrNot }
             recipe={ doneRecipe }
+            testID="horizontal"
           />
         ))
       );
     }
-    if (selectedFilter === 'Foods') {
+    if (selectedFilter === 'Food') {
       return (
         doneFoodRecipes.map((doneRecipe, idx) => (
           <MasterCard
@@ -79,11 +80,12 @@ const DoneRecipes = () => {
             tags={ doneRecipe.tags }
             alcoholicOrNot={ doneRecipe.alcoholicOrNot }
             recipe={ doneRecipe }
+            testID="horizontal"
           />
         ))
       );
     }
-    if (selectedFilter === 'Drinks') {
+    if (selectedFilter === 'Drink') {
       return (
         doneDrinkRecipes.map((doneRecipe, idx) => (
           <MasterCard
@@ -101,6 +103,7 @@ const DoneRecipes = () => {
             tags={ doneRecipe.tags }
             alcoholicOrNot={ doneRecipe.alcoholicOrNot }
             recipe={ doneRecipe }
+            testID="horizontal"
           />
         ))
       );

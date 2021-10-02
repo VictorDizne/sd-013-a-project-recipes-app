@@ -9,8 +9,8 @@ import DrinkSearchBar from '../components/DrinkSearchBar';
 import {
   fetchAllDrinkRecipes,
   fetchDrinkRecipesByCategory,
+  fetchRecipesByIngredients,
 } from '../services/fetchRecipes';
-import { fetchRecipesByIngredients } from '../services/localStorageFunctions';
 
 const CardList = styled.div`
   display: flex;

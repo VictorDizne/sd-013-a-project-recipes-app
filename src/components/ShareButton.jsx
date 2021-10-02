@@ -4,7 +4,7 @@ import { shareIcon } from '../images';
 
 const copy = require('clipboard-copy');
 
-function ShareButton({ id, type }) {
+function ShareButton({ id, type, testID, index }) {
   const [visibility, setVIsibility] = useState(false);
 
   const hostName = window.location.origin;
@@ -13,7 +13,7 @@ function ShareButton({ id, type }) {
 
   const handleShareLink = () => {
     // pode ser usando o href ou location.pathname
-    copy(`${hostName}/${type}/${id}`);
+    copy(`${hostName}/${type}s/${id}`);
     setVIsibility(true);
     setTimeout(() => {
       setVIsibility(false);
@@ -22,14 +22,18 @@ function ShareButton({ id, type }) {
 
   return (
     <>
-      <button
+      <input
+        type="image"
         className="share-btn"
-        type="button"
-        data-testid="share-btn"
+        src={ shareIcon }
+        alt="share button"
+        data-testid={
+          testID === 'regular'
+            ? 'share-btn'
+            : `${index}-horizontal-share-btn`
+        }
         onClick={ handleShareLink }
-      >
-        <img src={ shareIcon } alt="share" />
-      </button>
+      />
       { visibility && <div className="alert">Link copiado!</div> }
     </>
   );
