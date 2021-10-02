@@ -121,7 +121,9 @@ export async function getIngredientsList(id, type, setIngredientsList) {
       await setIngredientsList(meals[thisMeal]);
     }
     if (type === 'bebida') {
-      return Object.keys(cocktails).filter((key) => key === id);
+      const thisCocktail = Object.keys(cocktails).filter((key) => key === id);
+      console.log(cocktails[thisCocktail]);
+      await setIngredientsList(cocktails[thisCocktail]);
     }
   }
 }
