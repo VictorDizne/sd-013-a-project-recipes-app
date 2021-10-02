@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -63,18 +63,17 @@ const CardHeader = styled.div`
 `;
 
 const FoodRecipeDetails = () => {
-  const [foodRecipeDetails, setFoodRecipeDetails] = useState([]);
+  const [foodRecipeDetails, setFoodRecipeDetails] = useState({});
   const [recomended, setRecomended] = useState([]);
   const [inProgress, setInProgress] = useState(false);
   const [visibility, setVisibility] = useState(true);
   const { id } = useParams();
-  const location = useLocation();
 
   useEffect(() => {
     fetchFoodDetails(id, setFoodRecipeDetails);
     fetchFoodRecomendations(setRecomended);
     setInProgress(isThisRecipeInProgress(id, 'comida'));
-    setVisibility(isThisRecipeDone(id));
+    setVisibility(!isThisRecipeDone(id));
   }, [id]);
 
   const embedVideo = () => {
@@ -110,21 +109,23 @@ const FoodRecipeDetails = () => {
     return measuresList.filter((measure) => measure !== '');
   };
 
-  const handleClickToProgress = () => {
-    window.location.href = `${location.pathname}/in-progress`;
-  };
-
   const mainButton = () => {
     if (visibility) {
       return (
-        <button
-          className="continueBtn"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ handleClickToProgress }
+        <Link
+          to={ ({
+            pathname: `${id}/in-progress`,
+            state: foodRecipeDetails,
+          }) }
         >
-          { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
+          <button
+            className="continueBtn"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+          </button>
+        </Link>
       );
     }
     return null;

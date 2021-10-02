@@ -21,7 +21,7 @@ export function isThisRecipeInProgress(id, type) {
 
 export function setDoneRecipe(recipe, typ) {
   const done = JSON.parse(localStorage.doneRecipes);
-  localStorage.setItem('doneRecipes', JSON.stringfy([
+  localStorage.setItem('doneRecipes', JSON.stringify([
     ...done,
     {
       id: typ === 'comida' ? recipe.idMeal : recipe.idDrink,
@@ -112,52 +112,60 @@ export function getFavRecipes(
   }
 }
 
-const FOOD_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
-const DRINK_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
-const LENGTH = 12;
-
-export async function fetchIngredients(type) {
-  if (type === 'comidas') {
-    const response = await fetch(FOOD_INGREDIENTS);
-    const result = await response.json();
-
-    return result.meals.slice(0, LENGTH);
-  }
-  if (type === 'bebidas') {
-    const response = await fetch(DRINK_INGREDIENTS);
-    const result = await response.json();
-
-    return result.drinks.slice(0, LENGTH);
+export async function getIngredientsList(id, type, setIngredientsList) {
+  if (localStorage.getItem('inProgressRecipes')) {
+    const { meals, cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (type === 'comida') {
+      const thisMeal = Object.keys(meals).filter((key) => key === id);
+      console.log(meals[thisMeal]);
+      await setIngredientsList(meals[thisMeal]);
+    }
+    if (type === 'bebida') {
+      return Object.keys(cocktails).filter((key) => key === id);
+    }
   }
 }
 
-const FOOD_BY_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
-
-const DRINK_BY_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
-
-export async function fetchRecipesByIngredients(setFoodRecipes, state, type) {
-  let RECIPE_BY_INGREDIENT = '';
-  if (type === 'meals') RECIPE_BY_INGREDIENT = FOOD_BY_INGREDIENT;
-  if (type === 'drinks') RECIPE_BY_INGREDIENT = DRINK_BY_INGREDIENT;
-  const response = await fetch(`${RECIPE_BY_INGREDIENT}${state}`);
-  const result = await response.json();
-  setFoodRecipes(result[type].slice(0, LENGTH));
+export function addIngredientInProgressRecipe(id, idx, type) {
+  console.log(idx);
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const recipesFromType = inProgressRecipes[type];
+  if (Object.keys(recipesFromType).some((key) => key === id)) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [type]: {
+        ...recipesFromType,
+        [id]: [...recipesFromType[id], idx],
+      },
+    }));
+  } else {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [type]: {
+        ...recipesFromType,
+        [id]: [idx],
+      },
+    }));
+  }
 }
 
-const AREAS_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+export function removeIngredientInProgressRecipe(id, idx, type, finalized = false) {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const recipesFromType = inProgressRecipes[type];
 
-export async function fetchFoodRecipeOrigins() {
-  const response = await fetch(AREAS_ENDPOINT);
-  const result = await response.json();
-
-  return result.meals;
-}
-
-const FILTER_BY_AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
-
-export async function fetchFoodsByOrigin(setFoodRecipes, origin) {
-  const response = await fetch(`${FILTER_BY_AREA}${origin}`);
-  const result = await response.json();
-
-  setFoodRecipes(result.meals.slice(0, LENGTH));
+  if (recipesFromType[id].length === 1 || finalized) {
+    delete (recipesFromType[id]);
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [type]: { ...recipesFromType },
+    }));
+  } else {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [type]: {
+        ...recipesFromType,
+        [id]: recipesFromType[id].filter((el) => el !== idx),
+      },
+    }));
+  }
 }
