@@ -3,19 +3,10 @@ import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import { isThisRecipeFavorited } from '../services/localStorageFunctions';
 import formatedFavoriteRecipe from '../helpers/formatedFavoriteRecipe';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
-const whiteHeart = {
-  icon: whiteHeartIcon,
-};
-
-const blackHeart = {
-  icon: blackHeartIcon,
-};
+import { blackHeartIcon, whiteHeartIcon } from '../images';
 
 function LikeButton({ recipe, id, favOrDone = false, idx, refreshFav }) {
-  const [heartType, setHeartType] = useState(whiteHeart.icon);
+  const [heartType, setHeartType] = useState(whiteHeartIcon);
   const [heartAlt, setHeartAlt] = useState();
 
   const addToFavorites = (thisRecipe) => {
@@ -38,13 +29,13 @@ function LikeButton({ recipe, id, favOrDone = false, idx, refreshFav }) {
     // se esta receita estiver com coração branco, adiciona ela no localStorage e trnasforma o coração em preto
     if (heartType === whiteHeartIcon) {
       addToFavorites(formatedFavoriteRecipe(recipe));
-      setHeartType(blackHeart.icon);
+      setHeartType(blackHeartIcon);
       setHeartAlt('Black Heart');
     }
     // se esta receita estiver com coração preto, remove ela dos favoritos e transforma o coração em branco
     if (heartType === blackHeartIcon) {
       removeFromFavorites();
-      setHeartType(whiteHeart.icon);
+      setHeartType(whiteHeartIcon);
       setHeartAlt('White Heart');
       if (refreshFav) refreshFav();
     }
@@ -52,9 +43,7 @@ function LikeButton({ recipe, id, favOrDone = false, idx, refreshFav }) {
 
   useEffect(() => {
     if (isThisRecipeFavorited(id)) {
-      setHeartType(blackHeart.icon);
-    } else {
-      setHeartType(whiteHeart.icon);
+      setHeartType(blackHeartIcon);
     }
   }, [heartType, id]);
 

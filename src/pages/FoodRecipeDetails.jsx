@@ -96,7 +96,7 @@ const FoodRecipeDetails = () => {
     const keys = Object.keys(foodRecipeDetails)
       .filter((key) => key.includes('strIngredient'));
     const ingredientsList = keys.map((key) => foodRecipeDetails[key]);
-    return ingredientsList.filter((ingredient) => ingredient !== null);
+    return ingredientsList.filter((ingredient) => ingredient && ingredient !== '');
   };
 
   const measures = () => {
@@ -104,7 +104,7 @@ const FoodRecipeDetails = () => {
       .filter((key) => key.includes('strMeasure'));
     const measuresList = measuresKeys.map((measure) => foodRecipeDetails[measure]);
 
-    return measuresList.filter((measure) => measure !== '');
+    return measuresList.filter((measure) => measure && measure !== '');
   };
 
   const mainButton = () => {

@@ -5,6 +5,13 @@ import FilterRecipes from '../components/FilterRecipes';
 import MasterCard from '../components/MasterCard';
 import { getFavRecipes } from '../services/localStorageFunctions';
 
+if (!localStorage.favoriteRecipes) {
+  localStorage.setItem(
+    'favoriteRecipes',
+    JSON.stringify([]),
+  );
+}
+
 const Main = styled.main`
   margin-top: 68px;
 `;

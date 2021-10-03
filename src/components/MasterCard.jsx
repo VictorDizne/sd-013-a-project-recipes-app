@@ -91,7 +91,7 @@ function MasterCard(props) {
       <Link
         to={ `${type}s/${id}` }
       >
-        <img
+        <Img
           data-testid={ `${index}-horizontal-image` }
           src={ src }
           alt={ title }
