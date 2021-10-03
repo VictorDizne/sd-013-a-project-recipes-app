@@ -4,12 +4,18 @@ import { useLocation } from 'react-router';
 import copytoclipboard from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
-const ShareButton = ({ dataTestId }) => {
+const ShareButton = ({ dataTestId, doneRecipe }) => {
+  console.log(doneRecipe);
   const { pathname } = useLocation();
   const [clipped, setClipped] = useState(false);
 
   const copy = () => {
     const SIX = 6000;
+    if (pathname.includes('feitas')) {
+      copytoclipboard(`http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}`);
+      setClipped(true);
+      return setTimeout(() => setClipped(false), SIX);
+    }
     if (pathname.includes('progress')) {
       const arr = pathname.split('/');
       copytoclipboard(`http://localhost:3000/${arr[1]}/${arr[2]}`);
@@ -39,6 +45,7 @@ const ShareButton = ({ dataTestId }) => {
 
 ShareButton.propTypes = {
   dataTestId: PropTypes.string.isRequired,
+  doneRecipe: PropTypes.shape(PropTypes.object).isRequired,
 };
 
 export default ShareButton;
