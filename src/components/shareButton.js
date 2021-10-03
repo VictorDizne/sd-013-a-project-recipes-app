@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import copytoclipboard from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -10,6 +10,13 @@ const ShareButton = ({ dataTestId }) => {
 
   const copy = () => {
     const SIX = 6000;
+    if (pathname.includes('progress')) {
+      const arr = pathname.split('/');
+      copytoclipboard(`http://localhost:3000/${arr[1]}/${arr[2]}`);
+      setClipped(true);
+      return setTimeout(() => setClipped(false), SIX);
+    }
+
     copytoclipboard(`http://localhost:3000${pathname}`);
     setClipped(true);
     setTimeout(() => setClipped(false), SIX);
