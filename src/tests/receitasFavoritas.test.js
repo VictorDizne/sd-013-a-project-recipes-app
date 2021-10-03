@@ -3,7 +3,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
 const { getByTestId, queryByTestId } = screen;
@@ -46,7 +46,7 @@ function sleep() {
 
 describe('Done recipes screen', () => {
   beforeEach(() => {
-    renderWithRouterAndRedux(<App />, {
+    renderWithRouter(<App />, {
       initialState: { recipes: { doneRecipes: doneRecipesMock } },
       initialEntries: ['/receitas-favoritas'],
     });

@@ -1,14 +1,14 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
 // import meals from '../../cypress/mocks/meals';
 
 describe('Página \'Comidas Por Ingredientes\'', () => {
   it('Testa se existe pelo menos 1 card de ingrediente', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: ['/explorar/comidas/ingredientes'] });
 
     const titleCard = await screen.findByText('Avocado');
@@ -22,7 +22,7 @@ describe('Página \'Comidas Por Ingredientes\'', () => {
 
 describe('Página \'Bebidas Por Ingredientes\'', () => {
   it('Testa se existe pelo menos 1 card de ingrediente', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: ['/explorar/bebidas/ingredientes'] });
 
     const titleCard = await screen.findByText('Gin');
@@ -36,7 +36,7 @@ describe('Página \'Bebidas Por Ingredientes\'', () => {
 
 describe('Página \'Comidas Por Local de Origem\'', () => {
   it('Testa se os cards são alterados ao trocar uma option do dropdown', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: ['/explorar/comidas/area'] });
 
     const { innerHTML: initialCardTitle } = await screen.findByTestId('0-card-name');

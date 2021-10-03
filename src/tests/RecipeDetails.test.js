@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Página de detalhes das receitas', () => {
   const recipePhotoTestId = 'recipe-photo';
@@ -20,7 +20,7 @@ describe('Página de detalhes das receitas', () => {
 
   describe('Tela de comidas ', () => {
     it('Deve possuir todos os atributos data-testid', async () => {
-      const { history } = renderWithRouterAndRedux(<App />);
+      const { history } = renderWithRouter(<App />);
 
       history.push(comidasURL);
 
@@ -48,7 +48,7 @@ describe('Página de detalhes das receitas', () => {
     });
 
     it('Deve ir para In Progress quando clicar em Iniciar Receita', async () => {
-      const { history } = renderWithRouterAndRedux(<App />);
+      const { history } = renderWithRouter(<App />);
 
       history.push(comidasURL);
 
@@ -74,7 +74,7 @@ describe('Página de detalhes das receitas', () => {
 
   describe('Tela de bebidas ', () => {
     it('Deve possuir todos os atributos data-testid', async () => {
-      const { history } = renderWithRouterAndRedux(<App />);
+      const { history } = renderWithRouter(<App />);
 
       history.push(bebidasURL);
 
@@ -100,7 +100,7 @@ describe('Página de detalhes das receitas', () => {
     });
 
     it('Deve ir para In Progress quando clicar em Iniciar Receita', async () => {
-      const { history } = renderWithRouterAndRedux(<App />);
+      const { history } = renderWithRouter(<App />);
 
       history.push(bebidasURL);
 

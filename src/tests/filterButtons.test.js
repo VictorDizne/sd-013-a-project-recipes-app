@@ -1,12 +1,12 @@
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Teste de filtro de receita principal comidas', () => {
   it('Testando se todo os botôes de filtro estão presente na tela principal de comidas',
     async () => {
-      const { history, findByTestId } = renderWithRouterAndRedux(<App />);
+      const { history, findByTestId } = renderWithRouter(<App />);
       history.push('/comidas');
       const filterAll = await findByTestId('All-category-filter');
       const filterBeef = await findByTestId('Beef-category-filter');
@@ -23,7 +23,7 @@ describe('Teste de filtro de receita principal comidas', () => {
 describe('Teste de filtro de receita principal bebidas', () => {
   it('Testando se todo os botôes de filtro estão presente na tela principal de bebidas',
     async () => {
-      const { history, findByTestId } = renderWithRouterAndRedux(<App />);
+      const { history, findByTestId } = renderWithRouter(<App />);
       history.push('/bebidas');
       const filterAll = await findByTestId('All-category-filter');
       const filterOrdinary = await findByTestId('Ordinary Drink-category-filter');

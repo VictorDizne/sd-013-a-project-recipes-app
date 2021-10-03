@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Deve ter a searchbar e suas funcionalidades', () => {
   const searchInput = 'search-input';
@@ -28,7 +28,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
 
   describe('Deve testar as funcionalidades na página de comidas', () => {
     it('Deve mostrar mensagem de erro quando não filtrado', () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/comidas'] });
 
       // Mock implementado com base em: https://stackoverflow.com/questions/55933105/how-to-mock-or-assert-whether-window-alert-has-fired-in-react-jest-with-typesc
@@ -40,7 +40,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve aparecer a barra quando o botão é clicado', () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/comidas'] });
 
       expect(screen.queryByTestId(searchInput)).toBeNull();
@@ -51,7 +51,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve ter os data-testids dos botões', () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/comidas'] });
 
       showSearchBar();
@@ -66,7 +66,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve buscar pelo ingrediente quando selecionado Ingredientes', async () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/comidas'] });
 
       showSearchBar();
@@ -78,7 +78,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve buscar pelas receitas com a primeira letra escolhida', async () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/comidas'] });
 
       showSearchBar();
@@ -90,7 +90,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve mostrar alerta quando for colocado mais de uma letra em comidas', () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/comidas'] });
       const alertMock = jest.spyOn(window, 'alert')
         .mockReturnValue(mockAlert);
@@ -105,7 +105,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve buscar corretamente com Nome selecionado', async () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/comidas'] });
 
       showSearchBar();
@@ -118,7 +118,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve redirecionar para a receita quando só ela é encontrada', async () => {
-      const { history } = renderWithRouterAndRedux(<App />,
+      const { history } = renderWithRouter(<App />,
         { initialEntries: ['/comidas'] });
 
       showSearchBar();
@@ -135,7 +135,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
 
   describe('Deve testar as funcionalidades na página de bebidas', () => {
     it('Deve mostrar mensagem de erro quando não encontra um resultado', () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/bebidas'] });
 
       const alertMock = jest.spyOn(window, 'alert').mockImplementation();
@@ -146,7 +146,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve buscar pelo ingrediente quando selecionado Ingredientes', async () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/bebidas'] });
 
       showSearchBar();
@@ -158,7 +158,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve mostrar alerta quando for colocado mais de uma letra em bebidas', () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/bebidas'] });
       const alertMock = jest.spyOn(window, 'alert')
         .mockReturnValue(mockAlert);
@@ -173,7 +173,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve buscar corretamente com Nome selecionado', async () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/bebidas'] });
 
       showSearchBar();
@@ -186,7 +186,7 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve redirecionar para a receita quando só ela é encontrada', async () => {
-      renderWithRouterAndRedux(<App />,
+      renderWithRouter(<App />,
         { initialEntries: ['/bebidas'] });
 
       showSearchBar();

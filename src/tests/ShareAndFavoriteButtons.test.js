@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import { act } from 'react-dom/test-utils';
 import App from '../App';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Botões de favoritar e compartilhar', () => {
   const favBtnTestId = 'favorite-btn';
@@ -11,7 +11,7 @@ describe('Botões de favoritar e compartilhar', () => {
   const comidaURL = '/comidas/52771';
 
   it('Deve ter os botões  na página', async () => {
-    const { history } = renderWithRouterAndRedux(<App />);
+    const { history } = renderWithRouter(<App />);
 
     history.push(comidaURL);
 
@@ -24,7 +24,7 @@ describe('Botões de favoritar e compartilhar', () => {
 
   describe('Botão de favoritar', () => {
     it('Deve mudar a imagem do botão quando a receita é favoritada', async () => {
-      const { history } = renderWithRouterAndRedux(<App />);
+      const { history } = renderWithRouter(<App />);
 
       history.push(comidaURL);
 
@@ -44,7 +44,7 @@ describe('Botões de favoritar e compartilhar', () => {
 
   describe('Botão de compartilhar', () => {
     it('deve copiar o link da url quando clicado', async () => {
-      const { history } = renderWithRouterAndRedux(<App />);
+      const { history } = renderWithRouter(<App />);
 
       history.push(comidaURL);
 

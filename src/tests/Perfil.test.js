@@ -1,14 +1,14 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
 describe('24 - Verifica se o email da usuaria aparece na pagina de perfil', () => {
   const Useremail = 'teste@email.com';
 
   it('O email digitado na tela de login ficarÃ¡ salvo no LocalStorage', () => {
-    renderWithRouterAndRedux(<App />);
+    renderWithRouter(<App />);
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
     const loginButton = screen.getByTestId('login-submit-btn');
@@ -20,7 +20,7 @@ describe('24 - Verifica se o email da usuaria aparece na pagina de perfil', () =
   });
 
   it('renderiza o email da pessoa usuaria', () => {
-    renderWithRouterAndRedux(<App />, { initialEntries: ['/perfil'] });
+    renderWithRouter(<App />, { initialEntries: ['/perfil'] });
     const email = screen.getByText('teste@email.com');
     expect(email).toBeInTheDocument();
   });
@@ -28,7 +28,7 @@ describe('24 - Verifica se o email da usuaria aparece na pagina de perfil', () =
 
 describe('25 - Verifica se links da pagina de perfil redirecionam corretamente', () => {
   it('Ao clicar em receitas feitas redireciona para "receitas-feitas"', () => {
-    const { history } = renderWithRouterAndRedux(<App />,
+    const { history } = renderWithRouter(<App />,
       { initialEntries: ['/perfil'] });
     const { pathname } = history.location;
     expect(pathname).toEqual('/perfil');
@@ -39,7 +39,7 @@ describe('25 - Verifica se links da pagina de perfil redirecionam corretamente',
   });
 
   it('Ao clicar em receitas favoritas redireciona para "receitas-favoritas"', () => {
-    const { history } = renderWithRouterAndRedux(<App />,
+    const { history } = renderWithRouter(<App />,
       { initialEntries: ['/perfil'] });
     const { pathname } = history.location;
     expect(pathname).toEqual('/perfil');
@@ -50,7 +50,7 @@ describe('25 - Verifica se links da pagina de perfil redirecionam corretamente',
   });
 
   it('Ao clicar em sair realiza o logout e retorna ao Login', () => {
-    const { history } = renderWithRouterAndRedux(<App />,
+    const { history } = renderWithRouter(<App />,
       { initialEntries: ['/perfil'] });
     const { pathname } = history.location;
     expect(pathname).toEqual('/perfil');

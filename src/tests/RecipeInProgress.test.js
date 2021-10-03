@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Página de receitas em progresso', () => {
   const recipePhotoTestId = 'recipe-photo';
@@ -16,7 +16,7 @@ describe('Página de receitas em progresso', () => {
   const bebidaURL = '/bebidas/178319/in-progress';
 
   it('Deve ter todos os elementos na página de uma receita de comida', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: [comidaURL] });
 
     const recipePhoto = await screen.findByTestId(recipePhotoTestId);
@@ -39,7 +39,7 @@ describe('Página de receitas em progresso', () => {
   });
 
   it('Deve ter todos os elementos na página de uma receita de bebida', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: [bebidaURL] });
 
     const recipePhoto = await screen.findByTestId(recipePhotoTestId);
@@ -62,7 +62,7 @@ describe('Página de receitas em progresso', () => {
   });
 
   it('Deve ter um checkbox para cada item dos ingredientes de comida', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: [comidaURL] });
 
     const ingredientsStep = await screen.findAllByRole('listitem');
@@ -74,7 +74,7 @@ describe('Página de receitas em progresso', () => {
   });
 
   it('Deve ter um checkbox para cada item dos ingredientes de bebida', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: [bebidaURL] });
 
     const ingredientsStep = await screen.findAllByRole('listitem');
@@ -86,7 +86,7 @@ describe('Página de receitas em progresso', () => {
   });
 
   it('Deve ser possível marcar o ingrediente quando clicado no checkbox', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: [comidaURL] });
 
     const firstIngredient = await screen.findByRole('checkbox', { name: /penne/i });
@@ -99,7 +99,7 @@ describe('Página de receitas em progresso', () => {
   });
 
   it('Deve ser possível marcar e desmarcar todos os ingredientes', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: [comidaURL] });
 
     const firstIngredient = await screen.findByRole('checkbox', { name: /penne/i });
@@ -114,7 +114,7 @@ describe('Página de receitas em progresso', () => {
   });
 
   it('O botão de finalizar deve estar inicialmente desabilitado', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: [comidaURL] });
 
     const finishBtn = await screen.findByTestId(finishButtonTestId);
@@ -123,7 +123,7 @@ describe('Página de receitas em progresso', () => {
   });
 
   it('Deve habilitar o botão de finalizar', async () => {
-    renderWithRouterAndRedux(<App />,
+    renderWithRouter(<App />,
       { initialEntries: [comidaURL] });
 
     const firstIngredient = await screen.findByRole('checkbox', { name: /penne/i });
@@ -151,7 +151,7 @@ describe('Página de receitas em progresso', () => {
   });
 
   it('Deve mudar pra Receita Feita quando Finalizado é clicado', async () => {
-    const { history } = renderWithRouterAndRedux(<App />,
+    const { history } = renderWithRouter(<App />,
       { initialEntries: [comidaURL] });
 
     const firstIngredient = await screen.findByRole('checkbox', { name: /penne/i });

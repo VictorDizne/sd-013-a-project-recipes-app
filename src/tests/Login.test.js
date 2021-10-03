@@ -2,7 +2,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import App from '../App';
-import renderWithRouter from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 
 // Testes feitos em coletivo pela turma 13-a
 // Responsavél pelo codigo atual Josué Lobo

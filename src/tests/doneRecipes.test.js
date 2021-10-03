@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 // import copy from 'clipboard-copy';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import shareButton from '../images/shareIcon.svg';
 
@@ -56,7 +56,7 @@ describe('54 - Verifica se os elementos foram criados', () => {
   afterEach(() => localStorage.clear());
 
   it('Verifica elementos de card de comida e bebida', () => {
-    renderWithRouterAndRedux(<App />, { initialEntries: [doneRecipesPage] });
+    renderWithRouter(<App />, { initialEntries: [doneRecipesPage] });
 
     expect(screen.getByTestId(filterAll)).toBeInTheDocument();
     expect(screen.getByTestId(filterFood)).toBeInTheDocument();
@@ -83,7 +83,7 @@ describe('55 - Verifica contéudo elementos de comida', () => {
   afterEach(() => localStorage.clear());
 
   it('Verifica elementos de card de comida', () => {
-    renderWithRouterAndRedux(<App />, { initialEntries: [doneRecipesPage] });
+    renderWithRouter(<App />, { initialEntries: [doneRecipesPage] });
 
     expect(screen.getByTestId(firstCardImage))
       .toHaveProperty('src', doneRecipes[0].image);
