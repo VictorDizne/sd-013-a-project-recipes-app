@@ -12,6 +12,7 @@ const Provider = ({ children }) => {
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
   const [searchBarFilters, setSearchBarFilters] = useState([]);
+  const [searchBarFilters2, setSearchBarFilters2] = useState([]);
   // const [shouldRedirect, setShouldRedirect] = useState(false);
   // const [idUnico, setIdUnico] = useState(0)
   console.log(searchBarFilters);
@@ -57,6 +58,8 @@ const Provider = ({ children }) => {
     setCategoryFilter,
     searchBarFilters,
     setSearchBarFilters,
+    searchBarFilters2,
+    setSearchBarFilters2,
   };
 
   return (

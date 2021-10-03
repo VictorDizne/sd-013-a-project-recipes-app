@@ -12,7 +12,7 @@ const Header = ({ pageName, hasLupa }) => {
   const [radioFilter, setRadioFilter] = useState('');
   // const [disableSearchInput, setDisableSearchInput] = useState(false);
 
-  const { setSearchBarFilters } = useContext(MyContext);
+  const { setSearchBarFilters, setSearchBarFilters2 } = useContext(MyContext);
 
   const handleFiltersChange = ({ target: { type, value } }) => {
     const filtersType = (type === 'text')
@@ -37,13 +37,13 @@ const Header = ({ pageName, hasLupa }) => {
 
     if (radioFilter === 'nome') {
       const drinkRequestS = await cocktailsAPIRequest('search', `s=${inputFilter}`);
-      setSearchBarFilters(drinkRequestS);
+      setSearchBarFilters2(drinkRequestS);
       setInputFilter('');
     }
 
     if (radioFilter === 'primeira-letra') {
       const drinkRequest = await cocktailsAPIRequest('search', `f=${inputFilter}`);
-      setSearchBarFilters(drinkRequest);
+      setSearchBarFilters2(drinkRequest);
       setInputFilter('');
     }
   };
