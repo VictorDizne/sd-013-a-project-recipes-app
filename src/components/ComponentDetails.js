@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import recipeContext from '../context';
 import ComponentDetailsContent from './ComponentDetailsContent';
 import ComponentSugestions from './ComponentSugestions';
+import { ingredientAndMeasureArray } from '../functions';
 
 function ComponentDetails() {
   const { fetchDetails } = useContext(recipeContext).ContextDetails;
@@ -22,7 +23,7 @@ function ComponentDetails() {
     history.push(`${id}/in-progress`);
   };
 
-  const keysMeal = {
+  const keysM = {
     title: 'strMeal',
     category: 'strCategory',
     typeK: 'comida',
@@ -33,9 +34,10 @@ function ComponentDetails() {
     instructions: 'strInstructions',
     video: 'strYoutube',
     iframe: true,
+    click: false,
   };
 
-  const keysDrink = {
+  const keysD = {
     title: 'strDrink',
     category: 'strCategory',
     typeK: 'bebida',
@@ -46,12 +48,15 @@ function ComponentDetails() {
     instructions: 'strInstructions',
     video: '',
     iframe: false,
+    click: false,
   };
   return (
     <div>
-      { currentPage
-        ? <ComponentDetailsContent keys={ keysMeal } />
-        : <ComponentDetailsContent keys={ keysDrink } /> }
+      {
+        currentPage
+          ? <ComponentDetailsContent keys={ keysM } func={ ingredientAndMeasureArray } />
+          : <ComponentDetailsContent keys={ keysD } func={ ingredientAndMeasureArray } />
+      }
       <ComponentSugestions />
       <div className="btn-container">
         <button
