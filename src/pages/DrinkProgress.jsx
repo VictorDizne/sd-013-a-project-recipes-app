@@ -10,7 +10,15 @@ import {
   setDoneRecipe,
 } from '../services/localStorageFunctions';
 import { fetchDrinkDetails } from '../services/fetchRecipes';
-import './CSS/inProgress.css';
+
+const Main = styled.div`
+    li{
+      list-style: none;
+  };
+  .checked {
+    text-decoration: line-through solid black;
+  };
+`;
 
 const Img = styled.img`
   max-width: 100vw;
@@ -28,6 +36,12 @@ function DrinkProgress() {
       localStorage.setItem(
         'inProgressRecipes',
         JSON.stringify({ cocktails: {}, meals: {} }),
+      );
+    }
+    if (!localStorage.doneRecipes) {
+      localStorage.setItem(
+        'doneRecipes',
+        JSON.stringify([]),
       );
     }
   }, [id]);
@@ -106,7 +120,7 @@ function DrinkProgress() {
   const ingredientMeasures = measures();
 
   return (
-    <div>
+    <Main>
       <section>
         <Img
           className="recipeImage"
@@ -155,7 +169,7 @@ function DrinkProgress() {
         <p data-testid="instructions">{drinkRecipeDetails.strInstructions}</p>
       </section>
       { mainButton() }
-    </div>
+    </Main>
   );
 }
 
