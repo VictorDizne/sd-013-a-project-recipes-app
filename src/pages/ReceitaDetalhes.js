@@ -48,7 +48,7 @@ function ReceitaDetalhes({ match }) {
 
       <Link
         to={ `${isMeal ? '/comidas/' : '/bebidas/'}${recipeId}/in-progress` }
-        className="btn btn-primary"
+        className="btn btn-primary start-recipe"
         data-testid="start-recipe-btn"
       >
         Iniciar Receita
