@@ -14,7 +14,7 @@ const FavoriteCard = () => {
 
   useEffect(() => {
     const recipesDefault = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
+    // essas verificações servem para filtar a página
     if (drinkFilter) {
       setMealFilter(false);
       return setRecipes(recipesDefault.filter(({ type }) => type === 'bebida'));
@@ -31,6 +31,7 @@ const FavoriteCard = () => {
   }, [drinkFilter, mealFilter]);
 
   const remove = (nameRecipe) => {
+    // recebe o nome do "card"/receita e remove do localStorage (e seta um novo recipes)
     const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
     const filteredRecipe = favRecipes.filter(({ name }) => name !== nameRecipe);
@@ -39,6 +40,7 @@ const FavoriteCard = () => {
   };
 
   const copyLink = (id, type) => {
+    // recebe o id e o tipo da receita para gerar um link
     const FIVE = 5000;
     if (type === 'bebida') {
       copytoclipboard(`http://localhost:3000/bebidas/${id}`);

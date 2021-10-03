@@ -1,5 +1,17 @@
 export { default as Login } from './Login';
 export { default as Profile } from './profile';
 export { default as HomeFood } from './HomeFood';
+export { default as HomeDrinks } from './HomeDrinks';
 export { default as ProcessDrink } from './inProcessDrink';
 export { default as ProcessFood } from './inProcessFood';
+export { default as DrinkDetail } from './DrinkDetails';
+export { default as DrinkExplorer } from './DrinkExplorer';
+export { default as NotFound } from './notFound';
+export { default as DrinkIngredientsExp } from './DrinkIngredientsExp';
+export { default as Explorer } from './explorer';
+export { default as FavoriteRecipes } from './favoriteRecipe';
+export { default as OriginExp } from './OriginExp';
+export { default as FoodExplorer } from './foodExplorer';
+export { default as FoodIngredientsExp } from './FoodIngredientsExp';
+export { default as ReadyRecipes } from './readyRecipes';
+export { default as FoodDetails } from './FoodDetails';
