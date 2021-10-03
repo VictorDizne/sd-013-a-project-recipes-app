@@ -48,7 +48,9 @@ export function setDoneRecipe(recipe, typ) {
 export function isThisRecipeFavorited(id) {
   if (localStorage.getItem('favoriteRecipes')) {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    return favoriteRecipes.some((element) => element.id === id);
+    if (favoriteRecipes.length > 1) {
+      return favoriteRecipes.some((element) => element.id === id);
+    }
   }
 }
 
@@ -91,7 +93,7 @@ export function getDoneRecipes(
     setDoneRecipes(done);
     setDisableFilters(false);
   } else {
-    setDisableFilters(true);
+    setDisableFilters(false);
   }
 }
 

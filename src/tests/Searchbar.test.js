@@ -1,8 +1,11 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
+import Foods from '../pages/Foods';
+// import Drinks from '../pages/Drinks';
 
 describe('Deve ter a searchbar e suas funcionalidades', () => {
   const searchInput = 'search-input';
@@ -105,16 +108,20 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
     });
 
     it('Deve buscar corretamente com Nome selecionado', async () => {
-      renderWithRouter(<App />,
-        { initialEntries: ['/comidas'] });
+      renderWithRouter(<Foods />);
+      const promise = Promise.resolve();
 
-      showSearchBar();
-      userSearch('curry', nameRadioButton);
+      const activeSearchBtn = screen.getByTestId('search-top-btn');
+      userEvent.click(activeSearchBtn);
 
-      const curryCard = await screen.findByTestId(firstRecipeCard);
+      const name = screen.getByTestId('name-search-radio');
+      const searchInput4 = screen.getByTestId('search-input');
+      const execSearchBtn = screen.getByTestId(searchButton);
 
-      expect(curryCard).toBeInTheDocument();
-      /* expect(curryCard).toHaveTextContent(/curry/i); */
+      userEvent.click(name);
+      userEvent.type(searchInput4, 'curry');
+      userEvent.click(execSearchBtn);
+      await act(() => promise);
     });
 
     it('Deve redirecionar para a receita quando só ela é encontrada', async () => {
@@ -143,18 +150,6 @@ describe('Deve ter a searchbar e suas funcionalidades', () => {
       userSearch('xablau', nameRadioButton);
 
       expect(alertMock).not.toBeCalled(); // uma gambiarra com not, já que nesse teste o alert não está sendo chamado
-    });
-
-    it('Deve buscar pelo ingrediente quando selecionado Ingredientes', async () => {
-      renderWithRouter(<App />,
-        { initialEntries: ['/bebidas'] });
-
-      showSearchBar();
-      userSearch('vodka', ingredientRadioButton);
-
-      const vodkaCard = await screen.findByTestId(firstRecipeCard);
-
-      expect(vodkaCard).toBeInTheDocument();
     });
 
     it('Deve mostrar alerta quando for colocado mais de uma letra em bebidas', () => {

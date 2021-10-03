@@ -14,7 +14,7 @@ const Main = styled.main`
 
 const DoneRecipes = () => {
   const [doneRecipes, setDoneRecipes] = useState([]);
-  const [disableFilters, setDisableFilters] = useState();
+  const [disableFilters, setDisableFilters] = useState(true);
   const [doneFoodRecipes, setDoneFoodRecipes] = useState([]);
   const [doneDrinkRecipes, setDoneDrinkecipes] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('All');

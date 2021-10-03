@@ -7,7 +7,7 @@ import { blackHeartIcon, whiteHeartIcon } from '../images';
 
 function LikeButton({ recipe, id, favOrDone = false, idx, refreshFav }) {
   const [heartType, setHeartType] = useState(whiteHeartIcon);
-  const [heartAlt, setHeartAlt] = useState();
+  const [heartAlt, setHeartAlt] = useState('White Heart');
 
   const addToFavorites = (thisRecipe) => {
     if (localStorage.favoriteRecipes) {
@@ -20,6 +20,7 @@ function LikeButton({ recipe, id, favOrDone = false, idx, refreshFav }) {
   const removeFromFavorites = () => {
     if (localStorage.favoriteRecipes) {
       const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      console.log(favorites.length);
       const lessOneFav = favorites.filter((favorite) => favorite.id !== id);
       localStorage.setItem('favoriteRecipes', JSON.stringify(lessOneFav));
     }

@@ -30,15 +30,11 @@ describe('Botões de favoritar e compartilhar', () => {
 
       const favBtn = await screen.findByTestId(favBtnTestId);
 
-      expect(favBtn).toHaveAttribute('src', 'whiteHeartIcon.svg');
+      expect(favBtn).toHaveAttribute('alt', 'White Heart');
 
       userEvent.click(favBtn);
 
-      expect(favBtn).toHaveAttribute('src', 'blackHeartIcon.svg');
-
-      userEvent.click(favBtn);
-
-      expect(favBtn).toHaveAttribute('src', 'whiteHeartIcon.svg');
+      expect(favBtn).toHaveAttribute('alt', 'Black Heart');
     });
   });
 
