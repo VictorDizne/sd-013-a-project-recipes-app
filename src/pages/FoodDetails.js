@@ -27,6 +27,9 @@ function FoodDetails() {
         cocktails: {}, meals: {},
       }));
     }
+    if (JSON.parse(localStorage.getItem('doneRecipes')) === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
   useEffect(() => {
@@ -51,6 +54,14 @@ function FoodDetails() {
     }
   }, [id]);
 
+  const isDoneRecipe = () => {
+    const doneRecipesLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesLocal === null) {
+      return false;
+    }
+    return doneRecipesLocal.some((doneRecipe) => doneRecipe.id === id);
+  };
+
   const buttonStartRecipe = () => {
     // coloca a receita em progresso quando clicamos para iniciar progresso.
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -61,9 +72,8 @@ function FoodDetails() {
 
     const meals = {
       ...inProgressRecipes.meals,
-      [id]: ingredients,
+      [id]: [],
     };
-    console.log({ ...inProgressRecipes, meals });
     localStorage
       .setItem('inProgressRecipes', JSON.stringify({ ...inProgressRecipes, meals }));
     setInProgress(false);
@@ -82,7 +92,7 @@ function FoodDetails() {
       />
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
       <p data-testid="recipe-category">{meal.strCategory}</p>
-      <ShareButton />
+      <ShareButton dataTestId="share-btn" />
       <FavoriteButton meal={ meal } />
       <h3>Ingredients</h3>
       <ul>
@@ -116,6 +126,7 @@ function FoodDetails() {
           style={ { position: 'fixed', bottom: '0' } }
           onClick={ () => buttonStartRecipe() }
           data-testid="start-recipe-btn"
+          hidden={ isDoneRecipe() }
         >
           { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
