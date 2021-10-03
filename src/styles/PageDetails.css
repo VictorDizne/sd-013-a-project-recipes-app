@@ -30,3 +30,7 @@
   text-transform: uppercase;
   width: 80%;
 }
+
+.btn-none {
+  display: none;
+}

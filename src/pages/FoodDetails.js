@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { fetchFoodById } from '../services/comidasApi';
 import { fetchRecommendedDrinks } from '../services/bebidasApi';
+import { getIngredients,
+  favoriteMealRecipe, shareMealHelper } from '../services/helpers';
 import RecomendationCard from '../components/RecomendationCard';
-import '../styles/PageDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { getIngredients, createDate, favoriteMealRecipe } from '../services/helpers';
+import '../styles/PageDetails.css';
 
-const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
 
 function FoodDetails() {
@@ -18,11 +18,11 @@ function FoodDetails() {
   const [recomendation, setRecomendation] = useState([]);
   const [messageAlert, setMessageAlert] = useState('');
   const [favorite, setFavorite] = useState(false);
-  const history = useHistory();
-  const historyFilter = history.location.pathname;
-  const historyId = historyFilter.substr(INITIAL_VALUE);
+  const params = useParams();
+  const historyId = params.id;
   const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
 
   useEffect(() => {
     const verify = savedDoneRecipes.some((item) => item.id === historyId);
@@ -47,52 +47,8 @@ function FoodDetails() {
     getRecomendations();
   }, []);
 
-  const createList = () => {
-    let doneRecipes = [];
-    const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = recipe[0];
-    const tagsArray = (strTags === null) ? [] : strTags.split(',');
-    if (savedDoneRecipes) {
-      doneRecipes = [
-        ...savedDoneRecipes,
-        {
-          id: idMeal,
-          type: 'comida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: '',
-          name: strMeal,
-          image: strMealThumb,
-          doneDate: createDate(),
-          tags: tagsArray,
-        },
-      ];
-    } else {
-      doneRecipes = [
-        {
-          id: idMeal,
-          type: 'comida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: '',
-          name: strMeal,
-          image: strMealThumb,
-          doneDate: createDate(),
-          tags: tagsArray,
-        },
-      ];
-    }
-
-    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-  };
-
   const shareRecipe = () => {
-    const url = `http://localhost:3000/comidas/${historyId}`;
-    const SET_TIME_OUT = 1000;
-    navigator.clipboard.writeText(url);
-    setMessageAlert('Link copiado!');
-    setTimeout(() => {
-      setMessageAlert('');
-    }, SET_TIME_OUT);
+    shareMealHelper(historyId, setMessageAlert);
   };
 
   useEffect(() => {
@@ -101,13 +57,18 @@ function FoodDetails() {
     setFavorite(verify);
   }, []);
 
-  const handleClick = () => {
+  const handleClickFavorite = () => {
     favoriteMealRecipe(recipe, previousRecipes, favorite, historyId);
     setFavorite(!favorite);
   };
 
+  const isMealInProgress = () => (
+    !!inProgressRecipes.meals && !!inProgressRecipes.meals[historyId]);
+
+  const isMealDone = () => !!savedDoneRecipes[historyId];
+
   return (
-    <div className="food-container">
+    <div>
       {(recipe.length === 1) && (
         <div>
           <img
@@ -122,7 +83,7 @@ function FoodDetails() {
             <p>{messageAlert}</p>
             <button
               type="button"
-              onClick={ handleClick }
+              onClick={ handleClickFavorite }
             >
               {favorite
                 ? <img src={ blackHeartIcon } alt="heart" data-testid="favorite-btn" />
@@ -162,6 +123,7 @@ function FoodDetails() {
           title={ recipe[0].strMeal }
           data-testid="video"
         />)}
+
       <h3>Recomendadas</h3>
       <div className="recomandation-container">
         {recomendation.slice(0, MAX_RECOMANDATION).map((rec, idx) => (
@@ -173,14 +135,16 @@ function FoodDetails() {
           />
         ))}
       </div>
+
       <Link
         to={ `/comidas/${historyId}/in-progress` }
         data-testid="start-recipe-btn"
-        className="iniciar-receita"
+        className={ isMealDone() ? 'btn-none' : 'iniciar-receita' }
         id="btn-iniciar-receita"
-        onClick={ createList }
       >
-        Iniciar Receita
+        {isMealInProgress()
+          ? 'Continuar Receita'
+          : 'Iniciar Receita'}
       </Link>
     </div>
   );

@@ -27,7 +27,9 @@ function Login() {
       email,
     });
     localStorage.setItem('user', saveEmail);
-    history.push('/comidas');
+    if (localStorage.getItem('user')) {
+      history.push('/comidas');
+    }
   };
 
   const VALIDATIONEMAIL = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/i;
