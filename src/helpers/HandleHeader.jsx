@@ -25,6 +25,7 @@ function HandleHeader({ title, setSearchBarStatus }) {
   const profileButton = (
     <Button
       className="profileIconBtn"
+      name="profile-button"
       buttonType="BackgroundButton"
       onClick={ () => history.push('/perfil') }
       buttonText={
@@ -67,6 +68,7 @@ function HandleHeader({ title, setSearchBarStatus }) {
       </h1>
       <Button
         type="button"
+        name="search-button"
         buttonType="BackgroundButton"
         buttonText={
           <img data-testid="search-top-btn" src={ searchIcon } alt="search-icon" />

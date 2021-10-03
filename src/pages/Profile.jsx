@@ -22,11 +22,11 @@ function Profile() {
   return (
     <Main>
       <Header title="Perfil" />
-      <h2
+      <p
         data-testid="profile-email"
       >
         { getUserEmail ? getUserEmail.email : 'Faça o login' }
-      </h2>
+      </p>
       <Button
         className="doneRecipes"
         type="button"
