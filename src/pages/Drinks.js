@@ -12,6 +12,7 @@ function Drinks() {
     isDrinkOrMealLoading,
     cameFromIngredient,
     foodsOrDrinksByIngredient,
+    setCameFromIngredient,
   } = useContext(RecipeContext);
 
   const MAX_NUMBER = 12;
@@ -19,6 +20,7 @@ function Drinks() {
   // useEffect com comportamento de ComponentDidMount
   useEffect(() => {
     directRequestDrink();
+    return (() => setCameFromIngredient(false));
   }, []);
 
   const element = !isDrinkOrMealLoading ? (
@@ -54,7 +56,6 @@ function Drinks() {
 
   return (
     <div className="bebidas-body">
-      <div className="recipes-background-color" />
       <Header title="Bebidas" />
       <CategoriesDrink />
       {

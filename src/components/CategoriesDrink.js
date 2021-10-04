@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import RecipeContext from '../context/RecipeContext';
+import '../styles/CategoriesDrink.css';
 
 function CategoriesDrink() {
   // Importa do context o drinkCategory para pegar as categorias de Bebidas, o setIsDrinkOrMealLoading para indicar que as Bebidas estão carregando e o setMealsOrDrinks para setar o novo array de Bebidas
@@ -31,6 +32,7 @@ function CategoriesDrink() {
   return (
     <div className="categorias">
       <button
+        id="btn"
         onClick={ handleClick }
         data-testid="All-category-filter"
         type="button"
@@ -44,6 +46,7 @@ function CategoriesDrink() {
         if (index < MIN_CATEG) {
           return (
             <button
+              id="btn"
               className=".drink-btn"
               data-testid={ `${elem.strCategory}-category-filter` }
               type="button"

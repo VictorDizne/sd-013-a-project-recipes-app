@@ -1,11 +1,14 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import DoneRecipes from '../pages/DoneRecipes';
 import renderWithRouter from './renderWithRouter';
+import App from '../App';
 
 const FILTER_BY_ALL_BTN = 'filter-by-all-btn';
 const FILTER_BY_FOOD_BTN = 'filter-by-food-btn';
 const FILTER_BY_DRINK_BTN = 'filter-by-drink-btn';
+const RECEITAS_FEITAS = 'Receitas Feitas';
 
 const doneRecipes = [
   {
@@ -40,7 +43,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
         visible={ false }
       />,
     );
-    const title = getByText('Receitas Feitas');
+    const title = getByText(RECEITAS_FEITAS);
 
     expect(title).toBeInTheDocument();
   });
@@ -52,7 +55,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Feitas', () => {
 
     const pageTitle = getByTestId('page-title');
     expect(pageTitle).toBeInTheDocument();
-    expect(pageTitle.innerHTML).toBe('Receitas Feitas');
+    expect(pageTitle.innerHTML).toBe(RECEITAS_FEITAS);
   });
 
   test('Verifica se os botões de filtro estão presentes', () => {
@@ -137,5 +140,108 @@ describe('2 - Verifica se uma receita feita é carregada', () => {
     fireEvent.click(buttonDrink);
     const CardDrink = getAllByTestId(/-horizontal-name/i);
     expect(CardDrink.length).toBe(1);
+  });
+});
+
+const EMAIL_TEST_ID = 'email-input';
+const PASSWORD_TEST_ID = 'password-input';
+const LOGIN_BTN_TEST_ID = 'login-submit-btn';
+const MOCK_EMAIL = 'alguem@alguem.com';
+
+const PAGE_MOCK = '/receitas-feitas';
+const DONE_IMG_TESTID = '0-horizontal-image';
+
+describe('Testando mais da página de receitas feitas', () => {
+  test('O header é renderizado corretamente', () => {
+    const { getByTestId, history } = renderWithRouter(<App />);
+
+    userEvent.type(getByTestId(EMAIL_TEST_ID), MOCK_EMAIL);
+    userEvent.type(getByTestId(PASSWORD_TEST_ID), '1234567');
+    userEvent.click(getByTestId(LOGIN_BTN_TEST_ID));
+
+    history.push(PAGE_MOCK);
+
+    expect(getByTestId('profile-top-btn')).toBeInTheDocument();
+    expect(getByTestId('page-title')).toHaveTextContent('Receitas Feitas');
+  });
+
+  test('Os botões de filtro são renderizados corretamente', () => {
+    const { getByTestId, history } = renderWithRouter(<App />);
+
+    userEvent.type(getByTestId(EMAIL_TEST_ID), MOCK_EMAIL);
+    userEvent.type(getByTestId(PASSWORD_TEST_ID), '1234567');
+    userEvent.click(getByTestId(LOGIN_BTN_TEST_ID));
+
+    history.push(PAGE_MOCK);
+
+    expect(getByTestId('filter-by-all-btn')).toBeInTheDocument();
+    expect(getByTestId('filter-by-food-btn')).toBeInTheDocument();
+    expect(getByTestId('filter-by-drink-btn')).toBeInTheDocument();
+  });
+
+  test('se há uma comida feita, ela deve aparecer', async () => {
+    const { getByTestId, findAllByRole, history } = renderWithRouter(<App />);
+
+    userEvent.type(getByTestId(EMAIL_TEST_ID), MOCK_EMAIL);
+    userEvent.type(getByTestId(PASSWORD_TEST_ID), '1234567');
+    userEvent.click(getByTestId(LOGIN_BTN_TEST_ID));
+
+    history.push('/comidas/52977/in-progress');
+
+    const ingredientCheckbox = await findAllByRole('checkbox');
+    ingredientCheckbox.forEach((ing) => {
+      userEvent.click(ing);
+    });
+
+    userEvent.click(getByTestId('finish-recipe-btn'));
+
+    expect(history.location.pathname).toBe(PAGE_MOCK);
+
+    expect(getByTestId(DONE_IMG_TESTID)).toBeInTheDocument();
+  });
+
+  test('filtro por all funciona', () => {
+    const { getByTestId, history } = renderWithRouter(<App />);
+
+    userEvent.type(getByTestId(EMAIL_TEST_ID), MOCK_EMAIL);
+    userEvent.type(getByTestId(PASSWORD_TEST_ID), '1234567');
+    userEvent.click(getByTestId(LOGIN_BTN_TEST_ID));
+
+    history.push(PAGE_MOCK);
+
+    const filterByAllBtn = getByTestId(FILTER_BY_ALL_BTN);
+    userEvent.click(filterByAllBtn);
+
+    expect(getByTestId(DONE_IMG_TESTID)).toBeInTheDocument();
+  });
+
+  test('filtro por food funciona', () => {
+    const { getByTestId, history } = renderWithRouter(<App />);
+
+    userEvent.type(getByTestId(EMAIL_TEST_ID), MOCK_EMAIL);
+    userEvent.type(getByTestId(PASSWORD_TEST_ID), '1234567');
+    userEvent.click(getByTestId(LOGIN_BTN_TEST_ID));
+
+    history.push(PAGE_MOCK);
+
+    const filterByFoodBtn = getByTestId(FILTER_BY_FOOD_BTN);
+    userEvent.click(filterByFoodBtn);
+
+    expect(getByTestId(DONE_IMG_TESTID)).toBeInTheDocument();
+  });
+
+  test('filtro por drink funciona', () => {
+    const { getByTestId, queryByTestId, history } = renderWithRouter(<App />);
+
+    userEvent.type(getByTestId(EMAIL_TEST_ID), MOCK_EMAIL);
+    userEvent.type(getByTestId(PASSWORD_TEST_ID), '1234567');
+    userEvent.click(getByTestId(LOGIN_BTN_TEST_ID));
+
+    history.push(PAGE_MOCK);
+
+    const filterByDrinkBtn = getByTestId(FILTER_BY_DRINK_BTN);
+    userEvent.click(filterByDrinkBtn);
+
+    expect(queryByTestId(DONE_IMG_TESTID)).toBeInTheDocument();
   });
 });

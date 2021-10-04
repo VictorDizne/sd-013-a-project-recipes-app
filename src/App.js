@@ -25,35 +25,41 @@ import {
 
 function App() {
   return (
-    // O Switch permite, conforme conponente, redirecionar as rotas
-    <Switch>
-      {/* Iniciando as rotas dos componentes */}
-      <Route exact path="/" component={ Login } />
-      <Route exact path="/comidas" component={ Foods } />
-      <Route exact path="/bebidas" component={ Drinks } />
-      <Route exact path="/comidas/:id" component={ Details } />
-      <Route exact path="/bebidas/:id" component={ Details } />
-      <Route path="/comidas/:id/in-progress" component={ DetailsInProgress } />
-      <Route path="/bebidas/:id/in-progress" component={ DetailsInProgress } />
-      <Route exact path="/explorar" component={ Explore } />
-      <Route exact path="/explorar/comidas" component={ FoodExplore } />
-      <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
-      <Route path="/explorar/comidas/ingredientes" component={ FoodExploreIngredients } />
-      <Route
-        path="/explorar/bebidas/ingredientes"
-        component={ DrinkExploreIngredients }
-      />
-      <Route exact path="/explorar/comidas/area" component={ FoodExploreLocal } />
-      <Route exact path="/perfil" component={ Profile } />
-      <Route exact path="/receitas-feitas" component={ DoneRecipes } />
-      <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
-      <Route component={ NotFound } />
-    </Switch>
+    <div id="fda_app">
+      {/* O Switch permite, conforme conponente, redirecionar as rotas teste */}
+      <Switch>
+        {/* Iniciando as rotas dos componentes */}
+        <Route exact path="/" component={ Login } />
+        <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/comidas/:id" component={ Details } />
+        <Route exact path="/bebidas/:id" component={ Details } />
+        <Route path="/comidas/:id/in-progress" component={ DetailsInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ DetailsInProgress } />
+        <Route exact path="/explorar" component={ Explore } />
+        <Route exact path="/explorar/comidas" component={ FoodExplore } />
+        <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
+        <Route
+          path="/explorar/comidas/ingredientes"
+          component={ FoodExploreIngredients }
+        />
+        <Route
+          path="/explorar/bebidas/ingredientes"
+          component={ DrinkExploreIngredients }
+        />
+        <Route exact path="/explorar/comidas/area" component={ FoodExploreLocal } />
+        <Route exact path="/perfil" component={ Profile } />
+        <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+        <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route component={ NotFound } />
+      </Switch>
+    </div>
   );
 }
 
 export default App;
 
+// Testes Cypress:
 // Requisitos 01 => test_coverage_spec.js
 // Requisitos 02-08 => login_spec.js
 // Requisitos 09-12 => header_spec.js

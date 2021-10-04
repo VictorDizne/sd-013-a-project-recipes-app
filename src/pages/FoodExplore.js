@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/FoodExplore.css';
 
 function FoodExplore({ history }) {
   const [randomFoodId, setRandomFoodId] = useState([]); // variavel que irá armazenar id da comida após a montagem do componente (conforme useEffect)
@@ -24,13 +25,14 @@ function FoodExplore({ history }) {
   }, []);
 
   return (
-    <div>
+    <div className="food-explore">
       <Header title="Explorar Comidas" search={ false } />
       <div
         className="explore-container"
       >
         <Link to="/explorar/comidas/ingredientes">
           <button
+            id="btn"
             type="button"
             data-testid="explore-by-ingredient"
           >
@@ -39,6 +41,7 @@ function FoodExplore({ history }) {
         </Link>
         <Link to="/explorar/comidas/area">
           <button
+            id="btn"
             type="button"
             data-testid="explore-by-area"
           >
@@ -46,6 +49,7 @@ function FoodExplore({ history }) {
           </button>
         </Link>
         <button
+          id="btn"
           onClick={ redirectToRandomFood }
           type="button"
           data-testid="explore-surprise"

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/FoodExplore.css';
 
 function Explore() {
   return (
@@ -13,6 +14,7 @@ function Explore() {
         <Link to="/explorar/comidas">
           { /* link que leva para a rota /explorar/comidas */ }
           <button
+            id="btn"
             type="button"
             data-testid="explore-food"
           >
@@ -22,6 +24,7 @@ function Explore() {
         <Link to="/explorar/bebidas">
           { /* link que leva para a rota /explorar/bebidas */ }
           <button
+            id="btn"
             type="button"
             data-testid="explore-drinks"
           >

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeContext from '../context/RecipeContext';
+import '../styles/FoodExploreIngredients.css';
 
 function FoodExploreIngredients() {
   const [foodIngredients, setfoodIngredients] = useState([]); // variavel que irá armazenar o array com o nome das bebidas após a montagem do componente (conforme useEffect)
@@ -33,7 +34,7 @@ function FoodExploreIngredients() {
   }, []);
 
   return (
-    <div>
+    <div className="food-explore">
       <Header title="Explorar Ingredientes" search={ false } />
       {foodIngredients.map((el, index) => {
         if (index < MAX_NUMBER) {
@@ -58,7 +59,7 @@ function FoodExploreIngredients() {
             </Link>
           );
         }
-        return '';
+        return null;
       })}
       <Footer />
     </div>

@@ -7,6 +7,7 @@ import App from '../App';
 
 const FILTER_BY_ALL_BTN = 'filter-by-all-btn';
 const FILTER_BY_FOOD_BTN = 'filter-by-food-btn';
+const FILTER_BY_DRINK_BTN = 'filter-by-drink-btn';
 const HORIZONTAL_IMAGE = '0-horizontal-image';
 
 const favoriteUrl = '/receitas-favoritas';
@@ -126,7 +127,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Favoritas', () =>
 
     expect(screen.queryByTestId(FILTER_BY_ALL_BTN)).toBeInTheDocument();
     expect(screen.queryByTestId(FILTER_BY_FOOD_BTN)).toBeInTheDocument();
-    expect(screen.queryByTestId('filter-by-drink-btn')).toBeInTheDocument();
+    expect(screen.queryByTestId(FILTER_BY_DRINK_BTN)).toBeInTheDocument();
     expect(screen.queryByTestId(HORIZONTAL_IMAGE)).toBeInTheDocument();
     expect(screen.queryByTestId('0-horizontal-top-text')).toBeInTheDocument();
     expect(screen.queryByTestId('0-horizontal-name')).toBeInTheDocument();
@@ -145,7 +146,7 @@ describe('1 - Verifica os elementos presentes na tela Receitas Favoritas', () =>
     );
     const btnAll = getByTestId(FILTER_BY_ALL_BTN);
     const btnFood = getByTestId(FILTER_BY_FOOD_BTN);
-    const btnDrink = getByTestId('filter-by-drink-btn');
+    const btnDrink = getByTestId(FILTER_BY_DRINK_BTN);
     expect(btnAll).toBeInTheDocument();
     expect(btnFood).toBeInTheDocument();
     expect(btnDrink).toBeInTheDocument();

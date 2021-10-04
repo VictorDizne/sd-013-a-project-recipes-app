@@ -12,11 +12,13 @@ function Foods() {
     isDrinkOrMealLoading,
     cameFromIngredient,
     foodsOrDrinksByIngredient,
+    setCameFromIngredient,
   } = useContext(RecipeContext);
 
   // useEffect com comportamento de ComponentDidMount
   useEffect(() => {
     directRequestFood();
+    return (() => setCameFromIngredient(false));
   }, []);
 
   const element = !isDrinkOrMealLoading ? (
@@ -37,6 +39,7 @@ function Foods() {
           {el.strMeal}
         </span>
         <img
+          id="img"
           data-testid={ `${i}-card-img` }
           src={ el.strMealThumb }
           alt={ el.strMealThumb }
@@ -48,7 +51,6 @@ function Foods() {
   return (
     <div className="comidas-body">
       <Header title="Comidas" />
-      <div className="recipes-background-color" />
       <CategoriesFood />
       {
         !cameFromIngredient && element

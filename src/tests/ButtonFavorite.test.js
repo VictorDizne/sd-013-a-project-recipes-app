@@ -1,6 +1,9 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import renderWithRouter from './renderWithRouter';
 import ButtonFavorite from '../components/ButtonFavorite';
+// import { isfavoriteRecipe } from '../services/setFavorites';
 
 const exemploUrlText = '/comidas/52965';
 const exemploId = '52965';
@@ -62,7 +65,17 @@ const exemploObjDetail = {
 };
 
 describe('1 - Verifica os testes do componente ButtonFavorite', () => {
-  test('Verifica se os elementos estão presentes na tela', () => {
+  // const localStorage = [{
+  //   alcoholicOrNot: '',
+  //   area: 'Croatian',
+  //   category: 'Side',
+  //   id: '53060',
+  //   image: 'https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg',
+  //   name: 'Burek',
+  //   type: 'comida',
+  // }];
+
+  test('Verifica se os elementos estão presentes na tela', async () => {
     const { getByTestId } = renderWithRouter(<ButtonFavorite
       objDetail={ exemploObjDetail }
       id={ exemploId }
@@ -71,5 +84,20 @@ describe('1 - Verifica os testes do componente ButtonFavorite', () => {
 
     const btnFavoriteRecipe = getByTestId('favorite-btn');
     expect(btnFavoriteRecipe).toBeInTheDocument();
+    expect(btnFavoriteRecipe).toHaveAttribute('src', whiteHeartIcon);
+  });
+
+  test('testa se quando a imagem da receita é clicada, a pagina é redirecionada', () => {
+    const { getByTestId } = renderWithRouter(<ButtonFavorite
+      objDetail={ exemploObjDetail }
+      id={ exemploId }
+      urlText={ exemploUrlText }
+    />);
+
+    const buttonClick = getByTestId('favorite-btn');
+    userEvent.click(buttonClick);
+    userEvent.dblClick(buttonClick);
+
+    expect(pathname).toBe('/comidas/52771');
   });
 });
