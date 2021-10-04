@@ -12,7 +12,7 @@ import FoodsExplorer from './Pages/FoodsExplorer';
 import DoneRecipes from './Pages/DoneRecipes';
 import DrinksExplorer from './Pages/DrinksExplorer';
 import Explorer from './Pages/Explorer';
-import FavoriteRecipes from './Pages/FavoritesRecipes';
+import FavoriteRecipes from './Pages/FavoriteRecipes';
 import FoodsByLocal from './Pages/FoodsByLocal';
 import ExploreByIngredients from './Pages/ExplorerByIng';
 import Profile from './Pages/Profile';
