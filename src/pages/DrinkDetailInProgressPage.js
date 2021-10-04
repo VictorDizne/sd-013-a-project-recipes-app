@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as myFunc from '../services/api';
 import * as myFuncHelper from '../services/helpers';
 import * as myFuncStorage from '../services/storage';
+
+// ICONES
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -16,11 +18,12 @@ function DrinkDetailInProgressPage({ match }) {
   const [quantity, setQuanitity] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [checkFavorite, setCheckFavorite] = useState(false);
-  // const [checkProgress, setCheckProgress] = useState('Iniciar Receita');
+  const [checkProgress, setCheckProgress] = useState('Iniciar Receita');
   const [copySuccess, setCopySuccess] = useState('');
-  // const [checkDone, setCheckDone] = useState(false);
+  const [checkDone, setCheckDone] = useState(false);
+  const [checkIngredients, setCheckIngredients] = useState('');
+  const [checkAllcheckbox, setCheckAllCheckbox] = useState(true);
   const { params: { id } } = match;
-  // const [checkIngredients, setCheckIngredients] = useState('');
 
   const getIdRecipe = async () => {
     const { drinks } = await myFunc.fetchRecipesDetails(id, 'thecocktaildb');
@@ -44,9 +47,16 @@ function DrinkDetailInProgressPage({ match }) {
       setCheckDone,
       id,
       type: 'cocktails',
+      checkDone,
+      checkProgress,
     };
     myFuncStorage.setAllLocalStorage(paramsValue);
-  }, []);
+
+    if (checkIngredients !== '') {
+      setCheckAllCheckbox(!ingredients
+        .every((ingredient) => document.getElementById(ingredient).checked));
+    }
+  }, [checkIngredients, setCheckAllCheckbox]);
 
   const returnListOfIngredients = (index, ingredient) => (
     <div data-testid={ `${index}-ingredient-step` }>
@@ -84,7 +94,7 @@ function DrinkDetailInProgressPage({ match }) {
         type="button"
         data-testid="share-btn"
         onClick={ () => myFuncHelper
-          .copyToClipBoard(window.location.href, setCopySuccess) }
+          .copyToClipBoard(`http://localhost:3000/bebidas/${id}`, setCopySuccess) }
       >
         <img src={ shareIcon } alt="share-icon" />
         {copySuccess}
@@ -102,14 +112,21 @@ function DrinkDetailInProgressPage({ match }) {
       </button>
 
       <div>
-        { ingredients.map((ingredient, index) => ((
+        {ingredients.map((ingredient, index) => ((
           ingredient !== undefined || ingredient !== null)
-          && returnListOfIngredients(index, ingredient))) }
+        && returnListOfIngredients(index, ingredient)
+        ))}
       </div>
 
       <p data-testid="instructions">{details.strInstructions}</p>
+
       <Link to="/receitas-feitas">
-        <button type="button" data-testid="finish-recipe-btn">
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ checkAllcheckbox }
+          onClick={ () => myFuncStorage.setDoneRecipe(details, 'Drink') }
+        >
           Finalizar Receita
         </button>
       </Link>
