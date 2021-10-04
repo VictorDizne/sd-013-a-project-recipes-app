@@ -68,7 +68,7 @@ function FoodDetails() {
   const isMealDone = () => !!savedDoneRecipes[historyId];
 
   return (
-    <div>
+    <div className="page-container">
       {(recipe.length === 1) && (
         <div>
           <img

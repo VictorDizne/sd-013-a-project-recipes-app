@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { shareMealHelper } from '../services/helpers';
 import shareIcon from '../images/shareIcon.svg';
+import '../styles/RecipeCard.css';
 
 function DoneDrinkCard({ recipe, index }) {
   const { id, alcoholicOrNot, name, image, doneDate } = recipe;

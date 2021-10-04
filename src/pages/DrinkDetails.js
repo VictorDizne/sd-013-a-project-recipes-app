@@ -70,7 +70,7 @@ function DrinkDetails() {
   return (
     <div>
       { (recipe.length === 1) && (
-        <div>
+        <div className="page-container">
           <img
             src={ recipe[0].strDrinkThumb }
             data-testid="recipe-photo"

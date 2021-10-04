@@ -7,7 +7,7 @@ function DrinkCard({ index, recipe }) {
   const { strDrink, idDrink, strDrinkThumb } = recipe;
 
   return (
-    <Link to={ `/bebidas/${idDrink}` }>
+    <Link to={ `/bebidas/${idDrink}` } className="link">
       <div data-testid={ `${index}-recipe-card` } className="content">
         <div className="content-individual">
           <img

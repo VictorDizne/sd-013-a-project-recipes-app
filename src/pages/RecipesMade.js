@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import DoneMealCard from '../components/DoneMealCard';
 import DoneDrinkCard from '../components/DoneDrinkCard';
 import '../styles/RecipesMade.css';
+import '../styles/Buttons.css';
 
 const RecipesMade = () => {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -28,39 +29,44 @@ const RecipesMade = () => {
   return (
     <>
       <Header title="Receitas Feitas" />
-      <div className="done-recepies-btns">
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ handleClickDoneRecipes }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ handleClickDoneMeals }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ handleClickDoneDrinks }
-        >
-          Drink
-        </button>
-      </div>
-      <div>
-        { recipeList && recipeList.map((recipe, index) => {
-          if (recipe.type === 'comida') {
-            return <DoneMealCard key={ index } recipe={ recipe } index={ index } />;
-          }
-          if (recipe.type === 'bebida') {
-            return <DoneDrinkCard key={ index } recipe={ recipe } index={ index } />;
-          }
-          return recipe;
-        })}
+      <div className="recipes-list">
+        <div className="select-buttons">
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ handleClickDoneRecipes }
+            className="buttons"
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ handleClickDoneMeals }
+            className="buttons"
+          >
+            Food
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ handleClickDoneDrinks }
+            className="buttons"
+          >
+            Drink
+          </button>
+        </div>
+        <div>
+          { recipeList && recipeList.map((recipe, index) => {
+            if (recipe.type === 'comida') {
+              return <DoneMealCard key={ index } recipe={ recipe } index={ index } />;
+            }
+            if (recipe.type === 'bebida') {
+              return <DoneDrinkCard key={ index } recipe={ recipe } index={ index } />;
+            }
+            return recipe;
+          })}
+        </div>
       </div>
     </>
   );

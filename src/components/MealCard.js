@@ -7,7 +7,7 @@ function MealCard({ index, recipe }) {
   const { strMeal, strMealThumb, idMeal } = recipe;
 
   return (
-    <Link to={ `/comidas/${idMeal}` }>
+    <Link to={ `/comidas/${idMeal}` } className="link">
       <div data-testid={ `${index}-recipe-card` } className="content">
         <div className="content-individual">
           <img

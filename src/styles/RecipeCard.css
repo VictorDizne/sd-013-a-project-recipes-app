@@ -6,10 +6,10 @@
 .content-individual {
   background-color: rgb(206, 201, 201);
   border-radius: 5px;
-  box-shadow: 1px 1px 6px 2px black;
-  height: 160px;
+  box-shadow: 10px 10px 25px #00000070;
   padding: 15px;
   text-align: center;
+  transition: all 0.3s;
 }
 
 .content img {
@@ -25,4 +25,9 @@
 .content-individual:hover {
   background-color: rgb(235, 235, 235);
   transform: scale(1.05);
+}
+
+.link {
+  color: black;
+  text-decoration: none;
 }

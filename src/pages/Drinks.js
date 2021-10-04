@@ -5,6 +5,7 @@ import DrinkCard from '../components/DrinkCard';
 import Footer from '../components/Footer';
 import { fetchDrinkCategories } from '../services/bebidasApi';
 import '../styles/Recipes.css';
+import '../styles/Buttons.css';
 
 const Drinks = () => {
   const {
@@ -37,11 +38,12 @@ const Drinks = () => {
     <div>
       <Header title="Bebidas" hasSearchIcon page="drinks" />
       <div className="recipes-list">
-        <div>
+        <div className="select-buttons">
           <button
             type="button"
             data-testid="All-category-filter"
             onClick={ showAllDrinks }
+            className="buttons"
           >
             All
           </button>
@@ -51,6 +53,7 @@ const Drinks = () => {
               type="button"
               data-testid={ `${b.strCategory}-category-filter` }
               onClick={ () => filterCategories(b.strCategory) }
+              className="buttons"
             >
               { b.strCategory }
             </button>

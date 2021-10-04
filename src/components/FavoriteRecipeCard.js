@@ -19,53 +19,58 @@ function FavoriteRecipeCard({ recipe, index, handleClickNotFavorite }) {
   };
 
   return (
-    <div>
+    <div className="card">
       <button
         type="button"
         onClick={ sendToDetailsPage }
+        className="card-img"
       >
         <img
           src={ image }
           alt={ `foto de ${name}` }
           data-testid={ `${index}-horizontal-image` }
-          width="80px"
         />
       </button>
 
-      <p data-testid={ `${index}-horizontal-top-text` }>
-        {(type === 'comida') ? `${area} - ${category}` : `${alcoholicOrNot}`}
-      </p>
+      <div className="card-text">
+        <p data-testid={ `${index}-horizontal-top-text` }>
+          {(type === 'comida') ? `${area} - ${category}` : `${alcoholicOrNot}`}
+        </p>
 
-      <button
-        type="button"
-        onClick={ sendToDetailsPage }
-      >
-        <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
-      </button>
+        <button
+          type="button"
+          onClick={ sendToDetailsPage }
+          className="card-title"
+        >
+          <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
+        </button>
 
-      <p>{messageAlert}</p>
+        <p>{messageAlert}</p>
 
-      <button
-        type="button"
-        onClick={ shareRecipe }
-      >
-        <img
-          src={ shareIcon }
-          alt="Share Icon"
-          data-testid={ `${index}-horizontal-share-btn` }
-        />
-      </button>
+        <button
+          type="button"
+          onClick={ shareRecipe }
+          className="card-buttons"
+        >
+          <img
+            src={ shareIcon }
+            alt="Share Icon"
+            data-testid={ `${index}-horizontal-share-btn` }
+          />
+        </button>
 
-      <button
-        type="button"
-        onClick={ () => handleClickNotFavorite(id) }
-      >
-        <img
-          src={ blackHeartIcon }
-          alt="heart"
-          data-testid={ `${index}-horizontal-favorite-btn` }
-        />
-      </button>
+        <button
+          type="button"
+          onClick={ () => handleClickNotFavorite(id) }
+          className="card-buttons"
+        >
+          <img
+            src={ blackHeartIcon }
+            alt="heart"
+            data-testid={ `${index}-horizontal-favorite-btn` }
+          />
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 .fixed-footer {
   align-items: center;
-  background-color: honeydew;
+  background-color: rgb(145, 128, 179);
   bottom: 0;
-  box-shadow: 10px 10px 15px black;
+  box-shadow: 0 -5px 25px #0000003f;
   display: flex;
   justify-content: space-around;
   left: 0;
@@ -13,12 +13,16 @@
 }
 
 .footer-buttons {
-  background-color: transparent;
+  background-color: rgb(235, 223, 255);
   border: none;
+  border-radius: 50%;
+  box-shadow: 1px 1px 10px 1px #00000070;
   cursor: pointer;
+  padding: 10px 15px;
   transition: all 0.3s;
 }
 
 .footer-buttons:hover {
+  background-color: rgb(246, 241, 255);
   transform: scale(0.9);
 }

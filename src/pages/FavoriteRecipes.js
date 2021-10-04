@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import '../styles/RecipesMade.css';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
+import '../styles/FavoriteRecipes.css';
+import '../styles/Buttons.css';
 
 const FavoriteRecipes = () => {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
@@ -35,40 +36,45 @@ const FavoriteRecipes = () => {
   return (
     <>
       <Header title="Receitas Favoritas" />
-      <div className="done-recepies-btns">
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ handleClickFavoriteRecipes }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ handleClickFavoriteMeals }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ handleClickFavoriteDrinks }
-        >
-          Drink
-        </button>
-      </div>
-      <div>
-        {
-          recipeList && recipeList.map((recipe, index) => (
-            <FavoriteRecipeCard
-              key={ index }
-              recipe={ recipe }
-              index={ index }
-              handleClickNotFavorite={ handleClickNotFavorite }
-            />
-          ))
-        }
+      <div className="recipes-list">
+        <div className="select-buttons">
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ handleClickFavoriteRecipes }
+            className="buttons"
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ handleClickFavoriteMeals }
+            className="buttons"
+          >
+            Food
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ handleClickFavoriteDrinks }
+            className="buttons"
+          >
+            Drink
+          </button>
+        </div>
+        <div className="recipes-container">
+          {
+            recipeList && recipeList.map((recipe, index) => (
+              <FavoriteRecipeCard
+                key={ index }
+                recipe={ recipe }
+                index={ index }
+                handleClickNotFavorite={ handleClickNotFavorite }
+              />
+            ))
+          }
+        </div>
       </div>
     </>
   );
