@@ -5,6 +5,7 @@ import MyContext from '../context/myContext';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import { cocktailsAPIRequest, foodAPIRequest } from '../services/APIrequest';
+import {}
 
 const Header = ({ pageName, hasLupa }) => {
   const [hidden, setHidden] = useState(true);
@@ -75,7 +76,7 @@ const Header = ({ pageName, hasLupa }) => {
     setHidden(!hidden);
   };
 
-  const outraFunc = pageName === 'Bebidas' ? filterByClickDrink : filterByClick;
+  const outraFunc = pageName === 'Comidas' ? filterByClick : filterByClickDrink;
 
   const searchInput = (
     <>

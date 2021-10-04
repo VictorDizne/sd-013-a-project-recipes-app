@@ -52,10 +52,8 @@ const TelaComidas = ({ history }) => {
       <Header hasLupa pageName="Comidas" />
       <div className="main">
         <Filters alimento={ categoryFood } />
-        {searchBarFilters.length === 1 ? {
-      const id = searchBarFilters[0].idMeal;
-      history.push(`/comidas/${id}`);}
-        { renderCards() }
+        { searchBarFilters.length === 1 ? history
+          .push(`/comidas/${searchBarFilters[0].idMeal}`) : renderCards() }
       </div>
       <Footer />
     </div>
