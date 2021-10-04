@@ -52,7 +52,9 @@ export default function ExploreByIngredients() {
                   alt={ drink.strIngredient1 }
                 />
               </div>
-              <div name={ drink.strIngredient1 } className="card-title">
+              <div
+                name={ drink.strIngredient1 }
+              >
                 <span
                   data-testid={ `${index}-card-name` }
                 >
