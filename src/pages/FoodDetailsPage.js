@@ -145,7 +145,7 @@ function FoodDetailsPage({ match }) {
         onClick={ () => myFuncStorage.setProgressRecipe(id, 'meals') }
         page="comidas"
         title={ checkProgress }
-      />}
+      /> }
     </div>
   );
 }

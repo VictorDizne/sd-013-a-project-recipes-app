@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import MyContext from '../context/Context';
 import * as myFunc from '../services/api';
 import * as myFuncHelper from '../services/helpers';
 import * as myFuncStorage from '../services/storage';
@@ -11,16 +12,17 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function DrinkDetailInProgressPage({ match }) {
+  const { checkDone,
+    checkFavorite,
+    checkProgress,
+    setCheckDone, setCheckFavorite, setCheckProgress } = useContext(MyContext);
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const progressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [details, setDetails] = useState({});
   const [quantity, setQuanitity] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  const [checkFavorite, setCheckFavorite] = useState(false);
-  const [checkProgress, setCheckProgress] = useState('Iniciar Receita');
   const [copySuccess, setCopySuccess] = useState('');
-  const [checkDone, setCheckDone] = useState(false);
   const [checkIngredients, setCheckIngredients] = useState('');
   const [checkAllcheckbox, setCheckAllCheckbox] = useState(true);
   const { params: { id } } = match;
