@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import recipeContext from '../context';
 import ComponentDetailsContent from './ComponentDetailsContent';
-import { ingredientsInProgressArray } from '../functions';
 
 function ComponentRecipeInProgress() {
   const { fetchDetails } = useContext(recipeContext).ContextDetails;
@@ -55,8 +54,8 @@ function ComponentRecipeInProgress() {
       <h1>In Progress</h1>
       {
         currentPage
-          ? <ComponentDetailsContent keys={ keysM } func={ ingredientsInProgressArray } />
-          : <ComponentDetailsContent keys={ keysD } func={ ingredientsInProgressArray } />
+          ? <ComponentDetailsContent keys={ keysM } />
+          : <ComponentDetailsContent keys={ keysD } />
       }
       <button
         data-testid="finish-recipe-btn"

@@ -2,26 +2,24 @@ import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDebugState } from 'use-named-state';
 import recipeContext from '../context';
-import { saveLocalStorage } from '../functions';
-// import usePersistedState from '../utils/usePersistedState';
+import { handleFavoriteIcon, handleShare } from '../functions';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
+import IngredientProgress from './ingredients/IngredientProgress';
+import IngredientDetails from './ingredients/IngredientDetails';
 import './Styles/RecipeInProgress.css';
 
 const copy = require('clipboard-copy');
 
-function ComponentDetailsContent({ keys, func }) {
+function ComponentDetailsContent({ keys }) {
   const { details } = useContext(recipeContext).ContextDetails;
 
   const favoritedRecipe = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]')
     .some((recipe) => recipe.id === details[keys.id]);
 
-  //  const progressActual = {};
-
   const [favoriteIcon, setFavoriteIcon] = useDebugState('FavoriteIcon', favoritedRecipe);
   const [share, setShareIcon] = useDebugState('Share', false);
-  //  const [progress, setProgress] = useDebugState('Progress ingredients', progressActual);
 
   useEffect(() => {
     setFavoriteIcon(favoritedRecipe);
@@ -29,50 +27,23 @@ function ComponentDetailsContent({ keys, func }) {
 
   if (details[keys.title] === undefined) return <h1>Loading</h1>;
 
-  const alcoholic = details[keys.alcoholicOrNot] || '';
-  const areaK = details[keys.area] || '';
   let youtube;
 
   if (keys.iframe) youtube = details[keys.video].replace('watch?v=', 'embed/');
 
-  const handleFavoriteIcon = () => {
-    setFavoriteIcon(!favoriteIcon);
-    const newArray = {
-      id: details[keys.id],
-      type: keys.typeK,
-      area: areaK,
-      category: details[keys.category],
-      alcoholicOrNot: alcoholic,
-      name: details[keys.title],
-      image: details[keys.thumb],
-    };
-
-    saveLocalStorage(newArray, details[keys.id]);
-  };
-
-  const handleShare = () => {
-    setShareIcon(!share);
-    if (!share) {
-      const url = window.location.href.split('/in-progress');
-      const splitedURL = url[0];
-      copy(splitedURL);
-    } else {
-      copy('');
-    }
-  };
-
-  const handleClick = ({ target }) => {
-    target.parentNode.classList.toggle('risk');
-  };
-
   return (
     <div>
       <img data-testid="recipe-photo" src={ details[keys.thumb] } alt="recipe" />
-      <button type="button" onClick={ handleShare }>
+      <button type="button" onClick={ () => handleShare(setShareIcon, share, copy) }>
         <img data-testid="share-btn" src={ ShareIcon } alt="" width="30px" />
       </button>
-      {share && <p>Link copiado!</p>}
-      <button type="button" onClick={ handleFavoriteIcon }>
+      {
+        share && <p>Link copiado!</p>
+      }
+      <button
+        type="button"
+        onClick={ () => handleFavoriteIcon(setFavoriteIcon, favoriteIcon, details, keys) }
+      >
         <img
           data-testid="favorite-btn"
           src={ favoriteIcon ? BlackHeartIcon : WhiteHeartIcon }
@@ -86,19 +57,26 @@ function ComponentDetailsContent({ keys, func }) {
         {' '}
         {details[keys.alcoholicOrNot]}
       </h4>
-      {keys.click ? func(details, handleClick) : func(details)}
+
+      {
+        keys.click ? <IngredientProgress /> : <IngredientDetails />
+      }
+
       <h5 data-testid="instructions">{details[keys.instructions]}</h5>
-      {keys.iframe && <iframe
-        data-testid="video"
-        width="300"
-        height="200"
-        src={ youtube }
-        title={ details[keys.title] }
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write;
+
+      {
+        keys.iframe && <iframe
+          data-testid="video"
+          width="300"
+          height="200"
+          src={ youtube }
+          title={ details[keys.title] }
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write;
         encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />}
+          allowFullScreen
+        />
+      }
     </div>
   );
 }

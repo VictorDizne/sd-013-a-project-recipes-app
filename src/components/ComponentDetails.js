@@ -3,7 +3,6 @@ import { useParams, useHistory } from 'react-router-dom';
 import recipeContext from '../context';
 import ComponentDetailsContent from './ComponentDetailsContent';
 import ComponentSugestions from './ComponentSugestions';
-import { ingredientAndMeasureArray } from '../functions';
 
 function ComponentDetails() {
   const { fetchDetails } = useContext(recipeContext).ContextDetails;
@@ -54,8 +53,8 @@ function ComponentDetails() {
     <div>
       {
         currentPage
-          ? <ComponentDetailsContent keys={ keysM } func={ ingredientAndMeasureArray } />
-          : <ComponentDetailsContent keys={ keysD } func={ ingredientAndMeasureArray } />
+          ? <ComponentDetailsContent keys={ keysM } />
+          : <ComponentDetailsContent keys={ keysD } />
       }
       <ComponentSugestions />
       <div className="btn-container">
