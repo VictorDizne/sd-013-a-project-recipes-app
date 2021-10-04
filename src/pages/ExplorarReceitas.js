@@ -25,6 +25,8 @@ function ExplorarReceitas({ match, history }) {
     }
   };
 
+  if (!randomRecipe) return <h1>Loading...</h1>;
+
   return (
     <div>
       <Header
