@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -14,8 +15,6 @@ function ToExploreDrinksPage() {
   const requestRecipeRandom = async() => {
 const { drinks } = await myFunc.fetchRecipesRamdon('thecocktaildb');
 setRandonRecipes(drinks[0]);
-const { idDrink } = drinks[0]; 
-console.log(drinks[0]);
 }
   useEffect(() => {
   requestRecipeRandom()

@@ -14,8 +14,6 @@ function ToExploreFoodsPage() {
   const requestRecipeRandom = async() => {
 const { meals } = await myFunc.fetchRecipesRamdon('themealdb');
 setRandonRecipes(meals[0]);
-const { idMeals } = meals[0]; 
-console.log(meals[0]);
 }
   useEffect(() => {
   requestRecipeRandom()
@@ -61,3 +59,5 @@ console.log(meals[0]);
 }
 
 export default ToExploreFoodsPage;
+
+
