@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
-import FavoriteButton from './FavoriteButton';
+import FavoriteBtn from './FavoriteBtn';
 
-function FilteredCards({ recipes, favoriteOrDone = 'done' }) {
+function FilteredCards({ recipes, favoriteOrDone = 'done', removeFavorite }) {
   return (
     <div>
       {
@@ -40,9 +40,10 @@ function FilteredCards({ recipes, favoriteOrDone = 'done' }) {
               />
               { favoriteOrDone === 'favorite'
               && (
-                <FavoriteButton
-                  recipe={ recipes }
-                  testID={ `${index}-horizontal-favorite-btn` }
+                <FavoriteBtn
+                  recipe={ recipes[index] }
+                  index={ index }
+                  removeFavorite={ removeFavorite }
                 />
               )}
               { favoriteOrDone === 'done'
@@ -68,8 +69,9 @@ function FilteredCards({ recipes, favoriteOrDone = 'done' }) {
 }
 
 FilteredCards.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   favoriteOrDone: PropTypes.string.isRequired,
+  removeFavorite: PropTypes.func.isRequired,
 };
 
 export default FilteredCards;
