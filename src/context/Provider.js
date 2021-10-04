@@ -14,6 +14,9 @@ function initStorage() {
       meals: {}, cocktails: {},
     }));
   }
+  if (localStorage.getItem('doneRecipes') === null) {
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
+  }
 }
 
 export function Provider({ children }) {

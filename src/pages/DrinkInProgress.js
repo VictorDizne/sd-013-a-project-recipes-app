@@ -47,8 +47,31 @@ function DrinkInProgress({ match: { params: { id } } }) {
     bottom: '0px',
   };
 
-  function done() {
+  async function checkDoneRecipes() {
+    const data = await fetchDetails(location.pathname, id);
+    const ten = 10;
+    const date = new Date().toJSON().slice(0, ten).replace(/-/g, '/');
+    console.log(data);
+    const doneRecipe = {
+      id: data.idDrink,
+      type: 'bebida',
+      area: '',
+      category: data.strCategory,
+      alcoholicOrNot: data.strAlcoholic,
+      name: data.strDrink,
+      image: data.strDrinkThumb,
+      doneDate: date,
+      tags: (data.strTags === null ? [] : data.strTags.split(',')),
+    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    await localStorage.setItem(
+      'doneRecipes', JSON.stringify([...doneRecipes, doneRecipe]),
+    );
     history.push('/receitas-feitas');
+  }
+
+  function done() {
+    checkDoneRecipes();
   }
 
   function handleCheckBox({ target }) {
