@@ -13,15 +13,13 @@ function DrinksProcess(props) {
   const { setFavorite, setId } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
-  const [favIngredients, setFavIngredients] = useState(false);
+  // const [favIngredients, setFavIngredients] = useState(false);
 
   useEffect(() => {
     const { match: { params: { id } } } = props;
-    console.log(id);
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     async function fetchResult() {
       const result = await (await fetch(url)).json();
-      console.log(result, 'result');
       setDetails(result.drinks[0]);
       setFavorite(result.drinks[0]);
       setId(result.drinks[0].idDrinks);
@@ -74,9 +72,9 @@ function DrinksProcess(props) {
   };
 
   const renderDetails = () => {
-    const urlShare = window.location.href;
+    const urlLocal = window.location.href;
+    const urlShare = urlLocal.split('/in')[0];
     if (details !== undefined) {
-      console.log(details);
       return (
         <section>
           <img src={ details.strDrinkThumb } alt="" data-testid="recipe-photo" />
@@ -96,7 +94,7 @@ function DrinksProcess(props) {
             <h3>Ingredientes</h3>
             {Object.keys(details)
               .filter((detail) => detail.includes('strIngredient'))
-              .filter((ing) => details[ing] !== null)
+              .filter((ing) => details[ing])
               .map((ingredient, i) => (
                 <li
                   key={ i }

@@ -4,7 +4,7 @@ import { Button } from '../components';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesDone() {
-  const recipesDone = JSON.parse(localStorage.getItem('doneRecipes') || [])
+  const recipesDone = JSON.parse(localStorage.getItem('doneRecipes') || []);
   return (
     <div>
       <Header text="Receitas Feitas" />

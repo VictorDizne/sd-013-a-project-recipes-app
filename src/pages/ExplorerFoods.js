@@ -10,7 +10,6 @@ function ExplorerFoods() {
     fetch('https://www.themealdb.com/api/json/v1/1/random.php')
       .then((r) => r.json())
       .then((rJson) => rJson.meals[0].idMeal)
-      // .then((rJson) => console.log(rJson))
       .then((id) => localStorage.setItem('idFood', id));
   }, []);
 

@@ -46,12 +46,11 @@ function Header({ text, secondButton }) {
     <div>
       <header>
         <Link to="/perfil">
-          <Button
-            // handleClick={}
+          <Button>
+            {/* // handleClick={}
             testID="profile-top-btn"
-            image={ profileIcon }
-          >
-            <img src={ profileIcon } alt="profile" />
+            image={ profileIcon } */}
+            <img src={ profileIcon } data-testid="profile-top-btn" alt="profile" />
           </Button>
         </Link>
         <h1 data-testid="page-title">{ text }</h1>
@@ -59,10 +58,10 @@ function Header({ text, secondButton }) {
           ? (
             <Button
               handleClick={ handleInput }
-              testID="search-top-btn"
-              image={ searchIcon }
+              // testID="search-top-btn"
+              // image={ searchIcon }
             >
-              <img src={ searchIcon } alt="search" />
+              <img src={ searchIcon } data-testid="search-top-btn" alt="search" />
             </Button>)
           : null}
       </header>

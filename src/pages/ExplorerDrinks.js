@@ -7,7 +7,6 @@ function ExplorerDrinks() {
   const history = useHistory();
   useEffect(() => {
     localStorage.clear();
-    // console.log('here');
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
       .then((r) => r.json())
       .then((rJson) => rJson.drinks[0].idDrink)

@@ -15,11 +15,9 @@ function FoodsProcess(props) {
 
   useEffect(() => {
     const { match: { params: { id } } } = props;
-    // console.log(id);
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     async function fetchResult() {
       const result = await (await fetch(url)).json();
-      console.log(result, 'result');
       setDetails(result.meals[0]);
       setFavorite(result.meals[0]);
       setId(result.meals[0].idMeal);
@@ -36,7 +34,9 @@ function FoodsProcess(props) {
   };
 
   const renderDetails = () => {
-    const urlShare = window.location.href;
+    const urlLocal = window.location.href;
+    const urlShare = urlLocal.split('/in')[0];
+
     if (details !== undefined) {
       return (
         <section>
@@ -58,7 +58,7 @@ function FoodsProcess(props) {
             <h3>Ingredientes</h3>
             {Object.keys(details)
               .filter((detail) => detail.includes('strIngredient'))
-              .filter((ing) => details[ing] !== '')
+              .filter((ing) => details[ing])
               .map((ingredient, i) => (
                 <li
                   key={ i }

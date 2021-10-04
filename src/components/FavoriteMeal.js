@@ -10,7 +10,6 @@ function FavoriteMeal() {
   useEffect(() => {
     const listFavorite = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
     const newArray = listFavorite.filter((list) => list.id === id);
-    console.log(newArray);
     if (newArray[0]) {
       return setFavHeart(true);
     }
@@ -44,12 +43,11 @@ function FavoriteMeal() {
 
   return (
     <Button
-      testID="favorite-btn"
       handleClick={ handleFavorite }
       image={ favHeart ? blackHeartIcon : whiteHeartIcon }
     >
-      {favHeart ? <img alt="liked" src={ blackHeartIcon } />
-        : <img alt="wthlike" src={ whiteHeartIcon } /> }
+      {favHeart ? <img alt="liked" data-testid="favorite-btn" src={ blackHeartIcon } />
+        : <img alt="wthlike" data-testid="favorite-btn" src={ whiteHeartIcon } /> }
     </Button>
   );
 }
