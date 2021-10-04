@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { fetchFoodById } from '../services/comidasApi';
-import { getIngredients,
-  doneMealsList, favoriteMealRecipe, shareMealHelper } from '../services/helpers';
-import { setMealsProgress } from '../services/localStorage';
+import { getIngredients, shareMealHelper } from '../services/helpers';
+import { favoriteMealRecipe,
+  doneMealsList, setMealsProgress } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -17,8 +17,9 @@ function FoodProgress() {
   const [ingredientsSave, setIngredientsSave] = useState([]);
   const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const [isActive, setIsActive] = useState(false);
+  const history = useHistory();
 
-  const params = useParams(); // esse metodo ja retira da url somente o id
+  const params = useParams();
   const historyId = params.id;
 
   useEffect(() => {
@@ -35,21 +36,17 @@ function FoodProgress() {
   };
 
   const handleLineThrough = (ingredient) => {
-    // verifica se o ingrediente clicado já está na lista de ingredientes salvos
     const isIngredientSaved = ingredientsSave.includes(ingredient);
 
-    // O ingrediente esta na lista de ingredientes salvos?
     const newIngredientsSave = isIngredientSaved
-      ? ingredientsSave.filter((i) => i !== ingredient) // remove da lista se ingrediente ja está na lista
-      : [...ingredientsSave, ingredient]; // adiciona na lista
+      ? ingredientsSave.filter((i) => i !== ingredient)
+      : [...ingredientsSave, ingredient];
     setIngredientsSave(newIngredientsSave);
-    // Requisito 52
+
     const isAllIngredientsChecked = ingredients
       .every((ing) => newIngredientsSave.includes(ing));
-    // console.log(isAllIngredientsChecked);
     setIsActive(isAllIngredientsChecked);
-    // const btnFinilizeRecipe = document.getElementById('btn-finalizar-receita');
-    // btnFinilizeRecipe.hidden = !isAllIngredientsChecked;
+
     setMealsProgress(historyId, newIngredientsSave);
   };
 
@@ -75,6 +72,7 @@ function FoodProgress() {
   const handleDoneRecipes = () => {
     const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     doneMealsList(recipe, savedDoneRecipes);
+    history.push('/receitas-feitas');
   };
 
   return (
@@ -131,21 +129,18 @@ function FoodProgress() {
       <h3>Instruções</h3>
       {(recipe.length === 1)
         && <p data-testid="instructions">{recipe[0].strInstructions}</p>}
-      <Link
-        to="/receitas-feitas"
-      >
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          className="iniciar-receita"
-          id="btn-finalizar-receita"
-          onClick={ handleDoneRecipes }
-          disabled={ !isActive }
 
-        >
-          Finalizar Receita
-        </button>
-      </Link>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        className="iniciar-receita"
+        id="btn-finalizar-receita"
+        onClick={ handleDoneRecipes }
+        disabled={ !isActive }
+
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }

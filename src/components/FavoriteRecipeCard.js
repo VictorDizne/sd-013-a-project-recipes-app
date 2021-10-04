@@ -3,12 +3,10 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { shareMealHelper } from '../services/helpers';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function DoneMealCard({ recipe, index }) {
-  const { id, area, category,
-    name, image, doneDate, tags } = recipe;
-  const MAX_TAGS = 2;
-  const filteredTags = tags.slice(0, MAX_TAGS);
+function FavoriteRecipeCard({ recipe, index, handleClickNotFavorite }) {
+  const { id, type, category, name, image, area, alcoholicOrNot } = recipe;
   const [messageAlert, setMessageAlert] = useState('');
   const history = useHistory();
 
@@ -17,11 +15,34 @@ function DoneMealCard({ recipe, index }) {
   };
 
   const sendToDetailsPage = () => {
-    history.push(`/comidas/${id}`);
+    history.push(`/${type}s/${id}`);
   };
 
   return (
     <div>
+      <button
+        type="button"
+        onClick={ sendToDetailsPage }
+      >
+        <img
+          src={ image }
+          alt={ `foto de ${name}` }
+          data-testid={ `${index}-horizontal-image` }
+          width="80px"
+        />
+      </button>
+
+      <p data-testid={ `${index}-horizontal-top-text` }>
+        {(type === 'comida') ? `${area} - ${category}` : `${alcoholicOrNot}`}
+      </p>
+
+      <button
+        type="button"
+        onClick={ sendToDetailsPage }
+      >
+        <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
+      </button>
+
       <p>{messageAlert}</p>
 
       <button
@@ -37,46 +58,27 @@ function DoneMealCard({ recipe, index }) {
 
       <button
         type="button"
-        onClick={ sendToDetailsPage }
+        onClick={ () => handleClickNotFavorite(id) }
       >
         <img
-          src={ image }
-          alt={ `foto de ${name}` }
-          data-testid={ `${index}-horizontal-image` }
-          width="80px"
+          src={ blackHeartIcon }
+          alt="heart"
+          data-testid={ `${index}-horizontal-favorite-btn` }
         />
       </button>
-
-      <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${category}`}</p>
-
-      <button
-        type="button"
-        onClick={ sendToDetailsPage }
-      >
-        <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
-      </button>
-
-      <p data-testid={ `${index}-horizontal-done-date` }>{`Feita em ${doneDate}`}</p>
-
-      {
-        tags && filteredTags.map((tagName, tagIndex) => (
-          <span key={ tagIndex } data-testid={ `${index}-${tagName}-horizontal-tag` }>
-            {tagName}
-          </span>))
-      }
     </div>
   );
 }
 
-DoneMealCard.propTypes = {
+FavoriteRecipeCard.propTypes = {
   recipe: PropTypes.object,
   index: PropTypes.number,
-  area: PropTypes.string,
   category: PropTypes.string,
   name: PropTypes.string,
   image: PropTypes.string,
-  doneDate: PropTypes.string,
-  tags: PropTypes.array,
+  area: PropTypes.string,
+  alcoholicOrNot: PropTypes.string,
+  type: PropTypes.string,
 }.isRequired;
 
-export default DoneMealCard;
+export default FavoriteRecipeCard;

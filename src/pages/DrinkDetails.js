@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchDrinksById } from '../services/bebidasApi';
 import { fetchRecommendedMeals } from '../services/comidasApi';
-import { getIngredients,
-  favoriteDrinkRecipe, shareDrinkHelper } from '../services/helpers';
+import { getIngredients, shareDrinkHelper } from '../services/helpers';
+import { favoriteDrinkRecipe } from '../services/localStorage';
 import RecomendationCard from '../components/RecomendationCard';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';

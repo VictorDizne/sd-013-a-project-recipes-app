@@ -10,9 +10,7 @@ const RecipesMade = () => {
     .filter((recipe) => recipe.type === 'comida') : [];
   const doneDrinks = doneRecipes ? doneRecipes
     .filter((recipe) => recipe.type === 'bebida') : [];
-  console.log(doneRecipes);
-  console.log(doneMeals);
-  console.log(doneDrinks);
+
   const [recipeList, setRecipeList] = useState(doneRecipes);
 
   const handleClickDoneRecipes = () => {
@@ -54,22 +52,15 @@ const RecipesMade = () => {
         </button>
       </div>
       <div>
-        {/* { recipeList && recipeList.map((recipe, index) => {
+        { recipeList && recipeList.map((recipe, index) => {
           if (recipe.type === 'comida') {
             return <DoneMealCard key={ index } recipe={ recipe } index={ index } />;
           }
-          else (recipe.type === 'bebida') {
+          if (recipe.type === 'bebida') {
             return <DoneDrinkCard key={ index } recipe={ recipe } index={ index } />;
           }
-        })} */}
-        {
-          recipeList && recipeList.map((recipe, index) => (
-            (recipe.type === 'comida') ? <DoneMealCard
-              key={ index }
-              recipe={ recipe }
-              index={ index }
-            /> : <DoneDrinkCard key={ index } recipe={ recipe } index={ index } />))
-        }
+          return recipe;
+        })}
       </div>
     </>
   );
