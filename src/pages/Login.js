@@ -29,43 +29,43 @@ function Login({ history }) {
 
   return (
     <div className="main-box">
-    <div className="box-form">
-    <form>
-      <label htmlFor="email">
-        Email:
-        <input
-          type="text"
-          id="email"
-          name="email"
-          value={ email }
-          onChange={ (e) => setEmail(e.target.value) }
-          data-testid="email-input"
-          placeholder="Email..."
-        />
-      </label>
-      <label htmlFor="password">
-        Senha:
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={ password }
-          onChange={ (e) => setPassword(e.target.value) }
-          data-testid="password-input"
-          placeholder="Password..."
-        />
-      </label>
-      <button
-        type="button"
-        id="button"
-        data-testid="login-submit-btn"
-        disabled={ !checkValidity() }
-        onClick={ saveToken }
-      >
-        Entrar
-      </button>
-    </form>
-    </div>
+      <div className="box-form">
+        <form>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value={ email }
+              onChange={ (e) => setEmail(e.target.value) }
+              data-testid="email-input"
+              placeholder="Email..."
+            />
+          </label>
+          <label htmlFor="password">
+            Senha:
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={ password }
+              onChange={ (e) => setPassword(e.target.value) }
+              data-testid="password-input"
+              placeholder="Password..."
+            />
+          </label>
+          <button
+            type="button"
+            id="button"
+            data-testid="login-submit-btn"
+            disabled={ !checkValidity() }
+            onClick={ saveToken }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
