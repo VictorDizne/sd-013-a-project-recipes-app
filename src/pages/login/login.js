@@ -38,9 +38,6 @@ function Login() {
       email,
     };
     localStorage.user = JSON.stringify(personalEmail);
-    localStorage.doneRecipes = [];
-    localStorage.favoriteRecipes = [];
-    localStorage.inProgressRecipes = {};
     history.push('/comidas');
   };
 
