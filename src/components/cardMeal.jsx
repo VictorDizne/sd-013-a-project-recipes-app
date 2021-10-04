@@ -14,9 +14,10 @@ const CardMeal = () => {
 
   if (pageIngredients) {
     return (
-      <div>
+      <div className="containerCardMeal">
         {fetchIngredients.map((meal, index) => (
           <button
+            className="cardMeal"
             type="button"
             key={ meal.strMeal }
             data-testid={ `${index}-recipe-card` }
@@ -39,9 +40,10 @@ const CardMeal = () => {
 
   if (filterDrinkApi.length !== 0) {
     return (
-      <div>
+      <div className="containerCardMeal">
         {filterDrinkApi.map((receita, index) => (
           <button
+            className="cardMeal"
             type="button"
             key={ receita.strMeal }
             data-testid={ `${index}-recipe-card` }
@@ -62,9 +64,10 @@ const CardMeal = () => {
     );
   }
   return (
-    <div>
+    <div className="containerCardMeal">
       {mealsApi.map((receita, index) => (
         <button
+          className="cardMeal"
           type="button"
           key={ receita.strMeal }
           data-testid={ `${index}-recipe-card` }

@@ -1,3 +1,28 @@
+/*body {
+  background: url(images/comidaPinter.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+} */
+
+.inputContainer {
+  background: url(images/comidaPinter.jpeg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  width: 100%;
+  position: absolute;
+  padding-bottom: 0%;
+  padding-top: 0%;
+  border: 1px solid black;
+} 
+
+.loginForm {
+  border: 1px solid green;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -35,9 +60,73 @@
   text-decoration: none;
 }
 
-.container {
-  padding-bottom: 200px;
+
+
+.header-without-search-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
+
+.searchbar-container {
+  align-items: center;
+}
+
+.container2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.no-style-button {
+  background-color: transparent;
+  border: none;
+}
+
+/* .food-list {
+  display: flex;
+  justify-content: space-around;
+} */
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  margin-left: 35%;
+  margin-right: 35%;
+}
+
+.containerCardMeal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;  
+  margin: 0;
+  max-width: 100vw;
+  margin-top: 2%;
+}
+
+.cardMeal {
+  background-color: rgb(251, 61, 61);
+  border: none;
+  border-radius: 5px;
+  color: #FFF;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 2%;
+  padding: 1%;
+  -webkit-transition-duration: 0.6s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.cardMeal:hover {
+  background-color: #001524;
+  color: #FFF;
+  transform: scale(1.05);
+  transition-duration: 0.5s;
+}
+
+
+
+
 
 /*
 #iceLeft {
@@ -61,37 +150,42 @@
   font-weight: 900;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
+@media screen and (max-width: 360px)  and (min-height: 640px) {
+  .inputContainer {
+    max-height: 100%;
+    padding-top: 50%;
+    padding-bottom: 80%;
+    border: 1px solid black;
+    background: url(images/comidaPinter.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
-  50% {
-    transform: rotate(-5deg);
+  .loginForm {
+    border: 1px solid green;
   }
 
-  100% {
-    transform: rotate(5deg);
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 15vw 0 15vw;
+    justify-content: center;
   }
 }
 
-@keyframes clink {
+.cardMeal {
+  width: 40vw;
+}
 
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
+.cardMeal img {
+  width: 100%;
 }
 
 .footer {
   bottom: 0;
   position: fixed;
+}
+
+@media screen and (max-width: 360px)  and (min-height: 640px) {
+
 }

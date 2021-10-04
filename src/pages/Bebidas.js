@@ -7,6 +7,7 @@ import FilterDrinksCategory from '../components/filterDrinksCategory';
 const Bebidas = () => (
   <div>
     <Header page="Bebidas" bebidas />
+    <br />
     <FilterDrinksCategory />
     <CardDrink />
     <Footer />

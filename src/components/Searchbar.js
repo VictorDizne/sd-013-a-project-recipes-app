@@ -63,18 +63,20 @@ const Searchbar = ({ bebidas }) => {
   }
 
   return (
-    <div>
+    <div className="searchbar-container">
       <label htmlFor="search-input">
         <input
           data-testid="search-input"
           type="text"
+          placeholder="Insira o termo de busca"
           value={ filterInput }
           onChange={ (e) => handleFilterChange(e.target.value) }
         />
       </label>
-      <label htmlFor="ingredient-search-radio">
-        Ingrediente
+      <label className="form-check" htmlFor="ingredient-search-radio">
+        <span className="form-check-label">Ingrediente</span>
         <input
+          className="form-check-input"
           data-testid="ingredient-search-radio"
           type="radio"
           name="filter-search"
@@ -82,19 +84,21 @@ const Searchbar = ({ bebidas }) => {
           onClick={ handleIngredientChange }
         />
       </label>
-      <label htmlFor="name-search-radio">
-        Nome
+      <label className="form-check" htmlFor="name-search-radio">
+        <span className="form-check-label">Nome</span>
         <input
           data-testid="name-search-radio"
+          className="form-check-input"
           type="radio"
           name="filter-search"
           value="name"
           onClick={ handleNameChange }
         />
       </label>
-      <label htmlFor="first-letter-search-radio">
-        Primeira Letra
+      <label className="form-check" htmlFor="first-letter-search-radio">
+        <span className="form-check-label">Primeira Letra</span>
         <input
+          className="form-check-input"
           data-testid="first-letter-search-radio"
           type="radio"
           name="filter-search"
@@ -105,6 +109,7 @@ const Searchbar = ({ bebidas }) => {
       <button
         onClick={ handleClick }
         type="button"
+        className="btn btn-success"
         data-testid="exec-search-btn"
       >
         Fazer busca

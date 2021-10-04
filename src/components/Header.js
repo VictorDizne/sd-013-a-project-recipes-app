@@ -22,24 +22,28 @@ const Header = ({ page, bebidas }) => {
   if (searchBar) {
     return (
       <header>
-        <Link to="/perfil">
-          <img src={ profileIcon } alt="searchIcon" data-testid="profile-top-btn" />
-        </Link>
-        <h3 data-testid="page-title">{page}</h3>
-        <button onClick={ handleClick } type="button">
-          <img
-            src={ SearchIcon }
-            alt="searchIcon"
-            data-testid="search-top-btn"
-          />
-        </button>
-        <Searchbar bebidas={ bebidas } />
+        <div className="container2">
+          <Link to="/perfil">
+            <img src={ profileIcon } alt="searchIcon" data-testid="profile-top-btn" />
+          </Link>
+          <h3 data-testid="page-title">{page}</h3>
+          <button onClick={ handleClick } type="button" className="no-style-button">
+            <img
+              src={ SearchIcon }
+              alt="searchIcon"
+              data-testid="search-top-btn"
+            />
+          </button>
+        </div>
+        <div>
+          <Searchbar bebidas={ bebidas } />
+        </div>
       </header>
     );
   }
 
   return (
-    <header>
+    <header className="container2">
       <Link to="/perfil">
         <img src={ profileIcon } alt="searchIcon" data-testid="profile-top-btn" />
       </Link>
@@ -47,6 +51,7 @@ const Header = ({ page, bebidas }) => {
       <button
         onClick={ handleClick }
         type="button"
+        className="no-style-button"
       >
         <img
           src={ SearchIcon }

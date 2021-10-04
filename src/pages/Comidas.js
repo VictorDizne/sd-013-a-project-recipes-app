@@ -7,6 +7,7 @@ import FilterCategory from '../components/filterCategory';
 const Comidas = () => (
   <div>
     <Header page="Comidas" />
+    <br />
     <FilterCategory />
     <CardMeal />
     <Footer />

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 
 const Header = ({ page }) => (
-  <header>
+  <header className="header-without-search-container">
     <Link to="/perfil">
       <img src={ profileIcon } alt="searchIcon" data-testid="profile-top-btn" />
     </Link>

@@ -12,9 +12,10 @@ const CardDrink = () => {
 
   if (pageIngredients) {
     return (
-      <div>
+      <div className="containerCardDrink">
         {fetchIngredients.map((drink, index) => (
           <button
+            className="cardDrink"
             type="button"
             key={ drink.strDrink }
             data-testid={ `${index}-recipe-card` }
@@ -38,9 +39,10 @@ const CardDrink = () => {
   if (filterDrinkApi.length !== 0) {
     console.log(filterDrinkApi);
     return (
-      <div>
+      <div className="containerCardDrink">
         {filterDrinkApi.map((receita, index) => (
           <button
+            className="cardDrink"
             type="button"
             key={ receita.strDrink }
             data-testid={ `${index}-recipe-card` }
@@ -62,9 +64,10 @@ const CardDrink = () => {
   }
 
   return (
-    <div>
+    <div className="containerCardDrink">
       {drinkApi.map((receita, index) => (
         <button
+          className="cardDrink"
           key={ receita.strDrink }
           type="button"
           data-testid={ `${index}-recipe-card` }

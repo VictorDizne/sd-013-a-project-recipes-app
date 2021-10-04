@@ -36,8 +36,9 @@ const FilterCategory = () => {
   }
 
   return (
-    <div>
+    <div className="btn-group">
       <button
+        className="btn btn-outline-dark"
         onClick={ handleAllClick }
         type="button"
         data-testid="All-category-filter"
@@ -47,6 +48,7 @@ const FilterCategory = () => {
       {filtersSlice.map((filter) => (
         <button
           type="button"
+          className="btn btn-outline-dark"
           key={ filter.strCategory }
           value={ filter.strCategory }
           onClick={ (e) => handleClick(e) }
