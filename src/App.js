@@ -26,7 +26,7 @@ import {
 function App() {
   return (
     <div id="fda_app">
-      {/* O Switch permite, conforme conponente, redirecionar as rotas */}
+      {/* O Switch permite, conforme conponente, redirecionar as rotas teste */}
       <Switch>
         {/* Iniciando as rotas dos componentes */}
         <Route exact path="/" component={ Login } />
