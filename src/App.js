@@ -2,21 +2,25 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
-import HomeFood from './pages/HomeFood';
-import Login from './pages/Login';
-import Profile from './pages/profile';
-import HomeDrinks from './pages/HomeDrinks';
-import DrinkDetails from './pages/DrinkDetails';
-import FoodDetails from './pages/FoodDetails';
-import ReadyRecipes from './pages/readyRecipes';
-import FoodIngredientsExp from './pages/FoodIngredientsExp';
-import Explorer from './pages/explorer';
-import DrinkExplorer from './pages/DrinkExplorer';
-import FoodExplorer from './pages/foodExplorer';
-import OriginExp from './pages/OriginExp';
-import FavoriteRecipes from './pages/favoriteRecipe';
-import DrinkIngredientsExp from './pages/DrinkIngredientsExp';
-import { ProcessDrink, ProcessFood } from './pages';
+import {
+  ProcessDrink,
+  ProcessFood,
+  DrinkDetail,
+  DrinkExplorer,
+  NotFound,
+  HomeFood,
+  Login,
+  DrinkIngredientsExp,
+  Explorer,
+  FavoriteRecipes,
+  OriginExp,
+  FoodExplorer,
+  FoodIngredientsExp,
+  ReadyRecipes,
+  FoodDetails,
+  Profile,
+  HomeDrinks,
+} from './pages';
 
 function App() {
   return (
@@ -45,7 +49,7 @@ function App() {
       <Route
         exact
         path="/bebidas/:id"
-        render={ (props) => <DrinkDetails { ...props } /> }
+        render={ (props) => <DrinkDetail { ...props } /> }
       />
       <Route
         exact
@@ -62,6 +66,7 @@ function App() {
         path="/bebidas/:id/in-progress"
         render={ (props) => <ProcessDrink { ...props } /> }
       />
+      <Route component={ NotFound } />
     </Switch>
   );
 }

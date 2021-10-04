@@ -48,7 +48,10 @@ function ReadyRecipesCards({ doneRecipes }) {
             <p data-testid={ `${index}-horizontal-done-date` }>
               { doneRecipe.doneDate }
             </p>
-            <ShareButton dataTestId={ `${index}-horizontal-share-btn` } />
+            <ShareButton
+              dataTestId={ `${index}-horizontal-share-btn` }
+              doneRecipe={ doneRecipe }
+            />
             { doneRecipe.tags.map((tag) => (
               <span
                 key={ `${index} - span` }
