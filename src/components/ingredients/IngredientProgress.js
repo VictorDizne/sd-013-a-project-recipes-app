@@ -4,16 +4,20 @@ import recipeContext from '../../context';
 import { filterIngredientsAndMeasures } from '../../functions';
 
 function IngredientProgress() {
-  const { details } = useContext(recipeContext).ContextDetails;
-  const inputs = document.querySelectorAll('.ingredient-step');
+  const { details, setRecipeProgress } = useContext(recipeContext).ContextDetails;
+  const inputs = document.getElementsByTagName('input');
 
-  const [progress, setProgress] = useDebugState('progress', {});
+  const [progress, setProgress] = useDebugState('progress', '');
 
   const array = filterIngredientsAndMeasures(details);
   const shortArrays = [];
   while (array.length > 0) {
     shortArrays.push(array.splice(0, 2));
   }
+
+  useEffect(() => {
+    setRecipeProgress(progress);
+  }, [progress]);
 
   useEffect(() => {
     if (inputs.length > 0) {
@@ -40,10 +44,11 @@ function IngredientProgress() {
             htmlFor={ [`ingredient${index}`] }
           >
             <input
-              onClick={ handleClick }
+              onChange={ handleClick }
               type="checkbox"
               id={ [`ingredient${index}`] }
               className="ingredient-step"
+              checked={ progress[`ingredient${index}`] || false }
             />
             {item.toString().replace(',', ' - ')}
           </label>
