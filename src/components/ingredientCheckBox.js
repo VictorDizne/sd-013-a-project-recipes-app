@@ -6,11 +6,15 @@ function IngredientCheckBox({ ingredient, index, id }) {
   useEffect(() => {
     // Checa se o ingrediente está no LocalStorage
     function checkedIngredient() {
-    // Busca o LocalStorage
-      const currentRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      const { meals } = currentRecipes;
-      // Checa se o ingrediente está presente no array
-      setChecked(meals[id].some((currIngredient) => currIngredient === ingredient));
+      if (localStorage.getItem('inProgressRecipes')) {
+        // Busca o LocalStorage
+        const currentRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        const { meals } = currentRecipes;
+        // Checa se o ingrediente está presente no array
+        if (meals[id]) {
+          setChecked(meals[id].some((currIngredient) => currIngredient === ingredient));
+        }
+      }
     }
     checkedIngredient();
   }, [id, ingredient]);

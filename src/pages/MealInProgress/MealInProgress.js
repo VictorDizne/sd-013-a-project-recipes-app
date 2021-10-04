@@ -1,13 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import IngredientCheckBox from '../../components/ingredientCheckBox';
-// import MealInProgressCard from '../../components/mealInProgressCard';
 import recipesContext from '../../context';
 import fetchAPI from '../../services/fetchAPI';
 import generatesIngredientList from '../../services/generatesIngredientList';
-// import shareIcon from '../images/shareIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import saveRecipeonLS from '../../services/saveRecipeonLS';
+import addToFavorites from '../../services/addToFavorites';
 
 // FAZER A LÓGICA DE HABILITAR O BOTÃO DE FINALIZAR APENAS QUANDO TODAS OS INGREDIENTES
 // ESTIVEREM MARCADOS
@@ -16,6 +17,7 @@ function MealInProgress() {
   const { details } = useContext(recipesContext);
   const [currentMeal, setCurrentMeal] = useState({});
   const [loadingPage, setLoadingPage] = useState(true);
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
   const { id } = useParams();
 
@@ -24,6 +26,8 @@ function MealInProgress() {
     async function fetchMeal() {
       const { meals } = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       setCurrentMeal(meals[0]);
+      // Salva a receita na chave "inProgress" no LocalStorage
+      saveRecipeonLS('Meal', meals[0]);
     }
     fetchMeal();
     setLoadingPage(false);
@@ -78,11 +82,21 @@ function MealInProgress() {
     history.push('/receitas-feitas');
   }
 
+  function toggleFavorite() {
+    if (favorite) {
+      // Remove dos favoritos e nga o valor do estado para que o coracao mude de cor
+      console.log(currentMeal);
+      setFavorite(!favorite);
+    } else {
+      // Adiciona aos favoritos e nega o valor do estado para que o coracao mude de cor
+      addToFavorites('Meal', currentMeal);
+      setFavorite(!favorite);
+    }
+  }
+
   if (loadingPage) return <p>CARREGANDO...</p>;
   return (
     <>
-      {/* Título da receita */}
-      <h1 data-testid="recipe-title">{ currentMeal.strMeal }</h1>
       {/* Imagem da receita */}
       <img
         className="meal-img"
@@ -90,10 +104,33 @@ function MealInProgress() {
         data-testid="recipe-photo"
         alt={ `${currentMeal.strMeal} thumbnail` }
       />
-      <h3 data-testid="recipe-category">
-        Categoria:
-        { currentMeal.strCategory }
-      </h3>
+      {/* Seção de título e categoria */}
+      <div className="detail-header">
+        <h2 data-testid="recipe-title">{currentMeal.strMeal}</h2>
+        <h4 data-testid="recipe-category">{ currentMeal.strCategory }</h4>
+        <button
+          className="detail-button"
+          type="button"
+          data-testid="share-btn"
+        >
+          <img
+            src={ shareIcon }
+            alt="share button"
+          />
+        </button>
+        <button
+          className="detail-button"
+          type="button"
+          onClick={ toggleFavorite }
+        >
+          <img
+            data-testid="favorite-btn"
+            alt="Favoritar"
+            src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          />
+        </button>
+      </div>
+      {/* Título da receita */}
       <h3>Ingredientes:</h3>
       <div className="ingredients-list">
         { showIngredients() }

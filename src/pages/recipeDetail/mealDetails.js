@@ -8,7 +8,6 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import recipesContext from '../../context';
 import RecommendMeals from '../../components/recommendPageMeals';
-import saveRecipeonLS from '../../services/saveRecipeonLS';
 
 const copy = require('clipboard-copy');
 
@@ -85,7 +84,6 @@ function MealDetails({ match: { params: { id } } }) {
 
   function startRecipe(recipe) {
     const idDaReceita = recipe.idMeal;
-    saveRecipeonLS('Meal', recipe);
     history.push(`/comidas/${idDaReceita}/in-progress`);
   }
 
@@ -127,13 +125,12 @@ function MealDetails({ match: { params: { id } } }) {
           />
         </button>
         <button
-          // implementar src=""
           className="detail-button"
           type="button"
-          data-testid="favorite-btn"
           onClick={ handleFavButton }
         >
           <img
+            data-testid="favorite-btn"
             src={ checkFavorite() ? blackHeartIcon : whiteHeartIcon }
             alt="Favoritar"
           />
