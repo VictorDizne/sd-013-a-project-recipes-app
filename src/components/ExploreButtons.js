@@ -5,7 +5,6 @@ import { fetchSurprise } from '../services';
 function ExploreButtons() {
   const history = useHistory();
   const location = useLocation();
-  console.log(location);
   const handleExploreIngredient = () => history.push(`${location.pathname}/ingredientes`);
   const handleExploreArea = () => {
     history.push(`${location.pathname}/area`);

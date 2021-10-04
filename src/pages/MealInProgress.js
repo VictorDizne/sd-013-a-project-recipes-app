@@ -52,8 +52,30 @@ function MealInProgress({ match: { params: { id } } }) {
     bottom: '0px',
   };
 
-  function done() {
+  async function checkDoneRecipes() {
+    const data = await fetchDetails(location.pathname, id);
+    const ten = 10;
+    const date = new Date().toJSON().slice(0, ten).replace(/-/g, '/');
+    const doneRecipe = {
+      id: data.idMeal,
+      type: 'comida',
+      area: data.strArea,
+      category: data.strCategory,
+      alcoholicOrNot: '',
+      name: data.strMeal,
+      image: data.strMealThumb,
+      doneDate: date,
+      tags: (data.strTags === null ? [] : data.strTags.split(',')),
+    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    await localStorage.setItem(
+      'doneRecipes', JSON.stringify([...doneRecipes, doneRecipe]),
+    );
     history.push('/receitas-feitas');
+  }
+
+  function done() {
+    checkDoneRecipes();
   }
 
   function handleCheckBox({ target }) {

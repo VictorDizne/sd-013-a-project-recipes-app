@@ -11,7 +11,7 @@ function SearchBox() {
   const handleClick = (event) => {
     event.preventDefault();
     if (type === 'firstLetter' && query.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      global.alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       setSearchSettings({ query, type, path: location.pathname });
     }
