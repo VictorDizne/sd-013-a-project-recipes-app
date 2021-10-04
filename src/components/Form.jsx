@@ -48,9 +48,8 @@ const Form = () => {
 
   return (
     <div className="inputContainer">
-      
-        <form className="container">
-          <br />
+      <form className="container">
+        <br />
         <div className="loginForm">
           <label className="input-group mb-3" htmlFor="email">
             <span className="input-group-text">Email</span>
@@ -89,8 +88,7 @@ const Form = () => {
             Enviar
           </button>
         </div>
-        </form>
-      
+      </form>
     </div>
   );
 };
