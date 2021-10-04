@@ -1,58 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { useHistory } from 'react-router';
-import getMealById from '../services/getDrinkId';
-import ShareButton from '../pages/ShareButton';
+import React from 'react';
+// import { useLocation, useParams } from 'react-router-dom';
+// import { useHistory } from 'react-router';
+// import getMealById from '../services/getDrinkId';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function FoodDetails() {
-  const [recipeFood, setRecipeFood] = useState([]);
-  const { pathname } = useLocation();
-  const { id: recipeId } = useParams();
-  const history = useHistory();
-  const { api, id } = history.location;
-
-  const getRecipe = async () => {
-    // if (pathname.includes('comidas'))
-    const apirReturn = await getMealById(api, id);
-    setRecipeFood(apirReturn);
-
-  };
-
-  useEffect(() => {
-    getRecipe();
-  }, []);
-
-  //   const foodRecipe = async (id) => {
-  //     const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  //     const { meals } = await fetch(endpoint)
-  //       .then((data) => data.json());
-  //     setRecipeFood(meals);
-  //   };
-  //   foodRecipe();
-  // }, []);
-
-  // const recipesData = [...recipeFood];
-
   return (
     <section>
       <div>
-        <img
-          data-testid="recipe-photo"
-          alt="receita pronta"
-        />
-        <h2 data-testid="recipe-title"></h2>
-        {/* <button data-testid="share-btn" type="button">Share</button> */}
-        <ShareButton />
-        <button data-testid="favorite-btn" type="button">Favorites</button>
+        <div>
+          <img
+            data-testid="recipe-photo"
+            alt="receita pronta"
+          // key={ strMealThumb }
+          // src={ strMealThumb }
+          />
+
+        </div>
+        <button data-testid="share-btn" type="button">Share</button>
+        <img src={ blackHeartIcon } alt="favorite-icon" />
+        <button data-testid="favorite-btn" type="button">
+          <img src={ shareIcon } alt="share-icon" />
+        </button>
         <p data-testid="recipe-category" />
+        <p data-testid="recipe-title" />
+
         Food Details
       </div>
       <div>
         <h3>Ingredients</h3>
         <ul>
-          <li
-            data-testid="`$-ingredient-name-and-measure`"
-          />
+          {/* <li
+            // key={ index }
+            // data-testid={ `${index}-ingredient-name-and-measure` }
+          /> */}
 
         </ul>
         <p data-testid="instructions" />
@@ -71,6 +53,5 @@ function FoodDetails() {
 
   );
 }
-
 
 export default FoodDetails;

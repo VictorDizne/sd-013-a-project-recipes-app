@@ -1,22 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import getDrinkById from '../services/getDrinkId';
+import React from 'react';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function DrinkDetails() {
-  const [data, recipeDrinks, setRecipeDrinks] = useState(['']);
-  const ingredients = [{ title: 1 }, { title: 2 }, { title: 3 }];
-  const { id: recipeId } = useParams();
+  // const [setRecipeDrink] = useState([]);
+  // const { ingredients, setIngredients } = useState([]);
 
-  useEffect(() => {
-    const foodRecipe = async (id) => {
-      const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-      const { meals } = await fetch(endpoint)
-        .then((response) => response.json());
-      setRecipeDrinks(meals);
-      console.log();
-    };
-    foodRecipe();
-  }, []);
+  // useEffect(() => {
+  //   const getRecipesDrinks = async () => {
+  //     const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
+  //     const [drink] = await fetch(endpoint).then((data) => data.json());
+  //   };
+  //   getRecipesDrinks(drink);
+  // }, []);
+
+  // const [data, recipeDrinks, setRecipeDrinks] = useState(['']);
+  // const ingredients = [{ title: 1 }, { title: 2 }, { title: 3 }];
+  // const { id: recipeId } = useParams();
+
+  // useEffect(() => {
+  //   const foodRecipe = async (id) => {
+  //     const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  //     const { meals } = await fetch(endpoint)
+  //       .then((response) => response.json());
+  //     setRecipeDrinks(meals);
+  //     console.log();
+  //   };
+  //   foodRecipe();
+  // }, []);
 
   // const recipesData = [...recipeDrinks];
   return (
@@ -26,18 +37,30 @@ function DrinkDetails() {
           data-testid="recipe-photo"
           alt="receita pronta"
         />
-        <h2 data-testid="recipe-title"></h2>
-        <button data-testid="share-btn" type="button">Share</button>
-        <button data-testid="favorite-btn" type="button">Favorites</button>
+        <button
+          data-testid="share-btn"
+          type="button"
+          key={ shareIcon }
+        >
+          <img src={ shareIcon } alt="share-icon" />
+        </button>
+        <button
+          data-testid="favorite-btn"
+          type="button"
+          key={ blackHeartIcon }
+
+        >
+          <img src={ blackHeartIcon } alt="favorite-icon" />
+        </button>
         <p data-testid="recipe-category" />
-        {ingredients.map((ingredient, index) => (
+        {/* {ingredients.map((ingredient, index) => (
           <p
             key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
             {ingredient.title}
           </p>
-        ))}
+        ))} */}
       </div>
       <div>
         <ul>
