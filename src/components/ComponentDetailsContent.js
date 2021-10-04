@@ -59,7 +59,9 @@ function ComponentDetailsContent({ keys }) {
       </h4>
 
       {
-        keys.click ? <IngredientProgress /> : <IngredientDetails />
+        keys.click
+          ? <IngredientProgress idK={ details[keys.id] } />
+          : <IngredientDetails />
       }
 
       <h5 data-testid="instructions">{details[keys.instructions]}</h5>
