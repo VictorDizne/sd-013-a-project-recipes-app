@@ -7,6 +7,7 @@ import FavoriteButton from '../components/FavoriteButton';
 import IngredientsList from '../components/IngredientsList';
 import Context from '../context';
 import FinishButton from '../components/FinishButton';
+import Recomendations from '../components/Recomendations';
 
 // ARRUMAR BUG NO LOCALSTORAGE E NO CHECKBOX
 function ReceitasProgresso({ match }) {
@@ -64,7 +65,7 @@ function ReceitasProgresso({ match }) {
       <p data-testid="instructions">{recipe.strInstructions}</p>
 
       <h4>Recomendações</h4>
-      <p data-testid="0-recomendation-card">Ver o que é isso.</p>
+      <Recomendations isMeal={ isMeal } />
 
       <FinishButton
         disabledButton={ disabledButton }
