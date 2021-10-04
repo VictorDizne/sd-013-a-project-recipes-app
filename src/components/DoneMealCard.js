@@ -1,29 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { shareMealHelper } from '../services/helpers';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneMealCard({ recipe, index }) {
-  const { area, category,
+  const { id, area, category,
     name, image, doneDate, tags } = recipe;
   const MAX_TAGS = 2;
   const filteredTags = tags.slice(0, MAX_TAGS);
-  console.log(filteredTags, 'filtered');
-  // console.log(tags, 'tags');
+  const [messageAlert, setMessageAlert] = useState('');
+  const history = useHistory();
+
+  const shareRecipe = () => {
+    shareMealHelper(id, setMessageAlert);
+  };
+
+  const sendToDetailsPage = () => {
+    history.push(`/comidas/${id}`);
+  };
 
   return (
     <div>
-      <img
+      <p>{messageAlert}</p>
+      {/* <img
         src={ shareIcon }
         alt="Share Icon"
-        data-testid={ `${index}-horizontal-share-btn` }
-      />
-      <img
-        src={ image }
-        alt={ `foto de ${name}` }
-        data-testid={ `${index}-horizontal-image` }
-      />
+         }
+      /> */}
+      <button
+        type="button"
+        onClick={ shareRecipe }
+      >
+        <img
+          src={ shareIcon }
+          alt="Share Icon"
+          data-testid={ `${index}-horizontal-share-btn` }
+        />
+      </button>
+      <button
+        type="button"
+        onClick={ sendToDetailsPage }
+      >
+        <img
+          src={ image }
+          alt={ `foto de ${name}` }
+          data-testid={ `${index}-horizontal-image` }
+          width="80px"
+        />
+      </button>
       <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${category}`}</p>
-      <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
+      <button
+        type="button"
+        onClick={ sendToDetailsPage }
+      >
+        <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
+      </button>
       <p data-testid={ `${index}-horizontal-done-date` }>{`Feita em ${doneDate}`}</p>
       {/* {
         tags && tags.slice(0, MAX_TAGS)
