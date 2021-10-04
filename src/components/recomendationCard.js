@@ -14,30 +14,29 @@ export default function CardRecomendations({ recomends, maxCards }) {
 
     return { src, alt, to };
   };
-
   if (recomends.length > 0) {
     for (let i = 0; i < maxCards; i += 1) {
       const { src, alt, to } = srcAltTo(i);
       carousel.push(
         <CardGroup key={ i }>
-          <Link
-            to={ to }
-            data-testid={ `${i}-recomendation-card` }
-          >
-            <Card style={ { width: '14rem' } }>
-              <Card.Body>
+          <Card style={ { width: '14rem' } }>
+            <Card.Body>
+              <Link
+                to={ to }
+                data-testid={ `${i}-recomendation-card` }
+              >
                 <Card.Img variant="top" src={ src } key={ i } alt={ alt } />
-                <Card.Title data-testid={ `${i}-recomendation-title` }>
-                  {name === 'bebidas'
-                    ? recomends[i].strDrink : recomends[i].strMeal}
-                </Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {name === 'bebidas'
-                    ? recomends[i].strAlcoholic : recomends[i].strCategory}
-                </Card.Subtitle>
-              </Card.Body>
-            </Card>
-          </Link>
+              </Link>
+              <Card.Title data-testid={ `${i}-recomendation-title` }>
+                {name
+                  ? recomends[i].strMeal : recomends[i].strDrink}
+              </Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+                {name
+                  ? recomends[i].strCategory : recomends[i].strAlcoholic}
+              </Card.Subtitle>
+            </Card.Body>
+          </Card>
         </CardGroup>,
       );
     }

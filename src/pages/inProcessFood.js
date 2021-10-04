@@ -71,6 +71,7 @@ function ProcessFood() {
   const isChecked = (ingredientName) => {
     const NOT_FOUND = -1;
     const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(ingredientsLocal);
     if (ingredientsLocal.meals[id] && ingredientsLocal.meals[id]
       .indexOf(ingredientName) !== NOT_FOUND) {
       return true;
@@ -79,8 +80,6 @@ function ProcessFood() {
   };
 
   const onChangeIngredient = (isMarked, ingredientName) => {
-    const input = document.getElementById(ingredientName);
-    input.checked = isMarked;
     const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const oldMeals = ingredientsLocal.meals;
     if (isMarked) {

@@ -27,6 +27,9 @@ function FoodDetails() {
         cocktails: {}, meals: {},
       }));
     }
+    if (JSON.parse(localStorage.getItem('doneRecipes')) === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
   useEffect(() => {
@@ -51,6 +54,14 @@ function FoodDetails() {
     }
   }, [id]);
 
+  const isDoneRecipe = () => {
+    const doneRecipesLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipesLocal === null) {
+      return false;
+    }
+    return doneRecipesLocal.some((doneRecipe) => doneRecipe.id === id);
+  };
+
   const buttonStartRecipe = () => {
     // coloca a receita em progresso quando clicamos para iniciar progresso.
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -61,7 +72,7 @@ function FoodDetails() {
 
     const meals = {
       ...inProgressRecipes.meals,
-      [id]: ingredients,
+      [id]: [],
     };
     localStorage
       .setItem('inProgressRecipes', JSON.stringify({ ...inProgressRecipes, meals }));
@@ -115,6 +126,7 @@ function FoodDetails() {
           style={ { position: 'fixed', bottom: '0' } }
           onClick={ () => buttonStartRecipe() }
           data-testid="start-recipe-btn"
+          hidden={ isDoneRecipe() }
         >
           { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
