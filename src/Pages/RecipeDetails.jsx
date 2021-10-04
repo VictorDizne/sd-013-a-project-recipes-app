@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
-import RecomendationMap from '../Components/RecomendationMap';
+import RecomendationCards from '../Components/RecomendationCard';
 import ButtonRecipe from '../Components/ButtonRecipe';
 import whiteHeartIcon from '../Images/whiteHeartIcon.svg';
+import blackHeartIcon from '../Images/blackHeartIcon.svg';
 import shareIcon from '../Images/shareIcon.svg';
 import useApiId from '../Hooks/useApiId';
 import useFetchApi from '../Hooks/useFetchApi';
 import youtubeLink from '../services/YoutubeLink';
 import '../Styles/btn-down.css';
+import '../Styles/RecipeDetails.css';
+
+function verifyFunction(VINTE, data, arrayIngredients, arrayMeasures) {
+  for (let i = 1; i < VINTE; i += 1) {
+    if (data[`strIngredient${i}`] !== null
+      && data[`strIngredient${i}`] !== ''
+      && data[`strIngredient${i}`] !== undefined) {
+      arrayIngredients.push(data[`strIngredient${i}`]);
+    }
+    if (data[`strMeasure${i}`] !== null
+      && data[`strMeasure${i}`] !== ''
+      && data[`strMeasure${i}`] !== undefined) {
+      arrayMeasures.push(data[`strMeasure${i}`]);
+    }
+  }
+}
 
 function RecipeDetails(props) {
   const { match: { params: { id } } } = props;
@@ -27,22 +44,14 @@ function RecipeDetails(props) {
   };
 
   const [data, isMeal] = useApiId(pathnameCheck(pathname), id);
+  const [favButton, setFavButton] = useState(false);
+  const [showFavButton, setShowFavButton] = useState(false);
+  const [shareButton, setShareButton] = useState(false);
   const arrayMeasures = [];
   const arrayIngredients = [];
   const VINTE = 20;
 
-  for (let i = 1; i < VINTE; i += 1) {
-    if (data[`strIngredient${i}`] !== null
-      && data[`strIngredient${i}`] !== ''
-      && data[`strIngredient${i}`] !== undefined) {
-      arrayIngredients.push(data[`strIngredient${i}`]);
-    }
-    if (data[`strMeasure${i}`] !== null
-      && data[`strMeasure${i}`] !== ''
-      && data[`strMeasure${i}`] !== undefined) {
-      arrayMeasures.push(data[`strMeasure${i}`]);
-    }
-  }
+  verifyFunction(VINTE, data, arrayIngredients, arrayMeasures);
 
   const pathnameReverse = isMeal
     ? pathnameCheck(`/bebidas/${id}`)
@@ -51,8 +60,44 @@ function RecipeDetails(props) {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-    global.alert('Link copiado!');
+    setShareButton(true);
   };
+
+  const verifyFavorite = () => {
+    if (localStorage.favoriteRecipes) {
+      const recipes = JSON.parse(localStorage.favoriteRecipes);
+      return recipes.some((recipe) => recipe.id === id);
+    }
+    return false;
+  };
+
+  const unCheckFavorite = () => {
+    const parse = JSON.parse(localStorage.favoriteRecipes);
+    const unFav = parse.filter((recipe) => recipe.id !== id);
+    localStorage.favoriteRecipes = JSON.stringify(unFav);
+    return setFavButton(false);
+  };
+
+  const checkFavorite = () => {
+    const fav = {
+      id: isMeal ? data.idMeal : data.idDrink,
+      type: isMeal ? 'comida' : 'bebida',
+      area: isMeal ? data.strArea : '',
+      category: data.strCategory,
+      alcoholicOrNot: isMeal ? '' : data.strAlcoholic,
+      name: isMeal ? data.strMeal : data.strDrink,
+      image: isMeal ? data.strMealThumb : data.strDrinkThumb,
+    };
+    if (localStorage.favoriteRecipes) {
+      const parse = JSON.parse(localStorage.favoriteRecipes);
+      localStorage.favoriteRecipes = JSON.stringify([...parse, (fav)]);
+      return setFavButton(true);
+    }
+    localStorage.favoriteRecipes = JSON.stringify([fav]);
+    // return setFavButton(true);
+  };
+
+  const onFavoriteClick = () => (verifyFavorite() ? unCheckFavorite() : checkFavorite());
 
   return (
     <div>
@@ -67,25 +112,33 @@ function RecipeDetails(props) {
 
         <h2 data-testid="recipe-title">{isMeal ? data.strMeal : data.strDrink}</h2>
 
-        {/* <ShareButton /> */}
         <button
           type="button"
-          src={ shareIcon }
-          alt="compartilhar"
           id="share-btn"
           data-testid="share-btn"
           onClick={ () => copyToClipboard() }
         >
-          Compartilhar
+          <img
+            src={ shareIcon }
+            alt="compartilhar"
+          />
         </button>
-        {/* <FavoriteButton /> */}
+        { shareButton && <span>Link copiado!</span> }
+
         <button
           type="button"
-          src={ whiteHeartIcon }
+          src={ verifyFavorite() ? blackHeartIcon : whiteHeartIcon }
           alt="favoritar receita"
           data-testid="favorite-btn"
+          onClick={ () => {
+            setShowFavButton(!showFavButton);
+            onFavoriteClick();
+          } }
         >
-          Favoritar
+          <img
+            src={ verifyFavorite() ? blackHeartIcon : whiteHeartIcon }
+            alt="Favorite icon"
+          />
         </button>
 
         <h2
@@ -109,11 +162,14 @@ function RecipeDetails(props) {
             />
           </div>)}
 
-        <RecomendationMap
-          itens={ recomendationData }
-          pathname={ pathnameReverse }
-          isMeal={ isMeal }
-        />
+        <div className="scroll">
+          <RecomendationCards
+            itens={ recomendationData }
+            pathname={ pathnameReverse }
+            isMeal={ isMeal }
+            cardsLimit={ 6 }
+          />
+        </div>
 
         <ButtonRecipe isMeal={ isMeal } id={ id } />
       </div>
