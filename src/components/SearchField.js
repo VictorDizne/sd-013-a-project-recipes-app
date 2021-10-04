@@ -16,7 +16,6 @@ function SearchField() {
     radioInput,
     myPage,
   } = useContext(MyContext);
-
   async function handleFetchClick() {
     if (myPage === 'themealdb') {
       const { meals } = await myFunc.fetchSearchApi(searchInput, radioInput, myPage);
