@@ -42,6 +42,12 @@ export const fetchRecipesDetails = async (id, myPage) => {
   return result;
 };
 
+export const fetchRecipesRamdon = async(myPage) => {
+  const result = await fetch(`https://www.${myPage}.com/api/json/v1/1/random.php`)
+  .then((resp) => resp.json());
+  return result
+}
+
 // https://www.thecocktaildb.com/api/json/v1/1/search.php?s=
 // www.themealdb.com/api/json/v1/1/lookup.php?i=52772
 // www.thecockta.com/api/json/v1/1/lookup.php?i=11007
