@@ -8,7 +8,7 @@ import fetchFilterByIngredient from '../services/fetchFilterByIngredient';
 import Context from '../context';
 
 function ExplorarIngredientes({ match }) {
-  const { setFilteredByIngredient } = useContext(Context);
+  const { setFilteredMeals, setFilteredDrinks } = useContext(Context);
   const [ingredients, setIngredients] = useState([]);
   const isMeal = /comidas/.test(match.path);
   const NUM_INGREDIENTS = 12;
@@ -25,7 +25,11 @@ function ExplorarIngredientes({ match }) {
   const handleOnClick = (title) => {
     const filterByIngredient = async (ingredient) => {
       const result = await fetchFilterByIngredient(ingredient, isMeal);
-      setFilteredByIngredient(result);
+      if (isMeal) {
+        setFilteredMeals(result);
+      } else {
+        setFilteredDrinks(result);
+      }
     };
     filterByIngredient(title);
   };

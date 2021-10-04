@@ -20,7 +20,7 @@ function Provider({ children }) {
   const [compareCheckBox, setCompareCheckBox] = useState(0);
   const [ingredientsLength, setIngredientsLength] = useState(0);
 
-  const [filteredByIngredient, setFilteredByIngredient] = useState([]);
+  const [filteredByIngredients, setFilteredByIngredients] = useState([]);
 
   useEffect(() => {
     const getMeals = async () => {
@@ -76,8 +76,9 @@ function Provider({ children }) {
     ingredientsLength,
     setIngredientsLength,
 
-    filteredByIngredient,
-    setFilteredByIngredient,
+    filteredByIngredients,
+    setFilteredByIngredients,
+
   };
 
   return (
