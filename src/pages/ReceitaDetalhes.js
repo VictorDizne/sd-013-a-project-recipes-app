@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import fetchRecipeById from '../services/fetchRecipeById';
 import Video from '../components/Video';
 import Img from '../components/Img';
 import Ingredients from '../components/Ingredients';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
+import Recomendations from '../components/Recomendations';
+import StartOrContinueBtn from '../components/StartOrContinueBtn';
 
 function ReceitaDetalhes({ match }) {
   const [recipe, setRecipe] = useState({});
@@ -33,7 +34,6 @@ function ReceitaDetalhes({ match }) {
       </h2>
       <ShareButton url={ match.url } />
       <FavoriteButton recipe={ recipe } isMeal={ isMeal } />
-      {/* <button type="button" data-testid="share-btn">Share</button> */}
 
       <Ingredients recipe={ recipe } />
 
@@ -43,15 +43,9 @@ function ReceitaDetalhes({ match }) {
       <Video meal={ isMeal } recipe={ recipe } />
 
       <h4>Recomendações</h4>
-      <p data-testid="0-recomendation-card">Ver o que é isso.</p>
+      <Recomendations isMeal={ isMeal } />
 
-      <Link
-        to={ `${isMeal ? '/comidas/' : '/bebidas/'}${recipeId}/in-progress` }
-        className="btn btn-primary"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </Link>
+      <StartOrContinueBtn isMeal={ isMeal } recipe={ recipe } />
     </>
   );
 

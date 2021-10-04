@@ -2,14 +2,13 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function ExplorarComidasIng() {
+function NotFoundPage() {
   return (
     <div>
-      <Header tela="Explorar Ingredientes" showSearch={ false } />
-      <h1>ExplorarComidasIng</h1>
+      <Header tela="Not Found" />
       <Footer />
     </div>
   );
 }
 
-export default ExplorarComidasIng;
+export default NotFoundPage;

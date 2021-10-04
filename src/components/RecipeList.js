@@ -6,7 +6,6 @@ const NUM_RECIPES = 12;
 
 function RecipeList({ isMeal }) {
   const { filteredMeals, filteredDrinks } = useContext(Context);
-
   const filteredRecipes = isMeal ? filteredMeals : filteredDrinks;
 
   if (!filteredRecipes) return <h1>Loading...</h1>;

@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import FilterTypesButtons from '../components/FilterTypesButtons';
 import FilteredCards from '../components/FilteredCards';
 
-const favoriteRecipes = [
+/* const favoriteRecipes = [
   {
     id: '52771',
     type: 'comida',
@@ -22,11 +22,19 @@ const favoriteRecipes = [
     name: 'Aquamarine',
     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
   },
-];
+]; */
+
+if (!localStorage.favoriteRecipes) {
+  const arrayFavorite = [];
+  localStorage.setItem('favoriteRecipes', JSON.stringify(arrayFavorite));
+}
+const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
 function ReceitasFavoritas() {
   const [recipes, setRecipes] = useState(favoriteRecipes);
+  // const isMeal = /comidas/.test(match.path);
 
+  console.log(recipes);
   const filterType = (type) => {
     let newRecipes = favoriteRecipes;
     if (type === 'comida') {

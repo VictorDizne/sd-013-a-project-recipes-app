@@ -7,13 +7,15 @@ import FavoriteButton from '../components/FavoriteButton';
 import IngredientsList from '../components/IngredientsList';
 import Context from '../context';
 import FinishButton from '../components/FinishButton';
+import Recomendations from '../components/Recomendations';
 
+// ARRUMAR BUG NO LOCALSTORAGE E NO CHECKBOX
 function ReceitasProgresso({ match }) {
   const [recipe, setRecipe] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
-  const { compareCheckBox } = useContext(Context);
-  const checkboxes = document.querySelectorAll('.checkboxes');
+  const { compareCheckBox, ingredientsLength } = useContext(Context);
   const url = match.url.split('/in')[0];
+  console.log(match.url);
 
   const { recipeId } = match.params;
 
@@ -30,10 +32,10 @@ function ReceitasProgresso({ match }) {
 
   // funcao para habilitar ou desabilitar o botao Finalizar Receita
   const disableButton = () => {
-    if (compareCheckBox === checkboxes.length - 1) {
-      setDisabledButton(false);
-    } else {
+    if (compareCheckBox !== ingredientsLength - 1) {
       setDisabledButton(true);
+    } else {
+      setDisabledButton(false);
     }
   };
 
@@ -63,7 +65,7 @@ function ReceitasProgresso({ match }) {
       <p data-testid="instructions">{recipe.strInstructions}</p>
 
       <h4>Recomendações</h4>
-      <p data-testid="0-recomendation-card">Ver o que é isso.</p>
+      <Recomendations isMeal={ isMeal } />
 
       <FinishButton
         disabledButton={ disabledButton }
