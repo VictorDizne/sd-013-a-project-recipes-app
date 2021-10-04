@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import MyContext from '../context/myContext';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import { cocktailsAPIRequest, foodAPIRequest } from '../services/APIrequest';
+import { filterByClickFood, filterByClickDrink } from '../services/funcAuxHeader';
+
 
 const Header = ({ pageName, hasLupa }) => {
   const [hidden, setHidden] = useState(true);
   const [inputFilter, setInputFilter] = useState('');
   const [radioFilter, setRadioFilter] = useState('');
-  // const [disableSearchInput, setDisableSearchInput] = useState(false);
-
   const { setSearchBarFilters } = useContext(MyContext);
 
   const handleFiltersChange = ({ target: { type, value } }) => {
@@ -20,62 +19,19 @@ const Header = ({ pageName, hasLupa }) => {
 
     if (radioFilter === 'primeira-letra'
         && type === 'text' && value.length > 1) {
-      // setDisableSearchInput(!disableSearchInput);
       return global.alert('Sua busca deve conter somente 1 (um) caracter')
         && setInputFilter('');
     }
     return filtersType;
   };
 
-  const filterByClickDrink = async () => {
-    if (radioFilter === 'ingrediente') {
-      const drinkRequestI = await cocktailsAPIRequest('filter', `i=${inputFilter}`);
-      setSearchBarFilters(drinkRequestI);
-      setInputFilter('');
-      console.log('ingredients');
-    }
-
-    if (radioFilter === 'nome') {
-      const drinkRequestS = await cocktailsAPIRequest('search', `s=${inputFilter}`);
-      setSearchBarFilters(drinkRequestS);
-      setInputFilter('');
-    }
-
-    if (radioFilter === 'primeira-letra') {
-      const drinkRequest = await cocktailsAPIRequest('search', `f=${inputFilter}`);
-      setSearchBarFilters(drinkRequest);
-      setInputFilter('');
-    }
-  };
-
-  const filterByClick = async () => {
-    console.log('entrou');
-    console.log(pageName);
-    if (radioFilter === 'ingrediente') {
-      const foodRequestI = await foodAPIRequest('filter', `i=${inputFilter}`);
-      setSearchBarFilters(foodRequestI);
-      setInputFilter('');
-      console.log('ingredients');
-    }
-
-    if (radioFilter === 'nome') {
-      const foodRequestS = await foodAPIRequest('search', `s=${inputFilter}`);
-      setSearchBarFilters(foodRequestS);
-      setInputFilter('');
-    }
-
-    if (radioFilter === 'primeira-letra') {
-      const foodRequest = await foodAPIRequest('search', `f=${inputFilter}`);
-      setSearchBarFilters(foodRequest);
-      setInputFilter('');
-    }
-  };
-
   const showSearchBar = () => {
     setHidden(!hidden);
   };
 
-  const outraFunc = pageName === 'Comidas' ? filterByClick : filterByClickDrink;
+  const outraFunc = pageName === 'Comidas'
+    ? filterByClickFood(radioFilter, inputFilter, setInputFilter, setSearchBarFilters)
+    : filterByClickDrink(radioFilter, inputFilter, setInputFilter, setSearchBarFilters);
 
   const searchInput = (
     <>

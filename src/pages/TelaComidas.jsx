@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
 import MyContext from '../context/myContext';
 import createCard from '../services/createCard';
 import Filters from '../components/Filters';
@@ -18,8 +17,6 @@ const TelaComidas = ({ history }) => {
     btnState,
     setDataFood,
     searchBarFilters,
-    shouldRedirect,
-    idUnico,
   } = useContext(MyContext);
 
   useEffect(() => {
