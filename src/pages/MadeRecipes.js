@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
 import MadeCard from '../components/MadeCard';
+import { MainContext } from '../context/Provider';
 import { getStorage } from '../services';
 
 function MadeRecipes() {
+  const { isStorageReady } = useContext(MainContext);
   const doneRecipes = getStorage('doneRecipes');
   return (
     <>
@@ -13,13 +15,12 @@ function MadeRecipes() {
         <button type="button" data-testid="filter-by-food-btn">Food</button>
         <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </div>
-      {
-        doneRecipes.map((recipe, index) => (<MadeCard
+      { isStorageReady && doneRecipes
+        .map((recipe, index) => (<MadeCard
           key={ recipe.id }
           recipe={ recipe }
           index={ index }
-        />))
-      }
+        />))}
     </>
   );
 }

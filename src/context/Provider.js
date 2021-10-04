@@ -5,20 +5,6 @@ import { fetchRecipes } from '../services';
 export const MainContext = createContext();
 const erro = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
-function initStorage() {
-  if (localStorage.getItem('favoriteRecipes') === null) {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-  }
-  if (localStorage.getItem('inProgressRecipes') === null) {
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      meals: {}, cocktails: {},
-    }));
-  }
-  if (localStorage.getItem('doneRecipes') === null) {
-    localStorage.setItem('doneRecipes', JSON.stringify([]));
-  }
-}
-
 export function Provider({ children }) {
   const [searchSettings, setSearchSettings] = useState({
     query: '',
@@ -34,7 +20,24 @@ export function Provider({ children }) {
 
   const [byIngredients, setByIngredients] = useState({ bool: false, ingrdient: '' });
 
+  const [isStorageReady, setIsStorageReady] = useState(false);
+
   const initialRender = useRef(false);
+
+  async function initStorage() {
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      await localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      await localStorage.setItem('inProgressRecipes', JSON.stringify({
+        meals: {}, cocktails: {},
+      }));
+    }
+    if (localStorage.getItem('doneRecipes') === null) {
+      await localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+    setIsStorageReady(true);
+  }
 
   useEffect(() => {
     if (initialRender.current) {
@@ -68,6 +71,7 @@ export function Provider({ children }) {
     randomReciper,
     byIngredients,
     setByIngredients,
+    isStorageReady,
   };
 
   return (
