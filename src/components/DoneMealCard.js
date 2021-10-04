@@ -5,8 +5,10 @@ import shareIcon from '../images/shareIcon.svg';
 function DoneMealCard({ recipe, index }) {
   const { area, category,
     name, image, doneDate, tags } = recipe;
-  // const MAX_TAGS = 2;
-  // const filteresTags = tags.slice(0, MAX_TAGS).split(' ').join('-');
+  const MAX_TAGS = 2;
+  const filteredTags = tags.slice(0, MAX_TAGS);
+  console.log(filteredTags, 'filtered');
+  // console.log(tags, 'tags');
 
   return (
     <div>
@@ -20,7 +22,7 @@ function DoneMealCard({ recipe, index }) {
         alt={ `foto de ${name}` }
         data-testid={ `${index}-horizontal-image` }
       />
-      <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
+      <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${category}`}</p>
       <h2 data-testid={ `${index}-horizontal-name` }>{ name }</h2>
       <p data-testid={ `${index}-horizontal-done-date` }>{`Feita em ${doneDate}`}</p>
       {/* {
@@ -31,13 +33,13 @@ function DoneMealCard({ recipe, index }) {
             </span>))
       } */}
       {
-        tags && tags.map((tagName, tagIndex) => (
+        tags && filteredTags.map((tagName, tagIndex) => (
           <span key={ tagIndex } data-testid={ `${index}-${tagName}-horizontal-tag` }>
             {tagName}
           </span>))
       }
       {/* <p data-testid={ `${index}-${tags}-horizontal-tag` }>{tags}</p> */}
-      <p>{`Area: ${area}`}</p>
+      {/* <p>{`Area: ${area}`}</p> */}
     </div>
   );
 }

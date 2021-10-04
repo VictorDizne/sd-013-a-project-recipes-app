@@ -54,14 +54,22 @@ const RecipesMade = () => {
         </button>
       </div>
       <div>
-        { recipeList && recipeList.map((recipe, index) => {
+        {/* { recipeList && recipeList.map((recipe, index) => {
           if (recipe.type === 'comida') {
             return <DoneMealCard key={ index } recipe={ recipe } index={ index } />;
           }
-          if (recipe.type === 'bebida') {
+          else (recipe.type === 'bebida') {
             return <DoneDrinkCard key={ index } recipe={ recipe } index={ index } />;
           }
-        })}
+        })} */}
+        {
+          recipeList && recipeList.map((recipe, index) => (
+            (recipe.type === 'comida') ? <DoneMealCard
+              key={ index }
+              recipe={ recipe }
+              index={ index }
+            /> : <DoneDrinkCard key={ index } recipe={ recipe } index={ index } />))
+        }
       </div>
     </>
   );
