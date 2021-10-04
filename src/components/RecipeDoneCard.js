@@ -8,12 +8,14 @@ import RecipesContext from '../context/RecipesContext';
 
 const copy = require('clipboard-copy');
 
-const RecipeDoneCard = ({ recipe, index, history, shouldHaveFavorite }) => {
+const RecipeDoneCard = ({ recipe, index, history, shouldHaveFavorite,
+  removeFavorite }) => {
   const { removeFavoriteBtn } = useContext(RecipesContext);
   const { type } = recipe;
 
   const handleFavoriteBtn = () => {
     removeFavoriteBtn(recipe);
+    removeFavorite();
   };
 
   const handleShareBtn = (recipeId, recipeType, recipeIndex) => {
@@ -88,6 +90,7 @@ RecipeDoneCard.propTypes = {
   index: PropTypes.number.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   shouldHaveFavorite: PropTypes.bool.isRequired,
+  removeFavorite: PropTypes.func.isRequired,
 };
 
 export default RecipeDoneCard;
