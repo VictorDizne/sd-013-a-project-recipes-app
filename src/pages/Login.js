@@ -2,6 +2,7 @@
 import { shape, func } from 'prop-types';
 // Importação do hook useState
 import React, { useState } from 'react';
+import '../styles/Login.css';
 
 // Componente funcional Local, desconstruindo o history para buscar rota para push
 function Login({ history }) {
@@ -27,40 +28,45 @@ function Login({ history }) {
   };
 
   return (
-    <form>
-      <label htmlFor="email">
-        Email:
-        <input
-          type="text"
-          id="email"
-          name="email"
-          value={ email }
-          onChange={ (e) => setEmail(e.target.value) }
-          data-testid="email-input"
-          placeholder="Email..."
-        />
-      </label>
-      <label htmlFor="password">
-        Senha:
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={ password }
-          onChange={ (e) => setPassword(e.target.value) }
-          data-testid="password-input"
-          placeholder="Password..."
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !checkValidity() }
-        onClick={ saveToken }
-      >
-        Entrar
-      </button>
-    </form>
+    <div className="main-box">
+      <div className="box-form">
+        <form>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value={ email }
+              onChange={ (e) => setEmail(e.target.value) }
+              data-testid="email-input"
+              placeholder="Email..."
+            />
+          </label>
+          <label htmlFor="password">
+            Senha:
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={ password }
+              onChange={ (e) => setPassword(e.target.value) }
+              data-testid="password-input"
+              placeholder="Password..."
+            />
+          </label>
+          <button
+            type="button"
+            id="button"
+            data-testid="login-submit-btn"
+            disabled={ !checkValidity() }
+            onClick={ saveToken }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 

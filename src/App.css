@@ -1,6 +1,18 @@
-.meals {
+body {
+    background-color: #fff;
+    font-family: Poppins;
+}
+
+#fda_app
+{
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+
+/* .meals {
   align-items: center;
-  background: #0fa36b;
+  background: rgba(220,230,252,0.6)#0fa36b;
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -9,3 +21,4 @@
   justify-content: center;
   width: 100%;
 }
+ */

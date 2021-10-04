@@ -6,7 +6,7 @@ import App from '../App';
 import renderWithRouter from './renderWithRouter';
 
 // ==============================================================
-import DoneRecipes from '../pages/DoneRecipes';
+// import DoneRecipes from '../pages/DoneRecipes';
 
 describe('Botões de favoritar e compartilhar', () => {
   const favBtnTestId = 'favorite-btn';
@@ -141,4 +141,3 @@ describe('Página de detalhes das receitas', () => {
 });
 
 // ================================================
-

@@ -56,7 +56,6 @@ function Drinks() {
 
   return (
     <div className="bebidas-body">
-      <div className="recipes-background-color" />
       <Header title="Bebidas" />
       <CategoriesDrink />
       {

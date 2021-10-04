@@ -1,7 +1,17 @@
 .header {
-  background-color: rgba(255, 255, 0, 0.582);
+  background-color: rgba(238, 180, 141, 0.411);
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
+}
+
+body {
+  border-radius: 30px;
+  background-color: rgb(255, 255, 255);
+}
+
+.header-content {
+  border-radius: 30px;
 }
 
 .header-content {
@@ -9,4 +19,20 @@
   display: flex;
   justify-content: space-between;
   padding: 5px 20px;
+}
+
+.button {
+	padding: 16px 45px;
+	background: rgba(68, 223, 215, 0.5);
+	color: #C3D3D6;
+	border-radius: 4px;
+	margin-bottom: 30px;
+	font-weight: bold;
+}
+
+#profile-top-btn {
+  width: 50px;
+  height: 50px;
+  margin: 0px 0px 45px;
+  padding: 10px;
 }

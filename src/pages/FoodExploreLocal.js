@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
+import '../styles/FoodExploreLocal.css';
 import RecipesList from '../components/RecipesList';
 import RecipeContext from '../context/RecipeContext';
 
