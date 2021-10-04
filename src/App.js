@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './App.css';
 import { Container } from '@mui/material';
 import RecipesContextProvider from './context/RecipesContextProvider';
 import {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardMedia,
   CardContent, Typography } from '@mui/material';
@@ -8,13 +8,12 @@ import unfavoritedIcon from '../images/whiteHeartIcon.svg';
 import RecipeRecomendations from './RecipeRecomendations';
 import './css/RecipeDetails.css';
 import StartRecipeBtn from './StartRecipeBtn';
-// import RecipesContext from '../context/RecipesContext';
+import RecipesContext from '../context/RecipesContext';
 
 const copy = require('clipboard-copy');
 
 const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  // const { toggleFavoriteBtn } = useContext(RecipesContext);
+  const { toggleFavoriteBtnDetails, isFavorite } = useContext(RecipesContext);
   const recipeIngredients = [];
 
   const getIngredients = () => {
@@ -50,10 +49,6 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
     h4.textContent = 'Link copiado!';
     const father = document.querySelector('[data-testid="recipe-category"]');
     father.insertAdjacentElement('afterend', h4);
-  };
-
-  const handleFavoriteBtnInside = () => {
-    setIsFavorite(!isFavorite);
   };
 
   return (
@@ -106,7 +101,7 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
               src={ isFavorite ? favoritedIcon : unfavoritedIcon }
               alt="favoritar receita"
               data-testid="favorite-btn"
-              onClick={ handleFavoriteBtnInside }
+              onClick={ () => toggleFavoriteBtnDetails(recipe, isMeal) }
             />
           </div>
         </CardContent>
@@ -123,56 +118,6 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
       />}
     </>
   );
-
-  // return (
-  //   <div>
-  //     <img
-  //       className="recipe-thumbnail"
-  //       data-testid="recipe-photo"
-  //       src={ isMeal ? recipe.strMealThumb : recipe.strDrinkThumb }
-  //       alt={ isMeal ? 'foto da comida' : 'foto do drink' }
-  //     />
-
-  //     <h2 data-testid="recipe-title">{isMeal ? recipe.strMeal : recipe.strDrink}</h2>
-
-  // <input
-  //   type="image"
-  //   src={ shareIcon }
-  //   alt="compartilhar receita"
-  //   data-testid="share-btn"
-  //   onClick={ handleShareBtn }
-  // />
-
-  // <input
-  //   type="image"
-  //   src={ isFavorite ? favoritedIcon : unfavoritedIcon }
-  //   alt="favoritar receita"
-  //   data-testid="favorite-btn"
-  //   onClick={ handleFavoriteBtn }
-  // />
-
-  //     <h3
-  //       data-testid="recipe-category"
-  //     >
-  //       {`${recipe.strCategory} ${isMeal ? '' : recipe.strAlcoholic}`}
-
-  //     </h3>
-
-  //     {getIngredients()}
-  //     <p data-testid="instructions">{recipe.strInstructions}</p>
-  //     {isMeal && <a data-testid="video" href={ recipe.strVideo }>Video</a>}
-  //     <div className="recomendation-content">
-  //       <div className="recomendation-container">
-  //         <RecipeRecomendations isMeal={ isMeal } />
-  //       </div>
-  //     </div>
-  //     {showBtn && <StartRecipeBtn
-  //       history={ history }
-  //       recipe={ recipe }
-  //       isMeal={ isMeal }
-  //     />}
-  //   </div>
-  // );
 };
 
 RecipeDetails.propTypes = {

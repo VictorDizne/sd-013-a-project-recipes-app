@@ -12,27 +12,6 @@ export default function ReceitasFavoritas({ history }) {
   const [favoriteRecipesTemp, setFavoriteRecipesTemp] = useState([]);
 
   useEffect(() => {
-    const favoriteRecipesArr = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      },
-    ];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipesArr));
     const lcStorage = localStorage.getItem('favoriteRecipes');
     if (lcStorage) {
       const doneArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -91,16 +70,14 @@ export default function ReceitasFavoritas({ history }) {
       >
         Drink
       </Button>
-      {favoriteRecipesTemp.length > 0 && favoriteRecipesTemp.map((recipe, index) => {
-        console.log(recipe);
-        return (<RecipeDoneCard
-          recipe={ recipe }
-          index={ index }
-          key={ index }
-          history={ history }
-          shouldHaveFavorite
-        />);
-      })}
+      {favoriteRecipesTemp.length > 0
+      && favoriteRecipesTemp.map((recipe, index) => (<RecipeDoneCard
+        recipe={ recipe }
+        index={ index }
+        key={ index }
+        history={ history }
+        shouldHaveFavorite
+      />))}
     </Container>
   );
 }

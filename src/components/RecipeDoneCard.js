@@ -1,20 +1,19 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import favoriteIcon from '../images/blackHeartIcon.svg';
+import favoritedIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import './css/Card.css';
 import RecipesContext from '../context/RecipesContext';
 
 const copy = require('clipboard-copy');
 
-const RecipeDoneCard = ({ recipe, index, history, shouldHaveFavorite, isMealProps }) => {
-  const { toggleFavoriteBtn } = useContext(RecipesContext);
+const RecipeDoneCard = ({ recipe, index, history, shouldHaveFavorite }) => {
+  const { removeFavoriteBtn } = useContext(RecipesContext);
   const { type } = recipe;
 
   const handleFavoriteBtn = () => {
-    console.log(recipe);
-    toggleFavoriteBtn(recipe, isMealProps);
+    removeFavoriteBtn(recipe);
   };
 
   const handleShareBtn = (recipeId, recipeType, recipeIndex) => {
@@ -66,7 +65,7 @@ const RecipeDoneCard = ({ recipe, index, history, shouldHaveFavorite, isMealProp
       />
       {shouldHaveFavorite && <input
         type="image"
-        src={ favoriteIcon }
+        src={ favoritedIcon }
         alt="desfavoritar receita"
         data-testid={ `${index}-horizontal-favorite-btn` }
         onClick={ handleFavoriteBtn }
@@ -89,7 +88,6 @@ RecipeDoneCard.propTypes = {
   index: PropTypes.number.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   shouldHaveFavorite: PropTypes.bool.isRequired,
-  isMealProps: PropTypes.bool.isRequired,
 };
 
 export default RecipeDoneCard;
