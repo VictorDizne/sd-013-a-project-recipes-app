@@ -9,6 +9,15 @@ function Provider(props) {
   const [filter, setFilter] = useState('All');
   const [id, setId] = useState('');
   const [favorite, setFavorite] = useState();
+  // const [favoriteIng, setFavoriteIng] = useState({
+  //   cocktails: {
+  //     [favorite.idDrink]: [],
+  //   },
+  //   meals: {
+  //     [favorite.idMeal]: [],
+  //   },
+  // });
+
   const { children } = props;
   const contextValue = {
     data,
@@ -23,6 +32,8 @@ function Provider(props) {
     setFilter,
     favorite,
     setFavorite,
+    // favoriteIng,
+    // setFavoriteIng,
   };
 
   return (

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import Context from '../Context/Context';
+import Context from '../Context/Context';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import FavoriteDrink from '../components/FavoriteDrink';
@@ -10,10 +10,10 @@ import FavoriteDrink from '../components/FavoriteDrink';
 import '../App.css';
 
 function DrinksProcess(props) {
-  // const { id } = useContext(Context);
+  const { setFavorite, setId } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
-  const [risk, setRisk] = useState('');
+  const [favIngredients, setFavIngredients] = useState(false);
 
   useEffect(() => {
     const { match: { params: { id } } } = props;
@@ -23,17 +23,60 @@ function DrinksProcess(props) {
       const result = await (await fetch(url)).json();
       console.log(result, 'result');
       setDetails(result.drinks[0]);
+      setFavorite(result.drinks[0]);
+      setId(result.drinks[0].idDrinks);
     }
     fetchResult();
   }, []);
 
-  const checkboxRisk = ({ target }) => (
-    target.checked ? setRisk('.checkbox-risk') : setRisk(''));
+  // useEffect(() => {
+  //   const listFavorite = JSON.parse(localStorage.getItem('inProgressRecipes') || '[]');
+  //   const newArrayIngredients = listFavorite.filter((list) => list.id === id);
+  //   if (newArrayIngredients[0]) {
+  //     return setFavIngredients(true);
+  //   }
+  // }, [id]);
+
+  // const ingredientsStorage = () => {
+  //   const handleFavIngredients = () => {
+  //     const favorited = {
+  //       cocktails: {
+  //         [favorite.idDrink]: [],
+  //       },
+  //       meals: {
+
+  //       },
+  //     };
+
+  //     if (favHeart === false) {
+  //       const recipesFavorited = JSON.parse(localStorage.getItem('favoriteRecipes')
+  //       || '[]');
+  //       recipesFavorited.push(favorited);
+  //       localStorage.setItem('favoriteRecipes', JSON.stringify(recipesFavorited));
+  //       return setFavHeart(true);
+  //     }
+  //     if (favHeart === true) {
+  //       const listFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //       const newArray = listFavorite.filter((list) => list.id !== favorited.id);
+  //       localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
+  //       return setFavHeart(false);
+  //     }
+  //   };
+  // };
+
+  const checkboxRisk = ({ target }) => {
+    // ingredientsStorage();
+    const parent = target.parentNode;
+    const li = parent.parentNode;
+    return target.checked
+      ? li.classList.add('checkbox-risk')
+      : li.classList.remove('checkbox-risk');
+  };
 
   const renderDetails = () => {
-    console.log(details);
     const urlShare = window.location.href;
     if (details !== undefined) {
+      console.log(details);
       return (
         <section>
           <img src={ details.strDrinkThumb } alt="" data-testid="recipe-photo" />
@@ -57,8 +100,7 @@ function DrinksProcess(props) {
               .map((ingredient, i) => (
                 <li
                   key={ i }
-                  data-testid={ `${i}-ingredient-name-and-measure` }
-                  className={ risk }
+                  data-testid={ `${i}-ingredient-step` }
                 >
                   <Input
                     inputType="checkbox"

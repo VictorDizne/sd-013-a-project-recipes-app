@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import Context from '../Context/Context';
+import Context from '../Context/Context';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import FavoriteMeal from '../components/FavoriteMeal';
@@ -11,22 +11,29 @@ function FoodsProcess(props) {
   // const { id } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
-  const [risk, setRisk] = useState('');
+  const { setFavorite, setId } = useContext(Context);
 
   useEffect(() => {
     const { match: { params: { id } } } = props;
-    console.log(id);
+    // console.log(id);
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     async function fetchResult() {
       const result = await (await fetch(url)).json();
       console.log(result, 'result');
       setDetails(result.meals[0]);
+      setFavorite(result.meals[0]);
+      setId(result.meals[0].idMeal);
     }
     fetchResult();
   }, []);
 
-  const checkboxRisk = ({ target }) => (
-    target.checked ? setRisk('.checkbox-risk') : setRisk(''));
+  const checkboxRisk = ({ target }) => {
+    const parent = target.parentNode;
+    const li = parent.parentNode;
+    return target.checked
+      ? li.classList.add('checkbox-risk')
+      : li.classList.remove('checkbox-risk');
+  };
 
   const renderDetails = () => {
     const urlShare = window.location.href;
@@ -51,12 +58,11 @@ function FoodsProcess(props) {
             <h3>Ingredientes</h3>
             {Object.keys(details)
               .filter((detail) => detail.includes('strIngredient'))
-              .filter((ing) => details[ing] !== null)
+              .filter((ing) => details[ing] !== '')
               .map((ingredient, i) => (
                 <li
                   key={ i }
-                  data-testid={ `${i}-ingredient-name-and-measure` }
-                  className={ risk }
+                  data-testid={ `${i}-ingredient-step` }
                 >
                   <Input
                     inputType="checkbox"
