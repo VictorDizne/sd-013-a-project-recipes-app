@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Filters from '../components/Filters';
 import Loading from '../components/Loading';
@@ -12,12 +12,10 @@ const TelaBebidas = ({ history }) => {
   const {
     dataDrink,
     categoryDrink,
-    categoryFilter,
     btnState,
-    setCategoryFilter,
     setDataDrink,
-    searchBarFilters,
   } = useContext(MyContext);
+  const firstRender = useRef(true);
 
   useEffect(() => {
     const cocktailsRequest = async () => {
@@ -25,32 +23,33 @@ const TelaBebidas = ({ history }) => {
       setDataDrink(drink);
     };
     cocktailsRequest();
-  }, []);
+  }, [setDataDrink]);
 
   useEffect(() => {
-    const { category } = btnState;
-    const ApiCategoryDrink = async () => {
-      const fetchCategoryDrink = await cocktailsAPIRequest('filter', `c=${category}`);
-      setCategoryFilter(fetchCategoryDrink);
-    };
-    ApiCategoryDrink();
-  }, [btnState]);
+    if (!firstRender.current) {
+      const { category } = btnState;
+      const ApiCategoryDrink = async () => {
+        const fetchCategoryDrink = await cocktailsAPIRequest('filter', `c=${category}`);
+        setDataDrink(fetchCategoryDrink);
+      };
+      ApiCategoryDrink();
+    } else {
+      firstRender.current = false;
+    }
+  }, [btnState, setDataDrink]);
 
-  const renderCards = () => {
-    if (categoryFilter !== null) {
-      return createCard(categoryFilter, 'Drink');
-    } if (searchBarFilters.length > 1) {
-      return createCard(searchBarFilters, 'Drink');
-    } return createCard(dataDrink, 'Drink');
-  };
+  const renderCards = () => createCard(dataDrink, 'Drink');
 
-  return !dataDrink ? <Loading /> : (
+  return !dataDrink ? (
+    <Loading />
+  ) : (
     <>
       <Header hasLupa pageName="Bebidas" />
       <div className="main">
         <Filters alimento={ categoryDrink } />
-        { searchBarFilters.length === 1 ? history
-          .push(`/bebidas/${searchBarFilters[0].idDrink}`) : renderCards() }
+        {dataDrink.length === 1
+          ? history.push(`/bebidas/${dataDrink[0].idDrink}`)
+          : renderCards()}
       </div>
       <Footer />
     </>

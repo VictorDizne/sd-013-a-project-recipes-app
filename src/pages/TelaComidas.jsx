@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
 import MyContext from '../context/myContext';
 import createCard from '../services/createCard';
 import Filters from '../components/Filters';
@@ -13,14 +12,10 @@ const TelaComidas = ({ history }) => {
   const {
     dataFood,
     categoryFood,
-    categoryFilter,
-    setCategoryFilter,
     btnState,
     setDataFood,
-    searchBarFilters,
-    shouldRedirect,
-    idUnico,
   } = useContext(MyContext);
+  const firstRender = useRef(true);
 
   useEffect(() => {
     const foodRequest = async () => {
@@ -28,32 +23,35 @@ const TelaComidas = ({ history }) => {
       setDataFood(food);
     };
     foodRequest();
-  }, []);
+  }, [setDataFood]);
 
   useEffect(() => {
-    const { category } = btnState;
-    const ApiCategoryFood = async () => {
-      const fetchCategoryFood = await foodAPIRequest('filter', `c=${category}`);
-      setCategoryFilter(fetchCategoryFood);
-    };
-    ApiCategoryFood();
-  }, [btnState]);
+    if (!firstRender.current) {
+      const { category } = btnState;
+      const ApiCategoryFood = async () => {
+        const fetchCategoryFood = await foodAPIRequest(
+          'filter',
+          `c=${category}`,
+        );
+        setDataFood(fetchCategoryFood);
+      };
+      ApiCategoryFood();
+    } else {
+      firstRender.current = false;
+    }
+  }, [btnState, setDataFood]);
 
-  const renderCards = () => {
-    if (categoryFilter !== null) {
-      return createCard(categoryFilter, 'Meal');
-    } if (searchBarFilters.length > 1) {
-      return createCard(searchBarFilters, 'Meal');
-    } return createCard(dataFood, 'Meal');
-  };
-
-  return dataFood.length === 0 ? <Loading /> : (
+  const renderCards = () => createCard(dataFood, 'Meal');
+  return !dataFood ? (
+    <Loading />
+  ) : (
     <div>
       <Header hasLupa pageName="Comidas" />
       <div className="main">
         <Filters alimento={ categoryFood } />
-        { searchBarFilters.length === 1 ? history
-          .push(`/comidas/${searchBarFilters[0].idMeal}`) : renderCards() }
+        {dataFood.length === 1
+          ? history.push(`/comidas/${dataFood[0].idMeal}`)
+          : renderCards()}
       </div>
       <Footer />
     </div>

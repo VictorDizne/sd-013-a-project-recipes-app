@@ -9,14 +9,7 @@ const Provider = ({ children }) => {
   const [categoryFood, setCategoryFood] = useState([]);
   const [categoryDrink, setCategoryDrink] = useState([]);
   const [btnState, setBtnState] = useState({ category: '' });
-  const [categoryFilter, setCategoryFilter] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
-  const [searchBarFilters, setSearchBarFilters] = useState([]);
-  const [searchBarFilters2, setSearchBarFilters2] = useState([]);
-  // const [shouldRedirect, setShouldRedirect] = useState(false);
-  // const [idUnico, setIdUnico] = useState(0)
-  console.log(searchBarFilters);
-  /* const [stateButton, setStateButton] = useState([]); */
 
   useEffect(() => {
     const categoryFoodRequest = async () => {
@@ -34,13 +27,6 @@ const Provider = ({ children }) => {
     categoryDrinkRequest();
   }, []);
 
-  // useEffect(() => {
-  //   if (searchBarFilters.length === 1) {
-  //     setShouldRedirect(true);
-  //     setIdUnico(searchBarFilters[0].idMeal);
-  //   }
-  // }, [searchBarFilters]);
-
   const contextValue = {
     dataFood,
     setDataFood,
@@ -52,14 +38,8 @@ const Provider = ({ children }) => {
     setCategoryDrink,
     btnState,
     setBtnState,
-    categoryFilter,
     isFiltered,
     setIsFiltered,
-    setCategoryFilter,
-    searchBarFilters,
-    setSearchBarFilters,
-    searchBarFilters2,
-    setSearchBarFilters2,
   };
 
   return (
