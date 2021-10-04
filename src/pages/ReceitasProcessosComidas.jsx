@@ -17,26 +17,11 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
-  /* const { inputs, setInputs } = useContext(MyContext);
-  console.log(inputs); */
 
   useEffect(() => {
     getAPIdataID(id, setfoodDetail, 'food');
     btnFavoritar(id, setBtnFavorite);
   }, []);
-
-  /*  useEffect(() => {
-    const progressRecipe = JSON.parse(localStorage
-      .getItem('inProgressRecipes')).meals[id];
-    const checkboxes = inputs;
-    const checkText = checkboxes.map((checkbox) => checkbox.innerHTML);
-    console.log([...checkboxes]);
-    if (progressRecipe.length !== 0) {
-      const progressChecked = progressRecipe
-        .filter((receita) => checkText.includes(receita));
-      progressChecked.forEach((ingredient) => ingredient.checked === true);
-    }
-  }, []); */
 
   const {
     strMeal,
@@ -75,7 +60,6 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
     const measures = ingredientMeasures(foodDetail, 'medida');
 
     const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
-    // setInputs(receitas);
     return receitas;
   };
 

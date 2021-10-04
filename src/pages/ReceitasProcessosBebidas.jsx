@@ -18,20 +18,19 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
-  const [checkedState, setCheckedState] = useState(false);
+  const [checkedState, setCheckedState] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails[id] || [],
+  );
 
   useEffect(() => {
     getAPIdataID(id, setDrinkDetail, 'drink');
     btnFavoritar(id, setBtnFavorite);
   }, []);
 
-  useEffect(() => {
-    const localGet = JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails[id];
-    if (localGet.length > 0) {
-      setCheckedState(localGet);
-    }
-    localStorage.setItem('checkedState', JSON.stringify({}));
+  /* useEffect(() => {
+    changeLocalRecipe(id, 'cocktails', 'meals');
   }, []);
+ */
 
   const {
     strDrink,
@@ -57,6 +56,9 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   };
   const handleFavorite = () => {
     changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
+    const favBtn = (btnFavorite === 'isFavorite')
+      ? setBtnFavorite('isNotFavorite') : setBtnFavorite('isFavorite');
+    return favBtn;
   };
 
   const handleShare = () => {
@@ -69,22 +71,23 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
     const ingredients = ingredientMeasures(drinkDetail, 'ingredientes');
     const measures = ingredientMeasures(drinkDetail, 'medida');
 
-    const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
+    const receitas = ingredients.map((ingredient, i) => `${ingredient} - 
+      ${measures[i] === undefined ? '' : measures[i]}`);
     return receitas;
   };
 
   const changeCheckBox = ({ target: { name, checked } }) => {
     const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    // const localCheckedState = JSON.parse(localStorage.getItem('checkedState'));
+    const ingredientsList = localGet.cocktails[id];
     if (checked) {
-      localGet.cocktails[id] = [...localGet.cocktails[id], { [name]: checked }];
+      setCheckedState([...checkedState, name]);
+      localGet.cocktails[id] = [...ingredientsList, name];
     } else {
-      const nIndex = localGet.cocktails[id].indexOf(name);
-      localGet.cocktails[id].splice(nIndex, 1);
+      const listFilter = ingredientsList.filter((ingredient) => ingredient !== name);
+      localGet.cocktails[id] = listFilter;
+      setCheckedState(listFilter);
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
-    // localStorage
-    //   .setItem('checkedState', JSON.stringify({ ...localCheckedState, [name]: checked }));
   };
 
   return (drinkDetail.length === 0) ? <Loading /> : (
@@ -124,13 +127,13 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
               htmlFor={ ingredient }
               key={ i }
               data-testid={ `${i}-ingredient-step` }
+              // onChange={ changeCheckBox }
             >
               <input
-                // id={ id }
-                name={ ingredient }
                 onChange={ changeCheckBox }
+                name={ ingredient }
                 type="checkbox"
-                checked={ checkedState[ingredient] }
+                checked={ checkedState.includes(ingredient) }
               />
               { ingredient }
             </label>
