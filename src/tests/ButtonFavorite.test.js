@@ -1,10 +1,9 @@
 import React from 'react';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import userEvent from '@testing-library/user-event';
 import userEvent from '@testing-library/user-event';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import renderWithRouter from './renderWithRouter';
 import ButtonFavorite from '../components/ButtonFavorite';
-import { isfavoriteRecipe } from '../services/setFavorites';
+// import { isfavoriteRecipe } from '../services/setFavorites';
 
 const exemploUrlText = '/comidas/52965';
 const exemploId = '52965';
