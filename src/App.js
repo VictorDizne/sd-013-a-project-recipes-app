@@ -25,7 +25,7 @@ import {
 
 function App() {
   return (
-    // O Switch permite, conforme conponente, redirecionar as rotas
+    // O Switch permite, conforme conponente, redirecionar as rotas (xxxx)
     <Switch>
       {/* Iniciando as rotas dos componentes */}
       <Route exact path="/" component={ Login } />
