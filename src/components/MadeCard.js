@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -10,7 +11,10 @@ function MadeCard({ recipe, index }) {
         alt={ recipe.name }
       />
       <h4 data-testid={ `${index}-horizontal-top-text` }>
-        {recipe.type === 'bebida' ? recipe.alcoholicOrNot : `${recipe.area} - ${recipe.category}` }
+        {
+          recipe.type === 'bebida' ? recipe.alcoholicOrNot
+            : `${recipe.area} - ${recipe.category}`
+        }
       </h4>
       <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
       <h5
@@ -38,5 +42,21 @@ function MadeCard({ recipe, index }) {
     </div>
   );
 }
+
+MadeCard.propTypes = {
+  index: PropTypes.string,
+  recipe: PropTypes.shape({
+    alcoholicOrNot: PropTypes.string,
+    area: PropTypes.string,
+    category: PropTypes.string,
+    doneDate: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    tags: PropTypes.shape({
+      map: PropTypes.func,
+    }),
+    type: PropTypes.string,
+  }),
+}.isRequired;
 
 export default MadeCard;

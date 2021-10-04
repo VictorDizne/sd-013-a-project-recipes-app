@@ -45,7 +45,7 @@ export function Provider({ children }) {
           searchSettings.path,
         );
         if (data === null) {
-          alert(erro);
+          global.alert(erro);
         } else {
           setRecipes(data);
         }
