@@ -10,6 +10,7 @@ import RecipeDoneCard from '../components/RecipeDoneCard';
 export default function ReceitasFavoritas({ history }) {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [favoriteRecipesTemp, setFavoriteRecipesTemp] = useState([]);
+  const [favoriteRemove, setFavoriteRemove] = useState(false);
 
   useEffect(() => {
     const lcStorage = localStorage.getItem('favoriteRecipes');
@@ -17,8 +18,9 @@ export default function ReceitasFavoritas({ history }) {
       const doneArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
       setFavoriteRecipes(doneArray);
       setFavoriteRecipesTemp(doneArray);
+      setFavoriteRemove(false);
     }
-  }, []);
+  }, [favoriteRemove]);
 
   const handleFilterBtn = ({ target: { name } }) => {
     if (name === 'all') {
@@ -33,6 +35,11 @@ export default function ReceitasFavoritas({ history }) {
       });
       setFavoriteRecipesTemp(filteredRecipes);
     }
+  };
+
+  const removeFavorite = () => {
+    setFavoriteRemove(true);
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
   };
 
   return (
@@ -77,6 +84,7 @@ export default function ReceitasFavoritas({ history }) {
         key={ index }
         history={ history }
         shouldHaveFavorite
+        removeFavorite={ removeFavorite }
       />))}
     </Container>
   );
