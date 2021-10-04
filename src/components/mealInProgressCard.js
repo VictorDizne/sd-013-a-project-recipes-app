@@ -1,137 +1,65 @@
-import React, { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import recipesContext from '../context';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+// import shareIcon from '../images/shareIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import fetchAPI from '../services/fetchAPI';
+import generatesIngredientList from '../services/generatesIngredientList';
+import IngredientCheckBox from './ingredientCheckBox';
 
-const copy = require('clipboard-copy');
+function MealInProgressCard({ id: { id } }) {
+  const [currentMeal, setCurrentMeal] = useState({});
+  const [loadingPage, setLoadingPage] = useState(true);
 
-function MealInProgressCard() {
-  const receitas = JSON.parse(localStorage.toDoRecipes);
-  const info = receitas[0];
-  const medidas = receitas[1];
-  const ingredientes = receitas[2];
-  const id = useParams();
-  const { setFavRecipes } = useContext(recipesContext);
-  const compartilhar = () => {
-    copy(window.location);
-  };
-
-  const checkFavorite = () => {
-    if (localStorage.favoriteRecipes) {
-      // getItem com chave favoriteRecipes
-      const receitasFav = JSON.parse(localStorage.favoriteRecipes);
-      // realiza chegagem por id
-      return receitasFav.some((recipe) => recipe.id === id.id);
+  // Faz o fetch a partir do id da presente receita assim que a página carrega
+  useEffect(() => {
+    async function fetchMeal() {
+      const { meals } = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      setCurrentMeal(meals[0]);
     }
-    return false;
-  };
+    fetchMeal();
+    setLoadingPage(false);
+  }, [id]);
 
-  const favoritar = () => {
-    const obj = {
-      id: info.idMeal,
-      type: 'Meals',
-      area: info.strArea,
-      category: info.strCategory,
-      name: info.strMeal,
-      image: info.strMealThumb,
-    };
-    // Verifica se ja ha uma chave favoriteRecipes, se ouver soma o obj aos anteriores, se nao, adiciona um novo
-    if (localStorage.favoriteRecipes) {
-      // getItem com chave favoriteRecipes
-      const parseVersion = JSON.parse(localStorage.favoriteRecipes);
-      localStorage.favoriteRecipes = JSON.stringify([...parseVersion, (obj)]);
-      return setFavRecipes(true);
-    }
-    localStorage.favoriteRecipes = JSON.stringify([obj]);
-  };
-
-  const desfavoritar = () => {
-    // getItem com chave favoriteRecipes
-    const localTest = JSON.parse(localStorage.favoriteRecipes);
-    // Remove o item de acordo com seu id
-    const desfa = localTest.filter((recipe) => ((recipe).id) !== id.id);
-    localStorage.favoriteRecipes = JSON.stringify((desfa));
-    setFavRecipes(false);
-  };
-  // Verifica se deve favoritar ou desfavoritar
-  function handleFavButton() {
-    return checkFavorite() ? desfavoritar() : favoritar();
-  }
-
-  function handleChange({ target }) {
-    const { checked } = target;
-
-    if (checked) {
-      target.parentNode.style.textDecoration = 'line-through';
-    } else {
-      target.parentNode.style.textDecoration = '';
-    }
-  }
-
-  return (
-    <div>
-      <img
-        data-testid="recipe-photo"
-        src={ info.strMealThumb }
-        alt="Receita"
+  function showIngredients() {
+    const ingredients = generatesIngredientList(currentMeal);
+    // Faz um map do array gerado acima, criando uma checkbox para cada ingrediente da lista
+    return ingredients.map((ingredient, index) => (
+      <IngredientCheckBox
+        ingredient={ ingredient }
+        key={ index }
+        index={ index }
+        id={ id }
       />
-      <div className="detail-header">
-        <h2 data-testid="recipe-title">{ info.strMeal }</h2>
-        <button
-          className="detail-button"
-          data-testid="share-btn"
-          type="button"
-          onClick={ compartilhar }
-        >
-          <img
-            src={ shareIcon }
-            alt="share button"
-          />
-        </button>
-        <button
-          className="detail-button"
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ handleFavButton }
-        >
-          <img
-            src={ checkFavorite() ? blackHeartIcon : whiteHeartIcon }
-            alt="Favoritar"
-          />
-        </button>
+    ));
+  }
+
+  if (loadingPage) return <p>CARREGANDO...</p>;
+  return (
+    <>
+      {/* Título da receita */}
+      <h1 data-testid="recipe-title">{ currentMeal.strMeal }</h1>
+      {/* Imagem da receita */}
+      <img
+        className="meal-img"
+        src={ currentMeal.strMealThumb }
+        data-testid="recipe-photo"
+        alt={ `${currentMeal.strMeal} thumbnail` }
+      />
+      <h3 data-testid="recipe-category">
+        Categoria:
+        { currentMeal.strCategory }
+      </h3>
+      <h3>Ingredientes:</h3>
+      <div className="ingredients-list">
+        { showIngredients() }
       </div>
-      <h3 data-testid="recipe-category">{ info.strCategory }</h3>
-      <div className="recipe-checkboxs">
-        {ingredientes.map((ingrediente, index) => (
-          <div key className="recipe-checkbox">
-            <label
-              htmlFor={ ingrediente }
-              id="input"
-            >
-              <input
-                className="recipe-input"
-                id={ ingrediente }
-                type="checkbox"
-                data-testid={ `${index}-ingredient-step` }
-                key={ index }
-                onChange={ handleChange }
-              />
-              { ingrediente }
-              { ` - ${medidas[index]}` }
-            </label>
-          </div>
-        ))}
-      </div>
-      <h4 className="recipe-instructions" data-testid="instructions">
-        Instruções:
-      </h4>
-      <p className="paragraph">
-        { info.strInstructions }
-      </p>
-    </div>
+    </>
   );
 }
+
+MealInProgressCard.propTypes = {
+  id: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 
 export default MealInProgressCard;
