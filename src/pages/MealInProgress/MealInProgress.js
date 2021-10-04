@@ -7,8 +7,10 @@ import generatesIngredientList from '../../services/generatesIngredientList';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import saveRecipeonLS from '../../services/saveRecipeonLS';
 import addToFavorites from '../../services/addToFavorites';
+import removeFromFavorites from '../../services/removeFromFavorites';
+import shareLink from '../../services/shareLink';
+import saveMealOnLS from '../../services/saveMealOnLS';
 
 // FAZER A LÓGICA DE HABILITAR O BOTÃO DE FINALIZAR APENAS QUANDO TODAS OS INGREDIENTES
 // ESTIVEREM MARCADOS
@@ -27,7 +29,15 @@ function MealInProgress() {
       const { meals } = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       setCurrentMeal(meals[0]);
       // Salva a receita na chave "inProgress" no LocalStorage
-      saveRecipeonLS('Meal', meals[0]);
+      saveMealOnLS(meals[0]);
+      // Checa se a receita é favorita, para que o coracao fique preenchido ao carregar a página
+      // Primeiro busca a chave de favoritos do LocalStorage
+      if (localStorage.getItem('favoriteRecipes')) {
+        const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        // Seta o favoritos de acordo com o resultado do some, assim se algum id corresponder ao
+        // da receita atual, o resutado e true, o que faz com que o coracao seja preenchido
+        setFavorite(currentFavorites.some((recipe) => recipe.id === id));
+      }
     }
     fetchMeal();
     setLoadingPage(false);
@@ -85,7 +95,7 @@ function MealInProgress() {
   function toggleFavorite() {
     if (favorite) {
       // Remove dos favoritos e nga o valor do estado para que o coracao mude de cor
-      console.log(currentMeal);
+      removeFromFavorites(currentMeal.idMeal);
       setFavorite(!favorite);
     } else {
       // Adiciona aos favoritos e nega o valor do estado para que o coracao mude de cor
@@ -112,6 +122,7 @@ function MealInProgress() {
           className="detail-button"
           type="button"
           data-testid="share-btn"
+          onClick={ () => shareLink('Meal', currentMeal.idMeal) }
         >
           <img
             src={ shareIcon }
@@ -130,11 +141,12 @@ function MealInProgress() {
           />
         </button>
       </div>
-      {/* Título da receita */}
       <h3>Ingredientes:</h3>
       <div className="ingredients-list">
         { showIngredients() }
       </div>
+      <h3>Instructions:</h3>
+      <p data-testid="instructions">{ currentMeal.strInstructions }</p>
       <button
         className="finish-recipe"
         onClick={ saveThisRecipe }

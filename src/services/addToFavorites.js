@@ -11,6 +11,16 @@ function addToFavorites(mealOrDrink, recipe) {
       name: recipe.strMeal,
       image: recipe.strMealThumb,
     };
+  } else if (mealOrDrink === 'Drink') {
+    newRecipe = {
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    };
   }
   // Checa se já existe a chave de favoritos e adiciona nova receita no fim
   if (localStorage.getItem('favoriteRecipes')) {
