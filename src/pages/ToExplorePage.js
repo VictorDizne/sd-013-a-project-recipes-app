@@ -1,24 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-
-import { Link } from 'react-router-dom';
 
 function ToExplorePage() {
   return (
     <div>
       <Header title="Explorar" />
-      <Link to='/explorar/comidas'>
-        <button>
+      <Link to="/explorar/comidas">
+        <button type="button">
           Explorar Comidas
         </button>
-      </Link> 
+      </Link>
 
-      <Link to='/explorar/bebidas'> 
-        <button>
+      <Link to="/explorar/bebidas">
+        <button type="button">
           Explorar Bebidas
         </button>
-      </Link>  
+      </Link>
       <Footer />
     </div>
   );
