@@ -11,6 +11,8 @@ const THIRD_SLIDE = 4;
 function Recomendations({ isMeal }) {
   const { meals, drinks } = useContext(Context);
 
+  if (!meals || !drinks) return <h1>Loading...</h1>;
+
   const recomendations = (isMeal)
     ? drinks.slice(0, NUM_RECOMENDATIONS)
     : meals.slice(0, NUM_RECOMENDATIONS);
