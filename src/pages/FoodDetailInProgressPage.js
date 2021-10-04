@@ -124,6 +124,7 @@ function FoodDetailInProgressPage({ match }) {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ checkAllcheckbox }
+          onClick={ () => myFuncStorage.setDoneRecipe(details, 'Meal') }
         >
           Finalizar Receita
         </button>
