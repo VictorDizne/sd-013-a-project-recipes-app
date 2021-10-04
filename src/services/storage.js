@@ -1,7 +1,7 @@
 // IN PROGRESS RECIPE LOCAL STORAGE
 export const setProgressRecipe = (id, type) => {
   const progressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if ( !progressRecipe[type][id]) {
+  if (!progressRecipe[type][id]) {
     const newProgressRecipe = {
       ...progressRecipe,
       [type]: {
@@ -69,8 +69,32 @@ export const setDoneRecipesLocalStorage = () => {
 };
 
 export const checkDoneRecipe = (id) => {
-  const result = JSON.parse(localStorage.getItem('doneRecipes'));
-  return (result.some((item) => item.id === id));
+  const doneRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
+  return (doneRecipe.some((item) => item.id === id));
+};
+
+// https://www.horadecodar.com.br/2021/04/03/como-pegar-a-data-atual-com-javascript/
+export const setDoneRecipe = (details, type) => {
+  const data = new Date();
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = String(data.getMonth() + 1).padStart(2, '0');
+  const ano = data.getFullYear();
+  const doneRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
+  const newListDoneRecipe = [
+    ...doneRecipe,
+    {
+      id: details[`id${type}`],
+      type: type === 'Drink' ? 'bebida' : 'comida',
+      area: type === 'Drink' ? '' : details.strArea,
+      category: details.strCategory,
+      alcoholicOrNot: type === 'Drink' ? details.strAlcoholic : '',
+      name: details[`str${type}`],
+      image: details[`str${type}Thumb`],
+      doneDate: `${dia}/${mes}/${ano}`,
+      tags: details.strTags,
+    },
+  ];
+  localStorage.setItem('doneRecipes', JSON.stringify(newListDoneRecipe));
 };
 
 // SET ALL LOCAL STORAGE IF DONT HAVE NO ONE
@@ -88,7 +112,6 @@ export const setAllLocalStorage = (paramsValue) => {
 
   if (!doneRecipes) {
     setDoneRecipesLocalStorage();
-    console.log('s')
   } else {
     setCheckDone(checkDoneRecipe(id));
   }

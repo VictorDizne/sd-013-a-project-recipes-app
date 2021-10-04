@@ -25,22 +25,6 @@ function FoodDetailsPage({ match }) {
   const { params: { id } } = match;
   const LIMITER_FOODS = 6;
 
-  // const setListOfIngredientsAndQuantity = (meals) => {
-  //   const arrayIngredients = [];
-  //   const arrayQuantity = [];
-  //   const number = 20;
-  //   for (let index = 1; index < number; index += 1) {
-  //     if (meals[`strIngredient${index}`] !== '') {
-  //       arrayIngredients.push(meals[`strIngredient${index}`]);
-  //     }
-  //     if (meals[`strMeasure${index}`] !== null) {
-  //       arrayQuantity.push(meals[`strMeasure${index}`]);
-  //     }
-  //   }
-  //   setQuanitity(arrayQuantity);
-  //   setIngredients(arrayIngredients);
-  // };
-
   const requestDetails = async () => {
     const { meals } = await myFunc.fetchRecipesDetails(id, 'themealdb');
     setDetails(meals[0]);
@@ -64,16 +48,6 @@ function FoodDetailsPage({ match }) {
       data={ item }
     />
   );
-
-  // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-  // const copyToClipBoard = async (copyMe) => {
-  //   try {
-  //     await navigator.clipboard.writeText(copyMe);
-  //     setCopySuccess('Link copiado!');
-  //   } catch (err) {
-  //     setCopySuccess('Failed to copy!');
-  //   }
-  // };
 
   const setFavorite = () => {
     myFuncStorage.setFavoriteRecipe(id, details, 'Meal');
@@ -123,7 +97,7 @@ function FoodDetailsPage({ match }) {
         type="button"
         data-testid="share-btn"
         onClick={ () => myFuncHelper
-          .copyToClipBoard(window.location.href, setCopySuccess) }
+          .copyToClipBoard(`http://localhost:3000/comidas/${id}`, setCopySuccess) }
       >
         <img src={ shareIcon } alt="share-icon" />
         {copySuccess}
@@ -171,7 +145,7 @@ function FoodDetailsPage({ match }) {
         onClick={ () => myFuncStorage.setProgressRecipe(id, 'meals') }
         page="comidas"
         title={ checkProgress }
-      />}
+      /> }
     </div>
   );
 }
