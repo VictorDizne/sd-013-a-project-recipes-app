@@ -1,7 +1,7 @@
 // IN PROGRESS RECIPE LOCAL STORAGE
 export const setProgressRecipe = (id, type) => {
   const progressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if ( !progressRecipe[type][id].length ) {
+  if ( !progressRecipe[type][id]) {
     const newProgressRecipe = {
       ...progressRecipe,
       [type]: {
