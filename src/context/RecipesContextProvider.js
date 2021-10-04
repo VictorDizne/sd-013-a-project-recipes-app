@@ -14,14 +14,16 @@ const RecipesContextProvider = ({ children }) => {
   // const history = useHistory();
 
   const toggleFavoriteBtn = (recipe, isMeal) => {
-    const objRecipe = { id: '' };
-    objRecipe.id = isMeal ? recipe.idMeal : recipe.idDrink;
-    objRecipe.type = isMeal ? 'comida' : 'bebida';
-    objRecipe.area = recipe.strArea ? recipe.strArea : '';
-    objRecipe.category = recipe.strCategory;
-    objRecipe.alcoholicOrNot = isMeal ? '' : recipe.strAlcoholic;
-    objRecipe.name = isMeal ? recipe.strMeal : recipe.strDrink;
-    objRecipe.image = isMeal ? recipe.strMealThumb : recipe.strDrinkThumb;
+    const objRecipe = { ...recipe };
+    console.log(objRecipe);
+    // const objRecipe = { id: '' };
+    // objRecipe.id = isMeal ? recipe.idMeal : recipe.idDrink;
+    // objRecipe.type = isMeal ? 'comida' : 'bebida';
+    // objRecipe.area = recipe.strArea ? recipe.strArea : '';
+    // objRecipe.category = recipe.strCategory;
+    // objRecipe.alcoholicOrNot = isMeal ? '' : recipe.strAlcoholic;
+    // objRecipe.name = isMeal ? recipe.strMeal : recipe.strDrink;
+    // objRecipe.image = isMeal ? recipe.strMealThumb : recipe.strDrinkThumb;
 
     const lcStorage = localStorage.getItem('favoriteRecipes');
     if (isFavorite) {
@@ -33,7 +35,7 @@ const RecipesContextProvider = ({ children }) => {
           return r.id !== result;
         },
       );
-      localStorage.setItem('favoriteRecipes', filteredArray);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredArray));
       setIsFavorite(false);
       return;
     }
@@ -99,9 +101,6 @@ const RecipesContextProvider = ({ children }) => {
   }, []);
 
   const handleBtnClick = useCallback(({ input, isMeal, radio }) => {
-    console.log(input);
-    console.log(isMeal);
-    console.log(radio);
     const radioIdsObj = {
       Ingrediente: isMeal ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`
         : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`,

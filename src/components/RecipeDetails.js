@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardMedia,
   CardContent, Typography } from '@mui/material';
@@ -8,12 +8,13 @@ import unfavoritedIcon from '../images/whiteHeartIcon.svg';
 import RecipeRecomendations from './RecipeRecomendations';
 import './css/RecipeDetails.css';
 import StartRecipeBtn from './StartRecipeBtn';
-import RecipesContext from '../context/RecipesContext';
+// import RecipesContext from '../context/RecipesContext';
 
 const copy = require('clipboard-copy');
 
 const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
-  const { toggleFavoriteBtn, isFavorite } = useContext(RecipesContext);
+  const [isFavorite, setIsFavorite] = useState(false);
+  // const { toggleFavoriteBtn } = useContext(RecipesContext);
   const recipeIngredients = [];
 
   const getIngredients = () => {
@@ -51,8 +52,8 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
     father.insertAdjacentElement('afterend', h4);
   };
 
-  const handleFavoriteBtn = () => {
-    toggleFavoriteBtn(recipe, isMeal);
+  const handleFavoriteBtnInside = () => {
+    setIsFavorite(!isFavorite);
   };
 
   return (
@@ -105,7 +106,7 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
               src={ isFavorite ? favoritedIcon : unfavoritedIcon }
               alt="favoritar receita"
               data-testid="favorite-btn"
-              onClick={ handleFavoriteBtn }
+              onClick={ handleFavoriteBtnInside }
             />
           </div>
         </CardContent>
