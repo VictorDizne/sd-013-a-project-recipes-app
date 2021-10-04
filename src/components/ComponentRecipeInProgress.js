@@ -2,9 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import recipeContext from '../context';
 import ComponentDetailsContent from './ComponentDetailsContent';
-import ComponentSugestions from './ComponentSugestions';
 
-function ComponentDetails() {
+function ComponentRecipeInProgress() {
   const { fetchDetails } = useContext(recipeContext).ContextDetails;
   const { id } = useParams();
   const currentPage = useHistory().location.pathname.includes('/comidas');
@@ -19,7 +18,7 @@ function ComponentDetails() {
   }, [currentPage, id]);
 
   const handleClick = () => {
-    history.push(`${id}/in-progress`);
+    history.push('/receitas-feitas');
   };
 
   const keysM = {
@@ -32,8 +31,8 @@ function ComponentDetails() {
     area: 'strArea',
     instructions: 'strInstructions',
     video: 'strYoutube',
-    iframe: true,
-    click: false,
+    iframe: false,
+    click: true,
   };
 
   const keysD = {
@@ -47,28 +46,26 @@ function ComponentDetails() {
     instructions: 'strInstructions',
     video: '',
     iframe: false,
-    click: false,
+    click: true,
   };
+
   return (
     <div>
+      <h1>In Progress</h1>
       {
         currentPage
           ? <ComponentDetailsContent keys={ keysM } />
           : <ComponentDetailsContent keys={ keysD } />
       }
-      <ComponentSugestions />
-      <div className="btn-container">
-        <button
-          className="btn-start"
-          data-testid="start-recipe-btn"
-          type="button"
-          onClick={ handleClick }
-        >
-          Iniciar receita
-        </button>
-      </div>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        onClick={ handleClick }
+      >
+        FINALIZAR
+      </button>
     </div>
   );
 }
 
-export default ComponentDetails;
+export default ComponentRecipeInProgress;
