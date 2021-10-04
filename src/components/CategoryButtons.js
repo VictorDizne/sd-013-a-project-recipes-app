@@ -77,7 +77,6 @@ function CategoryButtons() {
   }, [location.pathname]);
 
   async function getAllCategorys() {
-    // console.log('Okkk!');
     switch (location.pathname) {
     case '/bebidas':
       data = await fetchRecipes('', 'name', '/bebidas');

@@ -97,7 +97,6 @@ function DrinkDetails({ match: { params: { id } } }) {
           Object.entries(recipe).map(([key, value]) => {
             if (key.includes('strIngredient') && value) {
               const index = Number(key.split('strIngredient')[1]) - 1;
-              console.log(JSON.stringify(inProgressRecipes));
               return (
                 <label
                   htmlFor="ingredient"

@@ -56,7 +56,6 @@ function MealInProgress({ match: { params: { id } } }) {
     const data = await fetchDetails(location.pathname, id);
     const ten = 10;
     const date = new Date().toJSON().slice(0, ten).replace(/-/g, '/');
-    console.log(data);
     const doneRecipe = {
       id: data.idMeal,
       type: 'comida',

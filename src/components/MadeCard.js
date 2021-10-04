@@ -1,14 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import shareIcon from '../images/shareIcon.svg';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+import ShareButton from './ShareButton';
 
 function MadeCard({ recipe, index }) {
+  const history = useHistory();
+
   return (
     <div>
-      <img
+      <input
+        type="image"
         data-testid={ `${index}-horizontal-image` }
         src={ `${recipe.image}/preview` }
         alt={ recipe.name }
+        onClick={ () => history.push(`${recipe.type}s/${recipe.id}`) }
       />
       <h4 data-testid={ `${index}-horizontal-top-text` }>
         {
@@ -16,7 +22,12 @@ function MadeCard({ recipe, index }) {
             : `${recipe.area} - ${recipe.category}`
         }
       </h4>
-      <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+      <Link
+        data-testid={ `${index}-horizontal-name` }
+        to={ `${recipe.type}s/${recipe.id}` }
+      >
+        {recipe.name}
+      </Link>
       <h5
         data-testid={ `${index}-horizontal-done-date` }
       >
@@ -33,11 +44,10 @@ function MadeCard({ recipe, index }) {
             </p>))
         }
       </div>
-      <input
-        type="image"
-        src={ shareIcon }
-        alt="shareIcon"
-        data-testid={ `${index}-horizontal-share-btn` }
+      <ShareButton
+        testid={ `${index}-horizontal-share-btn` }
+        type={ `${recipe.type}s` }
+        id={ recipe.id }
       />
     </div>
   );
