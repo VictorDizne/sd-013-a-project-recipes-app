@@ -64,6 +64,7 @@ function MealDetails({ match: { params: { id } } }) {
   useEffect(() => {
     const checkStorage = async () => {
       const data = await getStorage('inProgressRecipes');
+      console.log(data);
       setInProgressRecipes(data.meals);
     };
     checkStorage();

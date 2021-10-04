@@ -9,6 +9,11 @@ function initStorage() {
   if (localStorage.getItem('favoriteRecipes') === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   }
+  if (localStorage.getItem('inProgressRecipes') === null) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      meals: {}, cocktails: {},
+    }));
+  }
 }
 
 export function Provider({ children }) {
