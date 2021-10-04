@@ -7,7 +7,7 @@ import Ingredients from '../components/Ingredients';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import Recomendations from '../components/Recomendations';
-import StartRecipeBtn from '../components/StartRecipeBtn';
+import StartOrContinueBtn from '../components/StartOrContinueBtn';
 
 function ReceitaDetalhes({ match }) {
   const [recipe, setRecipe] = useState({});
@@ -45,7 +45,7 @@ function ReceitaDetalhes({ match }) {
       <h4>Recomendações</h4>
       <Recomendations isMeal={ isMeal } />
 
-      <StartRecipeBtn isMeal={ isMeal } recipe={ recipe } />
+      <StartOrContinueBtn isMeal={ isMeal } recipe={ recipe } />
     </>
   );
 
