@@ -16,6 +16,7 @@ function FoodProgress() {
   const [favorite, setFavorite] = useState(false);
   const [ingredientsSave, setIngredientsSave] = useState([]);
   const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const [isActive, setIsActive] = useState(false);
 
   const params = useParams(); // esse metodo ja retira da url somente o id
   const historyId = params.id;
@@ -42,7 +43,13 @@ function FoodProgress() {
       ? ingredientsSave.filter((i) => i !== ingredient) // remove da lista se ingrediente ja está na lista
       : [...ingredientsSave, ingredient]; // adiciona na lista
     setIngredientsSave(newIngredientsSave);
-
+    // Requisito 52
+    const isAllIngredientsChecked = ingredients
+      .every((ing) => newIngredientsSave.includes(ing));
+    // console.log(isAllIngredientsChecked);
+    setIsActive(isAllIngredientsChecked);
+    // const btnFinilizeRecipe = document.getElementById('btn-finalizar-receita');
+    // btnFinilizeRecipe.hidden = !isAllIngredientsChecked;
     setMealsProgress(historyId, newIngredientsSave);
   };
 
@@ -124,15 +131,20 @@ function FoodProgress() {
       <h3>Instruções</h3>
       {(recipe.length === 1)
         && <p data-testid="instructions">{recipe[0].strInstructions}</p>}
-
       <Link
         to="/receitas-feitas"
-        data-testid="finish-recipe-btn"
-        className="iniciar-receita"
-        id="btn-iniciar-receita"
-        onClick={ handleDoneRecipes }
       >
-        Finalizar Receita
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          className="iniciar-receita"
+          id="btn-finalizar-receita"
+          onClick={ handleDoneRecipes }
+          disabled={ !isActive }
+
+        >
+          Finalizar Receita
+        </button>
       </Link>
     </div>
   );

@@ -16,6 +16,7 @@ function DrinkProgress() {
   const [favorite, setFavorite] = useState(false);
   const [ingredientsSave, setIngredientsSave] = useState([]);
   const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const [isActive, setIsActive] = useState(false);
 
   const params = useParams();
   const historyId = params.id;
@@ -40,6 +41,10 @@ function DrinkProgress() {
       ? ingredientsSave.filter((i) => i !== ingredient)
       : [...ingredientsSave, ingredient];
     setIngredientsSave(newIngredientsSave);
+    // Requisito 52
+    const isAllIngredientsChecked = ingredients
+      .every((ing) => newIngredientsSave.includes(ing));
+    setIsActive(isAllIngredientsChecked);
 
     setDrinksProgress(historyId, newIngredientsSave);
   };
@@ -121,15 +126,32 @@ function DrinkProgress() {
       {(recipe.length === 1)
         && <p data-testid="instructions">{recipe[0].strInstructions}</p>}
 
-      <Link
+      {/* <Link
         to="/receitas-feitas"
         data-testid="finish-recipe-btn"
         className="iniciar-receita"
-        id="btn-iniciar-receita"
+        id="btn-finalizar-receita"
         onClick={ handleDoneRecipes }
       >
         Finalizar Receita
+      </Link> */}
+
+      <Link
+        to="/receitas-feitas"
+      >
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          className="iniciar-receita"
+          id="btn-finalizar-receita"
+          onClick={ handleDoneRecipes }
+          disabled={ !isActive }
+
+        >
+          Finalizar Receita
+        </button>
       </Link>
+
     </div>
   );
 }
