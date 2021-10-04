@@ -116,7 +116,7 @@ function Header() {
               <h1 data-testid={ `${i}-card-name` }>{ strDrink || strMeal }</h1>
             </div>))
       }
-    </div>
+    </main>
   );
 }
 export default Header;
