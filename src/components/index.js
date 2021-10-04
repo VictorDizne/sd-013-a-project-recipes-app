@@ -5,3 +5,4 @@ export { default as Header } from './Header';
 export { default as SearchField } from './SearchField';
 export { default as RecomendedCard } from './RecomendedCard';
 export { default as StartRecipeButton } from './StartRecipeButton';
+export { default as RecipesMadeCard } from './RecipesMadeCard';

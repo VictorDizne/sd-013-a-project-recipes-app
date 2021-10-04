@@ -9,7 +9,7 @@ export const setListOfIngredientsAndQuantity = (type, setQuanitity, setIngredien
       arrayIngredients.push(type[`strIngredient${index}`]);
     }
     if (type[`strMeasure${index}`] !== null
-      && type[`strIngredient${index}`] !== undefined) {
+    && type[`strIngredient${index}`] !== undefined) {
       arrayQuantity.push(type[`strMeasure${index}`]);
     }
   }
@@ -17,6 +17,7 @@ export const setListOfIngredientsAndQuantity = (type, setQuanitity, setIngredien
   setIngredients(arrayIngredients);
 };
 
+// https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
 export const copyToClipBoard = async (copyMe, setCopySuccess) => {
   try {
     await navigator.clipboard.writeText(copyMe);
@@ -27,8 +28,8 @@ export const copyToClipBoard = async (copyMe, setCopySuccess) => {
 };
 
 export const handleIngredient = (ingredient, id, type, setCheckIngredients) => {
-  const progressRecipesToAddIngredient = JSON
-    .parse(localStorage.getItem('inProgressRecipes'));
+  const progressRecipesToAddIngredient = JSON.parse(localStorage
+    .getItem('inProgressRecipes'));
   const verifyIngredient = progressRecipesToAddIngredient[type][id] !== undefined
   && progressRecipesToAddIngredient[type][id].some((item) => item === ingredient);
 

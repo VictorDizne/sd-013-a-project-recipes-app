@@ -1,9 +1,49 @@
-import React from 'react';
-import Header from '../components/Header';
+import React, { useState } from 'react';
+import { Header, RecipesMadeCard } from '../components';
 
 function RecipesMade() {
+  const doneRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
+  const [type, setType] = useState('all');
+
+  const returnFiltersButtons = () => (
+    <div style={ { display: 'flex', justifyContent: 'space-evenly' } }>
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ () => setType('all') }
+      >
+        All
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ () => setType('comida') }
+      >
+        Food
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ () => setType('bebida') }
+      >
+        Drinks
+      </button>
+    </div>
+  );
+
   return (
-    <Header title="Receitas Feitas" />
+    <div>
+      <Header title="Receitas Feitas" />
+      { returnFiltersButtons() }
+      <div style={ { display: 'flex', flexWrap: 'wrap' } }>
+        { doneRecipe.filter((item) => (type === 'all' ? item : item.type === type))
+          .map((item, index) => (<RecipesMadeCard
+            data={ item }
+            key={ index }
+            index={ index }
+          />)) }
+      </div>
+    </div>
   );
 }
 

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import MyContext from '../context/Context';
 import Header from '../components/Header';
 import FavoriteCard from '../components/FavoriteCard';
 
 import * as myFuncStorage from '../services/storage';
 
 function FavoriteRecipes() {
+  const { setCheckFavorite } = useContext(MyContext);
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [recipes, setRecipes] = useState([]);
-  const [checkFavorite, setCheckFavorite] = useState(false);
   const [foodFilter, setFoodFilter] = useState(false);
   const [drinkFilter, setDrinkFilter] = useState(false);
 
