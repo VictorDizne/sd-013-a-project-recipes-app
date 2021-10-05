@@ -18,7 +18,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
-  const [checkedState, setCheckedState] = useState(false);
+  const [checkedState, setCheckedState] = useState([]);
 
   useEffect(() => {
     getAPIdataID(id, setDrinkDetail, 'drink');
@@ -77,7 +77,8 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
     const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
     // const localCheckedState = JSON.parse(localStorage.getItem('checkedState'));
     if (checked) {
-      localGet.cocktails[id] = [...localGet.cocktails[id], { [name]: checked }];
+      localGet.cocktails[id] = [{ ...localGet.cocktails[id], [name]: true }];
+      setCheckedState({ ...checkedState, [name]: true });
     } else {
       const nIndex = localGet.cocktails[id].indexOf(name);
       localGet.cocktails[id].splice(nIndex, 1);
