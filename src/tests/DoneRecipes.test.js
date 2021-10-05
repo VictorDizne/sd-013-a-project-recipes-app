@@ -10,11 +10,10 @@ import Done from '../pages/Done';
 import renderWithReduxAndRouter from '../helpers/renderWithReduxAndRouter';
 
 // Mocks
-import { doneMock } from '../mocks/DoneMock';
+import { doneMock, drinksQuantity, foodQuantity } from '../mocks/DoneMock';
 
 // History
 // let mockHistory = {};
-
 const PROFILE_ICON = 'profile-top-btn';
 const PAGE_TITLE = 'page-title';
 const ALL_BTN = 'filter-by-all-btn';
@@ -50,30 +49,38 @@ describe('Testa as funcionalidades da Done.jsx', () => {
   });
   it('Testa se as receitas prontas são renderizadas à tela.', () => {
     // https://trybecourse.slack.com/archives/C0219LZPB9N/p1633048749043600
-    const comida = screen.getByTestId(FOOD_NAME);
-    const bebida = screen.getByTestId(DRINK_NAME);
+    const comidas = screen.getAllByTestId(FOOD_NAME);
+    const bebidas = screen.getAllByTestId(DRINK_NAME);
 
-    expect(comida).toBeInTheDocument();
-    expect(bebida).toBeInTheDocument();
+    const totalItens = bebidas.length + comidas.length;
+
+    expect(totalItens).toBe(foodQuantity + drinksQuantity);
   });
   it('Testa se, ao clicar em Food, filtra a lista por comidas', () => {
     const foodButton = screen.getByTestId(FOOD_BTN);
-    const comida = screen.getByTestId(FOOD_NAME);
-    const bebida = screen.getByTestId(DRINK_NAME);
 
     userEvent.click(foodButton);
-    expect(comida).toBeInTheDocument();
-    expect(bebida).not.toBeInTheDocument();
+
+    const comidas = screen.queryAllByTestId(FOOD_NAME);
+    const bebidas = screen.queryAllByTestId(DRINK_NAME);
+    const totalBebidas = bebidas.length;
+    const totalComidas = comidas.length;
+
+    expect(totalBebidas).toBe(0);
+    expect(totalComidas).toBe(foodQuantity);
   });
   it('Testa se, ao clicar em Drinks, filtra a lista por bebidas', () => {
     // Tem um bug nesse teste, ele aprova o oposto do que precisamos.
     const drinkButton = screen.getByTestId(DRINK_BTN);
-    const comida = screen.getByTestId(FOOD_NAME);
-    const bebida = screen.getByTestId(DRINK_NAME);
 
     userEvent.click(drinkButton);
 
-    expect(bebida).toBeInTheDocument();
-    expect(comida).not.toBeInTheDocument();
+    const comidas = screen.queryAllByTestId(FOOD_NAME);
+    const bebidas = screen.queryAllByTestId(DRINK_NAME);
+    const totalBebidas = bebidas.length;
+    const totalComidas = comidas.length;
+
+    expect(totalBebidas).toBe(drinksQuantity);
+    expect(totalComidas).toBe(0);
   });
 });
