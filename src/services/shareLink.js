@@ -2,11 +2,10 @@ const copy = require('clipboard-copy');
 
 function shareLink(mealOrDrink, id) {
   if (mealOrDrink === 'Meal' || mealOrDrink === 'comidas') {
-    copy(`/comidas/${id}`);
+    copy(`http://localhost:3000/comidas/${id}`);
   } else {
-    copy(`/bebidas/${id}`);
+    copy(`http://localhost:3000/bebidas/${id}`);
   }
-  global.alert('Link copiado!');
 }
 
 export default shareLink;

@@ -16,6 +16,7 @@ function MealDetails({ match: { params: { id } } }) {
   const [currentMeal, setCurrentMeal] = useState();
   const [favorite, setFavorite] = useState(false);
   const [loadingPage, setLoadingPage] = useState(true);
+  const [shareMessage, setShareMessage] = useState(false);
   const history = useHistory();
 
   function showIngredients() {
@@ -88,6 +89,11 @@ function MealDetails({ match: { params: { id } } }) {
     }
   }
 
+  function handleShare() {
+    shareLink('Meal', id);
+    setShareMessage(true);
+  }
+
   if (loadingPage) return 'Carregando página...';
 
   return (
@@ -105,7 +111,7 @@ function MealDetails({ match: { params: { id } } }) {
           className="detail-button"
           type="button"
           data-testid="share-btn"
-          onClick={ () => shareLink('Meal', id) }
+          onClick={ handleShare }
         >
           <img
             src={ shareIcon }
@@ -124,6 +130,7 @@ function MealDetails({ match: { params: { id } } }) {
           />
         </button>
       </div>
+      { shareMessage ? <p>Link copiado!</p> : null }
       <h3>Ingredientes:</h3>
       { showIngredients() }
       <p

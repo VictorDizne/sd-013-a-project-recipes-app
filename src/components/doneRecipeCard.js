@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-const copy = require('clipboard-copy');
-
-function DoneRecipeCard({ recipe, index }) {
+function DoneRecipeCard({ recipe, index, handleShare }) {
   let recipeType;
   const { alcoholicOrNot, area, category, doneDate,
     id, image, name, tags, type } = recipe;
@@ -15,10 +13,7 @@ function DoneRecipeCard({ recipe, index }) {
   } else {
     recipeType = 'comidas';
   }
-  function shareRecipeDetails() {
-    copy(`http://localhost:3000/${recipeType}/${id}`);
-    global.alert('Link copiado!');
-  }
+
   // Checa se existem tags na receita e as retorna
   function showTags(recipeTags, tagIndex) {
     if (recipeTags) {
@@ -65,7 +60,7 @@ function DoneRecipeCard({ recipe, index }) {
       { showTags(tags, index) }
       <button
         type="button"
-        onClick={ shareRecipeDetails }
+        onClick={ () => handleShare(type, id) }
       >
         <img
           data-testid={ `${index}-horizontal-share-btn` }
@@ -90,6 +85,7 @@ DoneRecipeCard.propTypes = {
     type: PropTypes.string,
   }),
   index: PropTypes.number.isRequired,
+  handleShare: PropTypes.func.isRequired,
 };
 const noinfo = 'No info';
 DoneRecipeCard.defaultProps = {

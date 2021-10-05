@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import shareLink from '../services/shareLink';
 import removeFromFavorites from '../services/removeFromFavorites';
 import addToFavorites from '../services/addToFavorites';
 
-function FavoriteCards({ recipe, index }) {
+function FavoriteCards({ recipe, index, handleShare }) {
   const [favorite, setFavorite] = useState(false);
   let recipeType;
   const { alcoholicOrNot, area, category,
@@ -68,7 +67,7 @@ function FavoriteCards({ recipe, index }) {
       </p>
       <button
         type="button"
-        onClick={ () => shareLink(recipeType, id) }
+        onClick={ () => handleShare(type, id) }
       >
         <img
           data-testid={ `${index}-horizontal-share-btn` }
@@ -102,6 +101,7 @@ FavoriteCards.propTypes = {
     type: PropTypes.string,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  handleShare: PropTypes.func.isRequired,
 };
 
 export default FavoriteCards;
