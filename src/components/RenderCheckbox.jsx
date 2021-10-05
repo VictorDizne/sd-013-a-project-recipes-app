@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 /* custom hooks */
-import useIngredients from '../hooks/useIngredients';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function RenderCheckbox({ data, id, foodDrink, setDoneRecipe }) {
 /* configurar chave para o localStorage */
@@ -28,7 +28,7 @@ function RenderCheckbox({ data, id, foodDrink, setDoneRecipe }) {
     meals: {},
   };
   const [ingredients,
-    setIngredients] = useIngredients('inProgressRecipes', INITIAL_STATE);
+    setIngredients] = useLocalStorage('inProgressRecipes', INITIAL_STATE);
 
   /* ids do local storage */
   const ids = ingredients[key];
