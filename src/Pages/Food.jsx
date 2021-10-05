@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../components/Card';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Context from '../context/Context';
 import { getMeals, getCategories } from '../services/Api';
 
 function Food() {
-  const { meals, setMealsValue } = useContext(Context);
+  const { meals, setMealsValue, filterIngredients } = useContext(Context);
   const [categories, setCategories] = useState();
   const [category, setCategory] = useState('All');
 
@@ -22,12 +22,19 @@ function Food() {
     fetchAPI();
   }, [category]);
 
-  const handleFilter = (categorieName) => {
-    if (categorieName === category) {
+  const handleFilter = (categoryName) => {
+    if (categoryName === category) {
       setCategory('All');
     } else {
-      setCategory(categorieName);
+      setCategory(categoryName);
     }
+  };
+
+  const handleIngredientFilter = (meal) => {
+    const filterMeal = Object
+      .values(meal).includes(filterIngredients);
+    if (filterIngredients === '') return true;
+    return filterMeal;
   };
 
   if (meals === null) {
@@ -59,19 +66,22 @@ function Food() {
           </button>
         ))}
       </section>
-      {meals && meals.slice(0, MAX_FOOD_CARDS).map((meal, index) => (
-        <Link
-          to={ `/comidas/${meal.idMeal}` }
-          key={ index }
-        >
-          <Card
-            key={ meal.strMeal }
-            name={ meal.strMeal }
-            image={ meal.strMealThumb }
-            index={ index }
-          />
-        </Link>
-      ))}
+      {meals && meals
+        .filter((meal) => handleIngredientFilter(meal))
+        .slice(0, MAX_FOOD_CARDS)
+        .map((meal, index) => (
+          <Link
+            to={ `/comidas/${meal.idMeal}` }
+            key={ index }
+          >
+            <Card
+              key={ meal.strMeal }
+              name={ meal.strMeal }
+              image={ meal.strMealThumb }
+              index={ index }
+            />
+          </Link>
+        ))}
       <Footer />
     </div>
   );

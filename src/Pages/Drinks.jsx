@@ -33,7 +33,6 @@ function Drinks() {
     const filterDrink = Object
       .values(drink).includes(filterIngredients);
     if (filterIngredients === '') return true;
-    console.log(filterDrink);
     return filterDrink;
   };
 
