@@ -65,10 +65,11 @@ export const changeLocalRecipe = (id, tipo1, tipo2) => {
   if (localStorage.getItem('inProgressRecipes') === null) {
     localStorage.setItem('inProgressRecipes', JSON
       .stringify({ [tipo1]: { [id]: [] }, [tipo2]: {} }));
+  } else if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[tipo1][id]) {
+    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes', JSON
+      .stringify({ ...recipes, [tipo1]: { ...recipes[tipo1], [id]: [] } }));
   }
-  const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  localStorage.setItem('inProgressRecipes', JSON
-    .stringify({ ...recipes, [tipo1]: { ...recipes[tipo1], [id]: [] } }));
 };
 
 export const changeLocalFavorite = (favInfo, btnFavorite, setBtnFavorite, id) => {
