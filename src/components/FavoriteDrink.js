@@ -44,6 +44,7 @@ function FavoriteDrink() {
   return (
     <Button
       handleClick={ handleFavorite }
+      image={ favHeart ? blackHeartIcon : whiteHeartIcon }
     >
       {favHeart ? <img alt="liked" data-testid="favorite-btn" src={ blackHeartIcon } />
         : <img alt="wthlike" data-testid="favorite-btn" src={ whiteHeartIcon } /> }

@@ -12,6 +12,7 @@ function FoodsProcess(props) {
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
   const { setFavorite, setId } = useContext(Context);
+  const [disabledButton, setdisabledButton] = useState(true);
 
   useEffect(() => {
     const { match: { params: { id } } } = props;
@@ -25,7 +26,21 @@ function FoodsProcess(props) {
     fetchResult();
   }, []);
 
+  const buttonAbled = () => {
+    const arrayIng = Object.keys(details)
+      .filter((detail) => detail.includes('strIngredient'))
+      .filter((ing) => details[ing]);
+    const arrayCheckbox = document.querySelectorAll('input:checked');
+    // console.log(arrayCheckbox, 'hello');
+    // console.log(arrayIng);
+    if (arrayCheckbox.length === arrayIng.length) {
+      return setdisabledButton(false);
+    }
+    return setdisabledButton(true);
+  };
+
   const checkboxRisk = ({ target }) => {
+    buttonAbled();
     const parent = target.parentNode;
     const li = parent.parentNode;
     return target.checked
@@ -80,7 +95,7 @@ function FoodsProcess(props) {
           <Link to="/receitas-feitas">
             <Button
               testID="finish-recipe-btn"
-              handleClick={ () => {} }
+              disabled={ disabledButton }
             >
               Finalizar Receita
             </Button>

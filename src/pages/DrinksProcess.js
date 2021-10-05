@@ -13,6 +13,7 @@ function DrinksProcess(props) {
   const { setFavorite, setId } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
+  const [disabledButton, setdisabledButton] = useState(true);
   // const [favIngredients, setFavIngredients] = useState(false);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ function DrinksProcess(props) {
       setDetails(result.drinks[0]);
       setFavorite(result.drinks[0]);
       setId(result.drinks[0].idDrinks);
+      // console.log(details, result.drinks[0], '1231');
     }
     fetchResult();
   }, []);
@@ -62,8 +64,22 @@ function DrinksProcess(props) {
   //   };
   // };
 
+  const buttonAbled = () => {
+    const arrayIng = Object.keys(details)
+      .filter((detail) => detail.includes('strIngredient'))
+      .filter((ing) => details[ing]);
+    const arrayCheckbox = document.querySelectorAll('input:checked');
+    // console.log(arrayCheckbox, 'hello');
+    // console.log(arrayIng);
+    if (arrayCheckbox.length === arrayIng.length) {
+      return setdisabledButton(false);
+    }
+    return setdisabledButton(true);
+  };
+
   const checkboxRisk = ({ target }) => {
-    // ingredientsStorage();
+  // ingredientsStorage();
+    buttonAbled();
     const parent = target.parentNode;
     const li = parent.parentNode;
     return target.checked
@@ -116,7 +132,7 @@ function DrinksProcess(props) {
           <Link to="/receitas-feitas">
             <Button
               testID="finish-recipe-btn"
-              handleClick={ () => {} }
+              disabled={ disabledButton }
             >
               Finalizar Receita
             </Button>
