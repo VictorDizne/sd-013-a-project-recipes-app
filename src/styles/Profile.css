@@ -1,3 +1,18 @@
+.container-profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .container {
   padding: 100px 20px 20px;
+}
+
+.text-email p {
+  color: white;
+  font-family: monospace;
+  font-size: 20px;
+  margin-top: 80px;
+  padding: 10px;
 }
