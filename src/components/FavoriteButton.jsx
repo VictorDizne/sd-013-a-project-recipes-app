@@ -28,7 +28,7 @@ const favoriteRecipes = (clicked, recipe, isMeal) => {
   localStorage.setItem('favoriteRecipes', JSON.stringify(itemFavorite));
 };
 
-function FavoriteButton({ recipe, isMeal, testID }) {
+function FavoriteButton({ recipe, isMeal }) {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -53,7 +53,7 @@ function FavoriteButton({ recipe, isMeal, testID }) {
       type="image"
       src={ clicked ? blackHeartIcon : whiteHeartIcon }
       alt="Ícone de compartilhar"
-      data-testid={ testID !== undefined && testID.length > 0 ? testID : 'favorite-btn' }
+      data-testid="favorite-btn"
       onClick={ handleClick }
     />
   );
@@ -62,7 +62,6 @@ function FavoriteButton({ recipe, isMeal, testID }) {
 FavoriteButton.propTypes = {
   recipe: PropTypes.string.isRequired,
   isMeal: PropTypes.string.isRequired,
-  testID: PropTypes.string.isRequired,
 };
 
 export default FavoriteButton;
