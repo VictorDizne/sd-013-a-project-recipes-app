@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDebugState } from 'use-named-state';
 import { useHistory } from 'react-router-dom';
-import recipeContext from './index';
+import RecipeContext from './index';
 import FetchAPI from '../services';
 
 function Provider({ children }) {
@@ -31,8 +31,9 @@ function Provider({ children }) {
     }
   };
 
-  const handleFetch = (currentPage) => {
-    FetchAPI(currentPage, 'search', 's', '')
+  const handleFetch = (currentPage, ...params) => {
+    const recipeListParams = params.length ? params : ['search', 's', ''];
+    FetchAPI(currentPage, ...recipeListParams)
       .then((response) => setRecipeList(response));
     FetchAPI(currentPage, 'list', 'c', 'list')
       .then((response) => setCategoryList(response));
@@ -116,9 +117,9 @@ function Provider({ children }) {
   };
 
   return (
-    <recipeContext.Provider value={ context }>
+    <RecipeContext.Provider value={ context }>
       { children }
-    </recipeContext.Provider>
+    </RecipeContext.Provider>
   );
 }
 

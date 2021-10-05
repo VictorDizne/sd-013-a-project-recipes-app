@@ -8,8 +8,10 @@ import ComponentList from '../components/ComponentList';
 import ComponentLoading from '../components/ComponentLoading';
 import ComponentCategory from '../components/ComponentCategory';
 import './Styles/RecipeList.css';
+import useQuery from '../hooks/useQuery';
 
 function Bebidas() {
+  const params = useQuery();
   const currentContext = useContext(recipeContext).ContextFoods;
 
   const { showInput, dataForFetch, handleCurrentPage, currentID,
@@ -19,8 +21,13 @@ function Bebidas() {
 
   useEffect(() => {
     handleCurrentPage();
-    handleFetch('thecocktaildb');
-  }, []);
+    if (params.i) {
+      console.log({ params });
+      handleFetch('thecocktaildb', 'filter', 'i', params.i);
+    } else {
+      handleFetch('thecocktaildb');
+    }
+  }, [handleCurrentPage, handleFetch, params]);
 
   return (
     <div>
