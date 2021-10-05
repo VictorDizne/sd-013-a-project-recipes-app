@@ -5,8 +5,6 @@ import shareIcon from '../images/shareIcon.svg';
 import MyContext from '../context/myContext';
 import { checkFavorite, renderFavorite } from '../components/MealFavoriteButton';
 
-// teste
-
 function DrinksDetails() {
   const { pathname } = useLocation();
   const { drinkId } = useParams();

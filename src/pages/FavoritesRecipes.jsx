@@ -13,12 +13,7 @@ const FavoritesRecipes = () => {
     console.log('favoriteRecipesObj', favoriteRecipesObj);
   };
 
-  useEffect(() => (
-    updateFavoriteRecipesArray()
-  ), []);
-
   const removeFavoriteRecipe = (strIdItem) => {
-    // console.log(strIdItem);
     // obtem o array de receitas favoritas no localStorage
     const arrayStringfyFavRecipes = localStorage.getItem('favoriteRecipes');
     const arrayObjFavRecipes = JSON.parse(arrayStringfyFavRecipes);
@@ -33,6 +28,10 @@ const FavoritesRecipes = () => {
     // atualiza o estado que está no componente pai para chamar a renderização com o array atualizado
     setFavoriteRecipes(favoriteArrayUpdated);
   };
+
+  useEffect(() => (
+    updateFavoriteRecipesArray()
+  ), []);
 
   return (
     <div>
