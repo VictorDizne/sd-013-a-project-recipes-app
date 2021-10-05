@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
 import Button from 'react-bootstrap/Button';
-import { BsShare, BsShareFill } from 'react-icons/bs';
+import { BsShare } from 'react-icons/bs';
 import copytoclipboard from 'clipboard-copy';
 
 const ShareButton = ({ dataTestId, doneRecipe }) => {
@@ -39,9 +39,8 @@ const ShareButton = ({ dataTestId, doneRecipe }) => {
         src={ BsShare }
         style={ { borderRadius: '5px' } }
       >
-        { clipped ? <BsShareFill /> : <BsShare /> }
+        { clipped ? 'Link copiado!' : <BsShare /> }
       </Button>
-      { clipped && <p>Link copiado!</p>}
     </div>
   );
 };

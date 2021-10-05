@@ -84,70 +84,76 @@ function DrinkDetail() {
   const URL = drink.strYoutube ? drink.strYoutube.split('=') : '';
 
   return (
-    <Container fluid>
+    <div>
       <Image
         src={ drink.strDrinkThumb }
         alt={ `${drink.trMeal}` }
         data-testid="recipe-photo"
         fluid
       />
-      <Stack direction="horizontal" gap={ 3 } style={ { marginTop: '10px' } }>
-        <div className="bg-light" style={ { marginTop: '5px' } }>
-          <h2 data-testid="recipe-title">{drink.strDrink}</h2>
-          <p data-testid="recipe-category">{drink.strAlcoholic}</p>
+      <Container fluid>
+        <Stack direction="horizontal" gap={ 3 } style={ { marginTop: '10px' } }>
+          <div className="bg-light" style={ { marginTop: '5px' } }>
+            <h2 data-testid="recipe-title">{drink.strDrink}</h2>
+            <p data-testid="recipe-category">{drink.strAlcoholic}</p>
+          </div>
+          <div className="bg-light ms-auto">
+            <ShareButton dataTestId="share-btn" />
+          </div>
+          <div className="vr" />
+          <div className="bg-light">
+            <FavoriteButton drink={ drink } />
+          </div>
+        </Stack>
+        <h3>Ingredients</h3>
+        <ul>
+          {
+            ingredients.map((ingredient, i) => (
+              <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
+                { `${ingredient} - ${measures[i]}` }
+              </li>
+            ))
+          }
+        </ul>
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{drink.strInstructions}</p>
+        <div data-testid="video" className="video-detail">
+          <iframe
+            width="360"
+            height="160"
+            src={ `https://www.youtube.com/embed/${URL[1]}` }
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; picture-in-picture"
+            allowFullScreen
+          />
         </div>
-        <div className="bg-light ms-auto">
-          <ShareButton dataTestId="share-btn" />
+        <div className="horizontal-scroll">
+          <CardRecomendations
+            name="bebidas"
+            recomends={ recomendations }
+            maxCards={ 6 }
+          />
         </div>
-        <div className="vr" />
-        <div className="bg-light">
-          <FavoriteButton drink={ drink } />
+        <div>
+          <button
+            type="button"
+            style={ { position: 'fixed', bottom: '0' } }
+            onClick={ () => buttonStartRecipe() }
+            data-testid="start-recipe-btn"
+            hidden={ isDoneRecipe() }
+          >
+            { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+          </button>
         </div>
-      </Stack>
-      <h3>Ingredients</h3>
-      <ul>
-        {
-          ingredients.map((ingredient, i) => (
-            <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
-              { `${ingredient} - ${measures[i]}` }
-            </li>
-          ))
-        }
-      </ul>
-      <h3>Instructions</h3>
-      <p data-testid="instructions">{drink.strInstructions}</p>
-      <div data-testid="video" className="video-detail">
-        <iframe
-          width="360"
-          height="160"
-          src={ `https://www.youtube.com/embed/${URL[1]}` }
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-      <div className="horizontal-scroll">
-        <CardRecomendations name="bebidas" recomends={ recomendations } maxCards={ 6 } />
-      </div>
-      <div>
-        <button
-          type="button"
-          style={ { position: 'fixed', bottom: '0' } }
-          onClick={ () => buttonStartRecipe() }
-          data-testid="start-recipe-btn"
-          hidden={ isDoneRecipe() }
-        >
-          { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
-      </div>
-      <section>
-        <div style={ { marginBottom: '10px' } }>
-          <CommentForm id={ id } />
-        </div>
-        <CommentCards id={ id } />
-      </section>
-    </Container>
+        <section>
+          <div style={ { marginBottom: '10px' } }>
+            <CommentForm id={ id } />
+          </div>
+          <CommentCards id={ id } />
+        </section>
+      </Container>
+    </div>
   );
 }
 
