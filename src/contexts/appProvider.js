@@ -13,6 +13,8 @@ const AppProvider = ({ children }) => {
     indexDoneRecipe: 0,
   });
 
+  const [refreshComments, setRefresh] = useState(false);
+
   // const [recipesInProgress, setRecipes] = useState([]);
 
   const getIngredients = (arrFood) => {
@@ -102,6 +104,8 @@ const AppProvider = ({ children }) => {
     favoriteRecipe,
     removeFavRecipe,
     verify,
+    setRefresh,
+    refreshComments,
   };
 
   return (

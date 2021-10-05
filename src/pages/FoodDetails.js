@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
+import Stack from 'react-bootstrap/Stack';
+import { Container } from 'react-bootstrap';
 import FavoriteButton from '../components/favoriteButton';
 import CardRecomendations from '../components/recomendationCard';
 import ShareButton from '../components/shareButton';
 import appContext from '../contexts/appContext';
 import './css/details.css';
+import CommentForm from '../components/commentForm';
+import CommentCards from '../components/commentCards';
 
 function FoodDetails() {
   const [meal, setMeal] = useState({});
@@ -83,17 +87,26 @@ function FoodDetails() {
   const URL = meal.strYoutube ? meal.strYoutube.split('=') : '';
 
   return (
-    <main>
+    <Container>
       <Image
         src={ meal.strMealThumb }
         alt={ `${meal.trMeal}` }
         data-testid="recipe-photo"
         fluid
       />
-      <h2 data-testid="recipe-title">{meal.strMeal}</h2>
-      <p data-testid="recipe-category">{meal.strCategory}</p>
-      <ShareButton dataTestId="share-btn" />
-      <FavoriteButton meal={ meal } />
+      <Stack direction="horizontal" gap={ 3 } style={ { marginTop: '10px' } }>
+        <div className="bg-light" style={ { marginTop: '5px' } }>
+          <h2 data-testid="recipe-title">{meal.strMeal}</h2>
+          <p data-testid="recipe-category">{meal.strCategory}</p>
+        </div>
+        <div className="bg-light ms-auto">
+          <ShareButton dataTestId="share-btn" />
+        </div>
+        <div className="vr" />
+        <div className="bg-light">
+          <FavoriteButton drink={ meal } />
+        </div>
+      </Stack>
       <h3>Ingredients</h3>
       <ul>
         {
@@ -131,7 +144,13 @@ function FoodDetails() {
           { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
       </div>
-    </main>
+      <section>
+        <div style={ { marginBottom: '10px' } }>
+          <CommentForm id={ id } />
+        </div>
+        <CommentCards id={ id } />
+      </section>
+    </Container>
   );
 }
 

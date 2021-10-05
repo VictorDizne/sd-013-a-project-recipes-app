@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
+import Stack from 'react-bootstrap/Stack';
+import { Container } from 'react-bootstrap';
 import FavoriteButton from '../components/favoriteButton';
 import CardRecomendations from '../components/recomendationCard';
 import ShareButton from '../components/shareButton';
 import appContext from '../contexts/appContext';
 import './css/details.css';
+import CommentForm from '../components/commentForm';
+import CommentCards from '../components/commentCards';
 
 function DrinkDetail() {
   const [drink, setDrink] = useState({});
@@ -71,7 +75,6 @@ function DrinkDetail() {
       ...inProgressRecipes.cocktails,
       [id]: [],
     };
-    console.log({ ...inProgressRecipes, cocktails });
     localStorage
       .setItem('inProgressRecipes', JSON.stringify({ ...inProgressRecipes, cocktails }));
     setInProgress(false);
@@ -81,17 +84,26 @@ function DrinkDetail() {
   const URL = drink.strYoutube ? drink.strYoutube.split('=') : '';
 
   return (
-    <main>
+    <Container fluid>
       <Image
         src={ drink.strDrinkThumb }
         alt={ `${drink.trMeal}` }
         data-testid="recipe-photo"
         fluid
       />
-      <h2 data-testid="recipe-title">{drink.strDrink}</h2>
-      <p data-testid="recipe-category">{drink.strAlcoholic}</p>
-      <ShareButton dataTestId="share-btn" />
-      <FavoriteButton drink={ drink } />
+      <Stack direction="horizontal" gap={ 3 } style={ { marginTop: '10px' } }>
+        <div className="bg-light" style={ { marginTop: '5px' } }>
+          <h2 data-testid="recipe-title">{drink.strDrink}</h2>
+          <p data-testid="recipe-category">{drink.strAlcoholic}</p>
+        </div>
+        <div className="bg-light ms-auto">
+          <ShareButton dataTestId="share-btn" />
+        </div>
+        <div className="vr" />
+        <div className="bg-light">
+          <FavoriteButton drink={ drink } />
+        </div>
+      </Stack>
       <h3>Ingredients</h3>
       <ul>
         {
@@ -129,7 +141,13 @@ function DrinkDetail() {
           { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
       </div>
-    </main>
+      <section>
+        <div style={ { marginBottom: '10px' } }>
+          <CommentForm id={ id } />
+        </div>
+        <CommentCards id={ id } />
+      </section>
+    </Container>
   );
 }
 

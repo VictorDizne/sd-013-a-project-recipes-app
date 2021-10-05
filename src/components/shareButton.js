@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
+import Button from 'react-bootstrap/Button';
+import { BsShare, BsShareFill } from 'react-icons/bs';
 import copytoclipboard from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
 
 const ShareButton = ({ dataTestId, doneRecipe }) => {
   console.log(doneRecipe);
@@ -30,14 +31,16 @@ const ShareButton = ({ dataTestId, doneRecipe }) => {
 
   return (
     <div>
-      <button
+      <Button
+        variant="outline-primary"
         data-testid={ dataTestId }
         type="button"
         onClick={ copy }
-        src={ shareIcon }
+        src={ BsShare }
+        style={ { borderRadius: '5px' } }
       >
-        <img src={ shareIcon } alt="botão de copiar link da receita" />
-      </button>
+        { clipped ? <BsShareFill /> : <BsShare /> }
+      </Button>
       { clipped && <p>Link copiado!</p>}
     </div>
   );
