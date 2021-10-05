@@ -13,7 +13,7 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
     const fetching = async () => {
       const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
       const json = await res.json();
-      console.log(json.meals[0]);
+      // console.log(json.meals[0]);
       setMeal(json.meals[0]);
     };
 
@@ -60,16 +60,12 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
   }, [meal.idMeal, setBtnText]);
 
   return (
-    <div>
-
-      <RecipeDetails
-        history={ history }
-        showBtn={ startRecipeBtn }
-        recipe={ meal }
-        isMeal={ isTrue }
-      />
-
-    </div>
+    <RecipeDetails
+      history={ history }
+      showBtn={ startRecipeBtn }
+      recipe={ meal }
+      isMeal={ isTrue }
+    />
   );
 }
 

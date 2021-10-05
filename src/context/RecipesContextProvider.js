@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
+import calculateNumberIngredients from '../utils/calculateNumberIngredients';
 import RecipesContext from './RecipesContext';
 
 const RecipesContextProvider = ({ children }) => {
@@ -25,7 +26,7 @@ const RecipesContextProvider = ({ children }) => {
 
     const lcStorage = localStorage.getItem('favoriteRecipes');
     if (isFavorite) {
-      console.log('isfavorite');
+      // console.log('isfavorite');
       const favoriteArray = JSON.parse(lcStorage);
       const filteredArray = favoriteArray.filter(
         (r) => {
@@ -38,14 +39,14 @@ const RecipesContextProvider = ({ children }) => {
       return;
     }
     if (lcStorage) {
-      console.log('chave existe mas n tem favorito');
+      // console.log('chave existe mas n tem favorito');
       const parsedStorage = JSON.parse(lcStorage);
       parsedStorage.push(objRecipe);
       localStorage.setItem('favoriteRecipes', JSON.stringify(parsedStorage));
       setIsFavorite(true);
       return;
     }
-    console.log('chave nao existe');
+    // console.log('chave nao existe');
     localStorage.setItem('favoriteRecipes', JSON.stringify([{ ...objRecipe }]));
     setIsFavorite(true);
   };
@@ -61,16 +62,18 @@ const RecipesContextProvider = ({ children }) => {
       .then((json) => {
         const endIndex = 12;
         if (!json.meals) {
-          console.log('xablau');
+          // console.log('xablau');
           return alert();
         }
 
         if (json.meals.length > endIndex) {
           const twelveFirstMeals = json.meals.slice(0, endIndex);
-          setMeals(twelveFirstMeals);
+          const withNumberOfIngredients = calculateNumberIngredients(twelveFirstMeals);
+          setMeals(withNumberOfIngredients);
           setIsLoading(false);
         } else {
-          setMeals(json.meals);
+          const withNumberOfIngredients = calculateNumberIngredients(json.meals);
+          setMeals(withNumberOfIngredients);
           setIsLoading(false);
         }
       })
@@ -83,15 +86,18 @@ const RecipesContextProvider = ({ children }) => {
       .then((json) => {
         const endIndex = 12;
         if (!json.drinks) {
-          console.log('xablau bebidas');
+          // console.log('xablau bebidas');
           return alert();
         }
         if (json.drinks.length > endIndex) {
           const twelveFirstDrinks = json.drinks.slice(0, endIndex);
-          setDrinks(twelveFirstDrinks);
+          const withNumberOfIngredients = calculateNumberIngredients(twelveFirstDrinks);
+          // console.log(withNumberOfIngredients);
+          setDrinks(withNumberOfIngredients);
           setIsLoading(false);
         } else {
-          setDrinks(json.drinks);
+          const withNumberOfIngredients = calculateNumberIngredients(json.drinks);
+          setDrinks(withNumberOfIngredients);
           setIsLoading(false);
         }
       })
@@ -99,9 +105,6 @@ const RecipesContextProvider = ({ children }) => {
   }, []);
 
   const handleBtnClick = useCallback(({ input, isMeal, radio }) => {
-    console.log(input);
-    console.log(isMeal);
-    console.log(radio);
     const radioIdsObj = {
       Ingrediente: isMeal ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`
         : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`,

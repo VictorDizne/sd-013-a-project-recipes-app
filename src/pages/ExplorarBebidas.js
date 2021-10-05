@@ -14,7 +14,7 @@ export default function ExplorarBebidas({ history }) {
 
   return (
     <>
-      <Header pageTitle="Explorar Bebidas" history={ history } />
+      <Header pageTitle="Explorar Bebidas" history={ history } isMeal />
       <ButtonsExplore
         isMeal={ false }
         recipeType="bebidas"

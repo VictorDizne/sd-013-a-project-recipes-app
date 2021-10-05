@@ -9,7 +9,7 @@ function InProgressBebidas({ match: { params: { recipeId } } }) {
     const fetching = async () => {
       const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
       const json = await res.json();
-      console.log(json.drinks[0]);
+      // console.log(json.drinks[0]);
       setDrink(json.drinks[0]);
     };
 

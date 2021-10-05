@@ -1,7 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Container } from '@mui/material';
+// import { Container } from '@mui/material';
 import RecipesContextProvider from './context/RecipesContextProvider';
 import {
   Bebidas, Comidas,
@@ -22,9 +22,11 @@ import {
   ReceitasFeitas,
 } from './pages';
 
+import style from './styles/app.module.scss';
+
 function App() {
   return (
-    <Container maxWidth="xs">
+    <div className={ style.container }>
       <BrowserRouter>
         <RecipesContextProvider>
           <Switch>
@@ -72,7 +74,7 @@ function App() {
           </Switch>
         </RecipesContextProvider>
       </BrowserRouter>
-    </Container>
+    </div>
   );
 }
 

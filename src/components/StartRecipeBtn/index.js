@@ -1,0 +1,47 @@
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import RecipesContext from '../../context/RecipesContext';
+
+import style from './startRecipeBtn.module.scss';
+
+const StartRecipeBtn = ({ history, recipe, isMeal }) => {
+  const { btnText } = useContext(RecipesContext);
+
+  const handleStartRecipeBtn = () => {
+    history.push(isMeal ? `/comidas/${recipe.idMeal}/in-progress`
+      : `/bebidas/${recipe.idDrink}/in-progress`);
+  };
+
+  return (
+    <button
+      className={ style.startButton }
+      type="button"
+      data-testid="start-recipe-btn"
+      onClick={ handleStartRecipeBtn }
+    >
+      {btnText}
+      { ' ' }
+      &#129046;
+    </button>
+  );
+};
+
+StartRecipeBtn.propTypes = {
+  recipe: PropTypes.shape({
+    strTags: PropTypes.string,
+    strMeal: PropTypes.string,
+    idDrink: PropTypes.string,
+    idMeal: PropTypes.string,
+    strArea: PropTypes.string,
+    strAlcoholic: PropTypes.string,
+    strDrink: PropTypes.string,
+    strMealThumb: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+  }).isRequired,
+  isMeal: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default StartRecipeBtn;
