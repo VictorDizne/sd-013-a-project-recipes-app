@@ -83,8 +83,8 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
     if (localGet && localGet.cocktails[id]) {
       const ingredientsList = localGet.cocktails[id];
       if (checked) {
-        localGet.cocktails[id] = [...ingredientsList, name];
         setCheckedState([...checkedState, name]);
+        localGet.cocktails[id] = [...ingredientsList, name];
       }
       const listFilter = ingredientsList.filter((ingredient) => ingredient !== name);
       localGet.cocktails[id] = listFilter;
