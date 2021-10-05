@@ -9,10 +9,10 @@
 
 @media screen and ( max-width : 360px )  and ( min-height : 640px ) {
 
-.container {
-  background-color: #80a4ed;
-  height: 100vh;
-}
+  .container {
+    background-color: #80a4ed;
+    height: 100vh;
+  }
 
   .searchbar-container {
     align-items: center;

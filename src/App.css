@@ -12,17 +12,18 @@ button {
 }
 
 @media screen and ( max-width : 540px )  and ( max-height : 720px ) {
+
   /* TELA DE LOGIN */
   .inputContainer {
     align-items: center;
-    background: url(images/comidaPinter.jpeg);
+    background: url('images/comidaPinter.jpeg');
     background-color: #80a4ed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    border: 1px solid red;
     display: flex;
     height: 100vh;
-    border: 1px solid red;
   }
 
   .inputContainter {
@@ -33,7 +34,7 @@ button {
   .inputContainer:first-child {
     width: 200px;
   }
-  
+
   .btn:hover {
     border: 1px white;
   }
@@ -44,12 +45,16 @@ button {
 
   /* HEADER */
   .container2 {
-    background-color: #F7613B;
+    background-color: #f7613b;
+    border-color: #3bf7ba;
     border-radius: 7px;
-    border-color: #3BF7BA;
     display: flex;
     justify-content: space-between;
     padding: 10%;
+  }
+
+  .cardMeal img {
+    width: 100%;
   }
 
   .container2 img:first-of-type {
@@ -57,7 +62,7 @@ button {
   }
 
   .containerComidas {
-    background-color: #3BF7BA;
+    background-color: #3bf7ba;
   }
 
   /* TELA COMIDAS */
@@ -75,25 +80,22 @@ button {
   }
 
   .cardMeal {
-    background-color: #F7613B;
+    background-color: #f7613b;
     height: 200px;
     margin: 5% 0;
     max-width: 150px;
     overflow: hidden;
-    word-wrap: break-word;
     white-space: nowrap;
+    word-wrap: break-word;
 
-    /*transition-duration: 0.5s;
-    text-overflow: ellipsis;*/
+    /* transition-duration: 0.5s;
+    text-overflow: ellipsis; */
   }
 
   .cardMeal button :hover {
     background-color: #90989c;
   }
 
-  .cardMeal img {
-    width: 100%;
-  }
 
   /* TELA DETALHES COMIDAS */
   .detailsMeal {
@@ -113,8 +115,8 @@ button {
   /* FOOTER */
   .footer {
     align-items: center;
-    display: flex;
     background-color: darkgray;
+    display: flex;
     height: 10vh;
     justify-content: space-evenly;
   }
