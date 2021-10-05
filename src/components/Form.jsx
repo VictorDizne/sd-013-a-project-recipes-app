@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 // const nameRegex = /[A-Za-z-0-9]/
 import { Redirect } from 'react-router';
 import appContext from '../redux/appcontext';
+import Logo from '../images/logo.png';
 
 const Form = () => {
   const {
@@ -47,49 +48,48 @@ const Form = () => {
   }
 
   return (
-    <div>
-      <form className="container">
-        <br />
-        <div className="loginForm">
-          <label className="input-group mb-3" htmlFor="email">
-            <span className="input-group-text">Email</span>
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              id="email"
-              value={ userEmail }
-              data-testid="email-input"
-              placeholder="Insira seu Email"
-              onChange={ (e) => handleEmail(e) }
-            />
-          </label>
-          <label className="input-group mb-3" htmlFor="senha">
-            <span className="input-group-text">Senha</span>
-            <input
-              type="password"
-              name="senha"
-              id="senha"
-              className="form-control"
-              value={ userPassword }
-              data-testid="password-input"
-              placeholder="Insira sua senha, Minimo de 7 caracteres"
-              onChange={ (e) => handlePassword(e) }
-            />
-          </label>
+    <form className="container">
+      <img src={ Logo } alt="logo" />
+      <br />
+      <div className="inputContainter">
+        <label className="input-group mb-3" htmlFor="email">
+          <span className="input-group-text">Email</span>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            id="email"
+            value={ userEmail }
+            data-testid="email-input"
+            placeholder="Insira seu Email"
+            onChange={ (e) => handleEmail(e) }
+          />
+        </label>
+        <label className="input-group mb-3" htmlFor="senha">
+          <span className="input-group-text">Senha</span>
+          <input
+            type="password"
+            name="senha"
+            id="senha"
+            className="form-control"
+            value={ userPassword }
+            data-testid="password-input"
+            placeholder="Insira sua senha, Minimo de 7 caracteres"
+            onChange={ (e) => handlePassword(e) }
+          />
+        </label>
 
-          <button
-            type="button"
-            data-testid="login-submit-btn"
-            disabled={ btnDisable }
-            className="btn btn-primary"
-            onClick={ () => handleClick() }
-          >
-            Enviar
-          </button>
-        </div>
-      </form>
-    </div>
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ btnDisable }
+          className="btn btn-primary"
+          onClick={ () => handleClick() }
+        >
+          Enviar
+        </button>
+      </div>
+    </form>
   );
 };
 

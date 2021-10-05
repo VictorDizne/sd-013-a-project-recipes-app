@@ -5,7 +5,7 @@ import CardMeal from '../components/cardMeal';
 import FilterCategory from '../components/filterCategory';
 
 const Comidas = () => (
-  <div>
+  <div className="containerComidas">
     <Header page="Comidas" />
     <br />
     <FilterCategory />
