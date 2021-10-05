@@ -58,3 +58,6 @@ body {
   margin: 10px;
 }
 
+.line-thru {
+  text-decoration: line-through;
+}

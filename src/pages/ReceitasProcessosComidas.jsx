@@ -11,16 +11,27 @@ import {
   changeLocalRecipe,
   changeLocalFavorite,
   getAPIdataID,
+  changeLocalCheckFood,
 } from '../services/funcAuxDetails';
 
 const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
   const [foodDetail, setfoodDetail] = useState([]);
   const [btnFavorite, setBtnFavorite] = useState('isNotFavorite');
   const [isHidden, setIsHidden] = useState(true);
+  const [checkedState, setCheckedState] = useState([]);
 
   useEffect(() => {
+    if (JSON.parse(localStorage.getItem('inProgressRecipes'))
+      && JSON.parse(localStorage.getItem('inProgressRecipes')).meals[id]) {
+      setCheckedState(JSON.parse(localStorage.getItem('inProgressRecipes'))
+        .meals[id]);
+    }
     getAPIdataID(id, setfoodDetail, 'food');
     btnFavoritar(id, setBtnFavorite);
+  }, []);
+
+  useEffect(() => {
+    changeLocalRecipe(id, 'meals', 'cocktails');
   }, []);
 
   const {
@@ -45,6 +56,7 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
     name: strMeal,
     image: strMealThumb,
   };
+
   const handleFavorite = () => {
     changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
   };
@@ -57,26 +69,15 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
 
   const receitasIngMeas = () => {
     const ingredients = ingredientMeasures(foodDetail, 'ingredientes');
-    const measures = ingredientMeasures(foodDetail, 'medida');
+    const measures = ingredientMeasures(foodDetail, 'medidas');
 
     const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
     return receitas;
   };
 
-  // const changeCheckBox = ({ target: { name, checked } }) => {
-  // const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  // if (localGet.length > 0) {
-  // localGet.map((ingredient) => setInputs(ingredient));
-  // }
-  // const get = localGet.meal.[id].checked = checked
-  // if (checked) {
-  // localGet.meals[id] = [...localGet.meals[id], name];
-  // } else {
-  // const nIndex = localGet.meals[id].indexOf(name);
-  // localGet.meals[id].splice(nIndex, 1);
-  // }
-
-  // localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
+  const changeCheckBox = ({ target: { name, checked } }) => {
+    setCheckedState(changeLocalCheckFood(name, checked, id, checkedState));
+  };
 
   return (foodDetail.length === 0) ? <Loading /> : (
     <div>
@@ -115,12 +116,14 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
               htmlFor={ ingredient }
               key={ i }
               data-testid={ `${i}-ingredient-step` }
+              className={ checkedState.includes(ingredient) ? 'line-thru' : '' }
             >
               <input
                 name={ ingredient }
                 className="inProcess"
                 type="checkbox"
-                /* onChange={ /* changeCheckBox */
+                onChange={ changeCheckBox }
+                checked={ checkedState.includes(ingredient) }
               />
               { ingredient }
             </label>
@@ -128,11 +131,11 @@ const ReceitasProcessosComidas = ({ match: { params: { id } }, history }) => {
       </div>
       <p data-testid="instructions">{strInstructions}</p>
       <button
-        // id={ id }
         onClick={ handleRecipe }
         className="iniciar"
         data-testid="finish-recipe-btn"
         type="button"
+        disabled={ !receitasIngMeas().every((element) => checkedState.includes(element)) }
       >
         Finalizar Receita
       </button>
