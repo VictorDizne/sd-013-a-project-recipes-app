@@ -10,7 +10,7 @@ import FavoriteDrink from '../components/FavoriteDrink';
 import '../App.css';
 
 function DrinksProcess(props) {
-  const { setFavorite, setId } = useContext(Context);
+  const { /* favorite, id, */ setFavorite, setId } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
@@ -32,36 +32,32 @@ function DrinksProcess(props) {
   // useEffect(() => {
   //   const listFavorite = JSON.parse(localStorage.getItem('inProgressRecipes') || '[]');
   //   const newArrayIngredients = listFavorite.filter((list) => list.id === id);
+  //   // console.log(list.id, id);
   //   if (newArrayIngredients[0]) {
   //     return setFavIngredients(true);
   //   }
   // }, [id]);
 
   // const ingredientsStorage = () => {
-  //   const handleFavIngredients = () => {
-  //     const favorited = {
-  //       cocktails: {
-  //         [favorite.idDrink]: [],
-  //       },
-  //       meals: {
-  // [favorite.idDrink]: [],
-  //       },
-  //     };
-
-  //     if (favHeart === false) {
-  //       const recipesFavorited = JSON.parse(localStorage.getItem('favoriteRecipes')
-  //       || '[]');
-  //       recipesFavorited.push(favorited);
-  //       localStorage.setItem('favoriteRecipes', JSON.stringify(recipesFavorited));
-  //       return setFavHeart(true);
-  //     }
-  //     if (favHeart === true) {
-  //       const listFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //       const newArray = listFavorite.filter((list) => list.id !== favorited.id);
-  //       localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
-  //       return setFavHeart(false);
-  //     }
+  //   const favorited = {
+  //     cocktails: {
+  //       [favorite.idDrink]: [],
+  //     },
   //   };
+
+  //   if (favIngredients === false) {
+  //     const ingredientsFavorited = JSON.parse(localStorage.getItem('inProgressRecipes')
+  //     || '[]');
+  //     ingredientsFavorited.push([...ingredientsFavorited, favorited]);
+  //     localStorage.setItem('inProgressRecipes', JSON.stringify(ingredientsFavorited));
+  //     return setFavIngredients(true);
+  //   }
+  //   if (favIngredients === true) {
+  //     const listFavorite = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //     const newArray = listFavorite.filter((list) => list.id !== id);
+  //     localStorage.setItem('inProgressRecipes', JSON.stringify(newArray));
+  //     return setFavIngredients(false);
+  //   }
   // };
 
   const buttonAbled = () => {
@@ -78,7 +74,7 @@ function DrinksProcess(props) {
   };
 
   const checkboxRisk = ({ target }) => {
-  // ingredientsStorage();
+    // ingredientsStorage();
     buttonAbled();
     const parent = target.parentNode;
     const li = parent.parentNode;

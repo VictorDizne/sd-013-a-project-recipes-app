@@ -1,64 +1,104 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { Button } from '../components';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesDone() {
+  const [message, setMessage] = useState(false);
+  const [filter, setFilter] = useState([]);
   const recipesDone = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
+  const handleFilterFood = () => {
+    const foodFilter = recipesDone.filter((recipe) => recipe.type === 'comida');
+    setFilter(foodFilter);
+  };
+  const handleFilterDrink = () => {
+    const drinkFilter = recipesDone.filter((recipe) => recipe.type === 'bebida');
+    setFilter(drinkFilter);
+  };
+  const handleFilter = () => {
+    setFilter(recipesDone);
+  };
+
+  useEffect(() => setFilter(recipesDone), []);
+
   return (
     <div>
       <Header text="Receitas Feitas" />
       <div>
-        <Button testID="filter-by-all-btn">All</Button>
-        <Button testID="filter-by-food-btn">Comidas</Button>
-        <Button testID="filter-by-drink-btn">Bebidas</Button>
+        <Button
+          testID="filter-by-all-btn"
+          handleClick={ handleFilter }
+        >
+          All
+        </Button>
+        <Button
+          testID="filter-by-food-btn"
+          handleClick={ handleFilterFood }
+        >
+          Comidas
+        </Button>
+        <Button
+          testID="filter-by-drink-btn"
+          handleClick={ handleFilterDrink }
+        >
+          Bebidas
+        </Button>
       </div>
       <section>
-        {recipesDone.length > 0 ? recipesDone.map((item, i) => (
+        {filter.length > 0 ? filter.map((item, i) => (
           <div key={ item.id }>
-            <img
-              data-testid={ `${i}-horizontal-image` }
-              src={ item.image }
-              alt={ item.name }
-            />
+            <Link
+              key={ item.id }
+              to={ `/${item.type}s/${item.id}` }
+            >
+              <img
+                data-testid={ `${i}-horizontal-image` }
+                src={ item.image }
+                alt={ item.name }
+                className="foods"
+              />
+            </Link>
             <div>
-              <h4 data-testid={ `${i}-horizontal-top-text` }>{item.category}</h4>
-              <h2 data-testid={ `${i}-horizontal-name` }>{item.name}</h2>
+              <h4 data-testid={ `${i}-horizontal-top-text` }>
+                {item.area
+                  ? `${item.area} - ${item.category}` : `${item.alcoholicOrNot}`}
+              </h4>
+              <Link
+                key={ item.id }
+                to={ `/${item.type}s/${item.id}` }
+              >
+                <h2 data-testid={ `${i}-horizontal-name` }>{item.name}</h2>
+              </Link>
               <p data-testid={ `${i}-horizontal-done-date` }>{item.doneDate}</p>
               <Button
-                testID={ `${i}-horizontal-share-btn` }
+                handleClick={ () => {
+                  navigator.clipboard.writeText(`http://localhost:3000/${item.type}s/${item.id}`);
+                  setMessage(true);
+                } }
               >
-                <img src={ shareIcon } alt="compartilhar" />
+                <img
+                  data-testid={ `${i}-horizontal-share-btn` }
+                  src={ shareIcon }
+                  alt="compartilhar"
+                />
               </Button>
-              {/* {item.tags.length > 0 ? item.tags.map(() => )} */}
+              { message ? <h5>Link copiado!</h5> : null }
+              {item.tags.length > 0
+                ? item.tags.map((tag, idx) => (
+                  <span
+                    key={ idx }
+                    data-testid={ `${i}-${tag}-horizontal-tag` }
+                  >
+                    {tag}
+                  </span>))
+                : null}
             </div>
           </div>
-        )) : <p>Você ainda não concluiu nenhuma receita :(</p>}
+        )) : <p>Você ainda não concluiu nenhuma receita :(</p> }
       </section>
     </div>
   );
 }
 
 export default RecipesDone;
-// [{
-//   id: id-da-receita,
-//   type: comida-ou-bebida,
-//   area: area-da-receita-ou-texto-vazio,
-//   category: categoria-da-receita-ou-texto-vazio,
-//   alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-//   name: nome-da-receita,
-//   image: imagem-da-receita,
-//   doneDate: quando-a-receita-foi-concluida,
-//   tags: array-de-tags-da-receita-ou-array-vazio
-// }]
-
-// Todos os data-testids estão presentes:
-// O botão de filtro All deve ter o atributo data-testid="filter-by-all-btn";
-// O botão de filtro Food deve ter o atributo data-testid="filter-by-food-btn";
-// O botão de Drinks deve ter o atributo data-testid="filter-by-drink-btn";
-// O imagem do card de receita deve ter o atributo data-testid="${index}-horizontal-image";
-// O texto da categoria da receita deve ter o atributo data-testid="${index}-horizontal-top-text";
-// O texto do nome da receita deve ter o atributo data-testid="${index}-horizontal-name";
-// O texto da data que a receita foi feita deve ter o atributo data-testid="${index}-horizontal-done-date";
-// O elemento de compartilhar a receita deve ter o atributo data-testid="${index}-horizontal-share-btn";
-// As tags da receita devem possuir o atributo data-testid=${index}-${tagName}-horizontal-tag;
