@@ -2,11 +2,22 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
 import MyContext from '../context/myContext';
+import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
 
 const Filters = ({ alimento }) => {
-  const { setBtnState, setIsFiltered, btnState } = useContext(MyContext);
-  const FIVE = 5;
-  const fifthFirst = alimento.slice(0, FIVE);
+  const { setBtnState,
+    setIsFiltered,
+    btnState,
+    setDataFood,
+    setDataDrink } = useContext(MyContext);
+  const fifthFirst = alimento.slice(0, Number('5'));
+
+  const buttonAll = async () => {
+    const food = await foodAPIRequest();
+    setDataFood(food);
+    const drink = await cocktailsAPIRequest();
+    setDataDrink(drink);
+  };
 
   const handleClick = ({ target }) => {
     const { name } = target;
@@ -16,9 +27,6 @@ const Filters = ({ alimento }) => {
       });
       setIsFiltered(true);
     } else {
-      setBtnState({
-        category: 'all',
-      });
       setIsFiltered(false);
     }
   };
@@ -31,7 +39,7 @@ const Filters = ({ alimento }) => {
         name="all"
         data-testid="All-category-filter"
         type="button"
-        onClick={ handleClick }
+        onClick={ buttonAll }
       >
         All
       </button>
