@@ -1,0 +1,27 @@
+.select-buttons {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.buttons {
+  background-color: rgb(9, 134, 156);
+  border: 1px solid rgb(9, 134, 156);
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 10px 20px 0;
+  outline: none;
+  padding: 5px;
+  transition: all 0.3s;
+  width: 30%;
+}
+
+.buttons:hover {
+  background-color: rgb(246, 241, 255);
+  border: 1px solid rgb(9, 134, 156);
+  color: rgb(9, 134, 156);
+}

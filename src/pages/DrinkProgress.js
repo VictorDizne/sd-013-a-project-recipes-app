@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { fetchDrinksById } from '../services/bebidasApi';
-import { getIngredients,
-  doneDrinksList, favoriteDrinkRecipe, shareDrinkHelper } from '../services/helpers';
-import { setDrinksProgress } from '../services/localStorage';
+import { getIngredients, shareDrinkHelper } from '../services/helpers';
+import { doneDrinksList,
+  favoriteDrinkRecipe, setDrinksProgress } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -16,6 +16,8 @@ function DrinkProgress() {
   const [favorite, setFavorite] = useState(false);
   const [ingredientsSave, setIngredientsSave] = useState([]);
   const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const [isActive, setIsActive] = useState(false);
+  const history = useHistory();
 
   const params = useParams();
   const historyId = params.id;
@@ -40,6 +42,10 @@ function DrinkProgress() {
       ? ingredientsSave.filter((i) => i !== ingredient)
       : [...ingredientsSave, ingredient];
     setIngredientsSave(newIngredientsSave);
+
+    const isAllIngredientsChecked = ingredients
+      .every((ing) => newIngredientsSave.includes(ing));
+    setIsActive(isAllIngredientsChecked);
 
     setDrinksProgress(historyId, newIngredientsSave);
   };
@@ -66,6 +72,7 @@ function DrinkProgress() {
   const handleDoneRecipes = () => {
     const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     doneDrinksList(recipe, savedDoneRecipes);
+    history.push('/receitas-feitas');
   };
 
   return (
@@ -121,15 +128,17 @@ function DrinkProgress() {
       {(recipe.length === 1)
         && <p data-testid="instructions">{recipe[0].strInstructions}</p>}
 
-      <Link
-        to="/receitas-feitas"
+      <button
+        type="button"
         data-testid="finish-recipe-btn"
         className="iniciar-receita"
-        id="btn-iniciar-receita"
+        id="btn-finalizar-receita"
         onClick={ handleDoneRecipes }
+        disabled={ !isActive }
+
       >
         Finalizar Receita
-      </Link>
+      </button>
     </div>
   );
 }

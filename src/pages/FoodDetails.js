@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchFoodById } from '../services/comidasApi';
 import { fetchRecommendedDrinks } from '../services/bebidasApi';
-import { getIngredients,
-  favoriteMealRecipe, shareMealHelper } from '../services/helpers';
+import { getIngredients, shareMealHelper } from '../services/helpers';
+import { favoriteMealRecipe } from '../services/localStorage';
 import RecomendationCard from '../components/RecomendationCard';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -68,7 +68,7 @@ function FoodDetails() {
   const isMealDone = () => !!savedDoneRecipes[historyId];
 
   return (
-    <div>
+    <div className="page-container">
       {(recipe.length === 1) && (
         <div>
           <img
