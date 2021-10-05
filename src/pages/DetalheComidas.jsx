@@ -36,7 +36,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
     alimentosSugestions(setDrinkDetails, 'cocktails');
     getAPIdataID(id, setfoodDetail, 'food');
 
-    btnContinuar(id, setBtnState);
+    btnContinuar(id, setBtnState, 'meals');
     btnFavoritar(id, setBtnFavorite);
   }, []);
 
@@ -173,3 +173,4 @@ DetalheComidas.propTypes = {
 }.isRequired;
 
 export default DetalheComidas;
+/* //testes */

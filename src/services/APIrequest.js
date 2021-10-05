@@ -16,4 +16,3 @@ export const cocktailsAPIRequest = async (param1 = 'search', param2 = 's=') => {
   } catch (error) {
     console.log(error);
   }
-};
