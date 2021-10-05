@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FavoriteCards from '../../components/favoriteCard';
 import Header from '../../components/header';
+import removeFromFavorites from '../../services/removeFromFavorites';
 import shareLink from '../../services/shareLink';
 
 function FavRecipes() {
@@ -33,6 +34,13 @@ function FavRecipes() {
     }
   }
 
+  function toggleFavorite(id) {
+    removeFromFavorites(id);
+    // Busca a chave de receitas feitas do localStorage e seta nos cards para mostrar
+    const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setEveryFavorite(currentFavorites);
+  }
+
   function generatesCards() {
     let cardsToShow;
     if (filter === 'All') {
@@ -52,24 +60,8 @@ function FavRecipes() {
         index={ index }
         key={ index }
         handleShare={ handleShare }
+        toggleFavorite={ toggleFavorite }
       />));
-  }
-
-  // Filtra cards de bebida ou comida ou ambos de acordo com o botão clicado
-  function handleClick(shouldShow) {
-    switch (shouldShow) {
-    case 'Meals':
-      setFilter('Meals');
-      break;
-    case 'Drinks':
-      setFilter('Drinks');
-      break;
-    case 'All':
-      setFilter('All');
-      break;
-    default:
-      break;
-    }
   }
 
   return (
@@ -80,21 +72,21 @@ function FavRecipes() {
           <button
             type="button"
             data-testid="filter-by-all-btn"
-            onClick={ () => handleClick('All') }
+            onClick={ () => setFilter('All') }
           >
             All
           </button>
           <button
             type="button"
             data-testid="filter-by-food-btn"
-            onClick={ () => handleClick('Meals') }
+            onClick={ () => setFilter('Meals') }
           >
             Food
           </button>
           <button
             type="button"
             data-testid="filter-by-drink-btn"
-            onClick={ () => handleClick('Drinks') }
+            onClick={ () => setFilter('Drinks') }
           >
             Drinks
           </button>
