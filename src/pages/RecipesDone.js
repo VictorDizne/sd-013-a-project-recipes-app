@@ -4,7 +4,7 @@ import { Button } from '../components';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesDone() {
-  const recipesDone = JSON.parse(localStorage.getItem('doneRecipes') || []);
+  const recipesDone = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
   return (
     <div>
       <Header text="Receitas Feitas" />
@@ -22,17 +22,15 @@ function RecipesDone() {
               alt={ item.name }
             />
             <div>
-              <h4 data-testid={ `${i}-horizontal-top-text` }>{item.name}</h4>
-              <h2 data-testid={ `${i}-horizontal-name` }>{ }</h2>
-              <p data-testid={ `${i}-horizontal-done-date` }>{ }</p>
+              <h4 data-testid={ `${i}-horizontal-top-text` }>{item.category}</h4>
+              <h2 data-testid={ `${i}-horizontal-name` }>{item.name}</h2>
+              <p data-testid={ `${i}-horizontal-done-date` }>{item.doneDate}</p>
               <Button
                 testID={ `${i}-horizontal-share-btn` }
               >
                 <img src={ shareIcon } alt="compartilhar" />
               </Button>
-              {/* {item[tags].length > 0
-                ? <p data-testid="" >{item.tags}</p>
-                : null} */}
+              {/* {item.tags.length > 0 ? item.tags.map(() => )} */}
             </div>
           </div>
         )) : <p>Você ainda não concluiu nenhuma receita :(</p>}

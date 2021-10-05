@@ -13,17 +13,17 @@ function DrinksProcess(props) {
   const { setFavorite, setId } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
-  const [disabledButton, setdisabledButton] = useState(true);
+  const [disabledButton, setDisabledButton] = useState(true);
   // const [favIngredients, setFavIngredients] = useState(false);
 
   useEffect(() => {
-    const { match: { params: { id } } } = props;
-    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const { match: { params: { id: idLocation } } } = props;
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idLocation}`;
     async function fetchResult() {
       const result = await (await fetch(url)).json();
       setDetails(result.drinks[0]);
       setFavorite(result.drinks[0]);
-      setId(result.drinks[0].idDrinks);
+      setId(result.drinks[0].idDrink);
       // console.log(details, result.drinks[0], '1231');
     }
     fetchResult();
@@ -44,7 +44,7 @@ function DrinksProcess(props) {
   //         [favorite.idDrink]: [],
   //       },
   //       meals: {
-
+  // [favorite.idDrink]: [],
   //       },
   //     };
 
@@ -72,9 +72,9 @@ function DrinksProcess(props) {
     // console.log(arrayCheckbox, 'hello');
     // console.log(arrayIng);
     if (arrayCheckbox.length === arrayIng.length) {
-      return setdisabledButton(false);
+      return setDisabledButton(false);
     }
-    return setdisabledButton(true);
+    return setDisabledButton(true);
   };
 
   const checkboxRisk = ({ target }) => {

@@ -8,15 +8,14 @@ import FavoriteMeal from '../components/FavoriteMeal';
 import '../App.css';
 
 function FoodsProcess(props) {
-  // const { id } = useContext(Context);
+  const { setFavorite, setId } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
-  const { setFavorite, setId } = useContext(Context);
-  const [disabledButton, setdisabledButton] = useState(true);
+  const [disabledButton, setDisabledButton] = useState(true);
 
   useEffect(() => {
-    const { match: { params: { id } } } = props;
-    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const { match: { params: { id: idLocation } } } = props;
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idLocation}`;
     async function fetchResult() {
       const result = await (await fetch(url)).json();
       setDetails(result.meals[0]);
@@ -34,9 +33,9 @@ function FoodsProcess(props) {
     // console.log(arrayCheckbox, 'hello');
     // console.log(arrayIng);
     if (arrayCheckbox.length === arrayIng.length) {
-      return setdisabledButton(false);
+      return setDisabledButton(false);
     }
-    return setdisabledButton(true);
+    return setDisabledButton(true);
   };
 
   const checkboxRisk = ({ target }) => {
