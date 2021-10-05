@@ -11,6 +11,7 @@ import {
   changeLocalRecipe,
   changeLocalFavorite,
   getAPIdataID,
+  changeLocalCheck,
 } from '../services/funcAuxDetails';
 
 const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
@@ -20,8 +21,10 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   const [checkedState, setCheckedState] = useState([]);
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('inProgressRecipes')) && JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails[id]) {
-      setCheckedState(JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails[id]);
+    if (JSON.parse(localStorage.getItem('inProgressRecipes'))
+    && JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails[id]) {
+      setCheckedState(JSON.parse(localStorage.getItem('inProgressRecipes'))
+        .cocktails[id]);
     }
     getAPIdataID(id, setDrinkDetail, 'drink');
     btnFavoritar(id, setBtnFavorite);
@@ -76,19 +79,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   };
 
   const changeCheckBox = ({ target: { name, checked } }) => {
-    const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (localGet && localGet.cocktails[id]) {
-      const ingredientsList = localGet.cocktails[id];
-      if (checked) {
-        setCheckedState([...checkedState, name]);
-        localGet.cocktails[id] = [...ingredientsList, name];
-      } else {
-        const listFilter = ingredientsList.filter((ingredient) => ingredient !== name);
-        localGet.cocktails[id] = listFilter;
-        setCheckedState(listFilter);
-      }
-      localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
-    }
+    setCheckedState(changeLocalCheck(name, checked, id, checkedState));
   };
 
   return (drinkDetail.length === 0) ? <Loading /> : (
@@ -128,7 +119,6 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
               htmlFor={ ingredient }
               key={ i }
               data-testid={ `${i}-ingredient-step` }
-              // onChange={ changeCheckBox }
             >
               <input
                 onChange={ changeCheckBox }
@@ -142,7 +132,6 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
       </div>
       <p data-testid="instructions">{strInstructions}</p>
       <button
-        // id={ id }
         onClick={ handleRecipe }
         className="iniciar"
         data-testid="finish-recipe-btn"

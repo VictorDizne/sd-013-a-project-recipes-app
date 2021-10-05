@@ -92,3 +92,18 @@ export const changeLocalFavorite = (favInfo, btnFavorite, setBtnFavorite, id) =>
     (clipText) => setBtnFavorite(clipText),
   );
 };
+
+export const changeLocalCheck = (name, checked, id, checkedState) => {
+  const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (localGet && localGet.cocktails[id]) {
+    const ingredientsList = localGet.cocktails[id];
+    if (checked) {
+      localGet.cocktails[id] = [...ingredientsList, name];
+      return ([...checkedState, name]);
+    }
+    const listFilter = ingredientsList.filter((ingredient) => ingredient !== name);
+    localGet.cocktails[id] = listFilter;
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
+    return (listFilter);
+  }
+};
