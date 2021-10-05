@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
-import { useDebugState } from 'use-named-state';
 import recipeContext from '../../context';
+import usePersistedState from '../../utils/usePersistedState';
 import { filterIngredientsAndMeasures } from '../../functions';
 
-function IngredientProgress() {
-  const { details } = useContext(recipeContext).ContextDetails;
-  const inputs = document.querySelectorAll('.ingredient-step');
+function IngredientProgress({ idK }) {
+  const { details, setRecipeProgress } = useContext(recipeContext).ContextDetails;
+  const inputs = document.getElementsByTagName('input');
+  console.log(idK);
 
-  const [progress, setProgress] = useDebugState('progress', {});
+  const [progress, setProgress] = usePersistedState('inProgressRecipes', '');
 
   const array = filterIngredientsAndMeasures(details);
   const shortArrays = [];
@@ -16,10 +18,16 @@ function IngredientProgress() {
   }
 
   useEffect(() => {
+    setRecipeProgress(progress);
+  }, [progress]);
+
+  useEffect(() => {
     if (inputs.length > 0) {
       let obj;
       for (let i = 0; i < inputs.length; i += 1) {
-        obj = { ...obj, [`ingredient${i}`]: false };
+        obj = { ...obj,
+          [`ingredient${i}`]: progress[`ingredient${i}`] || false,
+        };
       }
       setProgress(obj);
     }
@@ -40,10 +48,11 @@ function IngredientProgress() {
             htmlFor={ [`ingredient${index}`] }
           >
             <input
-              onClick={ handleClick }
+              onChange={ handleClick }
               type="checkbox"
               id={ [`ingredient${index}`] }
               className="ingredient-step"
+              checked={ progress[`ingredient${index}`] || false }
             />
             {item.toString().replace(',', ' - ')}
           </label>
@@ -52,5 +61,9 @@ function IngredientProgress() {
     </div>
   );
 }
+
+IngredientProgress.propTypes = {
+  idK: PropTypes.string.isRequired,
+};
 
 export default IngredientProgress;
