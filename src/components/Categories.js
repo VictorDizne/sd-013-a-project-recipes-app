@@ -45,11 +45,12 @@ function Categories({ isMeal }) {
   if (!categories) return <h1>Loading...</h1>;
 
   return (
-    <nav>
+    <nav className="d-flex flex-wrap mb-3 mt-2 ml-2 justify-content-center">
       {categories
         .filter((_cat, idx) => idx < NUM_CATEGORIES)
         .map(({ strCategory }) => (
           <button
+            className="btn btn-outline-danger mx-2 mb-2"
             key={ strCategory }
             type="button"
             onClick={ () => handleOnClick(strCategory) }
@@ -59,6 +60,7 @@ function Categories({ isMeal }) {
           </button>
         ))}
       <button
+        className="btn btn-outline-danger mx-2 mb-2"
         type="button"
         data-testid="All-category-filter"
         onClick={ () => handleOnClick('All') }

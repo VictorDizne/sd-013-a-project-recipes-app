@@ -1,15 +1,15 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import Provider from './context/Provider';
 import Routes from './components/Routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   return (
     <Provider>
-      <Container fluid>
+      <div className="App">
         <Routes />
-      </Container>
+      </div>
     </Provider>
   );
 }

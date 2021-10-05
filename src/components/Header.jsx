@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import profileImage from '../images/profileIcon.svg';
 import searchImage from '../images/searchIcon.svg';
 import HeaderSearch from './HeaderSearch';
+import '../css/Header.css';
 
 function Header({ tela, showSearch = true }) {
   const [inputSearch, setInputSearch] = useState(false);
@@ -13,7 +14,9 @@ function Header({ tela, showSearch = true }) {
   };
 
   return (
-    <div>
+    <div
+      className="colorHeader d-flex justify-content-between p-2 align-items-center"
+    >
       <Link to="/perfil">
         <input
           type="image"

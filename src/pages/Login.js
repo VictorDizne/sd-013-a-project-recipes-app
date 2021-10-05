@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import '../css/Login.css';
 
 function Login() {
   const [personData, setPersonData] = useState({
@@ -29,10 +30,12 @@ function Login() {
   };
 
   return (
-    <div className="login d-flex flex-column justify-content-center">
+    <div
+      className="tam1 container d-flex justify-content-center"
+    >
       { shouldRedirect && <Redirect to="/comidas" /> }
-      <span className="slogan">Falta pouco para matar sua fome!</span>
-      <form className="d-flex flex-column justify-content-center">
+      <form className="d-flex align-items-center flex-column justify-content-center">
+        <h1 className="display mb-5 pb-5">App de Receitas</h1>
         <input
           className="form-control"
           name="email"
@@ -42,7 +45,7 @@ function Login() {
           onChange={ handleChange }
         />
         <input
-          className="form-control"
+          className="form-control my-2"
           name="password"
           type="password"
           data-testid="password-input"
