@@ -64,7 +64,7 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
   };
 
   const handleFavorite = () => {
-     changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
+    changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
     const favBtn = (btnFavorite === 'isFavorite')
       ? setBtnFavorite('isNotFavorite') : setBtnFavorite('isFavorite');
     return favBtn;
