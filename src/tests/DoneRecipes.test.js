@@ -10,7 +10,7 @@ import Done from '../pages/Done';
 import renderWithReduxAndRouter from '../helpers/renderWithReduxAndRouter';
 
 // Mocks
-import { doneMockAll } from '../mocks/DoneMock';
+import { doneMock } from '../mocks/DoneMock';
 
 // History
 // let mockHistory = {};
@@ -22,13 +22,13 @@ const FOOD_BTN = 'filter-by-food-btn';
 const DRINK_BTN = 'filter-by-drink-btn';
 const FOOD_NAME = 'comida';
 const DRINK_NAME = 'bebida';
-const FOODS_AND_DRINKS = JSON.stringify(doneMockAll);
+const DONE_RECIPES_LOCAL_STORAGE_MOCK = JSON.stringify(doneMock);
 // const FOODS = JSON.stringify(doneMockFoodOnly);
 // const DRINKS = JSON.stringify(doneMockDrinksOnly);
 describe('Testa as funcionalidades da Done.jsx', () => {
   beforeEach(() => {
     renderWithReduxAndRouter(<Done />, {
-      items: { doneRecipes: FOODS_AND_DRINKS },
+      items: { doneRecipes: DONE_RECIPES_LOCAL_STORAGE_MOCK },
     });
     // mockHistory = history;
   });

@@ -1,6 +1,6 @@
 import { doneRecipesStartFile, DONE_DATE } from './doneRecipesStartFile';
 
-export const doneMockAll = [...doneRecipesStartFile,
+export const doneMock = [...doneRecipesStartFile,
   { id: '52874',
     type: 'comida',
     area: 'British',
@@ -120,8 +120,8 @@ export const doneMockAll = [...doneRecipesStartFile,
     tags: ['BBQ', 'Meat'] },
 ];
 
-export const doneMockFoodOnly = doneMockAll
+export const doneMockFoodOnly = doneMock
   .filter((item) => item.type === 'comida');
 
-export const doneMockDrinksOnly = doneMockAll
+export const doneMockDrinksOnly = doneMock
   .filter((item) => item.type === 'bebida');
