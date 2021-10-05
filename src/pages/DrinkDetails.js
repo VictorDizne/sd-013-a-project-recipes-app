@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import { Container } from 'react-bootstrap';
-import { Divider, Stack } from '@material-ui/core';
+import { Stack } from '@material-ui/core';
 import FavoriteButton from '../components/favoriteButton';
 import CardRecomendations from '../components/recomendationCard';
 import ShareButton from '../components/shareButton';
