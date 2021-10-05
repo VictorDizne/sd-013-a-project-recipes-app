@@ -64,7 +64,6 @@ function MealDetails({ match: { params: { id } } }) {
   useEffect(() => {
     const checkStorage = async () => {
       const data = await getStorage('inProgressRecipes');
-      console.log(data);
       setInProgressRecipes(data.meals);
     };
     checkStorage();
@@ -96,7 +95,6 @@ function MealDetails({ match: { params: { id } } }) {
           Object.entries(recipe).map(([key, value]) => {
             if (key.includes('strIngredient') && value) {
               const index = Number(key.split('strIngredient')[1]) - 1;
-              console.log(JSON.stringify(inProgressRecipes));
               return (
                 <label
                   htmlFor="ingredient"

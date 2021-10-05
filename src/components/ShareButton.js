@@ -27,9 +27,11 @@ function ShareButton({ id, type, testid }) {
 ShareButton.defaultProps = {
   testid: undefined,
 };
+
 ShareButton.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   testid: PropTypes.string,
 };
+
 export default ShareButton;

@@ -40,7 +40,6 @@ function FavoriteButton({ id, type, recipe, testid }) {
         image: recipe.strDrinkThumb,
       };
     }
-    console.log(objRecipe);
 
     localStorage.setItem(
       'favoriteRecipes',

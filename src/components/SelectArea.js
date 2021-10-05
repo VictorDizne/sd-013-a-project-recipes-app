@@ -27,7 +27,6 @@ function SelectArea() {
     const fetchData = async () => {
       const data = await fetchIAreaMeals(Area);
       setListMeals(data);
-      console.log(data);
     };
     fetchData();
   }, [Area]);
