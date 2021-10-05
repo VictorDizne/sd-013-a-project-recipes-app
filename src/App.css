@@ -1,4 +1,4 @@
-.meals {
+.container {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -15,6 +15,8 @@
   max-height: 80vh;
 }
 
+
+
 /*
 #iceLeft {
   animation: clink .8s infinite ease;
@@ -29,12 +31,11 @@
 }
 */
 
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+.button-header {
+  border: 0;
+  border-radius: 10px;
+  height: 40px;
+  background-color: transparent;
 }
 
 @keyframes shake {

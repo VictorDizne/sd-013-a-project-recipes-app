@@ -20,6 +20,7 @@ function Header({ value }) {
   return (
     <header>
       <button
+        className="button-header"
         type="button"
         onClick={ () => history.push('/perfil') }
       >
@@ -34,6 +35,7 @@ function Header({ value }) {
         && (
           <div>
             <button
+              className="button-header"
               type="button"
               onClick={ isVerified }
             >

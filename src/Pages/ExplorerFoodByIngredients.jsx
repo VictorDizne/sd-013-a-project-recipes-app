@@ -12,14 +12,13 @@ export default function ExploreFoodByIngredients() {
   const [ingredients, setIngredients] = useState([]);
   const setRecipesDb = useContext(RecipesContext);
   const history = useHistory();
-  const limits = 5;
+  const limits = 12;
 
   useEffect(() => {
     const getIngredients = async () => {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
         .then((res) => res.json());
       setIngredients(response.meals);
-      console.log(response.meals);
     };
     getIngredients();
   }, []);
@@ -47,19 +46,19 @@ export default function ExploreFoodByIngredients() {
             >
               <div data-testid={ `${index}-ingredient-card` }>
                 <img
-                  name={ meal.strIngredient }
-                  src={ `https://www.themealdb.com/images/ingredients/${meal.strIngredient1}-Small.png` }
+                  name={ meal.strIngredient1 }
+                  src={ `https://www.themealdb.com/images/ingredients/${meal.strIngredient}-Small.png` }
                   data-testid={ `${index}-card-img` }
-                  alt={ meal.strIngredient1 }
+                  alt={ meal.strIngredient }
                 />
               </div>
               <div
-                name={ meal.strIngredient1 }
+                name={ meal.strIngredient }
               >
                 <span
                   data-testid={ `${index}-card-name` }
                 >
-                  { meal.strIngredient1 }
+                  { meal.strIngredient }
                 </span>
               </div>
             </button>
