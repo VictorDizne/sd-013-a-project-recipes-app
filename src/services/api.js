@@ -60,6 +60,18 @@ export const fetchRecipesByArea = async (area) => {
   return result;
 };
 
+export const fetchIngredients = async (myPage) => {
+  const result = await fetch(`https://www.${myPage}.com/api/json/v1/1/list.php?i=list`)
+    .then((resp) => resp.json());
+  return result;
+};
+
+export const fetchRecipesIngredients = async (myPage, ingredient) => {
+  const result = await fetch(`https://www.${myPage}.com/api/json/v1/1/filter.php?i=${ingredient}`)
+    .then((resp) => resp.json());
+  return result;
+};
+
 // www.themealdb.com/api/json/v1/1/filter.php?a=Canadian
 
 // https://www.thecocktaildb.com/api/json/v1/1/search.php?s=

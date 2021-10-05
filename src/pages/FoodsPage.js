@@ -1,16 +1,24 @@
 import React, { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
 import * as myFuncApi from '../services/api';
 import * as myFuncStorage from '../services/storage';
 import { Header, Footer, FoodCard, ButtonsFilters } from '../components';
 
-function FoodsPage() {
+function FoodsPage({ location: { query } }) {
+  // const { query: { ingredient } } = location;
   const { recipes, setMyPage, myPage, setRecipes } = useContext(MyContext);
   const LIMITER_FOODS = 12;
 
   const randonRecipes = async () => {
-    const { meals } = await myFuncApi.fetchRandonRecipes(myPage);
-    setRecipes(meals);
+    if (query !== undefined) {
+      const results = await myFuncApi
+        .fetchRecipesIngredients('themealdb', query.ingredient.strIngredient);
+      setRecipes(results.meals);
+    } else {
+      const results = await myFuncApi.fetchRandonRecipes(myPage);
+      setRecipes(results.meals);
+    }
   };
 
   useEffect(() => {
@@ -60,5 +68,15 @@ function FoodsPage() {
     </div>
   );
 }
+
+FoodsPage.propTypes = {
+  location: PropTypes.shape({
+    query: PropTypes.shape({
+      ingredient: PropTypes.shape({
+        strIngredient: PropTypes.string.isRequired,
+      }),
+    }).isRequired,
+  }).isRequired,
+};
 
 export default FoodsPage;
