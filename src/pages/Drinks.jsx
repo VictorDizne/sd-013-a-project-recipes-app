@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 import MasterCard from '../components/MasterCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
