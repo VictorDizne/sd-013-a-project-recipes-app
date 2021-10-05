@@ -27,7 +27,7 @@ function Bebidas() {
     } else {
       handleFetch('thecocktaildb');
     }
-  }, [handleCurrentPage, handleFetch, params]);
+  }, []);
 
   return (
     <div>

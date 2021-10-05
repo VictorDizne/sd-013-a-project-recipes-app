@@ -27,6 +27,7 @@ function Comidas() {
       handleFetch('themealdb');
     }
   }, []);
+
   return (
     <div>
       <Header title="Comidas" hideSearch={ false } hideProfile={ false } />
