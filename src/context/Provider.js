@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDebugState } from 'use-named-state';
 import { useHistory } from 'react-router-dom';
-import recipeContext from './index';
+import RecipeContext from './index';
+import usePersistedState from '../utils/usePersistedState';
 import FetchAPI from '../services';
 
 function Provider({ children }) {
@@ -20,6 +21,7 @@ function Provider({ children }) {
   const [currentID, setCurrentID] = useDebugState('CurentID', 0);
   const [loading, setLoading] = useDebugState('Loading', true);
   const [details, setDetails] = useDebugState('Details', '');
+  const [recipeProgress, setRecipeProgress] = usePersistedState('inProgressRecipes', '');
 
   const handleCurrentPage = () => {
     const { location: { pathname } } = history;
@@ -31,8 +33,9 @@ function Provider({ children }) {
     }
   };
 
-  const handleFetch = (currentPage) => {
-    FetchAPI(currentPage, 'search', 's', '')
+  const handleFetch = (currentPage, ...params) => {
+    const recipeListParams = params.length ? params : ['search', 's', ''];
+    FetchAPI(currentPage, ...recipeListParams)
       .then((response) => setRecipeList(response));
     FetchAPI(currentPage, 'list', 'c', 'list')
       .then((response) => setCategoryList(response));
@@ -106,7 +109,7 @@ function Provider({ children }) {
     handleFetch,
   };
   const ContextHeader = { handleShowInput, handleDataForFetch, finallyFetch, loading };
-  const ContextDetails = { details, fetchDetails };
+  const ContextDetails = { details, fetchDetails, recipeProgress, setRecipeProgress };
 
   const context = {
     ContextCard,
@@ -116,9 +119,9 @@ function Provider({ children }) {
   };
 
   return (
-    <recipeContext.Provider value={ context }>
+    <RecipeContext.Provider value={ context }>
       { children }
-    </recipeContext.Provider>
+    </RecipeContext.Provider>
   );
 }
 

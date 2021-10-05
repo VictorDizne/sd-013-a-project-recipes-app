@@ -8,8 +8,10 @@ import ComponentList from '../components/ComponentList';
 import ComponentLoading from '../components/ComponentLoading';
 import ComponentCategory from '../components/ComponentCategory';
 import './Styles/RecipeList.css';
+import useQuery from '../hooks/useQuery';
 
 function Comidas() {
+  const params = useQuery();
   const currentContext = useContext(recipeContext).ContextFoods;
 
   const { showInput, dataForFetch, handleCurrentPage, currentID,
@@ -18,7 +20,12 @@ function Comidas() {
 
   useEffect(() => {
     handleCurrentPage();
-    handleFetch('themealdb');
+    if (params.i) {
+      console.log({ params });
+      handleFetch('themealdb', 'filter', 'i', params.i);
+    } else {
+      handleFetch('themealdb');
+    }
   }, []);
 
   return (

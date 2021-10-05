@@ -2,81 +2,48 @@ import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDebugState } from 'use-named-state';
 import recipeContext from '../context';
-import { ingredientAndMeasureArray, saveLocalStorage } from '../functions';
+import { handleFavoriteIcon, handleShare } from '../functions';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
+import IngredientProgress from './ingredients/IngredientProgress';
+import IngredientDetails from './ingredients/IngredientDetails';
+import './Styles/RecipeInProgress.css';
 
 const copy = require('clipboard-copy');
 
 function ComponentDetailsContent({ keys }) {
   const { details } = useContext(recipeContext).ContextDetails;
 
-  const { title, category, typeK, id, alcoholicOrNot, thumb, area, instructions, video,
-    iframe } = keys;
+  const favoritedRecipe = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]')
+    .some((recipe) => recipe.id === details[keys.id]);
 
-  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
-  const value = favoriteRecipes.some((recipe) => recipe.id === details[id]);
-
-  const [favoriteIcon, setFavoriteIcon] = useDebugState('FavoriteIcon', value);
+  const [favoriteIcon, setFavoriteIcon] = useDebugState('FavoriteIcon', favoritedRecipe);
   const [share, setShareIcon] = useDebugState('Share', false);
 
   useEffect(() => {
-    setFavoriteIcon(value);
-  }, [value]);
+    setFavoriteIcon(favoritedRecipe);
+  }, [favoritedRecipe, setFavoriteIcon]);
 
-  if (details[title] === undefined) return <h1>Loading</h1>;
+  if (details[keys.title] === undefined) return <h1>Loading</h1>;
 
-  let alcoholic;
-  let areaK;
   let youtube;
 
-  if (details[alcoholicOrNot] === undefined) {
-    alcoholic = '';
-  } else {
-    alcoholic = details[alcoholicOrNot];
-  }
-
-  if (details[area] === undefined) {
-    areaK = '';
-  } else {
-    areaK = details[area];
-  }
-
-  if (iframe) youtube = details[video].replace('watch?v=', 'embed/');
-
-  const handleFavoriteIcon = () => {
-    setFavoriteIcon(!favoriteIcon);
-    const newArray = {
-      id: details[id],
-      type: typeK,
-      area: areaK,
-      category: details[category],
-      alcoholicOrNot: alcoholic,
-      name: details[title],
-      image: details[thumb],
-    };
-
-    saveLocalStorage(newArray, details[id]);
-  };
-
-  const handleShare = () => {
-    setShareIcon(!share);
-    if (!share) {
-      copy(window.location.href);
-    } else {
-      copy('');
-    }
-  };
+  if (keys.iframe) youtube = details[keys.video].replace('watch?v=', 'embed/');
 
   return (
     <div>
-      <img data-testid="recipe-photo" src={ details[thumb] } alt={ details[title] } />
-      <button type="button" onClick={ handleShare }>
+      <img data-testid="recipe-photo" src={ details[keys.thumb] } alt="recipe" />
+      <button type="button" onClick={ () => handleShare(setShareIcon, share, copy) }>
         <img data-testid="share-btn" src={ ShareIcon } alt="" width="30px" />
       </button>
-      {share && <p>Link copiado!</p>}
-      <button type="button" onClick={ handleFavoriteIcon }>
+      {
+        share && <p>Link copiado!</p>
+      }
+      <button
+        type="button"
+        onClick={ () => handleFavoriteIcon(setFavoriteIcon, favoriteIcon, details, keys) }
+      >
         <img
           data-testid="favorite-btn"
           src={ favoriteIcon ? BlackHeartIcon : WhiteHeartIcon }
@@ -84,25 +51,34 @@ function ComponentDetailsContent({ keys }) {
           width="30px"
         />
       </button>
-      <h1 data-testid="recipe-title">{details[title]}</h1>
+      <h1 data-testid="recipe-title">{details[keys.title]}</h1>
       <h4 data-testid="recipe-category">
-        {details[category]}
+        {details[keys.category]}
         {' '}
-        {details[alcoholicOrNot]}
+        {details[keys.alcoholicOrNot]}
       </h4>
-      {ingredientAndMeasureArray(details)}
-      <h5 data-testid="instructions">{details[instructions]}</h5>
-      {iframe && <iframe
-        data-testid="video"
-        width="300"
-        height="200"
-        src={ youtube }
-        title={ details[title] }
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write;
+
+      {
+        keys.click
+          ? <IngredientProgress idK={ details[keys.id] } />
+          : <IngredientDetails />
+      }
+
+      <h5 data-testid="instructions">{details[keys.instructions]}</h5>
+
+      {
+        keys.iframe && <iframe
+          data-testid="video"
+          width="300"
+          height="200"
+          src={ youtube }
+          title={ details[keys.title] }
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write;
         encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />}
+          allowFullScreen
+        />
+      }
     </div>
   );
 }

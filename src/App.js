@@ -25,7 +25,6 @@ function App() {
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route path="/perfil" component={ Perfil } />
-      <Route exact path="/comidas" component={ Comidas } />
       <Route
         path="/comidas/:id/in-progress"
         component={ ReceitaProcessoComida }
@@ -36,6 +35,7 @@ function App() {
       />
       <Route path="/comidas/:id" component={ DetalhesReceitaComida } />
       <Route path="/bebidas/:id" component={ DetalhesReceitaBebida } />
+      <Route exact path="/comidas" component={ Comidas } />
       <Route exact path="/bebidas" component={ Bebidas } />
       <Route exact path="/explorar" component={ Explorar } />
       <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
@@ -51,6 +51,7 @@ function App() {
         component={ ExplorarBebidasIngredientes }
       />
       <Route exact path="/explorar/comidas/area" component={ LocalOrigem } />
+      <Route exact path="/explorar/bebidas/area" component={ NoteFound } />
       <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route path="*" component={ NoteFound } />

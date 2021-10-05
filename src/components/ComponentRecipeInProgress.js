@@ -1,18 +1,16 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { useDebugState } from 'use-named-state';
 import recipeContext from '../context';
 import ComponentDetailsContent from './ComponentDetailsContent';
-import ComponentSugestions from './ComponentSugestions';
 
-function ComponentDetails() {
+function ComponentRecipeInProgress() {
   const { fetchDetails, recipeProgress } = useContext(recipeContext).ContextDetails;
   const { id } = useParams();
   const currentPage = useHistory().location.pathname.includes('/comidas');
   const history = useHistory();
-  const textButton = useRef('Continuar Receita');
 
-  const [button, setButton] = useState(true);
-  console.log(button);
+  const [button, setButton] = useDebugState('button', true);
 
   useEffect(() => {
     if (currentPage) {
@@ -23,22 +21,13 @@ function ComponentDetails() {
   }, [currentPage, id]);
 
   useEffect(() => {
-    if (recipeProgress) {
-      setButton(false);
-      if (Object.values(recipeProgress).every((item) => item === true)) {
-        setButton(false);
-      } else if (Object.values(recipeProgress).some((item) => item === true)) {
-        setButton(true);
-        textButton.current = 'Continuar Receita';
-      } else {
-        setButton(true);
-        textButton.current = 'Iniciar Receita';
-      }
+    if (recipeProgress !== '') {
+      setButton(Object.values(recipeProgress).every((item) => item === true));
     }
   }, [recipeProgress]);
 
   const handleClick = () => {
-    history.push(`${id}/in-progress`);
+    history.push('/receitas-feitas');
   };
 
   const keysM = {
@@ -51,8 +40,8 @@ function ComponentDetails() {
     area: 'strArea',
     instructions: 'strInstructions',
     video: 'strYoutube',
-    iframe: true,
-    click: false,
+    iframe: false,
+    click: true,
   };
 
   const keysD = {
@@ -66,33 +55,27 @@ function ComponentDetails() {
     instructions: 'strInstructions',
     video: '',
     iframe: false,
-    click: false,
+    click: true,
   };
 
   return (
     <div>
+      <h1>In Progress</h1>
       {
         currentPage
           ? <ComponentDetailsContent keys={ keysM } />
           : <ComponentDetailsContent keys={ keysD } />
       }
-      <ComponentSugestions />
-      <div className="btn-container">
-        {
-          button && (
-            <button
-              id="btn-start"
-              className="btn-start"
-              data-testid="start-recipe-btn"
-              type="button"
-              onClick={ handleClick }
-            >
-              {textButton.current}
-            </button>)
-        }
-      </div>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        onClick={ handleClick }
+        disabled={ !button }
+      >
+        FINALIZAR
+      </button>
     </div>
   );
 }
 
-export default ComponentDetails;
+export default ComponentRecipeInProgress;
