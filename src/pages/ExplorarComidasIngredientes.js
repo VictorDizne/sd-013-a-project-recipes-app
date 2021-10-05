@@ -51,16 +51,6 @@ function ExplorarComidasIngredientes() {
       <Header title="Explorar Ingredientes" hideSearch />
       <IngredientList />
       <ComponentFooter />
-      {ingredientFood.map((item, index) => (
-        <div data-testid={ `${index}-ingredient-card` } key={ index }>
-          <img
-            data-testid={ `${index}-card-img` }
-            alt="food"
-            src={ `https://www.themealdb.com/images/ingredients/${item}-Small.png` }
-          />
-          <h1 data-testid={ `${index}-card-name` }>{ item }</h1>
-        </div>
-      ))}
     </div>
 
   );
