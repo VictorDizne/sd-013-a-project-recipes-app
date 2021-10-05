@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchDetails, fetchRecipes, getStorage } from '../services';
 import Recomendations from '../components/Recomendations';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
+import { MainContext } from '../context/Provider';
 
 const MAX_RECOMENDATION = 6;
 
@@ -34,6 +35,7 @@ function MealDetails({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [recomendations, setRecomendations] = useState([]);
   const [inProgressRecipes, setInProgressRecipes] = useState({});
+  const { isStorageReady } = useContext(MainContext);
   const location = useLocation();
   const history = useHistory();
   const initialRender = useRef(false);
@@ -91,8 +93,8 @@ function MealDetails({ match: { params: { id } } }) {
       <FavoriteButton id={ id } type="comida" recipe={ recipe } />
       <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
       <div>
-        {
-          Object.entries(recipe).map(([key, value]) => {
+        { isStorageReady
+          && Object.entries(recipe).map(([key, value]) => {
             if (key.includes('strIngredient') && value) {
               const index = Number(key.split('strIngredient')[1]) - 1;
               return (
@@ -104,8 +106,7 @@ function MealDetails({ match: { params: { id } } }) {
                 </label>);
             }
             return null;
-          })
-        }
+          })}
       </div>
       <p data-testid="instructions">{recipe.strInstructions}</p>
       <iframe data-testid="video" src={ recipe.strYoutube } title="Video" />

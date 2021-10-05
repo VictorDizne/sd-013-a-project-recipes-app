@@ -1,69 +1,51 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { MainContext } from '../context/Provider';
+import { getStorage } from '../services';
 import FavoriteCard from './FavoriteCard';
 
-let result = [];
-
 function FavoriteButtons() {
-  const [favoriteResult, setFavoriteResult] = useState(
-    JSON.parse(localStorage.getItem('favoriteRecipes')),
-  );
-  const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const { clickFavorite } = useContext(MainContext);
-  function handleClick({ target }) {
-    switch (target.textContent) {
-    case 'All':
-      setFavoriteResult(data);
-      break;
-    case 'Food':
-      result = data.filter((elementType) => elementType.type === 'comida');
-      setFavoriteResult(result);
-      break;
-    case 'Drinks':
-      result = data.filter((elementType) => elementType.type === 'bebida');
-      setFavoriteResult(result);
-      break;
-    default:
-      break;
-    }
-  }
+  let data = getStorage('favoriteRecipes');
+  const [filter, setFilter] = useState('');
+  const { clickFavorite, isStorageReady } = useContext(MainContext);
 
-  useEffect(() => setFavoriteResult(
-    JSON.parse(localStorage.getItem('favoriteRecipes')),
-  ), [clickFavorite]);
+  useEffect(() => {
+    data = getStorage('favoriteRecipes');
+  }, [clickFavorite]);
 
   return (
     <>
       <button
         type="button"
-        onClick={ handleClick }
+        onClick={ () => setFilter('') }
         data-testid="filter-by-all-btn"
       >
         All
       </button>
       <button
         type="button"
-        onClick={ handleClick }
+        onClick={ () => setFilter('comida') }
         data-testid="filter-by-food-btn"
       >
         Food
       </button>
       <button
         type="button"
-        onClick={ handleClick }
+        onClick={ () => setFilter('bebida') }
         data-testid="filter-by-drink-btn"
       >
         Drinks
       </button>
-      {favoriteResult.map((element, index) => (
-        // const { id, name, image, alcoholicOrNot, type, area } = element;
-        <FavoriteCard
-          key={ element.id }
-          index={ index }
-          recipe={ element }
-          { ...element }
-        />
-      ))}
+      {isStorageReady
+      && data
+        .filter((recipe) => recipe.type.includes(filter))
+        .map((element, index) => (
+          <FavoriteCard
+            key={ element.id }
+            index={ index }
+            recipe={ element }
+            { ...element }
+          />
+        ))}
     </>
   );
 }

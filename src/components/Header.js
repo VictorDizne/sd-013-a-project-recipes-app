@@ -13,57 +13,47 @@ function Header() {
   const { searchSettings, recipes } = useContext(MainContext);
 
   const [title, setTitle] = useState('Comidas');
-  const [buttonSearch, setButtonSearch] = useState(true);
+  const [buttonSearch, setButtonSearch] = useState(false);
   const [inputSearch, setInputSearch] = useState(false);
-  const [category, setCategory] = useState(true);
+  const [category, setCategory] = useState(false);
 
   const conditionalTitle = () => {
     switch (location.pathname) {
     case '/comidas':
       setTitle('Comidas');
+      setButtonSearch(true);
+      setCategory(true);
       break;
     case '/bebidas':
       setTitle('Bebidas');
+      setButtonSearch(true);
+      setCategory(true);
       break;
     case '/explorar':
       setTitle('Explorar');
-      setButtonSearch(false);
-      setCategory(false);
       break;
     case '/explorar/bebidas':
       setTitle('Explorar Bebidas');
-      setButtonSearch(false);
-      setCategory(false);
       break;
     case '/explorar/comidas':
       setTitle('Explorar Comidas');
-      setButtonSearch(false);
-      setCategory(false);
       break;
     case '/explorar/comidas/ingredientes':
     case '/explorar/bebidas/ingredientes':
       setTitle('Explorar Ingredientes');
-      setButtonSearch(false);
-      setCategory(false);
       break;
     case '/receitas-feitas':
       setTitle('Receitas Feitas');
-      setButtonSearch(false);
-      setCategory(false);
       break;
     case '/receitas-favoritas':
       setTitle('Receitas Favoritas');
-      setButtonSearch(false);
       break;
     case '/explorar/comidas/area':
       setTitle('Explorar Origem');
       setButtonSearch(true);
-      setCategory(false);
       break;
     case '/perfil':
       setTitle('Perfil');
-      setButtonSearch(false);
-      setCategory(false);
       break;
     default:
       break;
