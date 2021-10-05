@@ -6,7 +6,6 @@ const copy = require('clipboard-copy');
 
 function ShareButton({ id, type, testid }) {
   const [stateShare, setStateShare] = useState(true);
-
   function handleClick() {
     copy(`http://localhost:3000/${type}/${id}`);
     setStateShare(false);
@@ -25,7 +24,6 @@ function ShareButton({ id, type, testid }) {
       : <p>Link copiado!</p>
   );
 }
-
 ShareButton.defaultProps = {
   testid: undefined,
 };

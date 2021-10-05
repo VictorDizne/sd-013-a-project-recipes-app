@@ -11,6 +11,7 @@ export function Provider({ children }) {
     type: '',
     path: '',
   });
+  const [clickFavorite, setClickFavorite] = useState(true);
 
   const [recipes, setRecipes] = useState(['teste']);
 
@@ -71,6 +72,8 @@ export function Provider({ children }) {
     randomReciper,
     byIngredients,
     setByIngredients,
+    clickFavorite,
+    setClickFavorite,
     isStorageReady,
   };
 
