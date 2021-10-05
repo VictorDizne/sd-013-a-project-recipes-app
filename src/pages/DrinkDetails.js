@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
+import { Container } from 'react-bootstrap';
+import { Divider, Stack } from '@material-ui/core';
 import FavoriteButton from '../components/favoriteButton';
 import CardRecomendations from '../components/recomendationCard';
 import ShareButton from '../components/shareButton';
 import appContext from '../contexts/appContext';
 import './css/details.css';
+import CommentCards from '../components/commentCards';
+import CommentForm from '../components/commentForm';
 
 function DrinkDetail() {
   const [drink, setDrink] = useState({});
@@ -81,55 +85,76 @@ function DrinkDetail() {
   const URL = drink.strYoutube ? drink.strYoutube.split('=') : '';
 
   return (
-    <main>
+    <div>
       <Image
         src={ drink.strDrinkThumb }
         alt={ `${drink.trMeal}` }
         data-testid="recipe-photo"
         fluid
       />
-      <h2 data-testid="recipe-title">{drink.strDrink}</h2>
-      <p data-testid="recipe-category">{drink.strAlcoholic}</p>
-      <ShareButton dataTestId="share-btn" />
-      <FavoriteButton drink={ drink } />
-      <h3>Ingredients</h3>
-      <ul>
-        {
-          ingredients.map((ingredient, i) => (
-            <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
-              { `${ingredient} - ${measures[i]}` }
-            </li>
-          ))
-        }
-      </ul>
-      <h3>Instructions</h3>
-      <p data-testid="instructions">{drink.strInstructions}</p>
-      <div data-testid="video" className="video-detail">
-        <iframe
-          width="360"
-          height="160"
-          src={ `https://www.youtube.com/embed/${URL[1]}` }
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-      <div className="horizontal-scroll">
-        <CardRecomendations name="bebidas" recomends={ recomendations } maxCards={ 6 } />
-      </div>
-      <div>
-        <button
-          type="button"
-          style={ { position: 'fixed', bottom: '0' } }
-          onClick={ () => buttonStartRecipe() }
-          data-testid="start-recipe-btn"
-          hidden={ isDoneRecipe() }
+      <Container fluid>
+        <Stack
+          direction="row"
+          spacing={ 15 }
         >
-          { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
-      </div>
-    </main>
+          <div>
+            <h2 data-testid="recipe-title">{drink.strDrink}</h2>
+            <p data-testid="recipe-category">{drink.strAlcoholic}</p>
+          </div>
+          <div>
+            <FavoriteButton drink={ drink } />
+            <ShareButton dataTestId="share-btn" />
+          </div>
+        </Stack>
+        <h3>Ingredients</h3>
+        <ul>
+          {
+            ingredients.map((ingredient, i) => (
+              <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
+                { `${ingredient} - ${measures[i]}` }
+              </li>
+            ))
+          }
+        </ul>
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{drink.strInstructions}</p>
+        <div data-testid="video" className="video-detail">
+          <iframe
+            width="360"
+            height="160"
+            src={ `https://www.youtube.com/embed/${URL[1]}` }
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+        <div className="horizontal-scroll">
+          <CardRecomendations
+            name="bebidas"
+            recomends={ recomendations }
+            maxCards={ 6 }
+          />
+        </div>
+        <section>
+          <div style={ { marginBottom: '10px' } }>
+            <CommentForm id={ id } />
+          </div>
+          <CommentCards id={ id } />
+        </section>
+        <div>
+          <button
+            type="button"
+            style={ { position: 'fixed', bottom: '0' } }
+            onClick={ () => buttonStartRecipe() }
+            data-testid="start-recipe-btn"
+            hidden={ isDoneRecipe() }
+          >
+            { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+          </button>
+        </div>
+      </Container>
+    </div>
   );
 }
 

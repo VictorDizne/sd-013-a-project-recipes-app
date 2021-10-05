@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import appContext from './appContext';
 
 const AppProvider = ({ children }) => {
+  const [refreshComments, setRefresh] = useState(false);
   const [state, setState] = useState({
     foods: [],
     drinks: [],
@@ -102,6 +103,8 @@ const AppProvider = ({ children }) => {
     favoriteRecipe,
     removeFavRecipe,
     verify,
+    setRefresh,
+    refreshComments,
   };
 
   return (
