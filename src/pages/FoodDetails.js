@@ -105,7 +105,7 @@ function FoodDetails() {
           </div>
           <div className="vr" />
           <div className="bg-light">
-            <FavoriteButton drink={ meal } />
+            <FavoriteButton meal={ meal } />
           </div>
         </Stack>
         <h3>Ingredients</h3>
