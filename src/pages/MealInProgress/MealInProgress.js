@@ -1,7 +1,6 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import IngredientCheckBox from '../../components/ingredientCheckBox';
-import recipesContext from '../../context';
 import fetchAPI from '../../services/fetchAPI';
 import generatesIngredientList from '../../services/generatesIngredientList';
 import shareIcon from '../../images/shareIcon.svg';
@@ -16,10 +15,10 @@ import saveMealOnLS from '../../services/saveMealOnLS';
 // ESTIVEREM MARCADOS
 
 function MealInProgress() {
-  const { details } = useContext(recipesContext);
   const [currentMeal, setCurrentMeal] = useState({});
   const [loadingPage, setLoadingPage] = useState(true);
   const [favorite, setFavorite] = useState(false);
+  const [shareMessage, setShareMessage] = useState(false);
   const history = useHistory();
   const { id } = useParams();
 
@@ -62,18 +61,18 @@ function MealInProgress() {
     const doneDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
     // Cria um array de no máximo duas tags
     let tags = null;
-    if (details.strTags) {
-      tags = details.strTags.split(',').slice(0, 2);
+    if (currentMeal.strTags) {
+      tags = currentMeal.strTags.split(',').slice(0, 2);
     }
     // Cria o objeto da comida
     const newMeal = {
-      id: details.idMeal,
+      id: currentMeal.idMeal,
       type: 'comida',
-      area: details.strArea,
-      category: details.strCategory,
+      area: currentMeal.strArea,
+      category: currentMeal.strCategory,
       alcoholicOrNot: '',
-      name: details.strMeal,
-      image: details.strMealThumb,
+      name: currentMeal.strMeal,
+      image: currentMeal.strMealThumb,
       doneDate,
       tags,
     };
@@ -104,6 +103,11 @@ function MealInProgress() {
     }
   }
 
+  function handleShare() {
+    shareLink('Meal', id);
+    setShareMessage(true);
+  }
+
   if (loadingPage) return <p>CARREGANDO...</p>;
   return (
     <>
@@ -122,7 +126,7 @@ function MealInProgress() {
           className="detail-button"
           type="button"
           data-testid="share-btn"
-          onClick={ () => shareLink('Meal', currentMeal.idMeal) }
+          onClick={ handleShare }
         >
           <img
             src={ shareIcon }
@@ -140,6 +144,7 @@ function MealInProgress() {
             src={ favorite ? blackHeartIcon : whiteHeartIcon }
           />
         </button>
+        { shareMessage ? <p>Link copiado!</p> : null }
       </div>
       <h3>Ingredientes:</h3>
       <div className="ingredients-list">

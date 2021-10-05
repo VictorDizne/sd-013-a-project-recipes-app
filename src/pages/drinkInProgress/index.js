@@ -15,6 +15,7 @@ function DrinkInProgress() {
   const [currentDrink, setCurrentDrink] = useState({});
   const [loadingPage, setLoadingPage] = useState(true);
   const [favorite, setFavorite] = useState(false);
+  const [shareMessage, setShareMessage] = useState(false);
   const history = useHistory();
   const { id } = useParams();
 
@@ -99,6 +100,11 @@ function DrinkInProgress() {
     }
   }
 
+  function handleShare() {
+    shareLink('Drink', id);
+    setShareMessage(true);
+  }
+
   if (loadingPage) return <p>CARREGANDO...</p>;
   return (
     <>
@@ -117,7 +123,7 @@ function DrinkInProgress() {
           className="detail-button"
           type="button"
           data-testid="share-btn"
-          onClick={ () => shareLink('Drink', currentDrink.idDrink) }
+          onClick={ handleShare }
         >
           <img
             src={ shareIcon }
@@ -135,6 +141,7 @@ function DrinkInProgress() {
             src={ favorite ? blackHeartIcon : whiteHeartIcon }
           />
         </button>
+        { shareMessage ? <p>Link copiado!</p> : null }
       </div>
       <h3>Ingredientes:</h3>
       <div className="ingredients-list">

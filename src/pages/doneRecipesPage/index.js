@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import DoneRecipeCard from '../../components/doneRecipeCard';
 import Header from '../../components/header';
+import shareLink from '../../services/shareLink';
 
 function DoneRecipesPage() {
   const [showMeals, setShowMeals] = useState(true);
   const [showDrinks, setShowDrinks] = useState(true);
+  const [shareMessage, setShareMessage] = useState(false);
 
   // Primeiro checa se existe alguma receita marcada como feita
   if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
@@ -15,6 +17,16 @@ function DoneRecipesPage() {
       </>
     );
   }
+
+  function handleShare(type, id) {
+    setShareMessage(true);
+    if (type === 'bebida') {
+      shareLink('Drink', id);
+    } else {
+      shareLink('Meal', id);
+    }
+  }
+
   // Busca a chave de receitas feitas do localStorage
   const currentDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   // Filtra apenas as comidas
@@ -28,6 +40,7 @@ function DoneRecipesPage() {
         recipe={ recipe }
         index={ index }
         key={ index }
+        handleShare={ handleShare }
       />
     ));
   }
@@ -60,6 +73,7 @@ function DoneRecipesPage() {
       break;
     }
   }
+
   return (
     <>
       <Header title="Receitas Feitas" />
@@ -86,6 +100,7 @@ function DoneRecipesPage() {
           >
             Drinks
           </button>
+          { shareMessage ? <p>Link copiado!</p> : null }
         </div>
       </div>
       <div className="div-cards">

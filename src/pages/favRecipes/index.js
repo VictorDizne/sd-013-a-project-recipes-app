@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import FavoriteCards from '../../components/favoriteCard';
 import Header from '../../components/header';
+import shareLink from '../../services/shareLink';
 
 function FavRecipes() {
   const [everyFavorite, setEveryFavorite] = useState([]);
   const [filter, setFilter] = useState('All');
+  const [shareMessage, setShareMessage] = useState(false);
 
   useEffect(() => {
     // Busca a chave de receitas feitas do localStorage e seta nos cards para mostrar
@@ -20,6 +22,15 @@ function FavRecipes() {
         <p>Não há receitas favoritas</p>
       </>
     );
+  }
+
+  function handleShare(type, id) {
+    setShareMessage(true);
+    if (type === 'bebida') {
+      shareLink('Drink', id);
+    } else {
+      shareLink('Meal', id);
+    }
   }
 
   function generatesCards() {
@@ -40,6 +51,7 @@ function FavRecipes() {
         recipe={ recipe }
         index={ index }
         key={ index }
+        handleShare={ handleShare }
       />));
   }
 
@@ -87,6 +99,7 @@ function FavRecipes() {
             Drinks
           </button>
         </div>
+        { shareMessage ? <p>Link copiado!</p> : null }
       </div>
       <div className="div-cards">
         { generatesCards() }

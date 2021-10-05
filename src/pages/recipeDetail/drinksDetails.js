@@ -15,6 +15,7 @@ function DrinkDetails({ match: { params: { id } } }) {
   const [currentDrink, setCurrentDrink] = useState();
   const [favorite, setFavorite] = useState(false);
   const [loadingPage, setLoadingPage] = useState(true);
+  const [shareMessage, setShareMessage] = useState(false);
   const history = useHistory();
 
   function showIngredients() {
@@ -87,6 +88,11 @@ function DrinkDetails({ match: { params: { id } } }) {
     }
   }
 
+  function handleShare() {
+    shareLink('Drink', id);
+    setShareMessage(true);
+  }
+
   if (loadingPage) return 'Carregando página...';
 
   return (
@@ -104,7 +110,7 @@ function DrinkDetails({ match: { params: { id } } }) {
           className="detail-button"
           type="button"
           data-testid="share-btn"
-          onClick={ () => shareLink('Drink', id) }
+          onClick={ handleShare }
         >
           <img
             src={ shareIcon }
@@ -122,6 +128,7 @@ function DrinkDetails({ match: { params: { id } } }) {
             src={ favorite ? blackHeartIcon : whiteHeartIcon }
           />
         </button>
+        { shareMessage ? <p>Link copiado!</p> : null }
       </div>
       <h3>Ingredientes:</h3>
       { showIngredients() }
