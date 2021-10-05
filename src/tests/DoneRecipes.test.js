@@ -3,17 +3,17 @@ import { screen } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 
 // Children
+import userEvent from '@testing-library/user-event';
 import Done from '../pages/Done';
 
 // Helpers
 import renderWithReduxAndRouter from '../helpers/renderWithReduxAndRouter';
 
 // Mocks
-import doneMock from '../mocks/DoneMock';
-import userEvent from '@testing-library/user-event';
+import { doneMockAll } from '../mocks/DoneMock';
 
 // History
-let mockHistory = {};
+// let mockHistory = {};
 
 const PROFILE_ICON = 'profile-top-btn';
 const PAGE_TITLE = 'page-title';
@@ -22,14 +22,15 @@ const FOOD_BTN = 'filter-by-food-btn';
 const DRINK_BTN = 'filter-by-drink-btn';
 const FOOD_NAME = 'comida';
 const DRINK_NAME = 'bebida';
-const stringifyMock = JSON.stringify(doneMock);
-
+const FOODS_AND_DRINKS = JSON.stringify(doneMockAll);
+// const FOODS = JSON.stringify(doneMockFoodOnly);
+// const DRINKS = JSON.stringify(doneMockDrinksOnly);
 describe('Testa as funcionalidades da Done.jsx', () => {
   beforeEach(() => {
-    const { history } = renderWithReduxAndRouter(<Done />, {
-      items: { doneRecipes: stringifyMock },
+    renderWithReduxAndRouter(<Done />, {
+      items: { doneRecipes: FOODS_AND_DRINKS },
     });
-    mockHistory = history;
+    // mockHistory = history;
   });
   it('Testa se renderiza o componente Header sem o searchButton.', () => {
     const profileImage = screen.getByTestId(PROFILE_ICON);
