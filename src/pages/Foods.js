@@ -10,13 +10,14 @@ import '../styles/Buttons.css';
 const Foods = () => {
   const { mealData,
     handleMealsApisOnLoad,
-    setFoodCategories } = useContext(RecipesContext);
+    setFoodCategories, ingredient } = useContext(RecipesContext);
   const [buttons, setButtons] = useState([]);
   const MAX_RECIPES = 12;
   const MAX_BUTTONS = 5;
 
   useEffect(() => {
-    handleMealsApisOnLoad();
+    if (ingredient === '') handleMealsApisOnLoad();
+
     const fetchButtons = async () => {
       const response = await fetchFoodCategories();
       setButtons(response);

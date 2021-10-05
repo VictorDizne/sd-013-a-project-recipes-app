@@ -1,37 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/ExplorePages.css';
 import '../styles/Buttons.css';
 
-const Explore = () => (
-  <div>
-    <section>
+const Explore = () => {
+  const history = useHistory();
+
+  return (
+    <div>
       <Header title="Explorar" />
-    </section>
-    <div className="container">
-      <Link to="/explorar/comidas">
+
+      <div className="container select-buttons">
         <button
           type="button"
           data-testid="explore-food"
           className="buttons"
+          onClick={ () => history.push('/explorar/comidas') }
         >
           Explorar Comidas
         </button>
-      </Link>
-      <Link to="/explorar/bebidas">
         <button
           type="button"
           data-testid="explore-drinks"
           className="buttons"
+          onClick={ () => history.push('/explorar/bebidas') }
         >
           Explorar Bebidas
         </button>
-      </Link>
+      </div>
+      <Footer />
     </div>
-    <Footer />
-  </div>
-);
+  );
+};
 
 export default Explore;

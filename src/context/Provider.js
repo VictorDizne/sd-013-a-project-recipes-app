@@ -12,6 +12,7 @@ function Provider({ children }) {
   const [drinkData, setDrinkData] = useState([]);
   const [foodCategories, setFoodCategories] = useState('');
   const [drinkCategories, setDrinkCategories] = useState('');
+  const [ingredient, setIngredient] = useState('');
   const history = useHistory();
 
   const condicionalFoodLenght = (results) => {
@@ -36,6 +37,7 @@ function Provider({ children }) {
     if (inputRadio === 'ingredient') {
       const results = await comidasApi.fetchFoodByIngredients(inputText);
       setMealData(results);
+      setIngredient('');
 
       condicionalMessageError(results);
       condicionalFoodLenght(results);
@@ -44,6 +46,7 @@ function Provider({ children }) {
     if (inputRadio === 'name') {
       const results = await comidasApi.fetchFoodByName(inputText);
       setMealData(results);
+      setIngredient('');
 
       condicionalMessageError(results);
       condicionalFoodLenght(results);
@@ -52,6 +55,7 @@ function Provider({ children }) {
     if (inputRadio === 'letter' && inputText.length === 1) {
       const results = await comidasApi.fetchFoodByLetter(inputText);
       setMealData(results);
+      setIngredient('');
 
       condicionalMessageError(results);
       condicionalFoodLenght(results);
@@ -66,19 +70,30 @@ function Provider({ children }) {
     const fetchFoodByCategoryAPI = async () => {
       const results = await comidasApi.fetchFoodByCategories(foodCategories);
       setMealData(results);
+      setIngredient('');
     };
     if (foodCategories) fetchFoodByCategoryAPI();
   }, [foodCategories]);
 
+  useEffect(() => {
+    const fetchFoodByIngredientsAPI = async () => {
+      const results = await comidasApi.fetchFoodByIngredients(ingredient);
+      setMealData(results);
+    };
+    if (ingredient) fetchFoodByIngredientsAPI();
+  }, [ingredient]);
+
   const handleMealsApisOnLoad = async () => {
     const results = await comidasApi.fetchFoodOnLoad();
     setMealData(results);
+    setIngredient('');
   };
 
   const handleDrinksApis = async () => {
     if (inputRadio === 'ingredient') {
       const results = await bebidasApi.fetchDrinkByIngredients(inputText);
       setDrinkData(results);
+      setIngredient('');
 
       condicionalMessageError(results);
       condicionalDrinkLenght(results);
@@ -87,8 +102,7 @@ function Provider({ children }) {
     if (inputRadio === 'name') {
       const results = await bebidasApi.fetchDrinkByName(inputText);
       setDrinkData(results);
-      console.log(results);
-
+      setIngredient('');
       condicionalMessageError(results);
       condicionalDrinkLenght(results);
     }
@@ -96,7 +110,7 @@ function Provider({ children }) {
     if (inputRadio === 'letter' && inputText.length === 1) {
       const results = await bebidasApi.fetchDrinkByLetter(inputText);
       setDrinkData(results);
-
+      setIngredient('');
       condicionalMessageError(results);
       condicionalDrinkLenght(results);
     }
@@ -111,14 +125,24 @@ function Provider({ children }) {
       const results = await bebidasApi.fetchDrinkByCategories(drinkCategories);
       if (results) {
         setDrinkData(results);
+        setIngredient('');
       }
     };
     if (drinkCategories) fetchDrinkByCategoryAPI();
   }, [drinkCategories]);
 
+  useEffect(() => {
+    const fetchDrinkByIngredientsAPI = async () => {
+      const results = await bebidasApi.fetchDrinkByIngredients(ingredient);
+      setDrinkData(results);
+    };
+    if (ingredient) fetchDrinkByIngredientsAPI();
+  }, [ingredient]);
+
   const handleDrinksApisOnload = async () => {
     const results = await bebidasApi.fetchDrinkOnLoad();
     setDrinkData(results);
+    setIngredient('');
   };
 
   const contextValue = {
@@ -138,6 +162,8 @@ function Provider({ children }) {
     foodCategories,
     setDrinkCategories,
     drinkCategories,
+    ingredient,
+    setIngredient,
   };
 
   return (
