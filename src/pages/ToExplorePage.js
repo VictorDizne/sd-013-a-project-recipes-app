@@ -8,13 +8,19 @@ function ToExplorePage() {
     <div>
       <Header title="Explorar" />
       <Link to="/explorar/comidas">
-        <button type="button">
+        <button
+          data-testid="explore-food"
+          type="button"
+        >
           Explorar Comidas
         </button>
       </Link>
 
       <Link to="/explorar/bebidas">
-        <button type="button">
+        <button
+          data-testid="explore-drinks"
+          type="button"
+        >
           Explorar Bebidas
         </button>
       </Link>

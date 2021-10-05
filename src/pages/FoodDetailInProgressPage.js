@@ -15,7 +15,10 @@ function FoodDetailInProgressPage({ match }) {
   const { checkDone,
     checkFavorite,
     checkProgress,
-    setCheckDone, setCheckFavorite, setCheckProgress } = useContext(MyContext);
+    setCheckDone,
+    setCheckFavorite,
+    setCheckProgress,
+  } = useContext(MyContext);
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const progressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
