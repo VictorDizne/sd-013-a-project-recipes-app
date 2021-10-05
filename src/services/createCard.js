@@ -7,7 +7,12 @@ export default function createCard(array, tipo) {
   return (
     <div>
       {twelveFirst.map((alimento, index) => (
-        <Card tipo={ tipo } key={ index } chave={ index } alimento={ alimento } />
+        <Card
+          tipo={ tipo }
+          key={ index }
+          chave={ index }
+          alimento={ alimento }
+        />
       ))}
     </div>
   );

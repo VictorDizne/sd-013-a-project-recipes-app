@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import Filters from '../components/Filters';
 import Loading from '../components/Loading';
 import MyContext from '../context/myContext';
@@ -8,14 +7,15 @@ import createCard from '../services/createCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-const TelaBebidas = ({ history }) => {
+const TelaBebidas = () => {
   const {
     dataDrink,
     categoryDrink,
+    categoryFilter,
     btnState,
+    setCategoryFilter,
     setDataDrink,
   } = useContext(MyContext);
-  const firstRender = useRef(true);
 
   useEffect(() => {
     const cocktailsRequest = async () => {
@@ -23,41 +23,28 @@ const TelaBebidas = ({ history }) => {
       setDataDrink(drink);
     };
     cocktailsRequest();
-  }, [setDataDrink]);
+  }, []);
 
   useEffect(() => {
-    if (!firstRender.current) {
-      const { category } = btnState;
-      const ApiCategoryDrink = async () => {
-        const fetchCategoryDrink = await cocktailsAPIRequest('filter', `c=${category}`);
-        setDataDrink(fetchCategoryDrink);
-      };
-      ApiCategoryDrink();
-    } else {
-      firstRender.current = false;
-    }
-  }, [btnState, setDataDrink]);
+    const { category } = btnState;
+    const ApiCategoryDrink = async () => {
+      const fetchCategoryDrink = await cocktailsAPIRequest('filter', `c=${category}`);
+      setCategoryFilter(fetchCategoryDrink);
+    };
+    ApiCategoryDrink();
+  }, [btnState]);
 
-  return !dataDrink ? (
-    <Loading />
-  ) : (
+  return !dataDrink ? <Loading /> : (
     <>
       <Header hasLupa pageName="Bebidas" />
       <div className="main">
         <Filters alimento={ categoryDrink } />
-        { dataDrink.length === 1
-          ? history.push(`/bebidas/${dataDrink[0].idDrink}`)
-          : createCard(dataDrink, 'Drink') }
+        { !categoryFilter ? createCard(dataDrink, 'Drink')
+          : createCard(categoryFilter, 'Drink') }
       </div>
       <Footer />
     </>
   );
 };
-
-TelaBebidas.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-}.isRequired;
 
 export default TelaBebidas;

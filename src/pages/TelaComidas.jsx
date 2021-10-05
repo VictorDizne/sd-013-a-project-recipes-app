@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import MyContext from '../context/myContext';
 import createCard from '../services/createCard';
 import Filters from '../components/Filters';
@@ -8,14 +7,15 @@ import { foodAPIRequest } from '../services/APIrequest';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-const TelaComidas = ({ history }) => {
+const TelaComidas = () => {
   const {
     dataFood,
     categoryFood,
+    categoryFilter,
+    setCategoryFilter,
     btnState,
     setDataFood,
   } = useContext(MyContext);
-  const firstRender = useRef(true);
 
   useEffect(() => {
     const foodRequest = async () => {
@@ -23,44 +23,28 @@ const TelaComidas = ({ history }) => {
       setDataFood(food);
     };
     foodRequest();
-  }, [setDataFood]);
+  }, []);
 
   useEffect(() => {
-    if (!firstRender.current) {
-      const { category } = btnState;
-      const ApiCategoryFood = async () => {
-        const fetchCategoryFood = await foodAPIRequest(
-          'filter',
-          `c=${category}`,
-        );
-        setDataFood(fetchCategoryFood);
-      };
-      ApiCategoryFood();
-    } else {
-      firstRender.current = false;
-    }
-  }, [btnState, setDataFood]);
+    const { category } = btnState;
+    const ApiCategoryFood = async () => {
+      const fetchCategoryFood = await foodAPIRequest('filter', `c=${category}`);
+      setCategoryFilter(fetchCategoryFood);
+    };
+    ApiCategoryFood();
+  }, [btnState]);
 
-  return !dataFood || dataFood.length === 0 ? (
-    <Loading />
-  ) : (
+  return dataFood.length === 0 ? <Loading /> : (
     <div>
       <Header hasLupa pageName="Comidas" />
       <div className="main">
         <Filters alimento={ categoryFood } />
-        { dataFood.length === 1
-          ? history.push(`/comidas/${dataFood[0].idMeal}`)
-          : createCard(dataFood, 'Meal') }
+        { categoryFilter === null ? createCard(dataFood, 'Meal')
+          : createCard(categoryFilter, 'Meal') }
       </div>
       <Footer />
     </div>
   );
 };
-
-TelaComidas.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-}.isRequired;
 
 export default TelaComidas;
