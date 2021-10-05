@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 function CopyLinkModal({ setShouldDisplayMessage }) {
+  const oneSecond = 1000;
+  useEffect(() => {
+    setTimeout(() => {
+      setShouldDisplayMessage(false);
+    }, oneSecond);
+  });
   return (
     <div
       style={ {
@@ -9,6 +15,7 @@ function CopyLinkModal({ setShouldDisplayMessage }) {
         width: '100%',
         height: '100%',
         backgroundColor: '#00000050',
+        left: 0,
         top: 0,
         zIndex: 10,
         display: 'flex',

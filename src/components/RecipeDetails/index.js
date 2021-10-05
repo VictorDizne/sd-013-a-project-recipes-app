@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CardContent, Typography } from '@mui/material';
 import shareIcon from '../../images/shareIcon.svg';
@@ -11,11 +11,12 @@ import RecipesContext from '../../context/RecipesContext';
 
 import style from './recipeDetails.module.scss';
 import ButtonBack from '../ButtonBack';
+import CopyLinkModal from '../CopyLinkModal';
 
 const copy = require('clipboard-copy');
 
 const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
-  const { toggleFavoriteBtn, isFavorite } = useContext(RecipesContext);
+  const { toggleFavoriteBtnDetails, isFavorite } = useContext(RecipesContext);
   const recipeIngredients = [];
 
   const getIngredients = () => {
@@ -44,18 +45,21 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
     );
   };
 
-  const handleShareBtn = () => {
-    const { location: { pathname } } = history;
-    copy(`http://localhost:3000${pathname}`);
+  // const handleShareBtn = () => {
+  //   const { location: { pathname } } = history;
+  //   copy(`http://localhost:3000${pathname}`);
 
-    const h4 = document.createElement('h4');
-    h4.textContent = 'Link copiado!';
-    const father = document.querySelector('[data-testid="recipe-category"]');
-    father.insertAdjacentElement('afterend', h4);
-  };
+  //   const h4 = document.createElement('h4');
+  //   h4.textContent = 'Link copiado!';
+  //   const father = document.querySelector('[data-testid="recipe-category"]');
+  //   father.insertAdjacentElement('afterend', h4);
+  // };
 
-  const handleFavoriteBtn = () => {
-    toggleFavoriteBtn(recipe, isMeal);
+  const [shouldDisplayMessage, setShouldDisplayMessage] = useState(false);
+  const handleCopy = () => {
+    const routeWithoutInProgress = history.location.pathname.replace('/in-progress', '');
+    copy(`http://localhost:3000${routeWithoutInProgress}`);
+    setShouldDisplayMessage(true);
   };
 
   return (
@@ -71,14 +75,14 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
             src={ shareIcon }
             alt="compartilhar receita"
             data-testid="share-btn"
-            onClick={ handleShareBtn }
+            onClick={ handleCopy }
           />
           <input
             type="image"
             src={ isFavorite ? favoritedIcon : unfavoritedIcon }
             alt="favoritar receita"
             data-testid="favorite-btn"
-            onClick={ handleFavoriteBtn }
+            onClick={ () => toggleFavoriteBtnDetails(recipe, isMeal) }
           />
         </div>
       </div>
@@ -121,7 +125,12 @@ const RecipeDetails = ({ recipe, isMeal, showBtn, history }) => {
         history={ history }
         recipe={ recipe }
         isMeal={ isMeal }
-      />}
+      /> }
+
+      {
+        shouldDisplayMessage
+        && <CopyLinkModal setShouldDisplayMessage={ setShouldDisplayMessage } />
+      }
     </main>
   );
 };
