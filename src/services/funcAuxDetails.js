@@ -19,13 +19,13 @@ export const alimentosSugestions = async (setAlimentoDetails, tipoSugerido) => {
   setAlimentoDetails(alimentoSix);
 };
 
-export const btnContinuar = (id, setBtnState) => {
+export const btnContinuar = (id, setBtnState, tipo) => {
   if (localStorage.getItem('inProgressRecipes') === null) {
     localStorage.setItem('inProgressRecipes', JSON
       .stringify({ meals: {}, cocktails: {} }));
   }
   const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const chaves = Object.keys(test.meals).some((chave) => chave === id);
+  const chaves = Object.keys(test[tipo]).some((chave) => chave === id);
 
   if (chaves) {
     setBtnState('Continuar Receita');
