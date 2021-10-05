@@ -9,8 +9,35 @@ import FavoriteDrink from '../components/FavoriteDrink';
 // import useFetchRecipes from '../Hooks/useFetchRecipes';
 import '../App.css';
 
+// const ingredientsStorage = () => {
+//   const cocktailsIngredients = document.querySelectorAll('input:checked').value;
+//   console.log(cocktailsIngredients);
+//   const favorited = {
+//     cocktails: {
+//       [favorite.idDrink]: [],
+//     },
+//   };
+
+//   if (favIngredients === false) {
+//     const ingredientsFavorited = JSON.parse(localStorage.getItem('inProgressRecipes')
+//     || '[]');
+//     ingredientsFavorited.cocktails[favorite.idDrink]
+//       .push([...ingredientsFavorited.cocktails[favorite.idDrink],
+//         favorited.cocktails[favorite.idDrink]]);
+//     localStorage.setItem('inProgressRecipes', JSON.stringify(ingredientsFavorited));
+//     return setFavIngredients(true);
+//   }
+//   if (favIngredients === true) {
+//     const listFavorite = JSON.parse(localStorage.getItem('inProgressRecipes'));
+//     const newArray = listFavorite
+//       .filter((list) => list.cocktails[favorite.idDrink] !== id);
+//     localStorage.setItem('inProgressRecipes', JSON.stringify(newArray));
+//     return setFavIngredients(false);
+//   }
+// };
+
 function DrinksProcess(props) {
-  const { /* favorite, id, */ setFavorite, setId } = useContext(Context);
+  const { /* favorite, id */ setFavorite, setId } = useContext(Context);
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
@@ -39,22 +66,25 @@ function DrinksProcess(props) {
   // }, [id]);
 
   // const ingredientsStorage = () => {
+  // let cocktailsIngredients = document.querySelectorAll('input:checked').value;
+  //  console.log(cocktailsIngredients)
   //   const favorited = {
   //     cocktails: {
-  //       [favorite.idDrink]: [],
+  //       [favorite.idDrink]: []
   //     },
   //   };
 
   //   if (favIngredients === false) {
   //     const ingredientsFavorited = JSON.parse(localStorage.getItem('inProgressRecipes')
   //     || '[]');
-  //     ingredientsFavorited.push([...ingredientsFavorited, favorited]);
+  //     ingredientsFavorited.cocktails[favorite.idDrink]
+  //        .push([...ingredientsFavorited.cocktails[favorite.idDrink], favorited.cocktails[favorite.idDrink]]);
   //     localStorage.setItem('inProgressRecipes', JSON.stringify(ingredientsFavorited));
   //     return setFavIngredients(true);
   //   }
   //   if (favIngredients === true) {
   //     const listFavorite = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //     const newArray = listFavorite.filter((list) => list.id !== id);
+  //     const newArray = listFavorite.filter((list) => list.cocktails[favorite.idDrink] !== id);
   //     localStorage.setItem('inProgressRecipes', JSON.stringify(newArray));
   //     return setFavIngredients(false);
   //   }

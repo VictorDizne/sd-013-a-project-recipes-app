@@ -7,15 +7,27 @@ import Button from '../components/Button';
 import useFetchRecipes from '../Hooks/useFetchRecipes';
 import FavoriteMeal from '../components/FavoriteMeal';
 
-function FoodsRecipies(props) {
+function FoodsRecipes(props) {
   const { recipes, setFavorite, setId } = useContext(Context);
   const urlDrink = 'thecocktail';
   const [details, setDetails] = useState();
   const [message, setMessage] = useState(false);
+  // const [progress, setProgress] = useState(false);
 
   const history = useHistory();
   const { match: { params: { id } } } = props;
   useFetchRecipes(urlDrink);
+
+  // const recipeInProgress = () => {
+  //   const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   if (storage) {
+  //     const result = Object.keys(storage.meals).find((item) => item === id);
+  //     if (result) {
+  //       setProgress(true);
+  //     }
+  //   }
+  // };
+
   useEffect(() => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     async function fetchResult() {
@@ -26,6 +38,7 @@ function FoodsRecipies(props) {
       setId(obj[0].idMeal);
     }
     fetchResult();
+    // recipeInProgress();
   }, []);
 
   const renderDrinks = () => {
@@ -110,7 +123,7 @@ function FoodsRecipies(props) {
   );
 }
 
-FoodsRecipies.propTypes = {
+FoodsRecipes.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -118,4 +131,4 @@ FoodsRecipies.propTypes = {
   }).isRequired,
 };
 
-export default FoodsRecipies;
+export default FoodsRecipes;
