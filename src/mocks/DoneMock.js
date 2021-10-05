@@ -123,5 +123,9 @@ export const doneMock = [...doneRecipesStartFile,
 export const doneMockFoodOnly = doneMock
   .filter((item) => item.type === 'comida');
 
+export const FoodQuantity = doneMockFoodOnly.length;
+
 export const doneMockDrinksOnly = doneMock
   .filter((item) => item.type === 'bebida');
+
+export const DrinksQuantity = doneMockDrinksOnly.length;
