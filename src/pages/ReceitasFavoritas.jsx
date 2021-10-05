@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import ButtonsRecipes from '../components/ButtonsRecipes';
 import CardFavorite from '../components/CardFavorite';
 import Header from '../components/Header';
@@ -12,3 +12,4 @@ const ReceitasFavoritas = () => (
 );
 
 export default ReceitasFavoritas;
+ */
