@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { fetchDrinksById } from '../services/bebidasApi';
 import { fetchRecommendedMeals } from '../services/comidasApi';
+import { getIngredients, shareDrinkHelper } from '../services/helpers';
+import { favoriteDrinkRecipe } from '../services/localStorage';
 import RecomendationCard from '../components/RecomendationCard';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { getIngredients, createDate, favoriteDrinkRecipe } from '../services/helpers';
+import '../styles/PageDetails.css';
 
-const INITIAL_VALUE = 9;
 const MAX_RECOMANDATION = 6;
 
 function DrinkDetails() {
@@ -17,11 +18,11 @@ function DrinkDetails() {
   const [recomendation, setRecomendation] = useState([]);
   const [messageAlert, setMessageAlert] = useState('');
   const [favorite, setFavorite] = useState(false);
-  const history = useHistory();
-  const historyFilter = history.location.pathname;
-  const historyId = historyFilter.substr(INITIAL_VALUE);
+  const params = useParams();
+  const historyId = params.id;
   const previousRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const savedDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
 
   useEffect(() => {
     const verify = savedDoneRecipes.some((item) => item.id === historyId);
@@ -46,53 +47,8 @@ function DrinkDetails() {
     getRecomendations();
   }, []);
 
-  const createList = () => {
-    let doneRecipes = [];
-    const { idDrink,
-      strArea, strCategory, strDrink, strDrinkThumb, strTags, strAlcoholic } = recipe[0];
-    const tagsArray = (strTags === null) ? [] : strTags.split(',');
-    if (savedDoneRecipes) {
-      doneRecipes = [
-        ...savedDoneRecipes,
-        {
-          id: idDrink,
-          type: 'bebida',
-          area: '',
-          category: strCategory,
-          alcoholicOrNot: strAlcoholic,
-          name: strDrink,
-          image: strDrinkThumb,
-          doneDate: createDate(),
-          tags: tagsArray,
-        },
-      ];
-    } else {
-      doneRecipes = [
-        {
-          id: idDrink,
-          type: 'bebida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: strAlcoholic,
-          name: strDrink,
-          image: strDrinkThumb,
-          doneDate: createDate(),
-          tags: tagsArray,
-        },
-      ];
-    }
-
-    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-  };
-
   const shareRecipe = () => {
-    const url = `http://localhost:3000/bebidas/${historyId}`;
-    const SET_TIME_OUT = 1000;
-    navigator.clipboard.writeText(url);
-    setMessageAlert('Link copiado!');
-    setTimeout(() => {
-      setMessageAlert('');
-    }, SET_TIME_OUT);
+    shareDrinkHelper(historyId, setMessageAlert);
   };
 
   useEffect(() => {
@@ -101,15 +57,20 @@ function DrinkDetails() {
     setFavorite(verify);
   }, []);
 
-  const handleClick = () => {
+  const handleClickFavorite = () => {
     favoriteDrinkRecipe(recipe, previousRecipes, favorite, historyId);
     setFavorite(!favorite);
   };
 
+  const isDrinkInProgress = () => (
+    !!inProgressRecipes.cocktails && !!inProgressRecipes.cocktails[historyId]);
+
+  const isDrinkDone = () => !!savedDoneRecipes[historyId];
+
   return (
-    <div className="food-container">
+    <div>
       { (recipe.length === 1) && (
-        <div>
+        <div className="page-container">
           <img
             src={ recipe[0].strDrinkThumb }
             data-testid="recipe-photo"
@@ -122,7 +83,7 @@ function DrinkDetails() {
             <p>{messageAlert}</p>
             <button
               type="button"
-              onClick={ handleClick }
+              onClick={ handleClickFavorite }
             >
               {favorite
                 ? <img src={ blackHeartIcon } alt="heart" data-testid="favorite-btn" />
@@ -166,11 +127,12 @@ function DrinkDetails() {
       <Link
         to={ `/bebidas/${historyId}/in-progress` }
         data-testid="start-recipe-btn"
-        className="iniciar-receita"
+        className={ isDrinkDone() ? 'btn-none' : 'iniciar-receita' }
         id="btn-iniciar-receita"
-        onClick={ createList }
       >
-        Iniciar Receita
+        {isDrinkInProgress()
+          ? 'Continuar Receita'
+          : 'Iniciar Receita'}
       </Link>
     </div>
   );

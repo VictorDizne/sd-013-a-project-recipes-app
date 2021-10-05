@@ -5,6 +5,7 @@ import MealCard from '../components/MealCard';
 import Footer from '../components/Footer';
 import { fetchFoodCategories } from '../services/comidasApi';
 import '../styles/Recipes.css';
+import '../styles/Buttons.css';
 
 const Foods = () => {
   const { mealData,
@@ -36,11 +37,12 @@ const Foods = () => {
     <div>
       <Header title="Comidas" hasSearchIcon page="foods" />
       <div className="recipes-list">
-        <div>
+        <div className="select-buttons">
           <button
             type="button"
             data-testid="All-category-filter"
             onClick={ showAllFoods }
+            className="buttons"
           >
             All
           </button>
@@ -50,15 +52,16 @@ const Foods = () => {
               type="button"
               data-testid={ `${b.strCategory}-category-filter` }
               onClick={ () => filterCategories(b.strCategory) }
+              className="buttons"
             >
               { b.strCategory }
             </button>
           ))}
-          <div className="recipes-container">
-            { mealData && mealData.slice(0, MAX_RECIPES).map(((recipe, index) => (
-              <MealCard key={ index } index={ index } recipe={ recipe } page="foods" />
-            )))}
-          </div>
+        </div>
+        <div className="recipes-container">
+          { mealData && mealData.slice(0, MAX_RECIPES).map(((recipe, index) => (
+            <MealCard key={ index } index={ index } recipe={ recipe } page="foods" />
+          )))}
         </div>
       </div>
       <Footer />

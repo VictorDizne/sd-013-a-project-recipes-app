@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/Profile.css';
+import '../styles/Buttons.css';
 
 function Profile() {
   const history = useHistory();
@@ -35,27 +36,32 @@ function Profile() {
         <p data-testid="profile-email">{ email }</p>
       </div>
       <div className="container">
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ () => handleClickFavorite() }
-        >
-          Receitas Feitas
-        </button>
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ () => handleClickDone() }
-        >
-          Receitas Favoritas
-        </button>
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ () => logout() }
-        >
-          Sair
-        </button>
+        <div className="select-buttons">
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+            onClick={ () => handleClickFavorite() }
+            className="buttons"
+          >
+            Receitas Feitas
+          </button>
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+            onClick={ () => handleClickDone() }
+            className="buttons"
+          >
+            Receitas Favoritas
+          </button>
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ () => logout() }
+            className="buttons"
+          >
+            Sair
+          </button>
+        </div>
       </div>
       <Footer />
     </div>

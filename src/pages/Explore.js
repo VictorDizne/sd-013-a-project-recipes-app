@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/ExplorePages.css';
+import '../styles/Buttons.css';
 
 const Explore = () => (
   <div>
@@ -14,6 +15,7 @@ const Explore = () => (
         <button
           type="button"
           data-testid="explore-food"
+          className="buttons"
         >
           Explorar Comidas
         </button>
@@ -22,6 +24,7 @@ const Explore = () => (
         <button
           type="button"
           data-testid="explore-drinks"
+          className="buttons"
         >
           Explorar Bebidas
         </button>

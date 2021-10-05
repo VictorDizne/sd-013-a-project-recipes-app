@@ -13,6 +13,7 @@ function ExploreDrinks() {
           <button
             type="button"
             data-testid="explore-by-ingredient"
+            className="buttons"
           >
             Por Ingredientes
           </button>
@@ -21,6 +22,7 @@ function ExploreDrinks() {
           <button
             type="button"
             data-testid="explore-surprise"
+            className="buttons"
           >
             Me Surpreenda!
           </button>

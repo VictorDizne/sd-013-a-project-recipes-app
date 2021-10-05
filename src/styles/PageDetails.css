@@ -1,15 +1,13 @@
+.page-container {
+  padding: 20px;
+}
+
 .recomandation-container {
   display: flex;
   margin: 10px auto;
   overflow-y: hidden;
   width: 90%;
 }
-
-/* .button-container {
-  position: fixed;
-  bottom: 0;
-  left: 20%;
-} */
 
 .iniciar-receita {
   background-color: rgb(9, 134, 156);
@@ -29,4 +27,8 @@
   text-decoration: none;
   text-transform: uppercase;
   width: 80%;
+}
+
+.btn-none {
+  display: none;
 }

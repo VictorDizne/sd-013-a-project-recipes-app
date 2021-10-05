@@ -12,6 +12,7 @@ const ExploreFood = () => (
         <button
           type="button"
           data-testid="explore-by-ingredient"
+          className="buttons"
         >
           Por Ingredientes
         </button>
@@ -20,6 +21,7 @@ const ExploreFood = () => (
         <button
           type="button"
           data-testid="explore-by-area"
+          className="buttons"
         >
           Por Local de Origem
         </button>
@@ -28,6 +30,7 @@ const ExploreFood = () => (
         <button
           type="button"
           data-testid="explore-surprise"
+          className="buttons"
         >
           Me Surpreenda!
         </button>
