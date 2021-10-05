@@ -41,17 +41,16 @@ const TelaComidas = ({ history }) => {
     }
   }, [btnState, setDataFood]);
 
-  const renderCards = () => createCard(dataFood, 'Meal');
-  return !dataFood ? (
+  return !dataFood || dataFood.length === 0 ? (
     <Loading />
   ) : (
     <div>
       <Header hasLupa pageName="Comidas" />
       <div className="main">
         <Filters alimento={ categoryFood } />
-        {dataFood.length === 1
+        { dataFood.length === 1
           ? history.push(`/comidas/${dataFood[0].idMeal}`)
-          : renderCards()}
+          : createCard(dataFood, 'Meal') }
       </div>
       <Footer />
     </div>

@@ -28,7 +28,7 @@ const Header = ({ pageName, hasLupa }) => {
     setHidden(!hidden);
   };
 
-  const outraFunc = () => {
+  const setSelectedFilter = () => {
     if (pageName === 'Comidas') {
       filterByClickFood(radioFilter, inputFilter, setInputFilter, setDataFood);
     } else {
@@ -81,7 +81,7 @@ const Header = ({ pageName, hasLupa }) => {
       <button
         data-testid="exec-search-btn"
         type="button"
-        onClick={ outraFunc }
+        onClick={ setSelectedFilter }
       >
         Buscar
       </button>
