@@ -15,16 +15,9 @@ function CategoryButtons() {
   async function handleClick({ target }) {
     const { textContent } = target;
 
-    // const listButtons = document.getElementsByClassName('button-category');
-    // const result = Array.from(listButtons)
-    //   .filter((element) => element.innerText !== target.innerText);
-
     if (toggle !== target.innerText) {
       setToggle(target.innerText);
-      // setToggle(false);
-      // result.forEach((element) => {
-      //   element.disabled = true;
-      // });
+
       switch (location.pathname) {
       case '/bebidas':
         data = await fetchRecipes(textContent, 'category', '/');
@@ -39,10 +32,6 @@ function CategoryButtons() {
       }
     } else {
       setToggle('');
-      // setToggle(true);
-      // result.forEach((element) => {
-      //   element.disabled = false;
-      // });
       switch (location.pathname) {
       case '/bebidas':
         data = await fetchRecipes('', 'name', '/bebidas');

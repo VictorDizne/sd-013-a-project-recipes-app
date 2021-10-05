@@ -29,7 +29,7 @@ function Recomendations({ recomendations }) {
 }
 
 Recomendations.propTypes = {
-  recomendations: PropTypes.arrayOf(PropTypes.obj).isRequired,
+  recomendations: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Recomendations;

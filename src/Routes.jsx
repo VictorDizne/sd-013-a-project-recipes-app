@@ -7,10 +7,7 @@ import {
   MealDetails,
   DrinkDetails,
   Explore,
-  ExploreMeals,
-  ExploreDrinks,
-  IngredientsMealsExplore,
-  IngredientsDrinksExplore,
+  ExploreMain,
   ExploreMealsArea,
   ExploreDrinksArea,
   Perfil,
@@ -18,6 +15,7 @@ import {
   FavoriteRecipes,
   MealInProgress,
   DrinkInProgress,
+  IngredientsExplore,
 } from './pages';
 
 const Routes = () => (
@@ -66,22 +64,22 @@ const Routes = () => (
       <Route
         exact
         path="/explorar/comidas"
-        component={ ExploreMeals }
+        component={ ExploreMain }
       />
       <Route
         exact
         path="/explorar/bebidas"
-        component={ ExploreDrinks }
+        component={ ExploreMain }
       />
       <Route
         exact
         path="/explorar/comidas/ingredientes"
-        component={ IngredientsMealsExplore }
+        component={ IngredientsExplore }
       />
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        component={ IngredientsDrinksExplore }
+        component={ IngredientsExplore }
       />
       <Route
         exact

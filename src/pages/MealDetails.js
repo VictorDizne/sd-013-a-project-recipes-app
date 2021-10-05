@@ -16,12 +16,7 @@ function checkProgress(id, recipes) {
 }
 
 function saveOnStorage(id) {
-  if (localStorage.getItem('inProgressRecipes') === null) {
-    localStorage.setItem(
-      'inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }),
-    );
-  }
-  const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const payload = getStorage('inProgressRecipes');
   const { meals } = payload;
   if (!meals[id]) {
     meals[id] = [];
@@ -109,7 +104,11 @@ function MealDetails({ match: { params: { id } } }) {
           })}
       </div>
       <p data-testid="instructions">{recipe.strInstructions}</p>
-      <iframe data-testid="video" src={ recipe.strYoutube } title="Video" />
+      <iframe
+        data-testid="video"
+        src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
+        title="Video"
+      />
       <div>
         <Recomendations recomendations={ recomendations } />
       </div>

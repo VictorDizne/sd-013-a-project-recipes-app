@@ -7,7 +7,7 @@ const copy = require('clipboard-copy');
 function ShareButton({ id, type, testid }) {
   const [stateShare, setStateShare] = useState(true);
   function handleClick() {
-    copy(`http://localhost:3000/${type}/${id}`);
+    copy(`${window.location.origin}/${type}/${id}`);
     setStateShare(false);
   }
   return (

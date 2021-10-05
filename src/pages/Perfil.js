@@ -2,12 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { getStorage } from '../services';
 
 function Perfil() {
   const history = useHistory();
 
-  const storageUserEmail = localStorage.getItem('user');
-  let userEmail = JSON.parse(storageUserEmail);
+  let userEmail = getStorage('user');
 
   if (!userEmail) {
     userEmail = { email: '' };

@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import IngredientsBox from '../components/IngredientsBox';
 
-function IgredientsDrinkExplore() {
+function IgredientsExplore() {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ function IgredientsDrinkExplore() {
   );
 }
 
-export default IgredientsDrinkExplore;
+export default IgredientsExplore;
