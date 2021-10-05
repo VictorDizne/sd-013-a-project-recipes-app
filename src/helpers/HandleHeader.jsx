@@ -2,21 +2,21 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { BsArrowReturnLeft } from 'react-icons/bs';
 import { Button } from '../components';
-import { profileIcon, searchIcon } from '../images';
+import { profileIcon, searchIcon, returnIcon } from '../images';
 
 const Nav = styled.nav`
-  background: #C4C4C4;
+  background-color: #ffffffdd;
   display: flex;
   position: fixed;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   width: 100vw;
   height: 58px;
   left: 0px;
   top: 0px;
+  text-align: center;
 `;
 
 function HandleHeader({ title, setSearchBarStatus }) {
@@ -35,7 +35,7 @@ function HandleHeader({ title, setSearchBarStatus }) {
   );
 
   if (title !== 'Bebidas' && title !== 'Comidas' && title !== 'Explorar Orígem'
-  && title !== 'Explorar Origem') {
+    && title !== 'Explorar Origem') {
     return (
       <Nav>
         { profileButton }
@@ -50,7 +50,7 @@ function HandleHeader({ title, setSearchBarStatus }) {
           onClick={ () => history.goBack() }
           buttonType="BackgroundButton"
           buttonText={
-            <BsArrowReturnLeft />
+            <img src={ returnIcon } alt="return-icon" />
           }
         />
       </Nav>

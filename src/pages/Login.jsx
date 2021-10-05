@@ -1,7 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import styled from 'styled-components';
+
 import { Input, Button } from '../components';
 import { setDefaultLocalStorage } from '../services/localStorageFunctions';
+
+const Main = styled.div`
+  background-color: var(--primary-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  form { 
+    border: 1px solid #ffffffab;
+    border-radius: 4px;
+    box-shadow: 1px 1px 5px 1px #ffffff67;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0px;
+    margin: 10px;
+
+    * {
+      text-align: center;
+      font-family: Montserrat , sans-serif;
+      font-size: 1.1rem;
+    }
+
+    input {
+      width: 80%;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    button {
+      box-shadow: 1px 1px 3px 1px #ffffff67;
+      color: #fff;
+      padding: 4px 10px;
+      border: 1px solid #ffffffab;
+      border-radius: 4px;
+      background: none;
+      margin-top: 16px;
+
+      &:hover {
+        box-shadow: 1px 1px 3px 1px #ffffff;
+        border: 1px solid #ffffff;
+        color: #ffffff;
+    }
+    }
+  }
+`;
 
 const Login = () => {
   const [login, setLogin] = useState({
@@ -38,7 +90,7 @@ const Login = () => {
   };
 
   return (
-    <main>
+    <Main>
       <form onSubmit={ handleSubmit }>
         <Input
           type="email"
@@ -64,7 +116,7 @@ const Login = () => {
           disabled={ !disableButton }
         />
       </form>
-    </main>
+    </Main>
   );
 };
 

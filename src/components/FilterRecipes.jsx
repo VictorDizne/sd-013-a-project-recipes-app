@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import useCategories from '../hooks/useCategories';
 import { Button } from '.';
 
+import Div from './styles/FiltersContainer';
+
 function FilterRecipes({ pageTitle, handleFilter }) {
   const [categories, setCategories] = useState([]);
 
@@ -25,7 +27,7 @@ function FilterRecipes({ pageTitle, handleFilter }) {
   }, [drinkCategories, foodCategories, pageTitle]);
 
   return (
-    <section>
+    <Div>
       {
         categories.map((category, index) => (
           <Button
@@ -40,7 +42,7 @@ function FilterRecipes({ pageTitle, handleFilter }) {
           />
         ))
       }
-    </section>
+    </Div>
   );
 }
 

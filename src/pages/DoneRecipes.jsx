@@ -5,11 +5,12 @@ import MasterCard from '../components/MasterCard';
 import FilterRecipes from '../components/FilterRecipes';
 import { getDoneRecipes } from '../services/localStorageFunctions';
 
-const Main = styled.main`
-  margin-top: 68px;
-  form{
-    margin: 0 10px;
-  }
+import Main from './styles/MainPage';
+
+const Paragrah = styled.p`
+  color: #fff;
+  font-size: 1.4rem;
+  text-align: center;
 `;
 
 const DoneRecipes = () => {
@@ -114,7 +115,7 @@ const DoneRecipes = () => {
       <Header title="Receitas Feitas" />
       { !disableFilters
         ? <FilterRecipes pageTitle="both" handleFilter={ handleFilter } />
-        : <p>Parece que você não completou nenhuma receita</p> }
+        : <Paragrah>Parece que você não completou nenhuma receita</Paragrah> }
       { renderDoneRecipes() }
     </Main>
   );

@@ -3,6 +3,8 @@ import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import { Button, Input } from '.';
 
+import Div from './styles/SearchContainer';
+
 function DrinkSearchBar({ setSearchBarStatus, setDrinkRecipes }) {
   const [textInput, setTextInput] = useState('');
   const [radioButton, setRadioButton] = useState('');
@@ -53,7 +55,7 @@ function DrinkSearchBar({ setSearchBarStatus, setDrinkRecipes }) {
   };
 
   return (
-    <section>
+    <Div>
       {
         redirect && <Redirect to={ `/bebidas/${loneDrink}` } />
       }
@@ -104,7 +106,7 @@ function DrinkSearchBar({ setSearchBarStatus, setDrinkRecipes }) {
           buttonText="Buscar"
         />
       </form>
-    </section>
+    </Div>
   );
 }
 

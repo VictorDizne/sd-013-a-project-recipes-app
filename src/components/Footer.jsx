@@ -5,17 +5,18 @@ import { Button } from '.';
 import { drinkIcon, exploreIcon, mealIcon } from '../images';
 
 const StyledFooter = styled.footer`
-  background: #C4C4C4;
+  background-color: #ffffffdd;
   display: flex;
   position: fixed;
   justify-content: space-between;
   align-items: center;
   width: 100vw;
   height: 58px;
-  top: calc(100vh - 58px);
+  /* top: calc(100vh - 58px); */
+  bottom: 0;
   left: 0;
   img {
-    margin: -10px;
+    /* margin: -10px; */
   }
 `;
 

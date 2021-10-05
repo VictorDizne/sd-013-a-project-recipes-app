@@ -16,6 +16,12 @@ const Main = styled.main`
   margin-top: 68px;
 `;
 
+const Paragrah = styled.p`
+  color: #fff;
+  font-size: 1.4rem;
+  text-align: center;
+`;
+
 const FavoritedRecipes = () => {
   const [favoritedRecipes, setFavoritedRecipes] = useState([]);
   const [disableFilters, setDisableFilters] = useState();
@@ -118,7 +124,8 @@ const FavoritedRecipes = () => {
       <Header title="Receitas Favoritas" />
       { !disableFilters
         && <FilterRecipes pageTitle="both" handleFilter={ handleFilter } /> }
-      { disableFilters && <p>Parece que você não tem nenhuma receita favorita</p> }
+      { disableFilters
+        && <Paragrah>Parece que você não tem nenhuma receita favorita</Paragrah> }
       { renderFavRecipes() }
     </Main>
   );

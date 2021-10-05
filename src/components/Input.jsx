@@ -8,7 +8,6 @@ function Input({
   name, className, value, placeHolder, onChange, required, searchQuery }) {
   return (
     <label htmlFor={ id } className={ `${className}-label` }>
-      { labelText }
       <input
         type={ type }
         id={ id }
@@ -20,6 +19,7 @@ function Input({
         required={ required }
         checked={ searchQuery === name }
       />
+      { labelText }
     </label>
   );
 }

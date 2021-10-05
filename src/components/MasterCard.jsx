@@ -9,6 +9,27 @@ const Img = styled.img`
   max-width: 45vw;
 `;
 
+const RecipeCard = styled.div`
+  /* background-color: #ffffff; */
+  border-radius: 6px;
+  box-shadow: 1px 1px 3px 1px #ffffff67;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+  border-radius: 6px;
+  border: 1px solid #ffffff75;
+  margin-bottom: 10px;
+
+  img {
+    border-radius: 6px 6px 0px 0px;
+    width: 45vw;
+  }
+
+  h3 {
+    color: #ffffff;
+    padding: 4px 6px;
+    max-width: 45vw;
+  }
+`;
+
 function MasterCard(props) {
   const {
     // props usadas em todos os tipos de card
@@ -52,30 +73,30 @@ function MasterCard(props) {
   );
 
   const recipeCard = () => (
-    <div data-testid={ `${index}-recipe-card` }>
-      <Img src={ src } alt={ title } data-testid={ `${index}-card-img` } />
+    <RecipeCard data-testid={ `${index}-recipe-card` }>
+      <img src={ src } alt={ title } data-testid={ `${index}-card-img` } />
       <h3 data-testid={ `${index}-card-name` }>{ title }</h3>
-    </div>
+    </RecipeCard>
   );
 
   const ingredientCard = () => (
-    <div
+    <RecipeCard
       className="ingredientCard"
       data-testid={ `${index}-ingredient-card` }
     >
-      <Img
+      <img
         className="ingredientImg"
         data-testid={ `${index}-card-img` }
         src={ src }
         alt={ title }
       />
-      <span
+      <h3
         className="ingredientName"
         data-testid={ `${index}-card-name` }
       >
         { title }
-      </span>
-    </div>
+      </h3>
+    </RecipeCard>
   );
 
   const recomendedCard = () => (

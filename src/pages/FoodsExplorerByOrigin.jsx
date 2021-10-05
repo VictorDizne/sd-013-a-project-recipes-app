@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MasterCard from '../components/MasterCard';
@@ -11,17 +10,8 @@ import {
   fetchAllFoodRecipes,
 } from '../services/fetchRecipes';
 
-const Main = styled.main`
-  margin-top: 68px;
-  margin-bottom: 68px;
-`;
-
-const CardList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 10px;
-`;
+import Main from './styles/MainPage';
+import CardList from './styles/CardList';
 
 const FoodsExplorerByOrigin = () => {
   const [origins, setOrigins] = useState();
@@ -76,7 +66,7 @@ const FoodsExplorerByOrigin = () => {
               className="originOption"
               data-testid={ `${area.strArea}-option` }
             >
-              {area.strArea}
+              { area.strArea }
             </option>
           )) : null
         }

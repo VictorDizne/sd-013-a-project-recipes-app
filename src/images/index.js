@@ -7,3 +7,4 @@ export { default as rockGlass } from './rockGlass.svg';
 export { default as shareIcon } from './shareIcon.svg';
 export { default as whiteHeartIcon } from './whiteHeartIcon.svg';
 export { default as exploreIcon } from './exploreIcon.svg';
+export { default as returnIcon } from './returnIcon.svg';

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 import MasterCard from '../components/MasterCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,20 +11,8 @@ import {
   fetchRecipesByIngredients,
 } from '../services/fetchRecipes';
 
-const CardList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 10px;
-`;
-
-const Main = styled.main`
-  margin-top: 68px;
-  form{
-    margin: 0 10px;
-  }
-  margin-bottom: 68px;
-`;
+import Main from './styles/MainPage';
+import CardList from './styles/CardList';
 
 const Foods = () => {
   const [searchBarStatus, setSearchBarStatus] = useState(false);

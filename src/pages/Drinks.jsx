@@ -12,20 +12,14 @@ import {
   fetchRecipesByIngredients,
 } from '../services/fetchRecipes';
 
-const CardList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 10px;
-`;
+import Main from './styles/MainPage';
+import CardList from './styles/CardList';
 
-const Main = styled.main`
-  margin-top: 68px;
-  form{
-    margin: 0 10px;
-  }
-  margin-bottom: 68px;
-`;
+// const CardList = styled.div`
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-evenly;
+// `;
 
 const Drink = () => {
   const [searchBarStatus, setSearchBarStatus] = useState(false);
@@ -46,17 +40,17 @@ const Drink = () => {
 
   const handleFilter = ({ target: { name } }) => {
     switch (name) {
-    case 'All':
-      fetchAllDrinkRecipes(setDrinkRecipes);
-      break;
-    case prevCategory:
-      fetchAllDrinkRecipes(setDrinkRecipes);
-      setCategory('All');
-      break;
-    default:
-      fetchDrinkRecipesByCategory(name, setDrinkRecipes);
-      setCategory(name);
-      break;
+      case 'All':
+        fetchAllDrinkRecipes(setDrinkRecipes);
+        break;
+      case prevCategory:
+        fetchAllDrinkRecipes(setDrinkRecipes);
+        setCategory('All');
+        break;
+      default:
+        fetchDrinkRecipesByCategory(name, setDrinkRecipes);
+        setCategory(name);
+        break;
     }
   };
 
