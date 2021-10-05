@@ -19,7 +19,6 @@ function ReadyRecipes() {
   }, []);
 
   useEffect(() => {
-    console.log(filterDoneFood);
     const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (filterDoneFood === 'all') {
       setLocalDoneRecipes(allDoneRecipes);

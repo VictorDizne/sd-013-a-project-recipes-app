@@ -10,7 +10,7 @@ function ReadyRecipesCards({ doneRecipes }) {
     // console.log(doneRecipes[0].tags);
     return (
       <div>
-        Você não tem receitas finalizas
+        Você não tem receitas finalizadas
       </div>
     );
   }
