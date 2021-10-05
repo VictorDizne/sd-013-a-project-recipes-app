@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
-
-function FavoriteButton({ id, type, recipe }) {
+import { MainContext } from '../context/Provider';
+// Tratar recipe da pagina de favoritos.
+function FavoriteButton({ id, type, recipe, testid }) {
   const [isFavorite, setIsFavorite] = useState(false);
-
+  const { clickFavorite, setClickFavorite } = useContext(MainContext);
   function checkFavorite() {
     const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const checkRecipe = data.some((item) => item.id === id);
@@ -61,6 +62,7 @@ function FavoriteButton({ id, type, recipe }) {
   function handleClik() {
     if (isFavorite) noFavorite();
     else favorite();
+    setClickFavorite(!clickFavorite);
   }
 
   useEffect(checkFavorite, [id]);
@@ -68,7 +70,7 @@ function FavoriteButton({ id, type, recipe }) {
   return (
     <input
       type="image"
-      data-testid="favorite-btn"
+      data-testid={ testid || 'favorite-btn' }
       src={ isFavorite ? BlackHeartIcon : whiteHeartIcon }
       alt="Favorite Icon"
       onClick={ handleClik }
