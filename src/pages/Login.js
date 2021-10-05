@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -19,29 +20,33 @@ const Login = (props) => {
   };
 
   return (
-    <div data-testid="login-test">
-      <form>
-        <label htmlFor="email">
-          Email:
-          <input
-            id="email"
-            type="text"
-            data-testid="email-input"
-            placeholder="email@gmail.com"
-            onChange={ (e) => setEmail(e.target.value) }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha:
-          <input
-            id="password"
-            type="text"
-            data-testid="password-input"
-            placeholder="Sua senha"
-            onChange={ (e) => setPassword(e.target.value) }
-          />
-        </label>
-        <button
+    <Container>
+      <Form data-testid="login-test">
+        <FormGroup>
+          <Label htmlFor="email">
+            Email:
+            <Input
+              id="email"
+              type="email"
+              data-testid="email-input"
+              placeholder="email@gmail.com"
+              onChange={ (e) => setEmail(e.target.value) }
+            />
+          </Label>
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="password">
+            Senha:
+            <Input
+              id="password"
+              type="text"
+              data-testid="password-input"
+              placeholder="Sua senha"
+              onChange={ (e) => setPassword(e.target.value) }
+            />
+          </Label>
+        </FormGroup>
+        <Button
           id="button-login"
           type="submit"
           data-testid="login-submit-btn"
@@ -49,9 +54,9 @@ const Login = (props) => {
           onClick={ onSubmit }
         >
           Login
-        </button>
-      </form>
-    </div>
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
