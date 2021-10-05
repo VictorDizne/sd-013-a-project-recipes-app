@@ -7,6 +7,7 @@ import { filterIngredientsAndMeasures } from '../../functions';
 function IngredientProgress({ idK }) {
   const { details, setRecipeProgress } = useContext(recipeContext).ContextDetails;
   const inputs = document.getElementsByTagName('input');
+  console.log(idK);
 
   const [progress, setProgress] = usePersistedState('inProgressRecipes', '');
 
@@ -25,7 +26,6 @@ function IngredientProgress({ idK }) {
       let obj;
       for (let i = 0; i < inputs.length; i += 1) {
         obj = { ...obj,
-          id: idK,
           [`ingredient${i}`]: progress[`ingredient${i}`] || false,
         };
       }

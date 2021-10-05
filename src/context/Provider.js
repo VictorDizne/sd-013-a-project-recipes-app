@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useDebugState } from 'use-named-state';
 import { useHistory } from 'react-router-dom';
 import recipeContext from './index';
+import usePersistedState from '../utils/usePersistedState';
 import FetchAPI from '../services';
 
 function Provider({ children }) {
@@ -20,7 +21,7 @@ function Provider({ children }) {
   const [currentID, setCurrentID] = useDebugState('CurentID', 0);
   const [loading, setLoading] = useDebugState('Loading', true);
   const [details, setDetails] = useDebugState('Details', '');
-  const [recipeProgress, setRecipeProgress] = useDebugState('RecipeProgress', '');
+  const [recipeProgress, setRecipeProgress] = usePersistedState('inProgressRecipes', '');
 
   const handleCurrentPage = () => {
     const { location: { pathname } } = history;

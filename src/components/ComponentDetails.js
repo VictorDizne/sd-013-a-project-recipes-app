@@ -1,14 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import recipeContext from '../context';
 import ComponentDetailsContent from './ComponentDetailsContent';
 import ComponentSugestions from './ComponentSugestions';
 
 function ComponentDetails() {
-  const { fetchDetails } = useContext(recipeContext).ContextDetails;
+  const { fetchDetails, recipeProgress } = useContext(recipeContext).ContextDetails;
   const { id } = useParams();
   const currentPage = useHistory().location.pathname.includes('/comidas');
   const history = useHistory();
+  const textButton = useRef('Continuar Receita');
+
+  const [button, setButton] = useState(true);
+  console.log(button);
 
   useEffect(() => {
     if (currentPage) {
@@ -17,6 +21,21 @@ function ComponentDetails() {
       fetchDetails('thecocktaildb', 'lookup', 'i', id);
     }
   }, [currentPage, id]);
+
+  useEffect(() => {
+    if (recipeProgress) {
+      setButton(false);
+      if (Object.values(recipeProgress).every((item) => item === true)) {
+        setButton(false);
+      } else if (Object.values(recipeProgress).some((item) => item === true)) {
+        setButton(true);
+        textButton.current = 'Continuar Receita';
+      } else {
+        setButton(true);
+        textButton.current = 'Iniciar Receita';
+      }
+    }
+  }, [recipeProgress]);
 
   const handleClick = () => {
     history.push(`${id}/in-progress`);
@@ -49,6 +68,7 @@ function ComponentDetails() {
     iframe: false,
     click: false,
   };
+
   return (
     <div>
       {
@@ -58,14 +78,18 @@ function ComponentDetails() {
       }
       <ComponentSugestions />
       <div className="btn-container">
-        <button
-          className="btn-start"
-          data-testid="start-recipe-btn"
-          type="button"
-          onClick={ handleClick }
-        >
-          Iniciar receita
-        </button>
+        {
+          button && (
+            <button
+              id="btn-start"
+              className="btn-start"
+              data-testid="start-recipe-btn"
+              type="button"
+              onClick={ handleClick }
+            >
+              {textButton.current}
+            </button>)
+        }
       </div>
     </div>
   );
