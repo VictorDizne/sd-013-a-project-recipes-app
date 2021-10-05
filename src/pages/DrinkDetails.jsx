@@ -1,35 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import GetDrinkId from '../services/getDrinkId';
+import CardRecomend from './CardRecomend';
+import '../PaginasCss/StartRecipe.css';
 
-function DrinkDetails() {
-  // const [setRecipeDrink] = useState([]);
-  // const { ingredients, setIngredients } = useState([]);
+function DrinkDetails(props) {
+  const { match: { params: { id } } } = props;
 
-  // useEffect(() => {
-  //   const getRecipesDrinks = async () => {
-  //     const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319';
-  //     const [drink] = await fetch(endpoint).then((data) => data.json());
-  //   };
-  //   getRecipesDrinks(drink);
-  // }, []);
+  const [drink, setDrink] = useState({});
+  console.log(drink);
 
-  // const [data, recipeDrinks, setRecipeDrinks] = useState(['']);
-  // const ingredients = [{ title: 1 }, { title: 2 }, { title: 3 }];
-  // const { id: recipeId } = useParams();
+  useEffect(() => {
+    const getDrink = async () => {
+      const responseDrink = await GetDrinkId(id);
+      setDrink(responseDrink[0]);
+    };
+    getDrink();
+  }, [id]);
 
-  // useEffect(() => {
-  //   const foodRecipe = async (id) => {
-  //     const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  //     const { meals } = await fetch(endpoint)
-  //       .then((response) => response.json());
-  //     setRecipeDrinks(meals);
-  //     console.log();
-  //   };
-  //   foodRecipe();
-  // }, []);
-
-  // const recipesData = [...recipeDrinks];
   return (
     <section>
       <div>
@@ -53,14 +44,6 @@ function DrinkDetails() {
           <img src={ blackHeartIcon } alt="favorite-icon" />
         </button>
         <p data-testid="recipe-category" />
-        {/* {ingredients.map((ingredient, index) => (
-          <p
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {ingredient.title}
-          </p>
-        ))} */}
       </div>
       <div>
         <ul>
@@ -72,8 +55,18 @@ function DrinkDetails() {
         <p data-testid="instructions" />
         <h3>Instructions</h3>
 
-        <div>Recomendadas</div>
-        <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+        <div>
+          <CardRecomend />
+        </div>
+        <Link to="/bebidas/:id/in-progress">
+          <button
+            className="start-recipe"
+            data-testid="start-recipe-btn"
+            type="button"
+          >
+            Iniciar Receita
+          </button>
+        </Link>
       </div>
       <div>
         <iframe
@@ -85,5 +78,13 @@ function DrinkDetails() {
 
   );
 }
+
+DrinkDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default DrinkDetails;
