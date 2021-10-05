@@ -97,11 +97,11 @@ function FoodDetails() {
       <Container>
         <Stack
           direction="row"
-          spacing={ 20 }
+          spacing={ 25 }
         >
           <div>
             <h2 data-testid="recipe-title">{meal.strMeal}</h2>
-            <p data-testid="recipe-category">{meal.strArea}</p>
+            <p data-testid="recipe-category">{meal.strCategory}</p>
           </div>
           <div>
             <FavoriteButton meal={ meal } />
