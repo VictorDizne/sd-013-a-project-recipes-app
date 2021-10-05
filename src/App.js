@@ -51,6 +51,7 @@ function App() {
         component={ ExplorarBebidasIngredientes }
       />
       <Route exact path="/explorar/comidas/area" component={ LocalOrigem } />
+      <Route exact path="/explorar/bebidas/area" component={ NoteFound } />
       <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route path="*" component={ NoteFound } />
