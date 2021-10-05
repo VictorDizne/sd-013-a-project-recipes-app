@@ -45,7 +45,14 @@ export const fetchRecipesDetails = async (id, myPage) => {
 export const fetchRecipesRamdon = async(myPage) => {
   const result = await fetch(`https://www.${myPage}.com/api/json/v1/1/random.php`)
   .then((resp) => resp.json());
-  return result
+  return result;
+}
+
+export const fetchIngredients = async (myPage) => {
+  const result = await fetch(`https://www.${myPage}.com/api/json/v1/1/list.php?i=list `)
+  .then((resp) => resp.json())
+  console.log(result, 'resultado');
+  return result;
 }
 
 // https://www.thecocktaildb.com/api/json/v1/1/search.php?s=
