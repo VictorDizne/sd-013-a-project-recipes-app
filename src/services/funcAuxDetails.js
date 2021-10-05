@@ -65,10 +65,11 @@ export const changeLocalRecipe = (id, tipo1, tipo2) => {
   if (localStorage.getItem('inProgressRecipes') === null) {
     localStorage.setItem('inProgressRecipes', JSON
       .stringify({ [tipo1]: { [id]: [] }, [tipo2]: {} }));
+  } else if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[tipo1][id]) {
+    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes', JSON
+      .stringify({ ...recipes, [tipo1]: { ...recipes[tipo1], [id]: [] } }));
   }
-  const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  localStorage.setItem('inProgressRecipes', JSON
-    .stringify({ ...recipes, [tipo1]: { ...recipes[tipo1], [id]: [] } }));
 };
 
 export const changeLocalFavorite = (favInfo, btnFavorite, setBtnFavorite, id) => {
@@ -90,4 +91,19 @@ export const changeLocalFavorite = (favInfo, btnFavorite, setBtnFavorite, id) =>
   navigator.clipboard.readText().then(
     (clipText) => setBtnFavorite(clipText),
   );
+};
+
+export const changeLocalCheck = (name, checked, id, checkedState) => {
+  const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (localGet && localGet.cocktails[id]) {
+    const ingredientsList = localGet.cocktails[id];
+    if (checked) {
+      localGet.cocktails[id] = [...ingredientsList, name];
+      return ([...checkedState, name]);
+    }
+    const listFilter = ingredientsList.filter((ingredient) => ingredient !== name);
+    localGet.cocktails[id] = listFilter;
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
+    return (listFilter);
+  }
 };
