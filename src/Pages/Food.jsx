@@ -9,24 +9,24 @@ import { getMeals, getCategories } from '../services/Api';
 function Food() {
   const { meals, setMealsValue } = useContext(Context);
   const [categories, setCategories] = useState();
-  const [categorie, setCategorie] = useState('All');
+  const [category, setCategory] = useState('All');
 
   const MAX_FOOD_CARDS = 12;
   const MAX_CATEGORIS = 5;
 
   useEffect(() => {
     const fetchAPI = async () => {
-      setMealsValue(await getMeals(categorie));
+      setMealsValue(await getMeals(category));
       setCategories(await getCategories('meals'));
     };
     fetchAPI();
-  }, [categorie]);
+  }, [category]);
 
   const handleFilter = (categorieName) => {
-    if (categorieName === categorie) {
-      setCategorie('All');
+    if (categorieName === category) {
+      setCategory('All');
     } else {
-      setCategorie(categorieName);
+      setCategory(categorieName);
     }
   };
 

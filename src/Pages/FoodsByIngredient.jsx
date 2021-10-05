@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getMealIngredients } from '../services/Api';
@@ -23,12 +24,14 @@ function FoodByIngredient() {
       <Header title="Explorar Ingredientes" />
       {ingredientsList.map((ingredient, index) => (
         index < MAX_LENGTH ? (
-          <IngredientsCard
-            key={ index }
-            index={ index }
-            ingredientImg={ `${URL}${ingredient.strIngredient}-Small.png` }
-            ingredientName={ ingredient.strIngredient }
-          />
+          <Link to="/comidas">
+            <IngredientsCard
+              key={ index }
+              index={ index }
+              ingredientImg={ `${URL}${ingredient.strIngredient}-Small.png` }
+              ingredientName={ ingredient.strIngredient }
+            />
+          </Link>
         ) : (null)
       ))}
       <Footer />

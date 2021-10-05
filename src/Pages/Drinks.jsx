@@ -7,26 +7,34 @@ import Context from '../context/Context';
 import { getDrinks, getCategories } from '../services/Api';
 
 function Drinks() {
-  const { drinks, setDrinksValue } = useContext(Context);
+  const { drinks, setDrinksValue, filterIngredients } = useContext(Context);
   const [categories, setCategories] = useState();
-  const [categorie, setCategorie] = useState('All');
+  const [category, setCategory] = useState('All');
   const MAX_DRINK_CARDS = 12;
   const MAX_CATEGORIS = 5;
 
   useEffect(() => {
     const fetchDrinks = async () => {
-      setDrinksValue(await getDrinks(categorie));
+      setDrinksValue(await getDrinks(category));
       setCategories(await getCategories('drinks'));
     };
     fetchDrinks();
-  }, [categorie]);
+  }, [category]);
 
-  const handleFilter = (categorieName) => {
-    if (categorieName === categorie) {
-      setCategorie('All');
+  const handleFilter = (categoryName) => {
+    if (categoryName === category) {
+      setCategory('All');
     } else {
-      setCategorie(categorieName);
+      setCategory(categoryName);
     }
+  };
+
+  const handleIngredientFilter = (drink) => {
+    const filterDrink = Object
+      .values(drink).includes(filterIngredients);
+    if (filterIngredients === '') return true;
+    console.log(filterDrink);
+    return filterDrink;
   };
 
   if (drinks === null) {
@@ -59,19 +67,22 @@ function Drinks() {
           </button>
         ))}
       </section>
-      {drinks && drinks.slice(0, MAX_DRINK_CARDS).map((drink, index) => (
-        <Link
-          to={ `/bebidas/${drink.idDrink}` }
-          key={ index }
-        >
-          <Card
-            key={ drink.strDrink }
-            name={ drink.strDrink }
-            image={ drink.strDrinkThumb }
-            index={ index }
-          />
-        </Link>
-      ))}
+      {drinks && drinks
+        .filter((drink) => handleIngredientFilter(drink))
+        .slice(0, MAX_DRINK_CARDS)
+        .map((drink, index) => (
+          <Link
+            to={ `/bebidas/${drink.idDrink}` }
+            key={ index }
+          >
+            <Card
+              key={ drink.strDrink }
+              name={ drink.strDrink }
+              image={ drink.strDrinkThumb }
+              index={ index }
+            />
+          </Link>
+        ))}
       <Footer />
     </div>
   );
