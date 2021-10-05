@@ -5,7 +5,6 @@ import RecipesContext from '../context/RecipesContext';
 
 function DetalhesComida({ match: { params: { recipeId } }, history }) {
   const [meal, setMeal] = useState({});
-  const isTrue = true;
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
   const { setBtnText, setIsFavorite } = useContext(RecipesContext);
 

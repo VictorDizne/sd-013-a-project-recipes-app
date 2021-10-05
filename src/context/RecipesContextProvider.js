@@ -14,7 +14,7 @@ const RecipesContextProvider = ({ children }) => {
 
   // const history = useHistory();
 
-  const toggleFavoriteBtn = (recipe, isMeal) => {
+  const toggleFavoriteBtnDetails = (recipe, isMeal) => {
     const objRecipe = { id: '' };
     objRecipe.id = isMeal ? recipe.idMeal : recipe.idDrink;
     objRecipe.type = isMeal ? 'comida' : 'bebida';
@@ -34,7 +34,7 @@ const RecipesContextProvider = ({ children }) => {
           return r.id !== result;
         },
       );
-      localStorage.setItem('favoriteRecipes', filteredArray);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredArray));
       setIsFavorite(false);
       return;
     }
@@ -49,6 +49,14 @@ const RecipesContextProvider = ({ children }) => {
     // console.log('chave nao existe');
     localStorage.setItem('favoriteRecipes', JSON.stringify([{ ...objRecipe }]));
     setIsFavorite(true);
+  };
+
+  const removeFavoriteBtn = (recipe) => {
+    console.log(`recipe das receitas favoritas ${recipe}`);
+    const lcStorage = localStorage.getItem('favoriteRecipes');
+    const favoriteArray = JSON.parse(lcStorage);
+    const filteredArray = favoriteArray.filter((r) => r.id !== recipe.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filteredArray));
   };
 
   const alert = () => {
@@ -174,7 +182,8 @@ const RecipesContextProvider = ({ children }) => {
     setBtnText,
     isFavorite,
     setIsFavorite,
-    toggleFavoriteBtn,
+    removeFavoriteBtn,
+    toggleFavoriteBtnDetails,
   };
 
   return (
