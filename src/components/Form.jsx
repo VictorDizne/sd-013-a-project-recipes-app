@@ -47,7 +47,7 @@ const Form = () => {
   }
 
   return (
-    <div className="inputContainer">
+    <div>
       <form className="container">
         <br />
         <div className="loginForm">

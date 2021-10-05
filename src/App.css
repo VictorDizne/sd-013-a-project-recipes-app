@@ -7,6 +7,12 @@
 
 @media screen and ( max-width : 360px )  and ( min-height : 640px ) {
 
+  .searchbar-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   .inputContainer {
     background: url('images/comidaPinter.jpeg');
     background-repeat: no-repeat;
