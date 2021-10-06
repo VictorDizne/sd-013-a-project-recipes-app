@@ -14,7 +14,8 @@ import DrinksExplorer from './Pages/DrinksExplorer';
 import Explorer from './Pages/Explorer';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import FoodsByLocal from './Pages/FoodsByLocal';
-import ExploreByIngredients from './Pages/ExplorerByIng';
+import ExplorerDrinkByIngredients from './Pages/ExplorerDrinkByIngredients';
+import ExplorerFoodByIngredients from './Pages/ExplorerFoodByIngredients';
 import Profile from './Pages/Profile';
 // import DrinkDetails from './Pages/DrinkDetails';
 import RecipeDetails from './Pages/RecipeDetails';
@@ -39,12 +40,12 @@ function App() {
             <Route
               exact
               path="/explorar/comidas/ingredientes"
-              component={ ExploreByIngredients }
+              component={ ExplorerFoodByIngredients }
             />
             <Route
               exact
               path="/explorar/bebidas/ingredientes"
-              component={ ExploreByIngredients }
+              component={ ExplorerDrinkByIngredients }
             />
             <Route exact path="/perfil" component={ Profile } />
           </Switch>

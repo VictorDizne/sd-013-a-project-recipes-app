@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
 
@@ -7,10 +8,41 @@ export default function Profile() {
     pageName: 'Perfil',
     setIcon: false,
   };
+  const user = JSON.parse(localStorage.getItem('user'));
+  const history = useHistory();
   return (
     <div>
       <Header value={ pageTitle } />
-      <h2>PROFILE</h2>
+      FOODS
+      <div>
+        <h3 data-testid="profile-email">
+          { user !== null ? user.email : 'email' }
+        </h3>
+        <button
+          type="button"
+          data-testid="profile-done-btn"
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Receitas Feitas
+        </button>
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
+          onClick={ () => history.push('/receitas-favoritas') }
+        >
+          Receitas Favoritas
+        </button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ () => {
+            localStorage.clear();
+            history.push('/');
+          } }
+        >
+          Sair
+        </button>
+      </div>
       <Footer />
     </div>
   );
