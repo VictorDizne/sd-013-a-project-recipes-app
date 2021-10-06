@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import logo from './TrybeRecipes.jpeg';
+import './Login.css';
 
 function Login() {
   const [button, setButton] = useState(true);
@@ -42,37 +44,43 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1 className="titlelogin"> Login </h1>
-      <form>
-        <input
-          data-testid="email-input"
-          className="email-input"
-          type="email"
-          placeholder="Email"
-          name="email"
-          onChange={ handleChange }
-        />
-        <input
-          data-testid="password-input"
-          className="password-input"
-          type="password"
-          placeholder="Senha"
-          name="password"
-          onChange={ handleChange }
-        />
-        <button
-          disabled={ button }
-          className="login-button"
-          data-testid="login-submit-btn"
-          type="submit"
-          id="button"
-          onClick={ handleClick }
-        >
-          Entrar
-        </button>
-      </form>
-    </div>
+    <>
+      <img className="logo" alt="logo" src={ logo } />
+      <div>
+        <form className="telaDeLogin">
+          <div className="inputsLogin">
+            <input
+              data-testid="email-input"
+              className="email-input"
+              type="email"
+              placeholder="Email"
+              name="email"
+              onChange={ handleChange }
+            />
+            <input
+              data-testid="password-input"
+              className="password-input"
+              type="password"
+              placeholder="Senha"
+              name="password"
+              onChange={ handleChange }
+            />
+          </div>
+          <div className="loginButton">
+            <button
+              disabled={ button }
+              className="login-button"
+              data-testid="login-submit-btn"
+              type="submit"
+              id="button"
+              onClick={ handleClick }
+            >
+              Entrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
 
