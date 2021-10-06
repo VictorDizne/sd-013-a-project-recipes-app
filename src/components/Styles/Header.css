@@ -1,6 +1,10 @@
 .header {
   align-items: center;
+<<<<<<< HEAD
   background-color: #f76239;
+=======
+  background-color: #fffcf3;
+>>>>>>> 5c0e14af825d1d1dadc4a881ec3b921a921cdafa
   display: flex;
   font-family: Acme , sans-serif;
   justify-content: space-around;

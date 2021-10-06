@@ -1,4 +1,33 @@
+<<<<<<< HEAD
 /* .explorar-container {
     display: flex;
     flex-direction: column;
 } */
+=======
+.Link-container {
+  align-items: center;
+  background-color: #feb803;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  color: black;
+  display: flex;
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  height: 100px;
+  justify-content: center;
+  margin-top: 30px;
+  position: relative;
+  width: 90%;
+}
+
+.link {
+  color: black;
+  text-decoration: none;
+}
+
+.container-explorar {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+>>>>>>> 5c0e14af825d1d1dadc4a881ec3b921a921cdafa
