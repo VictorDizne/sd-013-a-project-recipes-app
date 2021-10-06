@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchAreas, fetchFoodsByArea } from '../services/comidasApi';
+import { fetchAreas, fetchFoodsByArea, fetchFoodOnLoad } from '../services/comidasApi';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MealCard from '../components/MealCard';
@@ -9,21 +9,27 @@ const MAX_RECIPES = 12;
 
 const FoodByLocal = () => {
   const [areas, setAreas] = useState([]);
-  const [selectedArea, setSelectedArea] = useState('');
+  const [selectedArea, setSelectedArea] = useState('All');
   const [meals, setMeals] = useState([]);
 
   const getCountries = async () => {
     const countries = await fetchAreas();
     setAreas(countries);
-    setSelectedArea(countries[0].strArea);
   };
 
   const getMeals = async () => {
-    const mealsList = await fetchFoodsByArea(selectedArea);
-    setMeals(mealsList);
+    if (selectedArea !== 'All') {
+      const mealsList = await fetchFoodsByArea(selectedArea);
+      setMeals(mealsList);
+    }
   };
 
   useEffect(() => {
+    const getData = async () => {
+      const results = await fetchFoodOnLoad();
+      setMeals(results);
+    };
+    getData();
     getCountries();
   }, []);
 
@@ -31,7 +37,11 @@ const FoodByLocal = () => {
     getMeals();
   }, [selectedArea]);
 
-  const handleChange = ({ target }) => {
+  const handleChange = async ({ target }) => {
+    if (target.value === 'All') {
+      const results = await fetchFoodOnLoad();
+      setMeals(results);
+    }
     setSelectedArea(target.value);
   };
 
@@ -41,6 +51,7 @@ const FoodByLocal = () => {
 
       <div className="container">
         <select onChange={ handleChange } data-testid="explore-by-area-dropdown">
+          <option defaultValue="All" data-testid="All-option">All</option>
           { areas.map((area, index) => (
             <option
               key={ index }
