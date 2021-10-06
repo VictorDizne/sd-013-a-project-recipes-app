@@ -5,7 +5,6 @@ import { Card, CardGroup } from 'react-bootstrap';
 
 const RecomendationCards = ({ itens, isMeal, cardsLimit }) => {
   const carousel = [];
-  console.log(carousel);
   // pathname = isMeal ? `/bebidas/${item.idDrink}` : `/comidas/${item.idMeal}`;
   const imgAltLink = (index) => {
     const img = isMeal

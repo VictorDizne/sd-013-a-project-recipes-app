@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
@@ -106,13 +105,13 @@ function ContextAPIProvider({ children }) {
     }
   };
 
-  const { pathname } = useLocation();
-
-  const pathnameCheck = () => {
+  // const { pathname } = useLocation();
+  // verificar
+  const pathnameCheck = (pathname) => {
     switch (pathname) {
-    case '/comidas':
+    case '/comidas/':
       return 'themealdb';
-    case '/bebidas':
+    case '/bebidas/':
       return 'thecocktaildb';
     default:
       return null;

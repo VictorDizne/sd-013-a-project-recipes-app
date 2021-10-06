@@ -24,7 +24,7 @@ export default function Foods() {
   useEffect(() => {
     // Requisição inicial para renderizar cards ao carregar a página.
     // const { pathname } = useLocation();
-    fetchAPI(pathnameCheck());
+    fetchAPI(pathnameCheck(pathname));
   }, []);
 
   return (

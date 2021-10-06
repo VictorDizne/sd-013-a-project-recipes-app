@@ -28,10 +28,27 @@ function verifyFunction(VINTE, data, arrayIngredients, arrayMeasures) {
   }
 }
 
+function checkFavorite(isMeal, data, setFavButton) {
+  const fav = {
+    id: isMeal ? data.idMeal : data.idDrink,
+    type: isMeal ? 'comida' : 'bebida',
+    area: isMeal ? data.strArea : '',
+    category: data.strCategory,
+    alcoholicOrNot: isMeal ? '' : data.strAlcoholic,
+    name: isMeal ? data.strMeal : data.strDrink,
+    image: isMeal ? data.strMealThumb : data.strDrinkThumb,
+  };
+  if (localStorage.favoriteRecipes) {
+    const parse = JSON.parse(localStorage.favoriteRecipes);
+    localStorage.favoriteRecipes = JSON.stringify([...parse, (fav)]);
+    return setFavButton(true);
+  }
+  localStorage.favoriteRecipes = JSON.stringify([fav]);
+}
+
 function RecipeDetails(props) {
   const { match: { params: { id } } } = props;
   const { pathname } = useLocation();
-
   const pathnameCheck = (pathnameParam) => {
     switch (pathnameParam) {
     case `/comidas/${id}`:
@@ -50,6 +67,7 @@ function RecipeDetails(props) {
   const arrayMeasures = [];
   const arrayIngredients = [];
   const VINTE = 20;
+  console.log(favButton);
 
   verifyFunction(VINTE, data, arrayIngredients, arrayMeasures);
 
@@ -78,26 +96,9 @@ function RecipeDetails(props) {
     return setFavButton(false);
   };
 
-  const checkFavorite = () => {
-    const fav = {
-      id: isMeal ? data.idMeal : data.idDrink,
-      type: isMeal ? 'comida' : 'bebida',
-      area: isMeal ? data.strArea : '',
-      category: data.strCategory,
-      alcoholicOrNot: isMeal ? '' : data.strAlcoholic,
-      name: isMeal ? data.strMeal : data.strDrink,
-      image: isMeal ? data.strMealThumb : data.strDrinkThumb,
-    };
-    if (localStorage.favoriteRecipes) {
-      const parse = JSON.parse(localStorage.favoriteRecipes);
-      localStorage.favoriteRecipes = JSON.stringify([...parse, (fav)]);
-      return setFavButton(true);
-    }
-    localStorage.favoriteRecipes = JSON.stringify([fav]);
-    // return setFavButton(true);
-  };
-
-  const onFavoriteClick = () => (verifyFavorite() ? unCheckFavorite() : checkFavorite());
+  const onFavoriteClick = () => (verifyFavorite()
+    ? unCheckFavorite()
+    : checkFavorite(isMeal, data, setFavButton));
 
   return (
     <div>
@@ -171,7 +172,7 @@ function RecipeDetails(props) {
           />
         </div>
 
-        <ButtonRecipe isMeal={ isMeal } id={ id } />
+        <ButtonRecipe id={ id } />
       </div>
 
     </div>
@@ -181,7 +182,7 @@ function RecipeDetails(props) {
 RecipeDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
     }),
   }).isRequired,
 };

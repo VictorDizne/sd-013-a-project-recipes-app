@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 const useApiId = (type, id) => {
   const [data, setData] = useState([]);
   const [isMeal, setIsMeal] = useState(false);
+  // console.log(type, 'type');
+
   useEffect(() => {
     const fetchId = async () => {
       const result = await fetch(`https://www.${type}.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -16,8 +18,8 @@ const useApiId = (type, id) => {
       }
     };
     fetchId();
-  }, [id, type]);
-
+  }, []);
+  // console.log(isMeal, 'isMeal');
   return [data, isMeal];
 };
 
