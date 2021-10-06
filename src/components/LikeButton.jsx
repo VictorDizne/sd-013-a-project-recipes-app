@@ -49,16 +49,14 @@ function LikeButton({ recipe, id, favOrDone = false, idx, refreshFav }) {
   }, [heartType, id]);
 
   return (
-    <section>
-      <input
-        type="image"
-        data-testid={ favOrDone ? `${idx}-horizontal-favorite-btn` : 'favorite-btn' }
-        src={ heartType }
-        alt={ `${heartAlt}` }
-        onClick={ handleClick }
-        className="favBtn"
-      />
-    </section>
+    <input
+      type="image"
+      data-testid={ favOrDone ? `${idx}-horizontal-favorite-btn` : 'favorite-btn' }
+      src={ heartType }
+      alt={ `${heartAlt}` }
+      onClick={ handleClick }
+      className="favBtn"
+    />
   );
 }
 

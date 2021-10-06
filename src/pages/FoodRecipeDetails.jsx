@@ -13,18 +13,11 @@ import {
 } from '../services/localStorageFunctions';
 import { fetchFoodDetails, fetchFoodRecomendations } from '../services/fetchRecipes';
 
-const Main = styled.main`
-  /* display: flex; */
-  margin-top: 68px;
-  .continueBtn {
-    position: fixed;
-    bottom: 0;
-  }
-`;
+import Main from './styles/DetailsPage';
 
-const Img = styled.img`
-  max-width: 100vw;
-`;
+// const Img = styled.img`
+//   max-width: 100vw;
+// `;
 
 const RecomendationsBoard = styled.div`
   /* width: 100%; */
@@ -43,23 +36,23 @@ const RecomendationsBoard = styled.div`
 
 `;
 
-const Buttons = styled.div`
-  display: flex;
-  margin: 10px;
+// const Buttons = styled.div`
+//   display: flex;
+//   margin: 10px;
 
-  button {
-    border: none;
-    background: none;
-    width: 35px;
-    height: 35px;
-  }
-`;
+//   button {
+//     border: none;
+//     background: none;
+//     width: 35px;
+//     height: 35px;
+//   }
+// `;
 
-const CardHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+// const CardHeader = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
 
 const FoodRecipeDetails = () => {
   const [foodRecipeDetails, setFoodRecipeDetails] = useState({});
@@ -131,27 +124,28 @@ const FoodRecipeDetails = () => {
 
   return (
     <Main>
-      <section>
-        <Img
-          className="recipeImage"
-          src={ foodRecipeDetails.strMealThumb }
-          alt="Imagem da comida"
-          data-testid="recipe-photo"
-        />
-        <CardHeader>
 
-          <div>
-            <h2 data-testid="recipe-title">{ foodRecipeDetails.strMeal }</h2>
-            <h3 data-testid="recipe-category">{ foodRecipeDetails.strCategory }</h3>
-          </div>
+      <img
+        className="recipeImage"
+        src={ foodRecipeDetails.strMealThumb }
+        alt="Imagem da comida"
+        data-testid="recipe-photo"
+      />
 
-          <Buttons>
-            <ShareButton id={ id } type="comidas" testID="regular" />
-            <LikeButton id={ id } recipe={ foodRecipeDetails } />
-          </Buttons>
+      <div className="recipe-header">
 
-        </CardHeader>
-      </section>
+        <div>
+          <h2 data-testid="recipe-title">{ foodRecipeDetails.strMeal }</h2>
+          <h4 data-testid="recipe-category">{ foodRecipeDetails.strCategory }</h4>
+        </div>
+
+        <div>
+          <ShareButton id={ id } type="comidas" testID="regular" />
+          <LikeButton id={ id } recipe={ foodRecipeDetails } />
+        </div>
+
+      </div>
+
       <RecipeDetails
         instructions={ foodRecipeDetails.strInstructions }
         ingredients={ ingredients() }

@@ -13,18 +13,20 @@ import {
 } from '../services/localStorageFunctions';
 import { fetchDrinkDetails, fetchDrinkRecomendations } from '../services/fetchRecipes';
 
-const Main = styled.main`
-  /* display: flex; */
-  margin-top: 68px;
-  .continueBtn {
-    position: fixed;
-    bottom: 0;
-  }
-`;
+// const Main = styled.main`
+//   /* display: flex; */
+//   margin-top: 68px;
+//   .continueBtn {
+//     position: fixed;
+//     bottom: 0;
+//   }
+// `;
 
-const Img = styled.img`
-  max-width: 100vw;
-`;
+import Main from './styles/DetailsPage';
+
+// const Img = styled.img`
+//   max-width: 100vw;
+// `;
 
 const RecomendationsBoard = styled.div`
   /* width: 100%; */
@@ -41,29 +43,29 @@ const RecomendationsBoard = styled.div`
     box-shadow: 1px 1px 1px #16161660;
   }
 
-  img:hover {
+  /* img:hover {
     background-color: #161616;
-  }
+  } */
   
 `;
 
-const Buttons = styled.div`
-  display: flex;
-  margin: 10px;
+// const Buttons = styled.div`
+//   display: flex;
+//   margin: 10px;
 
-  button {
-    border: none;
-    background: none;
-    width: 35px;
-    height: 35px;
-  }
-`;
+//   button {
+//     border: none;
+//     background: none;
+//     width: 35px;
+//     height: 35px;
+//   }
+// `;
 
-const CardHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+// const CardHeader = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
 
 const DrinkRecipesDetails = () => {
   const [drinkRecipeDetails, setDrinkRecipeDetails] = useState([]);
@@ -119,27 +121,28 @@ const DrinkRecipesDetails = () => {
 
   return (
     <Main>
-      <section>
-        <Img
-          className="recipeImage"
-          src={ drinkRecipeDetails.strDrinkThumb }
-          alt="Imagem da bebida"
-          data-testid="recipe-photo"
-        />
-        <CardHeader>
 
-          <div>
-            <h2 data-testid="recipe-title">{ drinkRecipeDetails.strDrink }</h2>
-            <h3 data-testid="recipe-category">{ drinkRecipeDetails.strAlcoholic }</h3>
-          </div>
+      <img
+        className="recipeImage"
+        src={ drinkRecipeDetails.strDrinkThumb }
+        alt="Imagem da bebida"
+        data-testid="recipe-photo"
+      />
 
-          <Buttons>
-            <ShareButton id={ id } type="bebidas" testID="regular" />
-            <LikeButton id={ id } recipe={ drinkRecipeDetails } />
-          </Buttons>
+      <div className="recipe-header">
 
-        </CardHeader>
-      </section>
+        <div>
+          <h2 data-testid="recipe-title">{ drinkRecipeDetails.strDrink }</h2>
+          <h3 data-testid="recipe-category">{ drinkRecipeDetails.strAlcoholic }</h3>
+        </div>
+
+        <div>
+          <ShareButton id={ id } type="bebidas" testID="regular" />
+          <LikeButton id={ id } recipe={ drinkRecipeDetails } />
+        </div>
+
+      </div>
+
       <RecipeDetails
         instructions={ drinkRecipeDetails.strInstructions }
         ingredients={ ingredients() }

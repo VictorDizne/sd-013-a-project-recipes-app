@@ -5,16 +5,15 @@ import FilterRecipes from '../components/FilterRecipes';
 import MasterCard from '../components/MasterCard';
 import { getFavRecipes } from '../services/localStorageFunctions';
 
+import Main from './styles/MainPage';
+import CardList from './styles/FavCardList';
+
 if (!localStorage.favoriteRecipes) {
   localStorage.setItem(
     'favoriteRecipes',
     JSON.stringify([]),
   );
 }
-
-const Main = styled.main`
-  margin-top: 68px;
-`;
 
 const Paragrah = styled.p`
   color: #fff;
@@ -122,11 +121,16 @@ const FavoritedRecipes = () => {
   return (
     <Main>
       <Header title="Receitas Favoritas" />
+
       { !disableFilters
         && <FilterRecipes pageTitle="both" handleFilter={ handleFilter } /> }
       { disableFilters
         && <Paragrah>Parece que você não tem nenhuma receita favorita</Paragrah> }
-      { renderFavRecipes() }
+
+      <CardList>
+        { renderFavRecipes() }
+      </CardList>
+
     </Main>
   );
 };

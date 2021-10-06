@@ -6,6 +6,7 @@ import FilterRecipes from '../components/FilterRecipes';
 import { getDoneRecipes } from '../services/localStorageFunctions';
 
 import Main from './styles/MainPage';
+import CardList from './styles/FavCardList';
 
 const Paragrah = styled.p`
   color: #fff;
@@ -116,7 +117,10 @@ const DoneRecipes = () => {
       { !disableFilters
         ? <FilterRecipes pageTitle="both" handleFilter={ handleFilter } />
         : <Paragrah>Parece que você não completou nenhuma receita</Paragrah> }
-      { renderDoneRecipes() }
+
+      <CardList>
+        { renderDoneRecipes() }
+      </CardList>
     </Main>
   );
 };

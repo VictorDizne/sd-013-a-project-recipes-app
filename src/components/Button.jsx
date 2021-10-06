@@ -28,13 +28,6 @@ const ButtonWithFilter = styled.button`
   border-radius: 4px;
   background: none;
   margin: 4px;
-  font-size: 1rem;
-
-  /* &:hover {
-    box-shadow: 1px 1px 3px 1px #ffffff;
-    border: 1px solid #ffffff;
-    color: #ffffff;
-  } */
 `;
 
 const Button = (

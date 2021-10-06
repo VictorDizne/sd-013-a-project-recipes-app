@@ -39,17 +39,17 @@ const Drink = () => {
 
   const handleFilter = ({ target: { name } }) => {
     switch (name) {
-      case 'All':
-        fetchAllDrinkRecipes(setDrinkRecipes);
-        break;
-      case prevCategory:
-        fetchAllDrinkRecipes(setDrinkRecipes);
-        setCategory('All');
-        break;
-      default:
-        fetchDrinkRecipesByCategory(name, setDrinkRecipes);
-        setCategory(name);
-        break;
+    case 'All':
+      fetchAllDrinkRecipes(setDrinkRecipes);
+      break;
+    case prevCategory:
+      fetchAllDrinkRecipes(setDrinkRecipes);
+      setCategory('All');
+      break;
+    default:
+      fetchDrinkRecipesByCategory(name, setDrinkRecipes);
+      setCategory(name);
+      break;
     }
   };
 

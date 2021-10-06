@@ -5,29 +5,12 @@ import styled from 'styled-components';
 import ShareButton from './ShareButton';
 import LikeButton from './LikeButton';
 
+import RecipeCard from './styles/RecipeCard';
+import FavRecipeCard from './styles/FavRecipeCard';
+import DoneRecipeCard from './styles/DoneRecipeCard';
+
 const Img = styled.img`
   max-width: 45vw;
-`;
-
-const RecipeCard = styled.div`
-  /* background-color: #ffffff; */
-  border-radius: 6px;
-  box-shadow: 1px 1px 3px 1px #ffffff67;
-  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
-  border-radius: 6px;
-  border: 1px solid #ffffff75;
-  margin-bottom: 10px;
-
-  img {
-    border-radius: 6px 6px 0px 0px;
-    width: 45vw;
-  }
-
-  h3 {
-    color: #ffffff;
-    padding: 4px 6px;
-    max-width: 45vw;
-  }
 `;
 
 function MasterCard(props) {
@@ -108,102 +91,135 @@ function MasterCard(props) {
   );
 
   const favoritedCard = () => (
-    <div className="favoritedCard">
-      <Link
-        to={ `${type}s/${id}` }
-      >
-        <Img
-          data-testid={ `${index}-horizontal-image` }
-          src={ src }
-          alt={ title }
-          className="favCardImg"
-        />
-      </Link>
+    <FavRecipeCard className="favoritedCard">
+      <div className="favCardImage">
+
+        <Link
+          to={ `${type}s/${id}` }
+        >
+          <img
+            data-testid={ `${index}-horizontal-image` }
+            src={ src }
+            alt={ title }
+            className="favCardImg"
+          />
+        </Link>
+
+      </div>
+
       <div className="favCardDetails">
-        <div className="category-share-container">
-          <span
+
+        <div className="category-title">
+
+          <h5
             className="category"
             data-testid={ `${index}-horizontal-top-text` }
           >
             { type === 'comida'
               ? `${area} - ${category}`
               : `${alcoholicOrNot}` }
-          </span>
+          </h5>
+
+          <Link
+            to={ `${type}s/${id}` }
+            className="favNameLink"
+            data-testid={ `${index}-horizontal-name` }
+          >
+            <h2 className="favName">
+              { title }
+            </h2>
+
+          </Link>
+
+        </div>
+
+        <div className="share-fav-container">
+
           { shareButton() }
           { favBtn() }
+
         </div>
-        <Link
-          to={ `${type}s/${id}` }
-          className="favNameLink"
-          data-testid={ `${index}-horizontal-name` }
-        >
-          <span className="favName">
-            { title }
-          </span>
-        </Link>
+
       </div>
-    </div>
+    </FavRecipeCard>
   );
 
   const doneRecipe = () => (
-    <div className="doneCard">
-      <Link
-        to={ `/${type}s/${id}` }
-      >
-        <Img
-          data-testid={ `${index}-horizontal-image` }
-          src={ src }
-          alt={ title }
-          className="favCardImg"
-        />
-      </Link>
+    <DoneRecipeCard className="doneCard">
+
+      <div className="favCardImage">
+
+        <Link
+          to={ `/${type}s/${id}` }
+        >
+          <img
+            data-testid={ `${index}-horizontal-image` }
+            src={ src }
+            alt={ title }
+            className="favCardImg"
+          />
+        </Link>
+
+      </div>
+
       <div className="favCardDetails">
+
         <div className="share">
-          <span
+          <h5
             className="category"
             data-testid={ `${index}-horizontal-top-text` }
           >
             { type === 'comida'
               ? `${area} - ${category}`
               : `${alcoholicOrNot}` }
-          </span>
+          </h5>
+
           { shareButton() }
+
         </div>
-        <Link
-          to={ `/${type}s/${id}` }
-          className="favNameLink"
-          data-testid={ `${index}-horizontal-name` }
-        >
-          <span className="favName">
-            { title }
-          </span>
-        </Link>
-        <span
-          className="doneDate"
-          data-testid={ `${index}-horizontal-done-date` }
-        >
-          { `Feita em: ${doneDate}` }
-        </span>
-        <div className="favTags">
-          {
-            (type === 'comida') && (tags.length > 0)
-              ? (
-                (tags.slice(0, 2)).map((tag, tagIdx) => (
-                  <span
-                    key={ tagIdx }
-                    className="favTag"
-                    data-testid={ `${index}-${tag}-horizontal-tag` }
-                  >
-                    { tag }
-                  </span>
-                ))
-              ) : (
-                <> </>
-              )
-          }
+
+        <div className="infos">
+
+          <Link
+            to={ `/${type}s/${id}` }
+            className="favNameLink"
+            data-testid={ `${index}-horizontal-name` }
+          >
+            <h2 className="favName">
+              { title }
+            </h2>
+          </Link>
+
+          <h5
+            className="doneDate"
+            data-testid={ `${index}-horizontal-done-date` }
+          >
+            { `Feita em: ${doneDate}` }
+          </h5>
+
+          <div className="favTags">
+            {
+              (type === 'comida') && (tags.length > 0)
+                ? (
+                  (tags.slice(0, 2)).map((tag, tagIdx) => (
+                    <span
+                      key={ tagIdx }
+                      className="favTag"
+                      data-testid={ `${index}-${tag}-horizontal-tag` }
+                    >
+                      { tag }
+                    </span>
+                  ))
+                ) : (
+                  <> </>
+                )
+            }
+          </div>
+
         </div>
+
       </div>
-    </div>
+    </DoneRecipeCard>
   );
 
   const renderObject = {

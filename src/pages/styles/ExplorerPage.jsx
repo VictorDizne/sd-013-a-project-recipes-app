@@ -10,7 +10,7 @@ const Main = styled.main`
   align-items: center;
 
   p {
-    margin-top: 10px;
+    margin: 15px 10px 0px 10px;
     color: #fff;
     font-size: 1.4rem;
   }
