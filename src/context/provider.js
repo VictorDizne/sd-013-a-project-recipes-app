@@ -9,7 +9,7 @@ const Provider = ({ children }) => {
   const [categoryFood, setCategoryFood] = useState([]);
   const [categoryDrink, setCategoryDrink] = useState([]);
   const [btnState, setBtnState] = useState({ category: '' });
-  const [isFiltered, setIsFiltered] = useState(false);
+  // const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect(() => {
     const categoryFoodRequest = async () => {
@@ -38,8 +38,8 @@ const Provider = ({ children }) => {
     setCategoryDrink,
     btnState,
     setBtnState,
-    isFiltered,
-    setIsFiltered,
+    // isFiltered,
+    // setIsFiltered,
   };
 
   return (

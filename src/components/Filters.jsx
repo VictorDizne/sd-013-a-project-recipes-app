@@ -6,7 +6,6 @@ import { foodAPIRequest, cocktailsAPIRequest } from '../services/APIrequest';
 
 const Filters = ({ alimento }) => {
   const { setBtnState,
-    setIsFiltered,
     btnState,
     setDataFood,
     setDataDrink } = useContext(MyContext);
@@ -25,10 +24,8 @@ const Filters = ({ alimento }) => {
       setBtnState({
         category: name,
       });
-      // setIsFiltered(true);
     } else {
       buttonAll();
-      // setIsFiltered(false);
     }
   };
 
