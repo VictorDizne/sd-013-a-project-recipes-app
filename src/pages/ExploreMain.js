@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ExploreButtons from '../components/ExploreButtons';
 
-function ExploreMeals() {
+function ExploreMain() {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ function ExploreMeals() {
   );
 }
 
-export default ExploreMeals;
+export default ExploreMain;

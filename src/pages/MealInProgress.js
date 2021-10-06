@@ -12,7 +12,7 @@ function initStorage(id) {
       'inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }),
     );
   }
-  const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const payload = getStorage('inProgressRecipes');
   const { meals } = payload;
   if (!meals[id]) {
     meals[id] = [];

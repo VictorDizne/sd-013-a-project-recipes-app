@@ -4,11 +4,14 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
+const TIME = 2000;
+
 function ShareButton({ id, type, testid }) {
   const [stateShare, setStateShare] = useState(true);
   function handleClick() {
-    copy(`http://localhost:3000/${type}/${id}`);
+    copy(`${window.location.origin}/${type}/${id}`);
     setStateShare(false);
+    setTimeout(() => setStateShare(true), TIME);
   }
   return (
     stateShare

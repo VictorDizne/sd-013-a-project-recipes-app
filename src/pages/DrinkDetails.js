@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchDetails, fetchRecipes, getStorage } from '../services';
 import Recomendations from '../components/Recomendations';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
+import { MainContext } from '../context/Provider';
 
 const MAX_RECOMENDATION = 6;
 
@@ -15,12 +16,7 @@ function checkProgress(id, recipes) {
 }
 
 function saveOnStorage(id) {
-  if (localStorage.getItem('inProgressRecipes') === null) {
-    localStorage.setItem(
-      'inProgressRecipes', JSON.stringify({ meals: {}, cocktails: {} }),
-    );
-  }
-  const payload = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const payload = getStorage('inProgressRecipes');
   const { cocktails } = payload;
   if (!cocktails[id]) {
     cocktails[id] = [];
@@ -35,6 +31,7 @@ function DrinkDetails({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [recomendations, setRecomendations] = useState([]);
   const [inProgressRecipes, setInProgressRecipes] = useState({});
+  const { isStorageReady } = useContext(MainContext);
   const location = useLocation();
   const history = useHistory();
   const initialRender = useRef(false);
@@ -93,21 +90,21 @@ function DrinkDetails({ match: { params: { id } } }) {
       <FavoriteButton id={ id } type="bebida" recipe={ recipe } />
       <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
       <div>
-        {
-          Object.entries(recipe).map(([key, value]) => {
+        { isStorageReady
+          && Object.entries(recipe).map(([key, value]) => {
             if (key.includes('strIngredient') && value) {
               const index = Number(key.split('strIngredient')[1]) - 1;
               return (
                 <label
                   htmlFor="ingredient"
                   data-testid={ `${index}-ingredient-name-and-measure` }
+                  key={ index }
                 >
                   {`${value} - ${recipe[`strMeasure${index + 1}`]}`}
                 </label>);
             }
             return null;
-          })
-        }
+          })}
       </div>
       <p data-testid="instructions">{recipe.strInstructions}</p>
       <div>

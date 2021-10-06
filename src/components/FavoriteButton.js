@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
 import { MainContext } from '../context/Provider';
+import { getStorage } from '../services';
 // Tratar recipe da pagina de favoritos.
 function FavoriteButton({ id, type, recipe, testid }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const { clickFavorite, setClickFavorite } = useContext(MainContext);
   function checkFavorite() {
-    const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const data = getStorage('favoriteRecipes');
     const checkRecipe = data.some((item) => item.id === id);
     setIsFavorite(checkRecipe);
   }
 
   function favorite() {
     setIsFavorite(true);
-    const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const data = getStorage('favoriteRecipes');
 
     let objRecipe = {};
 
@@ -49,7 +50,7 @@ function FavoriteButton({ id, type, recipe, testid }) {
 
   function noFavorite() {
     setIsFavorite(false);
-    const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const data = getStorage('favoriteRecipes');
     const newData = data.filter((item) => item.id !== id);
 
     localStorage.setItem(

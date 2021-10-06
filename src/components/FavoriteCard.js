@@ -7,7 +7,6 @@ import FavoriteButton from './FavoriteButton';
 function FavoriteCard({
   alcoholicOrNot, name, index, image, id, type, area, category, recipe }) {
   const history = useHistory();
-  // const location = useLocation();
 
   const handleClick = () => {
     history.push(`${type}s/${id}`);
