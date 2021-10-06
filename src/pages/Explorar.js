@@ -6,7 +6,7 @@ import './Styles/Explorar.css';
 
 function Explorar() {
   return (
-    <div className="explorar-container">
+    <div>
       <Header title="Explorar" hideSearch hideProfile={ false } />
       <div className="container-explorar">
         <div className="Link-container">
