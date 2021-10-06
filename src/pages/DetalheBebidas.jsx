@@ -8,7 +8,7 @@ import Heart from '../images/whiteHeartIcon.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import BlackHeart from '../images/blackHeartIcon.svg';
-/* import Details from '../components/Details'; */
+
 import {
   btnContinuar,
   btnFavoritar,
@@ -62,8 +62,12 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
     name: strDrink,
     image: strDrinkThumb,
   };
+
   const handleFavorite = () => {
     changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
+    const favBtn = (btnFavorite === 'isFavorite')
+      ? setBtnFavorite('isNotFavorite') : setBtnFavorite('isFavorite');
+    return favBtn;
   };
 
   const handleShare = () => {
@@ -121,16 +125,6 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
                   { ingredient }
                 </li>))}
           </ul>
-          {/* <ul>
-            {ingredientMeasures(drinkDetail, 'medida')
-              .map((measurement, i) => (
-                <li
-                  data-testid={ `${i}-ingredient-name-and-measure` }
-                  key={ i }
-                >
-                  { measurement }
-                </li>))}
-          </ul> */}
         </div>
       </section>
       <p data-testid="instructions">{strInstructions}</p>

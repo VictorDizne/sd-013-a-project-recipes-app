@@ -11,7 +11,7 @@ import {
   changeLocalRecipe,
   changeLocalFavorite,
   getAPIdataID,
-  changeLocalCheck,
+  changeLocalCheckDrink,
 } from '../services/funcAuxDetails';
 
 const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
@@ -56,6 +56,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
     alcoholicOrNot: strAlcoholic,
     name: strDrink,
   };
+
   const handleFavorite = () => {
     changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
     const favBtn = (btnFavorite === 'isFavorite')
@@ -79,18 +80,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
   };
 
   const changeCheckBox = ({ target: { name, checked } }) => {
-    const localGet = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (localGet && localGet.cocktails[id]) {
-      const ingredientsList = localGet.cocktails[id];
-      if (checked) {
-        localGet.cocktails[id] = [...ingredientsList, name];
-        setCheckedState([...checkedState, name]);
-      }
-      const listFilter = ingredientsList.filter((ingredient) => ingredient !== name);
-      localGet.cocktails[id] = listFilter;
-      setCheckedState(listFilter);
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(localGet));
+    setCheckedState(changeLocalCheckDrink(name, checked, id, checkedState));
   };
 
   return (drinkDetail.length === 0) ? <Loading /> : (
@@ -130,6 +120,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
               htmlFor={ ingredient }
               key={ i }
               data-testid={ `${i}-ingredient-step` }
+              className={ checkedState.includes(ingredient) ? 'line-thru' : '' }
             >
               <input
                 onChange={ changeCheckBox }
@@ -147,6 +138,7 @@ const ReceitasProcessosBebidas = ({ match: { params: { id } }, history }) => {
         className="iniciar"
         data-testid="finish-recipe-btn"
         type="button"
+        disabled={ !receitasIngMeas().every((element) => checkedState.includes(element)) }
       >
         Finalizar Receita
       </button>

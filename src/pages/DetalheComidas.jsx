@@ -65,6 +65,9 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
   };
   const handleFavorite = () => {
     changeLocalFavorite(favInfo, btnFavorite, setBtnFavorite, id);
+    const favBtn = (btnFavorite === 'isFavorite')
+      ? setBtnFavorite('isNotFavorite') : setBtnFavorite('isFavorite');
+    return favBtn;
   };
 
   const handleShare = () => {
@@ -74,7 +77,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
 
   const receitasIngMeas = () => {
     const ingredients = ingredientMeasures(foodDetail, 'ingredientes');
-    const measures = ingredientMeasures(foodDetail, 'medida');
+    const measures = ingredientMeasures(foodDetail, 'medidas');
 
     const receitas = ingredients.map((ingredient, i) => `${ingredient} - ${measures[i]}`);
     return receitas;
