@@ -5,12 +5,19 @@ import { MainContext } from '../context/Provider';
 import { getStorage } from '../services';
 
 function FavoriteRecipes() {
-  let data = getStorage('favoriteRecipes');
+  const [favorites, setFavorites] = useState(false);
   const [filter, setFilter] = useState('');
+  const [isFavoriteReady, setIsFavoriteReady] = useState(false);
   const { clickFavorite, isStorageReady } = useContext(MainContext);
 
   useEffect(() => {
-    data = getStorage('favoriteRecipes');
+    if (favorites) {
+      setIsFavoriteReady(true);
+    }
+  }, [favorites]);
+
+  useEffect(() => {
+    setFavorites(getStorage('favoriteRecipes'));
   }, [clickFavorite]);
 
   return (
@@ -37,8 +44,8 @@ function FavoriteRecipes() {
       >
         Drinks
       </button>
-      {isStorageReady
-      && data
+      {isStorageReady && isFavoriteReady
+      && favorites
         .filter((recipe) => recipe.type.includes(filter))
         .map((element, index) => (
           <FavoriteCard

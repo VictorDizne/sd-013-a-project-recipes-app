@@ -28,7 +28,7 @@ function Drinks() {
       };
       fetchData();
     }
-  }, []);
+  }, [byIngredients.bool, byIngredients.ingredient, setRecipes]);
 
   useEffect(() => {
     if (initialRender.current) {
