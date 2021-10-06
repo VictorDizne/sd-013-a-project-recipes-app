@@ -4,10 +4,13 @@ import { screen } from '@testing-library/react';
 
 // Children
 import userEvent from '@testing-library/user-event';
+import copy from 'clipboard-copy';
 import App from '../App';
 
 // Helpers
 import renderWithReduxAndRouter from '../helpers/renderWithReduxAndRouter';
+// Mock copy library
+jest.mock('clipboard-copy');
 
 // Variables;
 const RECIPE_PHOTO = 'recipe-photo';

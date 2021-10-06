@@ -4,16 +4,19 @@ import { screen } from '@testing-library/react';
 
 // Children
 import userEvent from '@testing-library/user-event';
+import copy from 'clipboard-copy';
 import Done from '../pages/Done';
-
 // Helpers
 import renderWithReduxAndRouter from '../helpers/renderWithReduxAndRouter';
 
 // Mocks
 import { doneMock, drinksQuantity, foodQuantity } from '../mocks/DoneMock';
 
+// Mock copy library
+jest.mock('clipboard-copy');
+
 // History
-// let mockHistory = {};
+let mockHistory = {};
 const PROFILE_ICON = 'profile-top-btn';
 const PAGE_TITLE = 'page-title';
 const ALL_BTN = 'filter-by-all-btn';
@@ -21,14 +24,20 @@ const FOOD_BTN = 'filter-by-food-btn';
 const DRINK_BTN = 'filter-by-drink-btn';
 const FOOD_NAME = 'comida';
 const DRINK_NAME = 'bebida';
-const DONE_RECIPES_LOCAL_STORAGE_MOCK = JSON.stringify(doneMock);
-// const FOODS = JSON.stringify(doneMockFoodOnly);
-// const DRINKS = JSON.stringify(doneMockDrinksOnly);
+const FIRST_RECIPE = doneMock[0];
+const FIRST_RECIPE_DATA_TESTID_NAME = '0-horizontal-name';
+const FIRST_RECIPE_DATA_TESTID_IMG = '0-horizontal-image';
+const DONE_RECIPES_LOCAL_STORAGE_MOCK = {
+  items: { doneRecipes: JSON.stringify(doneMock) },
+};
+const DONE_RECIPES_EMPTY_LOCAL_STORAGE = {
+  items: { doneRecipes: JSON.stringify([]) },
+};
+const SHARE_BTN = '0-horizontal-share-btn';
+
 describe('Testa as funcionalidades da Done.jsx', () => {
   beforeEach(() => {
-    renderWithReduxAndRouter(<Done />, {
-      items: { doneRecipes: DONE_RECIPES_LOCAL_STORAGE_MOCK },
-    });
+    renderWithReduxAndRouter(<Done />, DONE_RECIPES_LOCAL_STORAGE_MOCK);
     // mockHistory = history;
   });
   it('Testa se renderiza o componente Header sem o searchButton.', () => {
@@ -56,7 +65,7 @@ describe('Testa as funcionalidades da Done.jsx', () => {
 
     expect(totalItens).toBe(foodQuantity + drinksQuantity);
   });
-  it('Testa se, ao clicar em Food, filtra a lista por comidas', () => {
+  it('Testa se, ao clicar no botão Food, filtra a lista por comidas', () => {
     const foodButton = screen.getByTestId(FOOD_BTN);
 
     userEvent.click(foodButton);
@@ -69,8 +78,7 @@ describe('Testa as funcionalidades da Done.jsx', () => {
     expect(totalBebidas).toBe(0);
     expect(totalComidas).toBe(foodQuantity);
   });
-  it('Testa se, ao clicar em Drinks, filtra a lista por bebidas', () => {
-    // Tem um bug nesse teste, ele aprova o oposto do que precisamos.
+  it('Testa se, ao clicar no botão Drinks, filtra a lista por bebidas', () => {
     const drinkButton = screen.getByTestId(DRINK_BTN);
 
     userEvent.click(drinkButton);
@@ -82,5 +90,79 @@ describe('Testa as funcionalidades da Done.jsx', () => {
 
     expect(totalBebidas).toBe(drinksQuantity);
     expect(totalComidas).toBe(0);
+  });
+  it('Testa se, ao clicar no botão All, são exibidas todas as comidas e bebidas', () => {
+    const allButton = screen.getByTestId(ALL_BTN);
+
+    userEvent.click(allButton);
+
+    const comidas = screen.queryAllByTestId(FOOD_NAME);
+    const bebidas = screen.queryAllByTestId(DRINK_NAME);
+    const totalBebidas = bebidas.length;
+    const totalComidas = comidas.length;
+    expect(totalBebidas).toBe(drinksQuantity);
+    expect(totalComidas).toBe(foodQuantity);
+  });
+
+  it('Testa se ao clicar no botão de compartilhar é exibida uma mensagem'
+  + ' com o texto "Link copiado!', async () => {
+    const shareBtn = await screen.findByTestId(SHARE_BTN);
+
+    userEvent.click(shareBtn);
+
+    const shareMsg = await screen.findAllByText(/Link copiado!/i);
+
+    expect(copy).toHaveBeenCalledWith('http://localhost:3000/comidas/53060');
+    expect(shareMsg[0]).toBeInTheDocument();
+  });
+  it('Testa se renderiza uma tag <p> com o texto "Adicione novas Receitas!" '
+  + 'se doneRecipes estiver vazio. ', () => {
+    renderWithReduxAndRouter(<Done />, DONE_RECIPES_EMPTY_LOCAL_STORAGE);
+
+    const doneRecipesEmptyMSG = screen.getByText(/Adicione novas Receitas!/i);
+
+    expect(doneRecipesEmptyMSG).toBeInTheDocument();
+  });
+  // it.only('Testa  ', () => {
+  //  Dúvida como "espionar as funções que o componente executa"
+  //   const done = renderWithReduxAndRouter(<Done />, DONE_RECIPES_LOCAL_STORAGE_MOCK);
+  //   const spy = jest.spyOn(done.prototye, 'filterByType');
+  //   done.update();
+  //   expect(spy).toHaveBeenCalled();
+  // });
+});
+describe('Testa as funcionalidades da Done.jsx para as rotas de redirecionamento', () => {
+  beforeEach(() => {
+    const { history } = renderWithReduxAndRouter(<Done />,
+      DONE_RECIPES_LOCAL_STORAGE_MOCK);
+
+    mockHistory = history;
+  });
+  it('Testa se ao clicar na imagem da Receita redireciona para página de detalhe', () => {
+    const recipeName = screen.getByTestId(FIRST_RECIPE_DATA_TESTID_NAME).innerHTML;
+    const recipeIMG = screen.getByTestId(FIRST_RECIPE_DATA_TESTID_IMG);
+
+    userEvent.click(recipeIMG);
+
+    const actualPage = mockHistory.location.pathname;
+
+    expect(recipeName).toBe(FIRST_RECIPE.name);
+    expect(actualPage).toBe(`/comidas/${FIRST_RECIPE.id}`);
+
+    const recipeNameInActualPage = screen.getByText(recipeName);
+    expect(recipeNameInActualPage).toBeInTheDocument();
+  });
+  it('Testa se ao clicar no nome da Receita redireciona para página de detalhes', () => {
+    const recipeName = screen.getByTestId(FIRST_RECIPE_DATA_TESTID_NAME);
+
+    userEvent.click(recipeName);
+
+    const actualPage = mockHistory.location.pathname;
+
+    expect(recipeName.innerHTML).toBe(FIRST_RECIPE.name);
+    expect(actualPage).toBe(`/comidas/${FIRST_RECIPE.id}`);
+
+    const recipeNameInActualPage = screen.getByText(recipeName.innerHTML);
+    expect(recipeNameInActualPage).toBeInTheDocument();
   });
 });
