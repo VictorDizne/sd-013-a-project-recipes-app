@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { Button, Grid, TextField } from '@material-ui/core';
+import './css/login.css';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -19,37 +21,61 @@ const Login = (props) => {
   };
 
   return (
-    <div data-testid="login-test">
-      <form>
-        <label htmlFor="email">
-          Email:
-          <input
-            id="email"
-            type="text"
-            data-testid="email-input"
-            placeholder="email@gmail.com"
-            onChange={ (e) => setEmail(e.target.value) }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha:
-          <input
-            id="password"
-            type="text"
-            data-testid="password-input"
-            placeholder="Sua senha"
-            onChange={ (e) => setPassword(e.target.value) }
-          />
-        </label>
-        <button
-          id="button-login"
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ !validation() }
-          onClick={ onSubmit }
+    <div
+      className="background d-flex justify-content-center align-items-center"
+      data-testid="login-test"
+    >
+      <form className="rounded form">
+        <Grid
+          container
+          spacing={ 4 }
+          columns={ 4 }
+          direction="column"
+          alignItems="center"
         >
-          Login
-        </button>
+          <Grid item>
+            <h1>Login</h1>
+          </Grid>
+          <Grid item xs={ 4 }>
+            <TextField
+              data-testid="email-input"
+              id="outlined-basic"
+              label="Email"
+              variant="outlined"
+              placeholder="email@gmail.com"
+              onChange={ (e) => setEmail(e.target.value) }
+              InputLabelProps={ {
+                style: { color: '#000000' },
+              } }
+            />
+          </Grid>
+          <Grid item xs={ 4 }>
+            <TextField
+              data-testid="password-input"
+              id="outlined-basic"
+              label="Senha"
+              variant="outlined"
+              placeholder="Sua senha"
+              onChange={ (e) => setPassword(e.target.value) }
+              InputLabelProps={ {
+                style: { color: '#000000' },
+              } }
+            />
+          </Grid>
+          <Grid item xs={ 4 }>
+            <Button
+              id="button-login"
+              type="submit"
+              data-testid="login-submit-btn"
+              variant="contained"
+              disabled={ !validation() }
+              onClick={ onSubmit }
+              size="large"
+            >
+              Login
+            </Button>
+          </Grid>
+        </Grid>
       </form>
     </div>
   );

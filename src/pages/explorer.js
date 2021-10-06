@@ -5,15 +5,25 @@ import LowerMenu from '../components/LowerMenu';
 
 function Explorer() {
   return (
-    <section>
-      <Header name="Explorar" search={ false } />
-      <Link to="/explorar/comidas" data-testid="explore-food">
-        Explorar Comidas
-      </Link>
-      <Link to="/explorar/bebidas" data-testid="explore-drinks">
-        Explorar Bebidas
-      </Link>
-      <LowerMenu />
+    <section className="d-flex justify-content-center">
+      <div>
+        <Header name="Explorar" search={ false } />
+        <Link
+          className="btn btn-primary stretched-link"
+          to="/explorar/comidas"
+          data-testid="explore-food"
+        >
+          Explorar Comidas
+        </Link>
+        <Link
+          className="btn btn-primary stretched-link"
+          to="/explorar/bebidas"
+          data-testid="explore-drinks"
+        >
+          Explorar Bebidas
+        </Link>
+        <LowerMenu />
+      </div>
     </section>
   );
 }

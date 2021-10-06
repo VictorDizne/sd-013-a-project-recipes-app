@@ -28,7 +28,11 @@ function HomeDrinks() {
       { drinks
         .filter((drink, index) => index < MAX_DRINKS)
         .map((drink, indexMap) => (
-          <div key={ drink.idDrink } id="meals-label" className=".requisito32">
+          <div
+            className="shadow-lg p-3 mb-5 bg-white rounded"
+            key={ drink.idDrink }
+            id="meals-label"
+          >
             <Link
               className=".requisito32"
               to={ `/bebidas/${drink.idDrink}` }

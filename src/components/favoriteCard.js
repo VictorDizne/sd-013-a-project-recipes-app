@@ -73,30 +73,35 @@ const FavoriteCard = () => {
 
   return (
     <div>
-      <button
-        data-testid="filter-by-drink-btn"
-        type="button"
-        onClick={ () => setDrinkFilter(true) }
-      >
-        Drinks
-      </button>
-      <button
-        data-testid="filter-by-food-btn"
-        type="button"
-        onClick={ () => setMealFilter(true) }
-      >
-        Foods
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => {
-          setMealFilter(false);
-          setDrinkFilter(false);
-        } }
-      >
-        All
-      </button>
+      <div className="btn-toolbar justify-content-around">
+        <button
+          className="btn btn-success"
+          data-testid="filter-by-drink-btn"
+          type="button"
+          onClick={ () => setDrinkFilter(true) }
+        >
+          Drinks
+        </button>
+        <button
+          className="btn btn-success"
+          data-testid="filter-by-food-btn"
+          type="button"
+          onClick={ () => setMealFilter(true) }
+        >
+          Foods
+        </button>
+        <button
+          className="btn btn-success"
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => {
+            setMealFilter(false);
+            setDrinkFilter(false);
+          } }
+        >
+          All
+        </button>
+      </div>
       {recipes.map((item, i) => (
         <div key={ i }>
           <Link

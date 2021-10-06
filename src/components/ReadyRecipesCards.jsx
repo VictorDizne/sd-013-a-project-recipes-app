@@ -18,7 +18,7 @@ function ReadyRecipesCards({ doneRecipes }) {
     <div>
       {
         doneRecipes.map((doneRecipe, index) => (
-          <div key={ index }>
+          <div className="shadow-lg p-3 mb-5 bg-white rounded" key={ index }>
             <Link
               to={ (doneRecipe.type === 'comida')
                 ? `/comidas/${doneRecipe.id}`

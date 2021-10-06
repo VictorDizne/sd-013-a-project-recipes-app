@@ -1,0 +1,29 @@
+@media screen and (max-width: 360px) {
+  .profile {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttonDiv {
+  width: 200px;
+  padding: 5px;
+}
+
+.btt-profile {
+  width: 100%;
+}
+
+.email-container {
+  text-align: center;
+}
+}
+

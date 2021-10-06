@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import appContext from '../contexts/appContext';
 import { fetchByCategoryFood, fetchByName } from '../services/fetchs';
+import '../pages/css/mainRecipes.css';
 
 const SearchFoodCategories = () => {
   const { state, setState } = useContext(appContext);
@@ -24,11 +25,12 @@ const SearchFoodCategories = () => {
   };
 
   return (
-    <div>
+    <div className="btt-container">
       {foodCategories
         .filter((category, index) => index < MAX_NUMBER)
         .map((category, index) => (
           <button
+            className="category-buttons"
             key={ index }
             data-testid={ `${category.strCategory}-category-filter` }
             type="button"
@@ -40,6 +42,7 @@ const SearchFoodCategories = () => {
         ))}
       <button
         type="button"
+        className="category-buttons"
         data-testid="All-category-filter"
         onClick={ async () => setState({
           ...state, foods: await fetchByName('themealdb', ''),

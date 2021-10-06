@@ -5,6 +5,7 @@ import appContext from '../contexts/appContext';
 import Header from '../components/header';
 import LowerMenu from '../components/LowerMenu';
 import SearchFoodCategories from '../components/searchFoodCategories';
+import './css/mainRecipes.css';
 
 const HomeFood = () => {
   const { state, setState, state: { foods, key, keyExplorer } } = useContext(appContext);
@@ -29,7 +30,11 @@ const HomeFood = () => {
       { foods
         .filter((food, index) => index < MAX_FOODS)
         .map((food, indexMap) => (
-          <div key={ food.idMeal } id="meals-label" className=".requisito32">
+          <div
+            className="shadow-lg p-3 mb-5 bg-white rounded"
+            key={ food.idMeal }
+            id="meals-label"
+          >
             <Link
               className=".requisito32"
               to={ `/comidas/${food.idMeal}` }

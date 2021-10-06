@@ -1,0 +1,14 @@
+@media screen and (max-width: 360px) {
+.btt-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.category-buttons {
+  display: block;
+  background-color: #C4C4C4;
+  border: none;
+  text-decoration: none;
+  padding: 6px 10px;
+}
+}
