@@ -106,7 +106,7 @@ function ContextAPIProvider({ children }) {
   };
 
   // const { pathname } = useLocation();
-  // verificar
+  // verificarrr
   const pathnameCheck = (pathname) => {
     switch (pathname) {
     case '/comidas/':
