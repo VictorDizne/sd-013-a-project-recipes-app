@@ -1,5 +1,4 @@
 .category-container {
-<<<<<<< HEAD
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -14,7 +13,4 @@
   font-weight: 700;
   margin: 10px 5px;
   padding: 5px;
-=======
-  border-top: 1px solid red;
->>>>>>> 5c0e14af825d1d1dadc4a881ec3b921a921cdafa
 }
