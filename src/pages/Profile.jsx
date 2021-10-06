@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -14,7 +13,6 @@ function Profile() {
   //   setEmail(login.email);
   // }, []);
   const [email, setEmail] = useState();
-  const history = useHistory();
 
   useEffect(() => {
     const login = JSON.parse(localStorage.getItem('user'));
