@@ -8,6 +8,7 @@ function CopyLinkModal({ setShouldDisplayMessage }) {
       setShouldDisplayMessage(false);
     }, oneSecond);
   });
+
   return (
     <div
       style={ {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
@@ -10,10 +10,12 @@ import unfavoritedIcon from '../../images/whiteHeartIcon.svg';
 import RecipesContext from '../../context/RecipesContext';
 
 import style from './recipeDoneCard.module.scss';
+import CopyLinkModal from '../CopyLinkModal';
 
 const RecipeDoneCard = ({ recipe, index, history, shouldHaveFavorite,
   removeFavorite }) => {
   const { removeFavoriteBtn, isFavorite } = useContext(RecipesContext);
+  const [shouldDisplayMessage, setShouldDisplayMessage] = useState(false);
   const { type } = recipe;
 
   const handleFavoriteBtn = () => {
@@ -24,12 +26,13 @@ const RecipeDoneCard = ({ recipe, index, history, shouldHaveFavorite,
   const handleShareBtn = (recipeId, recipeType, recipeIndex) => {
     const isMeal = recipeType === 'comida';
     copy(`http://localhost:3000/${isMeal ? 'comidas/' : 'bebidas/'}${recipeId}`);
-
-    const h4 = document.createElement('h4');
-    h4.textContent = 'Link copiado!';
-    const father = document
-      .querySelector(`[data-testid="${recipeIndex}-horizontal-share-btn"]`);
-    father.insertAdjacentElement('afterend', h4);
+    setShouldDisplayMessage(true);
+    console.log(recipeIndex);
+    // const h4 = document.createElement('h4');
+    // h4.textContent = 'Link copiado!';
+    // const father = document
+    //   .querySelector(`[data-testid="${recipeIndex}-horizontal-share-btn"]`);
+    // father.insertAdjacentElement('afterend', h4);
   };
 
   const handleTitleImgClick = (rec) => {
@@ -87,7 +90,10 @@ const RecipeDoneCard = ({ recipe, index, history, shouldHaveFavorite,
           ))}
         </div>
       </div>
-
+      {
+        shouldDisplayMessage
+        && <CopyLinkModal setShouldDisplayMessage={ setShouldDisplayMessage } />
+      }
     </div>
   );
 };

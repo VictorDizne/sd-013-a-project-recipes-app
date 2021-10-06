@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import { Container, Button } from '@mui/material';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
-import FoodBankIcon from '@mui/icons-material/FoodBank';
-import LocalBarIcon from '@mui/icons-material/LocalBar';
-import Header from '../components/Header';
-import RecipeDoneCard from '../components/RecipeDoneCard';
+// import {
+// Container,
+// Button
+// } from '@mui/material';
+// import ClearAllIcon from '@mui/icons-material/ClearAll';
+// import FoodBankIcon from '@mui/icons-material/FoodBank';
+// import LocalBarIcon from '@mui/icons-material/LocalBar';
+import Header from '../../components/Header';
+import RecipeDoneCard from '../../components/RecipeDoneCard';
+
+import style from './receitasFavoritas.module.scss';
 
 export default function ReceitasFavoritas({ history }) {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -43,40 +48,35 @@ export default function ReceitasFavoritas({ history }) {
   };
 
   return (
-    <Container maxWidth="sm">
+    <>
       <Header pageTitle="Receitas Favoritas" history={ history } />
-      <Button
-        startIcon={ <ClearAllIcon /> }
-        data-testid="filter-by-all-btn"
-        color="primary"
-        variant="outlined"
-        sx={ { marginRight: 0.5 } }
-        onClick={ handleFilterBtn }
-        name="all"
-      >
-        All
-      </Button>
-      <Button
-        variant="outlined"
-        data-testid="filter-by-food-btn"
-        color="primary"
-        sx={ { marginRight: 0.5 } }
-        startIcon={ <FoodBankIcon /> }
-        onClick={ handleFilterBtn }
-        name="food"
-      >
-        Food
-      </Button>
-      <Button
-        variant="outlined"
-        data-testid="filter-by-drink-btn"
-        color="primary"
-        startIcon={ <LocalBarIcon /> }
-        onClick={ handleFilterBtn }
-        name="drink"
-      >
-        Drink
-      </Button>
+      <div className={ style.filters }>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ handleFilterBtn }
+          name="all"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ handleFilterBtn }
+          name="food"
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ handleFilterBtn }
+          name="drink"
+        >
+          Drink
+        </button>
+      </div>
+
       {favoriteRecipesTemp.length > 0
       && favoriteRecipesTemp.map((recipe, index) => (<RecipeDoneCard
         recipe={ recipe }
@@ -86,7 +86,7 @@ export default function ReceitasFavoritas({ history }) {
         shouldHaveFavorite
         removeFavorite={ removeFavorite }
       />))}
-    </Container>
+    </>
   );
 }
 

@@ -38,7 +38,19 @@ function RecipeInProgress({ recipe, isMeal }) {
     setAllChecked(isChecked);
   };
 
-  const goToRecipesDone = () => history.push('/receitas-feitas');
+  const goToRecipesDone = () => {
+    // const isMeal = !!recipe.strArea;
+    const formatedRecipe = formatRecipeToFavorite(recipe, isMeal);
+    const lcStorage = localStorage.getItem('doneRecipes');
+
+    if (!lcStorage) {
+      localStorage.setItem('doneRecipes', JSON.stringify([formatedRecipe]));
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([...lcStorage, formatedRecipe]));
+    }
+
+    history.push('/receitas-feitas');
+  };
 
   const handleCopy = () => {
     const routeWithoutInProgress = history.location.pathname.replace('/in-progress', '');
@@ -149,6 +161,7 @@ RecipeInProgress.propTypes = {
     strAlcoholic: PropTypes.string,
     idMeal: PropTypes.string,
     idDrink: PropTypes.string,
+    strArea: PropTypes.string,
   }).isRequired,
   isMeal: PropTypes.bool.isRequired,
 };

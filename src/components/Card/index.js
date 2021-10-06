@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
   Card as CardActionArea,
 } from '@mui/material';
 import style from './card.module.scss';
+import RecipesContext from '../../context/RecipesContext';
 
 function Card({ index, recipeImage, recipeName, link, ingredientsNumber }) {
   const history = useHistory();
+  const { setIsLoading } = useContext(RecipesContext);
   const goToRecipeDetails = () => {
+    setIsLoading(true);
     history.push(link);
   };
 

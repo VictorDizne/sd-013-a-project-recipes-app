@@ -5,9 +5,10 @@ import RecipesContext from '../../context/RecipesContext';
 import style from './startRecipeBtn.module.scss';
 
 const StartRecipeBtn = ({ history, recipe, isMeal }) => {
-  const { btnText } = useContext(RecipesContext);
+  const { btnText, setIsLoading } = useContext(RecipesContext);
 
   const handleStartRecipeBtn = () => {
+    setIsLoading(true);
     history.push(isMeal ? `/comidas/${recipe.idMeal}/in-progress`
       : `/bebidas/${recipe.idDrink}/in-progress`);
   };

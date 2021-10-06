@@ -2,12 +2,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import RecipeDetails from '../components/RecipeDetails';
 import RecipesContext from '../context/RecipesContext';
+import Loading from '../components/Loading';
 
 function DetalhesComida({ match: { params: { recipeId } }, history }) {
   const isTrue = true;
   const [meal, setMeal] = useState({});
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
-  const { setBtnText, setIsFavorite } = useContext(RecipesContext);
+  const {
+    setBtnText,
+    setIsFavorite,
+    isLoading,
+    setIsLoading,
+  } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetching = async () => {
@@ -15,10 +21,11 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
       const json = await res.json();
       // console.log(json.meals[0]);
       setMeal(json.meals[0]);
+      setIsLoading(false);
     };
 
     fetching();
-  }, [recipeId]);
+  }, [recipeId, setIsLoading]);
 
   useEffect(() => {
     const getRecipeStorage = localStorage.getItem('doneRecipes');
@@ -26,46 +33,42 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
       const recipeExists = JSON.parse(getRecipeStorage).some((r) => (
         r.idMeal === meal.idMeal));
       if (recipeExists) {
-        setStartRecipeBtn(true);
-      } else {
         setStartRecipeBtn(false);
+      } else {
+        setStartRecipeBtn(true);
       }
     }
   }, [meal.idMeal]);
 
   useEffect(() => {
     const favoriteRecipes = localStorage.getItem('favoriteRecipes');
-
     if (favoriteRecipes) {
       const favoriteRecipesExists = JSON.parse(favoriteRecipes).some((r) => (
         r.id === meal.idMeal
       ));
-
-      if (favoriteRecipesExists) {
-        setIsFavorite(true);
-      } else {
-        setIsFavorite(false);
-      }
+      setIsFavorite(favoriteRecipesExists);
     }
   }, [meal.idMeal, setIsFavorite]);
 
   useEffect(() => {
     const inProgressRecipe = localStorage.getItem('inProgressRecipes');
-
     if (inProgressRecipe) {
       const recipeExists = JSON.parse(inProgressRecipe);
-
       if (recipeExists.meals[meal.idMeal]) setBtnText('Continuar Receita');
     }
   }, [meal.idMeal, setBtnText]);
 
   return (
-    <RecipeDetails
-      history={ history }
-      showBtn={ startRecipeBtn }
-      recipe={ meal }
-      isMeal={ isTrue }
-    />
+    isLoading
+      ? <Loading />
+      : (
+        <RecipeDetails
+          history={ history }
+          showBtn={ startRecipeBtn }
+          recipe={ meal }
+          isMeal={ isTrue }
+        />
+      )
   );
 }
 
