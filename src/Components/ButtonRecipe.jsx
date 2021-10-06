@@ -23,9 +23,8 @@ const ButtonRecipe = ({ id }) => {
   console.log(data);
 
   useEffect(() => {
-    isMeal
-      ? setMealOrCockTail('meals')
-      : setMealOrCockTail('cocktails');
+    if (isMeal) return setMealOrCockTail('meals');
+    return setMealOrCockTail('cocktails');
   }, [isMeal]);
 
   const verifyDoneRecipes = () => {
