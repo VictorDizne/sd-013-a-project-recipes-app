@@ -16,6 +16,8 @@ function ToExploreFoodsPage() {
     requestRecipeRandom();
   }, []);
 
+  if (!randonRecipes) return <p>Loading...</p>;
+
   return (
     <div>
       <Header title="Explorar Comidas" />
@@ -42,7 +44,6 @@ function ToExploreFoodsPage() {
         <button
           type="button"
           data-testid="explore-surprise"
-
         >
           Me Surpreenda!
         </button>

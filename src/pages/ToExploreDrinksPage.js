@@ -15,6 +15,8 @@ function ToExploreDrinksPage() {
     requestRecipeRandom();
   }, []);
 
+  if (!randonRecipes) return <p>Loading...</p>;
+
   return (
     <div>
       <Header title="Explorar Bebidas" />

@@ -6,7 +6,6 @@ import * as myFuncStorage from '../services/storage';
 import { Header, Footer, FoodCard, ButtonsFilters } from '../components';
 
 function FoodsPage({ location: { query } }) {
-  // const { query: { ingredient } } = location;
   const { recipes, setMyPage, myPage, setRecipes } = useContext(MyContext);
   const LIMITER_FOODS = 12;
 

@@ -6,7 +6,6 @@ import * as myFuncStorage from '../services/storage';
 import { Header, Footer, FoodCard, ButtonsFilters } from '../components';
 
 function DrinksPage({ location: { query } }) {
-  const { ingredient } = query;
   const { recipes, setMyPage, myPage, setRecipes } = useContext(MyContext);
   const LIMITER_FOODS = 12;
 
@@ -19,7 +18,7 @@ function DrinksPage({ location: { query } }) {
     if (query !== undefined) {
       // console.log(location.query)
       const results = await myFuncApi
-        .fetchRecipesIngredients('thecocktaildb', ingredient.strIngredient1);
+        .fetchRecipesIngredients('thecocktaildb', query.ingredient.strIngredient1);
       setRecipes(results.drinks);
     } else {
       const results = await myFuncApi.fetchRandonRecipes(myPage);
