@@ -38,7 +38,7 @@ const TelaBebidas = ({ history }) => {
     }
   }, [btnState, setDataDrink]);
 
-  return !dataDrink ? (
+  return !dataDrink || dataDrink.length === 0 ? (
     <Loading />
   ) : (
     <>
