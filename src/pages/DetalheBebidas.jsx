@@ -164,3 +164,5 @@ DetalheBebidas.propTypes = {
 }.isRequired;
 
 export default DetalheBebidas;
+
+// teste
