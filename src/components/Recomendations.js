@@ -2,6 +2,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context';
+import '../css/Recomendations.css';
 
 const NUM_RECOMENDATIONS = 6;
 const FIRST_SLIDE = 0;
@@ -21,25 +22,52 @@ function Recomendations({ isMeal }) {
 
   const renderSlideItem = (i) => (
     <Carousel.Item key={ i }>
-      <div data-testid={ `${i}-recomendation-card` }>
-        <h3 data-testid={ `${i}-recomendation-title` }>
-          {isMeal ? drinks[i].strDrink : meals[i].strMeal}
-        </h3>
-      </div>
-      <div data-testid={ `${i + 1}-recomendation-card` }>
-        <h3 data-testid={ `${i + 1}-recomendation-title` }>
-          {isMeal ? drinks[i + 1].strDrink : meals[i + 1].strMeal}
-        </h3>
+      <div className="carouselCard d-flex justify-content-center align-items-center">
+        <div
+          data-testid={ `${i}-recomendation-card` }
+          className="mx-3 cardSlide"
+        >
+          <input
+            className="rounded"
+            width="120px"
+            src={ isMeal ? drinks[i].strDrinkThumb : meals[i].strMealThumb }
+            type="image"
+            alt="Imagem Horizontal"
+          />
+          <h3 data-testid={ `${i}-recomendation-title` } className="text-center">
+            {isMeal ? drinks[i].strDrink : meals[i].strMeal}
+          </h3>
+        </div>
+        <div
+          data-testid={ `${i + 1}-recomendation-card` }
+          className="mx-3 cardSlide"
+        >
+          <input
+            className="rounded"
+            width="120px"
+            src={ isMeal ? drinks[i + 1].strDrinkThumb : meals[i + 1].strMealThumb }
+            type="image"
+            alt="Imagem Horizontal"
+          />
+          <h3
+            data-testid={ `${i + 1}-recomendation-title` }
+            className="text-center"
+          >
+            {isMeal ? drinks[i + 1].strDrink : meals[i + 1].strMeal}
+          </h3>
+        </div>
       </div>
     </Carousel.Item>
   );
 
   return (
-    <Carousel>
-      {renderSlideItem(FIRST_SLIDE)}
-      {renderSlideItem(SECOND_SLIDE)}
-      {renderSlideItem(THIRD_SLIDE)}
-    </Carousel>
+    <div>
+      <Carousel>
+        {renderSlideItem(FIRST_SLIDE)}
+        {renderSlideItem(SECOND_SLIDE)}
+        {renderSlideItem(THIRD_SLIDE)}
+      </Carousel>
+    </div>
   );
 }
 

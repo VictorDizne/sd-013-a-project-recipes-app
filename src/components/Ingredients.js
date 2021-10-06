@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../css/Ingredients.css';
 
 function Ingredients({ recipe }) {
   const ingredients = () => {
@@ -13,16 +14,16 @@ function Ingredients({ recipe }) {
   };
 
   return (
-    <>
+    <div>
       <h4>Ingredientes</h4>
-      <ul>
+      <ul className="itensIng py-2">
         {ingredients().map((ing, idx) => (
           <li key={ ing } data-testid={ `${idx}-ingredient-name-and-measure` }>
             {ing}
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

@@ -27,23 +27,27 @@ function RecipeList({ isMeal }) {
             className="teste"
           >
             <section
-              className="card styleCard fw-bolder"
+              className="styleCard"
               key={ title }
               data-testid={ `${idx}-recipe-card` }
             >
               <img
                 src={ thumb }
                 data-testid={ `${idx}-card-img` }
-                className="img-fluid ml-4 mt-4"
+                className="img-fluid rounded"
                 alt={ title }
-                width="120px"
               />
-              <h2
-                data-testid={ `${idx}-card-name` }
-                className="ml-4 "
+              <div
+                className="titleField d-flex align-items-center
+                  justify-content-center flex-wrap"
               >
-                {title}
-              </h2>
+                <h2
+                  data-testid={ `${idx}-card-name` }
+                  className="titleCard ml-2"
+                >
+                  {title}
+                </h2>
+              </div>
             </section>
           </Link>
         );

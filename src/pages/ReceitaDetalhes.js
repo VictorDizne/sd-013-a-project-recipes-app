@@ -8,6 +8,8 @@ import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import Recomendations from '../components/Recomendations';
 import StartOrContinueBtn from '../components/StartOrContinueBtn';
+import '../css/ReceitaDetalhes.css';
+import '../css/Ingredients.css';
 
 function ReceitaDetalhes({ match }) {
   const [recipe, setRecipe] = useState({});
@@ -26,19 +28,39 @@ function ReceitaDetalhes({ match }) {
   }, [setRecipe, recipeId, isMeal]);
 
   const renderContent = () => (
-    <>
+    <div className="d-flex flex-column">
       <Img meal={ isMeal } recipe={ recipe } />
-      <h1 data-testid="recipe-title">{isMeal ? recipe.strMeal : recipe.strDrink}</h1>
-      <h2 data-testid="recipe-category">
-        {isMeal ? recipe.strCategory : recipe.strAlcoholic}
-      </h2>
-      <ShareButton url={ match.url } />
-      <FavoriteButton recipe={ recipe } isMeal={ isMeal } />
+      <div className="d-flex justify-content-between">
+        <div className="ml-2 titleDisplay">
+          <h1
+            className="pb-0 mb-0"
+            data-testid="recipe-title"
+          >
+            {isMeal ? recipe.strMeal : recipe.strDrink}
+          </h1>
+          <h5 data-testid="recipe-category">
+            {isMeal ? recipe.strCategory : recipe.strAlcoholic}
+          </h5>
+        </div>
+        <div
+          className="countainerButtons d-flex align-items-center
+            justify-content-between mr-2"
+        >
+          <ShareButton url={ match.url } />
+          <FavoriteButton recipe={ recipe } isMeal={ isMeal } />
+        </div>
+      </div>
 
       <Ingredients recipe={ recipe } />
 
       <h4>Instruções</h4>
-      <p data-testid="instructions">{recipe.strInstructions}</p>
+      <p
+        className="itensIng p-3"
+        data-testid="instructions"
+      >
+        {recipe.strInstructions}
+
+      </p>
 
       <Video meal={ isMeal } recipe={ recipe } />
 
@@ -46,7 +68,7 @@ function ReceitaDetalhes({ match }) {
       <Recomendations isMeal={ isMeal } />
 
       <StartOrContinueBtn isMeal={ isMeal } recipe={ recipe } />
-    </>
+    </div>
   );
 
   return recipe ? renderContent() : <h1>Loading...</h1>;

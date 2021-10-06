@@ -65,52 +65,58 @@ function HeaderSearch({ tela }) {
 
   return (
     <div>
-      <input
-        type="text"
-        data-testid="search-input"
-        name="input"
-        onChange={ handleChange }
-      />
-      <label htmlFor="radio-ingredient">
+      <div className="d-flex justify-content-around">
         <input
-          id="radio-ingredient"
-          data-testid="ingredient-search-radio"
-          type="radio"
-          name="search"
-          value="ingrediente"
+          type="text"
+          data-testid="search-input"
+          name="input"
           onChange={ handleChange }
         />
-        Ingrediente
-      </label>
-      <label htmlFor="radio-name">
-        <input
-          id="radio-name"
-          type="radio"
-          data-testid="name-search-radio"
-          name="search"
-          value="nome"
-          onChange={ handleChange }
-        />
-        Nome
-      </label>
-      <label htmlFor="radio-first">
-        <input
-          id="radio-first"
-          type="radio"
-          data-testid="first-letter-search-radio"
-          name="search"
-          value="primeira-letra"
-          onChange={ handleChange }
-        />
-        Primeira Letra
-      </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ () => fetchSearch(tela, radio.search, radio.input) }
-      >
-        Busca
-      </button>
+        <button
+          className="btn btn-outline-light"
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ () => fetchSearch(tela, radio.search, radio.input) }
+        >
+          Busca
+        </button>
+      </div>
+      <div className="d-flex justify-content-around mt-3">
+        <label htmlFor="radio-ingredient">
+          <input
+            id="radio-ingredient"
+            data-testid="ingredient-search-radio"
+            type="radio"
+            name="search"
+            value="ingrediente"
+            onChange={ handleChange }
+          />
+          Ingrediente
+        </label>
+
+        <label htmlFor="radio-name">
+          <input
+            id="radio-name"
+            type="radio"
+            data-testid="name-search-radio"
+            name="search"
+            value="nome"
+            onChange={ handleChange }
+          />
+          Nome
+        </label>
+        <label htmlFor="radio-first">
+          <input
+            id="radio-first"
+            type="radio"
+            data-testid="first-letter-search-radio"
+            name="search"
+            value="primeira-letra"
+            onChange={ handleChange }
+          />
+          Primeira Letra
+        </label>
+      </div>
     </div>
   );
 }

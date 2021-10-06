@@ -15,29 +15,33 @@ function Header({ tela, showSearch = true }) {
 
   return (
     <div
-      className="colorHeader d-flex justify-content-between p-2 align-items-center"
+      className="colorHeader p-2"
     >
-      <Link to="/perfil">
-        <input
-          type="image"
-          data-testid="profile-top-btn"
-          src={ profileImage }
-          alt="Ícone Profile"
-        />
-      </Link>
-      <h2 data-testid="page-title">{ tela }</h2>
-      {
-        showSearch && (
+      <div className="d-flex justify-content-between align-items-center">
+        <Link to="/perfil">
           <input
             type="image"
-            data-testid="search-top-btn"
-            onClick={ handleChange }
-            src={ searchImage }
-            alt="Ícone Busca"
+            data-testid="profile-top-btn"
+            src={ profileImage }
+            alt="Ícone Profile"
           />
-        )
-      }
-      { inputSearch && <HeaderSearch tela={ tela } /> }
+        </Link>
+        <h2 data-testid="page-title">{ tela }</h2>
+        {
+          showSearch && (
+            <input
+              type="image"
+              data-testid="search-top-btn"
+              onClick={ handleChange }
+              src={ searchImage }
+              alt="Ícone Busca"
+            />
+          )
+        }
+      </div>
+      <div>
+        { inputSearch && <HeaderSearch tela={ tela } /> }
+      </div>
     </div>
   );
 }

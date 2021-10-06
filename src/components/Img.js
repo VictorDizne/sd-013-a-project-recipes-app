@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../css/Img.css';
 
 function Img({ meal, recipe }) {
   return (
     <img
       src={ meal ? recipe.strMealThumb : recipe.strDrinkThumb }
       alt={ meal ? recipe.strMeal : recipe.strDrink }
-      className="img-fluid"
+      className="imgDetails img-fluid"
       data-testid="recipe-photo"
     />
   );

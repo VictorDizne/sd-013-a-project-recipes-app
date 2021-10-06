@@ -16,6 +16,7 @@ function ShareButton({ url, testID }) {
   return (
     <div>
       <input
+        className="mt-2"
         type="image"
         src={ shareIcon }
         alt="Ícone de compartilhar"
