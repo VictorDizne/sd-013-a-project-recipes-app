@@ -126,9 +126,10 @@ function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
     return (
       <div>
         <h4>Ingredientes</h4>
-        <ul>
+        <ul className="itensIng p-3">
           {ingredients().map((ingredient, index) => (
             <div
+              className="ml-3"
               key={ ingredient }
             >
               <label
@@ -137,7 +138,7 @@ function IngredientsList({ recipe, disableButton, isMeal, recipeId }) {
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
-                  className="checkboxes"
+                  className="form-check-input"
                   value={ ingredient }
                   id={ index }
                   type="checkbox"

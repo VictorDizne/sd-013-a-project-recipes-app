@@ -36,7 +36,7 @@ function StartOrContinueBtn({ isMeal, recipe }) {
   return (
     <Link
       to={ `${isMeal ? '/comidas/' : '/bebidas/'}${recipeId}/in-progress` }
-      className=""
+      className="btn btn-danger"
       data-testid="start-recipe-btn"
       hidden={ isDone() }
     >

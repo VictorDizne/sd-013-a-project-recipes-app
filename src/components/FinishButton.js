@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../css/FinishButton.css';
 
 function FinishButton({ disabledButton, isMeal, recipe, recipeId }) {
   // Funcao para adicionar o localStorage doneRecipes
@@ -28,10 +29,11 @@ function FinishButton({ disabledButton, isMeal, recipe, recipeId }) {
   return (
     <Link
       to="/receitas-feitas"
+      className="btn btn-danger d-flex"
     >
       <button
         type="button"
-        className="btn btn-primary"
+        className="removeStyle btn-danger text-center mx-auto"
         data-testid="finish-recipe-btn"
         onClick={ handleOnClick }
         disabled={ disabledButton }

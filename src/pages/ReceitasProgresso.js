@@ -8,6 +8,7 @@ import IngredientsList from '../components/IngredientsList';
 import Context from '../context';
 import FinishButton from '../components/FinishButton';
 import Recomendations from '../components/Recomendations';
+import '../css/Ingredients.css';
 
 // ARRUMAR BUG NO LOCALSTORAGE E NO CHECKBOX
 function ReceitasProgresso({ match }) {
@@ -15,7 +16,6 @@ function ReceitasProgresso({ match }) {
   const [disabledButton, setDisabledButton] = useState(true);
   const { compareCheckBox, ingredientsLength } = useContext(Context);
   const url = match.url.split('/in')[0];
-  console.log(match.url);
 
   const { recipeId } = match.params;
 
@@ -40,20 +40,35 @@ function ReceitasProgresso({ match }) {
   };
 
   const renderContent = () => (
-    <>
+    <div className="d-flex flex-column">
       <Img meal={ isMeal } recipe={ recipe } />
-      <h1 data-testid="recipe-title">{isMeal ? recipe.strMeal : recipe.strDrink}</h1>
-      <h2 data-testid="recipe-category">
-        {isMeal ? recipe.strCategory : recipe.strAlcoholic}
-      </h2>
-      <ShareButton
-        url={ url }
-      />
-      <FavoriteButton
-        recipe={ recipe }
-        isMeal={ isMeal }
-      />
-
+      <div className="d-flex justify-content-between">
+        <div className="ml-2 titleDisplay">
+          <h1
+            className="pb-0 mb-0"
+            data-testid="recipe-title"
+          >
+            {isMeal ? recipe.strMeal : recipe.strDrink}
+          </h1>
+          <h5
+            data-testid="recipe-category"
+          >
+            {isMeal ? recipe.strCategory : recipe.strAlcoholic}
+          </h5>
+        </div>
+        <div
+          className="countainerButtons d-flex align-items-center
+            justify-content-between mr-2"
+        >
+          <ShareButton
+            url={ url }
+          />
+          <FavoriteButton
+            recipe={ recipe }
+            isMeal={ isMeal }
+          />
+        </div>
+      </div>
       <IngredientsList
         recipe={ recipe }
         isMeal={ isMeal }
@@ -62,7 +77,12 @@ function ReceitasProgresso({ match }) {
       />
 
       <h4>Instruções</h4>
-      <p data-testid="instructions">{recipe.strInstructions}</p>
+      <p
+        data-testid="instructions"
+        className="itensIng p-3"
+      >
+        {recipe.strInstructions}
+      </p>
 
       <h4>Recomendações</h4>
       <Recomendations isMeal={ isMeal } />
@@ -74,7 +94,7 @@ function ReceitasProgresso({ match }) {
         recipe={ recipe }
       />
 
-    </>
+    </div>
   );
 
   return recipe ? renderContent() : <h1>Loading...</h1>;
