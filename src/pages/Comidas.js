@@ -29,7 +29,7 @@ function Comidas() {
   }, []);
 
   return (
-    <div>
+    <div className="meals-container">
       <Header title="Comidas" hideSearch={ false } hideProfile={ false } />
       {showInput && <SearchInput />}
       {loading ? <> </> : <ComponentCategory />}

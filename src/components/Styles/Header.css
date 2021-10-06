@@ -1,6 +1,13 @@
 .header {
   align-items: center;
-  background-color: #FFFCF3;
+  background-color: #f76239;
   display: flex;
+  font-family: Acme , sans-serif;
   justify-content: space-around;
+  padding: 10px;
+}
+
+.btn-search {
+  background-color: inherit;
+  border: none;
 }

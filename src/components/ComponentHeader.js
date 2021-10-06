@@ -15,6 +15,7 @@ function Header({ title, hideProfile, hideSearch }) {
     <button
       type="button"
       onClick={ handleShowInput }
+      className="btn-search"
     >
       <img alt="search" data-testid="search-top-btn" src={ searchIcon } />
     </button>);

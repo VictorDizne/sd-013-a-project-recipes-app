@@ -8,15 +8,17 @@ function ComponentCard({ recipeIndex, recipeItem }) {
 
   const renderCard = (title, thumb, id) => (
     <button className="button-card" type="button" onClick={ () => setCurrentID(id) }>
-      <div data-testid={ `${recipeIndex}-recipe-card` }>
-        <p data-testid={ `${recipeIndex}-card-name` }>{title}</p>
+      <div className="card-img-contain" data-testid={ `${recipeIndex}-recipe-card` }>
         <img
           data-testid={ `${recipeIndex}-card-img` }
           src={ thumb }
           alt={ title }
-          width="100px"
           loading="lazy"
+          width="130px"
         />
+        <div className="recipe-title">
+          <p data-testid={ `${recipeIndex}-card-name` }>{title}</p>
+        </div>
       </div>
     </button>
   );
