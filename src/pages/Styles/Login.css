@@ -9,14 +9,19 @@
   background-color: #242423;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: center;
-  width: 100vw;
+  height: 100vh;
+  position: relative;
+  bottom: 0;
 }
 
 .Login-container {
+  background-image: url('../../images/mesa.svg');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 250px;
   align-items: center;
-  background-color: #fbaf00;
+  background-color: #fbfbfe;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -30,10 +35,9 @@
 }
 
 .Login-title {
+  margin-right: 20px;
   font-family: Lobster , cursive;
-  position: absolute;
   top: 20px;
-
 }
 
 .Login-form {
@@ -41,7 +45,8 @@
 }
 
 .Login-input {
-  border: 2px solid gray;
+  border: 1px solid gray;
+  border-radius: 5px;
   height: 30px;
   margin: 10px;
   outline: none;
@@ -50,7 +55,7 @@
 }
 
 .Login-input-button {
-  background-color: #ffa3af;
+  background-color: #feb803;
   border: 2px solid white;
   border-radius: 5px;
   color: #242423;

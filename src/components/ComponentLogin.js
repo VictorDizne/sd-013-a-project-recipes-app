@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDebugState } from 'use-named-state';
 import view from '../images/view.png';
+import foodfinder from '../images/foodfinder.svg';
 
 function ComponentLogin() {
   const history = useHistory();
@@ -40,7 +41,7 @@ function ComponentLogin() {
   return (
     <div className="Login-container">
       <div className="Login-title">
-        <h1>Foodz</h1>
+        <img src={ foodfinder } alt="" width="180px" />
       </div>
       <div className="Login-form">
         <div className="Login-div">

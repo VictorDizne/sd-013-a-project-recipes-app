@@ -30,7 +30,7 @@ function ComponentCategory() {
   useEffect(dynamicFetch, [buttonFilter]);
 
   return (
-    <div>
+    <div className="category-container">
       {!loading && controledList.map((item, index) => (
         <button
           key={ index }
