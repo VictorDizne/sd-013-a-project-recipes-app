@@ -24,3 +24,9 @@
   margin-left: 58px;
   margin-top: 55px;
 }
+
+.geral {
+  background-image: url('../../images/mesa.svg');
+  height: 100vh;
+}
+

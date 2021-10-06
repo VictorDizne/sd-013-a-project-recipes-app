@@ -19,7 +19,7 @@ function ExplorarComidas() {
   }, []);
 
   return (
-    <div>
+    <div className="geral">
       <Header title="Explorar Comidas " hideSearch hideProfile={ false } />
       <div className="explorar">
         <div className="container">
