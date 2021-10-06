@@ -22,14 +22,14 @@ function ComponentDoneCard({ currentData, dataIndex }) {
   };
 
   return (
-    <div>
-      <hr />
-      <button type="button" onClick={ handleClick }>
+    <div className="doneRecipes-container">
+      <button className="doneRecipes-card" type="button" onClick={ handleClick }>
         <img
           src={ currentData.image }
           alt=""
           data-testid={ `${dataIndex}-horizontal-image` }
           width="100px"
+          className="doneRecipes-image"
         />
         <p data-testid={ `${dataIndex}-horizontal-top-text` }>
           {currentData.area}
@@ -48,7 +48,9 @@ function ComponentDoneCard({ currentData, dataIndex }) {
           </p>
         ))}
       </button>
+      <hr />
       <button
+        className="doneRecipes-btn-share"
         type="button"
         onClick={ () => handleShareDone(setShareIcon, share, copy, params) }
       >

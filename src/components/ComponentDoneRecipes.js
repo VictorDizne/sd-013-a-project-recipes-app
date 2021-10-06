@@ -23,12 +23,13 @@ function ComponentDoneRecipes() {
   if (array === null) return <h1>Nenhuma Receita Encontrada</h1>;
   return (
     <div>
-      <div>
+      <div className="doneRecipes-container-filters">
         <button
           type="button"
           onClick={ handleClick }
           data-testid="filter-by-all-btn"
           value="All"
+          className="doneRecipes-btn-filter"
         >
           All
         </button>
@@ -37,6 +38,7 @@ function ComponentDoneRecipes() {
           onClick={ handleClick }
           data-testid="filter-by-food-btn"
           value="comida"
+          className="doneRecipes-btn-filter"
         >
           Foods
         </button>
@@ -45,11 +47,12 @@ function ComponentDoneRecipes() {
           onClick={ handleClick }
           data-testid="filter-by-drink-btn"
           value="bebida"
+          className="doneRecipes-btn-filter"
         >
           Drinks
         </button>
       </div>
-      <div>
+      <div className="doneRecipes-card-list">
         {array.map((item, index) => (
           <ComponentDoneCard key={ index } currentData={ item } dataIndex={ index } />
         ))}
