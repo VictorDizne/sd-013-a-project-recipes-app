@@ -19,20 +19,19 @@
 }
 
 .button-login {
+  background-color: rgb(216, 213, 219);
   border: 0;
   border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: white;
-  height: 40px;
-  background-color: rgb(216, 213, 219);
-  width: 90%;
-  font-weight: 400;
   cursor: pointer;
+  font-weight: 400;
+  height: 40px;
   margin-top: 20px;
+  width: 90%;
 }
 
 .button-login:disabled {
-  background-color: rgba(64, 131, 255, 0.6);
+  background-color: rgba(210, 64, 255, 0.6);
   cursor: not-allowed;
 }
 
