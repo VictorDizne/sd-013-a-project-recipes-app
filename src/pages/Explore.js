@@ -12,7 +12,7 @@ const Explore = () => {
     <div>
       <Header title="Explorar" />
 
-      <div className="container select-buttons">
+      <div className="container select-buttons buttons-alignment">
         <button
           type="button"
           data-testid="explore-food"

@@ -25,3 +25,10 @@
   border: 1px solid rgb(9, 134, 156);
   color: rgb(9, 134, 156);
 }
+
+.buttons-alignment {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
