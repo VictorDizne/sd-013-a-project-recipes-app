@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import '../css/FinishButton.css';
+import { divide } from 'lodash-es';
 
 function FinishButton({ disabledButton, isMeal, recipe, recipeId }) {
   // Funcao para adicionar o localStorage doneRecipes
@@ -27,20 +28,22 @@ function FinishButton({ disabledButton, isMeal, recipe, recipeId }) {
   };
 
   return (
-    <Link
-      to="/receitas-feitas"
-      className="btn btn-danger d-flex"
-    >
-      <button
-        type="button"
-        className="removeStyle btn-danger text-center mx-auto"
-        data-testid="finish-recipe-btn"
-        onClick={ handleOnClick }
-        disabled={ disabledButton }
+    <div className="d-flex btn-test">
+      <Link
+        to="/receitas-feitas"
+        className="btn btn-danger"
       >
-        Finalizar Receita
-      </button>
-    </Link>
+        <button
+          type="button"
+          className="removeStyle btn-danger text-center mx-auto"
+          data-testid="finish-recipe-btn"
+          onClick={ handleOnClick }
+          disabled={ disabledButton }
+        >
+          Finalizar Receita
+        </button>
+      </Link>
+    </div>
   );
 }
 
