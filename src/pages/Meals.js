@@ -28,9 +28,11 @@ function Meals() {
       };
       fetchData();
     }
-  }, []);
+  }, [byIngredients.bool, byIngredients.ingredient, setRecipes]);
 
   useEffect(() => {
+    console.log('atuliaza');
+
     if (initialRender.current) {
       setIsReady(true);
     } else {
