@@ -5,13 +5,16 @@ import { useHistory } from 'react-router';
 import Context from '../Context/Context';
 import { handleAPIDrinks } from '../service/GetAPIDrinks';
 import { handleAPIFoods } from '../service/GetAPIFoods';
+import useFetchAPI from '../Hocks/useFetchAPI';
+import useFetchCategorys from '../Hocks/useFetchCategorys';
 
 const Provider = ({ children }) => {
+  const [data, setData] = useFetchAPI();
+  const [category, setCategory] = useFetchCategorys([]);
+
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
   const [inputText, setInputText] = useState('');
   const [inputRadio, setInputRadio] = useState('');
-
   const path = useLocation().pathname.replace('/', '');
 
   const history = useHistory();
@@ -36,7 +39,6 @@ const Provider = ({ children }) => {
 
   function clickLoading() {
     setLoading(!loading);
-    console.log(!loading);
   }
 
   const handleInputText = ({ target }) => {
@@ -48,7 +50,6 @@ const Provider = ({ children }) => {
   };
 
   const handleClickFetch = async () => {
-    console.log(data);
     if (inputRadio === 'primeira letra' && inputText.length >= 2) {
       return global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
@@ -75,24 +76,24 @@ const Provider = ({ children }) => {
       history.push(`/bebidas/${data[0].idDrink}`);
     }
     if (path === 'comidas' && data.length === 1) {
-      history.push(`comidas/${data[0].idMeal}`);
+      history.push(`comidas/${data[0].idMeal}` && !data[0].idMeal.includes('goat'));
     }
   };
 
-  // Aqui no objeto context vc passsa o que quer acessar em outra pagina,
-  // no meu caso eu "loading, setLoading e clickLoading" e setData como test mas podendo ser uma função ou outra coisa
-  //  que julgue necessario.
   const context = {
     clickLoading,
     handleInputText,
     handleInputRadio,
+    handleClickFetch,
+    changePage,
     path,
     pathRotesVerify,
     pathLong,
     shortPath,
-    handleClickFetch,
     data,
-    changePage,
+    setData,
+    category,
+    setCategory,
   };
 
   return (
