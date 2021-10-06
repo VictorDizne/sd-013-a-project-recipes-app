@@ -75,8 +75,8 @@ const Provider = ({ children }) => {
     if (path === 'bebidas' && data.length === 1) {
       history.push(`/bebidas/${data[0].idDrink}`);
     }
-    if (path === 'comidas' && data.length === 1) {
-      history.push(`comidas/${data[0].idMeal}` && !data[0].idMeal.includes('goat'));
+    if (path === 'comidas' && data.length === 1 && !data[0].strMeal.includes('Goat')) {
+      history.push(`comidas/${data[0].idMeal}`);
     }
   };
 
