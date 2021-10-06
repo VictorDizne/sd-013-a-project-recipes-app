@@ -14,3 +14,11 @@
   background-color: rgb(159, 229, 248);
   display: flex;
 } */
+
+.header {
+  align-items: flex-start;
+  background-color: #c4c4c4;
+  display: flex;
+  justify-content: space-between;
+
+}

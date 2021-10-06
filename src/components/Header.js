@@ -41,33 +41,35 @@ function Header() {
   }, [changePage, data, history, path]);
 
   return (
-    <div className="header">
-      <Link to="/perfil">
-        <img
-          className="elementsFooter"
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="Profile"
-        />
-      </Link>
-      <h1 className="elementsFooter" data-testid="page-title">{formataNome()}</h1>
-      { pathRotesVerify
-        ? null
-        : (
-          <button className="elementsFooter" type="button" onClick={ clickDisable }>
-            <img data-testid="search-top-btn" src={ searchIcon } alt="Search" />
-          </button>
-        )}
-      {
-        !showInput
-          ? (
-            <input
-              data-testid="search-input"
-              disabled={ showInput }
-              onChange={ handleInputText }
-            />
-          ) : null
-      }
+    <main>
+      <div className="header">
+        <Link to="/perfil">
+          <img
+            className="elementsFooter"
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Profile"
+          />
+        </Link>
+        <h1 className="elementsFooter" data-testid="page-title">{formataNome()}</h1>
+        {pathRotesVerify
+          ? null
+          : (
+            <button className="elementsFooter" type="button" onClick={ clickDisable }>
+              <img data-testid="search-top-btn" src={ searchIcon } alt="Search" />
+            </button>
+          )}
+        {
+          !showInput
+            ? (
+              <input
+                data-testid="search-input"
+                disabled={ showInput }
+                onChange={ handleInputText }
+              />
+            ) : null
+        }
+      </div>
       <div>
         <input
           type="radio"
@@ -118,7 +120,7 @@ function Header() {
               <h1 data-testid={ `${i}-card-name` }>{ strDrink || strMeal }</h1>
             </div>))
       }
-    </div>
+    </main>
   );
 }
 export default Header;
