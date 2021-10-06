@@ -18,7 +18,8 @@ const ExploreDrinks = () => {
   return (
     <div>
       <Header title="Explorar Bebidas" />
-      <div className="container select-buttons">
+
+      <div className="container select-buttons buttons-alignment">
         <button
           type="button"
           data-testid="explore-by-ingredient"

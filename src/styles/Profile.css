@@ -1,3 +1,13 @@
+.container-profile {
+  text-align: center;
+}
+
 .container {
   padding: 100px 20px 20px;
+}
+
+.text-email p {
+  color: white;
+  font-family: monospace;
+  font-size: 20px;
 }

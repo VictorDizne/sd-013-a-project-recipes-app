@@ -32,11 +32,12 @@ function Profile() {
   return (
     <div>
       <Header title="Perfil" />
-      <div>
-        <p data-testid="profile-email">{ email }</p>
-      </div>
-      <div className="container">
-        <div className="select-buttons">
+
+      <div className="container container-profile">
+        <div className="text-email">
+          <p data-testid="profile-email">{ email }</p>
+        </div>
+        <div className="select-buttons buttons-alignment">
           <button
             type="button"
             data-testid="profile-done-btn"
@@ -63,6 +64,7 @@ function Profile() {
           </button>
         </div>
       </div>
+
       <Footer />
     </div>
   );
