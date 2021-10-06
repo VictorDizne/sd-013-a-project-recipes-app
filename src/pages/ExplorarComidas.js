@@ -3,6 +3,7 @@ import { useDebugState } from 'use-named-state';
 import { Link } from 'react-router-dom';
 import Header from '../components/ComponentHeader';
 import ComponentFooter from '../components/ComponentFooter';
+import './Styles/ExplorarComidas.css';
 
 function ExplorarComidas() {
   const [comidaID, setComidaID] = useDebugState('comidaID', 0);
@@ -20,24 +21,35 @@ function ExplorarComidas() {
   return (
     <div>
       <Header title="Explorar Comidas " hideSearch hideProfile={ false } />
-      <Link
-        data-testid="explore-by-ingredient"
-        to="/explorar/comidas/ingredientes"
-      >
-        Por Ingredientes
-      </Link>
-      <Link
-        data-testid="explore-by-area"
-        to="/explorar/comidas/area"
-      >
-        Por Local de Origem
-      </Link>
-      <Link
-        data-testid="explore-surprise"
-        to={ `/comidas/${comidaID}` }
-      >
-        Me Surpreenda!
-      </Link>
+      <div className="explorar">
+        <div className="container">
+          <Link
+            className="link"
+            data-testid="explore-by-ingredient"
+            to="/explorar/comidas/ingredientes"
+          >
+            Por Ingredientes
+          </Link>
+        </div>
+        <div className="container">
+          <Link
+            className="link"
+            data-testid="explore-by-area"
+            to="/explorar/comidas/area"
+          >
+            Por Local de Origem
+          </Link>
+        </div>
+        <div className="container">
+          <Link
+            className="link"
+            data-testid="explore-surprise"
+            to={ `/comidas/${comidaID}` }
+          >
+            Me Surpreenda!
+          </Link>
+        </div>
+      </div>
       <ComponentFooter />
     </div>
   );
