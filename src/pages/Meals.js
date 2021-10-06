@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { MainContext } from '../context/Provider';
@@ -9,8 +9,6 @@ const MAX_INDEX = 12;
 
 function Meals() {
   const { recipes, setRecipes, byIngredients } = useContext(MainContext);
-  const [isReady, setIsReady] = useState(false);
-  const initialRender = useRef(false);
 
   useEffect(() => {
     if (!byIngredients.bool) {
@@ -30,20 +28,10 @@ function Meals() {
     }
   }, [byIngredients.bool, byIngredients.ingredient, setRecipes]);
 
-  useEffect(() => {
-    console.log('atuliaza');
-
-    if (initialRender.current) {
-      setIsReady(true);
-    } else {
-      initialRender.current = true;
-    }
-  }, [recipes]);
-
   return (
     <>
       <Header />
-      {isReady && recipes.slice(0, MAX_INDEX).map((recipe, index) => (
+      {recipes.length > 0 && recipes.slice(0, MAX_INDEX).map((recipe, index) => (
         <ReciperCard
           key={ recipe.idMeal }
           idRecipe={ recipe.idMeal }

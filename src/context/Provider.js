@@ -19,7 +19,7 @@ export function Provider({ children }) {
 
   const [toggle, setToggle] = useState('');
 
-  const [byIngredients, setByIngredients] = useState({ bool: false, ingrdient: '' });
+  const [byIngredients, setByIngredients] = useState({ bool: false, ingredient: '' });
 
   const [isStorageReady, setIsStorageReady] = useState(false);
 
