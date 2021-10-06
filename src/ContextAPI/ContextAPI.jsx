@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
@@ -105,18 +104,30 @@ function ContextAPIProvider({ children }) {
       setSearchData(json.drinks);
     }
   };
-  const { pathname } = useLocation();
 
-  const pathnameCheck = () => {
+  // const { pathname } = useLocation();
+  // verificar
+  const pathnameCheck = (pathname) => {
     switch (pathname) {
-    case '/comidas':
+    case '/comidas/':
       return 'themealdb';
-    case '/bebidas':
+    case '/bebidas/':
       return 'thecocktaildb';
     default:
       return null;
     }
   };
+
+  // const pathnameReverse = () => {
+  //   switch (pathname) {
+  //   case '/comidas':
+  //     return 'thecocktaildb';
+  //   case '/bebidas':
+  //     return 'themealdb';
+  //   default:
+  //     return null;
+  //   }
+  // };
 
   const value = {
     fetchIngredient,
@@ -125,6 +136,7 @@ function ContextAPIProvider({ children }) {
     fetchCategories,
     fetchAPI,
     pathnameCheck,
+    // pathnameReverse,
     searchData,
     setSearchData,
     loading,
