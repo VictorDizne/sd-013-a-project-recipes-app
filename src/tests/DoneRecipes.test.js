@@ -123,13 +123,6 @@ describe('Testa as funcionalidades da Done.jsx', () => {
 
     expect(doneRecipesEmptyMSG).toBeInTheDocument();
   });
-  it.only('Testa  ', () => {
-    // Dúvida como "espionar as funções que o componente executa"
-    const done = renderWithReduxAndRouter(<Done />, DONE_RECIPES_LOCAL_STORAGE_MOCK);
-    console.log(done);
-    const spy = jest.spyOn(done.prototye, 'filterByType');
-    expect(spy).toHaveBeenCalled();
-  });
 });
 describe('Testa as funcionalidades da Done.jsx para as rotas de redirecionamento', () => {
   beforeEach(() => {
