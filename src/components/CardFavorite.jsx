@@ -12,6 +12,14 @@ const CardFavorite = () => {
     }
   }, []);
 
+  const removeFromStorage = ({ target: { name } }) => {
+    const localStore = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const localStoreRemoved = localStore.filter(({ id }) => id !== name);
+    setFavs(localStoreRemoved);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(localStoreRemoved));
+    console.log('remove fav');
+  };
+
   return (
     <div>
       {favs.map((fav, index) => (
@@ -41,10 +49,13 @@ const CardFavorite = () => {
           <button
             className="fav"
             type="button"
+            onClick={ removeFromStorage }
+            name={ fav.id }
           >
             <img
               data-testid={ `${index}-horizontal-favorite-btn` }
               src={ BlackHeart }
+              name={ fav.id }
               alt="btn Fav"
             />
           </button>
