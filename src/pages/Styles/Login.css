@@ -95,5 +95,5 @@
 .Login-div input:focus ~ span, .Login-div input:valid ~ span {
   font-size: 10px;
   opacity: 1;
-  transform: translateY(-10px);
+  transform: translateY(-5px);
 }
