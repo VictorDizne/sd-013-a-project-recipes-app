@@ -15,6 +15,7 @@ function Header({ title, hideProfile, hideSearch }) {
     <button
       type="button"
       onClick={ handleShowInput }
+      className="btn-search"
     >
       <img alt="search" data-testid="search-top-btn" src={ searchIcon } />
     </button>);
@@ -27,8 +28,10 @@ function Header({ title, hideProfile, hideSearch }) {
   return (
     <header className="header">
       {!hideProfile && profileComponent}
-      <h1 data-testid="page-title">{ title }</h1>
-      {!hideSearch && searchComponent}
+      <h1 data-testid="page-title">{title}</h1>
+      <div>
+        {!hideSearch && searchComponent}
+      </div>
     </header>
   );
 }

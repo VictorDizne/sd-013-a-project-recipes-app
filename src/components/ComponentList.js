@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import recipeContext from '../context';
 import ComponentCard from './ComponentCard';
+import './Styles/ListIngredients.css';
 
 function ComponentList() {
   const currentContext = useContext(recipeContext).ContextCard;
