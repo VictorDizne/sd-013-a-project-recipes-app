@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Context from '../Context/Context';
-import { handleAPIDrinks } from '../service/GetAPIDrinks';
-import { handleAPIFoods } from '../service/GetAPIFoods';
+import { handleAPIDrinks } from '../services/GetAPIDrinks';
+import { handleAPIFoods } from '../services/GetAPIFoods';
 import useFetchAPI from '../Hocks/useFetchAPI';
 import useFetchCategorys from '../Hocks/useFetchCategorys';
 

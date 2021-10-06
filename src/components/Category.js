@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import Context from '../Context/Context';
-import { handleCategorySelect } from '../service/GetAPICategory';
+import { handleCategorySelect } from '../services/GetAPICategory';
 
 const maxCategory = 4;
 
