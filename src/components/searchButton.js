@@ -7,7 +7,7 @@ export default function SearchButton() {
 
   return (
     <>
-      <div>
+      <div className="d-flex align-content-start flex-wrap">
         <button
           type="button"
           className="btn-search"

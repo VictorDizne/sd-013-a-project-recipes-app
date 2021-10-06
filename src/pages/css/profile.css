@@ -1,0 +1,16 @@
+@media screen and (max-width: 360px) {
+body {
+  
+}
+
+button {
+  background-color:#C4C4C4;
+}
+
+.buttons {
+  display: flexbox;
+  align-items: center;
+  height: 100px;
+  width: 50px;
+}
+}

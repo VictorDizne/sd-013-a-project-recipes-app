@@ -61,33 +61,3 @@ describe(`14 - Posicione a barra logo abaixo do
     await waitForElement(() => screen.findByText('Chick-Fil-A Sandwich'));
   });
 });
-
-describe(`15 - Busque na API de comidas caso a pessoa
-  esteja na página de comidas e na de bebidas caso esteja na de bebidas`, () => {
-  it(`Se o radio selecionado for Ingrediente, a
-    busca na API é feita corretamente pelo ingrediente`, async () => {
-    const resultByIngredient = {
-      meals: [
-        {
-          strDrink: '3-Mile Long Island Iced Tea',
-          strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/rrtssw1472668972.jpg',
-          idDrink: '15300',
-        },
-      ],
-    };
-    renderWithRouter(<SearchButton />);
-    const operSearchBar = screen.getByTestId(startToSearchBtt);
-    userEvent.click(operSearchBar);
-    const searchInput = screen.getByTestId('search-input');
-    const ingredientRadio = screen.getByTestId(radioIngredient);
-    const searchBtt = screen.getByTestId(searchButton);
-    userEvent.type(searchInput, 'Gin');
-    userEvent.click(ingredientRadio);
-    userEvent.click(searchBtt);
-
-    const response = { json: jest.fn().mockResolvedValue(resultByIngredient) };
-    global.fetch = jest.fn().mockResolvedValue(response);
-
-    await waitForElement(() => screen.findByText('3-Mile Long Island Iced Tea'));
-  });
-});

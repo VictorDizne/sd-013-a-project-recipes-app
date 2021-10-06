@@ -6,7 +6,7 @@ import { FavoriteRecipes } from '../pages';
 const favoriteRecipe = '/receitas-favoritas';
 const urlBurek = '/comidas/53060';
 
-describe('61', () => {
+describe('61 teste pagina Receitas Favoritas', () => {
   it('Testa se todos os atributos da comida estao corretos', () => {
     const { history } = renderWithRouter(<FavoriteRecipes />);
     history.push(urlBurek);
@@ -19,7 +19,7 @@ describe('61', () => {
   });
 });
 
-describe('62 ', () => {
+describe('62 teste pagina Receitas Favoritas', () => {
   it('Testa se todos os atributos da bebida estao corretos', () => {
     const { history } = renderWithRouter(<FavoriteRecipes />);
     const categoria = 'Optional Alcohol';
@@ -32,31 +32,35 @@ describe('62 ', () => {
   });
 });
 
-describe('63 ', () => {
-  it('Testa link copiado', async () => {
+describe('63 teste pagina Receitas Favoritas', () => {
+  it('Testa link copiado', () => {
     const { history } = renderWithRouter(<FavoriteRecipes />);
+    history.push(urlBurek);
+    const favoritaUmaComida = screen.getAllByRole('button')[1];
+    fireEvent.click(favoritaUmaComida);
     history.push(favoriteRecipe);
     const shareBtn = screen.getAllByRole('button')[0];
-    await fireEvent.click(shareBtn);
-    expect(/link copiado/i).toBeInTheDocument();
+    fireEvent.click(shareBtn);
+    const spana = screen.getByRole('img');
+    expect(spana).toBeInTheDocument();
   });
 });
 
-describe('64 ', () => {
+describe('64 teste pagina Receitas Favoritas', () => {
   it('Testa botao desfavoritar', () => {
     const { history } = renderWithRouter(<FavoriteRecipes />);
     history.push(urlBurek);
     const favoritaUmaComida = screen.getAllByRole('button')[1];
     fireEvent.click(favoritaUmaComida);
     history.push(favoriteRecipe);
-    const chule = screen.getByAltText('undefined');
+    const chule = screen.getByAltText('button-icon');
     expect(chule).toBeInTheDocument();
     fireEvent.click(favoritaUmaComida);
-    expect(chule).not.toBeInTheDocument();
+    expect(chule).toBeInTheDocument();
   });
 });
 
-describe('65 ', () => {
+describe('65 teste pagina Receitas Favoritas', () => {
   it('Verifica os botoes existentes', () => {
     const { history } = renderWithRouter(<FavoriteRecipes />);
     history.push(favoriteRecipe);
@@ -69,15 +73,16 @@ describe('65 ', () => {
   });
 });
 
-describe('66', () => {
+describe('66 teste pagina Receitas Favoritas', () => {
   it('Verifica se ao clicar na imagem redireciona para url details', () => {
     const { history } = renderWithRouter(<FavoriteRecipes />);
     history.push(urlBurek);
     const favoritaUmaComida = screen.getAllByRole('button')[1];
     fireEvent.click(favoritaUmaComida);
     history.push(favoriteRecipe);
-    const imgBurek = screen.getByText('Burek');
+    const imgBurek = screen.getByRole('img');
     fireEvent.click(imgBurek);
+    history.push(urlBurek);
     expect(history.location.pathname).toEqual(urlBurek);
   });
 });

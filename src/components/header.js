@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import SearchButton from './searchButton';
+import '../pages/css/header.css';
 
 export default function Header({ name, search }) {
   return (
-    <header data-testid="header-test">
+    <header
+      className="d-flex justify-content-around d-flex align-items-center"
+      data-testid="header-test"
+    >
       <Link
         to="/perfil"
       >

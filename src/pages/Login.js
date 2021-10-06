@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import './css/login.css';
+import { Input } from '@mui/material';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -19,11 +21,14 @@ const Login = (props) => {
   };
 
   return (
-    <div data-testid="login-test">
-      <form>
+    <div>
+      <form
+        data-testid="login-test"
+      >
+        <h1 className="mb-5 text-white fw-bold">Login</h1>
         <label htmlFor="email">
           Email:
-          <input
+          <Input
             id="email"
             type="text"
             data-testid="email-input"
@@ -31,7 +36,9 @@ const Login = (props) => {
             onChange={ (e) => setEmail(e.target.value) }
           />
         </label>
-        <label htmlFor="password">
+        <label
+          htmlFor="password"
+        >
           Senha:
           <input
             id="password"
@@ -48,7 +55,7 @@ const Login = (props) => {
           disabled={ !validation() }
           onClick={ onSubmit }
         >
-          Login
+          Entrar
         </button>
       </form>
     </div>

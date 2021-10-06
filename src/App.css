@@ -10,6 +10,12 @@
   width: 100%;
 }
 
+.background {
+  background-color: #98e8b3;
+  min-height: 100vh;
+  padding: 20px;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
