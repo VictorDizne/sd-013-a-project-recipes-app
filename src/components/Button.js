@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Button({ image, children, handleClick, testID, disabled }) {
+function Button({ children, handleClick, testID, disabled, className, image }) {
   return (
     <button
       type="button"
       onClick={ handleClick }
       data-testid={ testID }
       disabled={ disabled }
+      className={ className }
       src={ image }
     >
       {children}
@@ -23,6 +24,7 @@ Button.propTypes = {
   disabled: bool,
   children: oneOfType(string, node).isRequired,
   image: string.isRequired,
+  className: string.isRequired,
 };
 
 Button.defaultProps = {
