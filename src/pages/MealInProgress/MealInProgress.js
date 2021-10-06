@@ -18,15 +18,16 @@ function MealInProgress() {
   const [currentMeal, setCurrentMeal] = useState({});
   const [loadingPage, setLoadingPage] = useState(true);
   const [favorite, setFavorite] = useState(false);
+  const [everyIngredients, setEveryIngredients] = useState([]);
   const [shareMessage, setShareMessage] = useState(false);
   const history = useHistory();
   const { id } = useParams();
-
   // Faz o fetch a partir do id da presente receita assim que a página carrega
   useEffect(() => {
     async function fetchMeal() {
       const { meals } = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       setCurrentMeal(meals[0]);
+      setEveryIngredients(generatesIngredientList(meals[0]));
       // Salva a receita na chave "inProgress" no LocalStorage
       saveMealOnLS(meals[0]);
       // Checa se a receita é favorita, para que o coracao fique preenchido ao carregar a página
@@ -41,6 +42,16 @@ function MealInProgress() {
     fetchMeal();
     setLoadingPage(false);
   }, [id]);
+  function removeIngredients(removeIngredient) {
+    const ingredientFilter = everyIngredients
+      .filter((ingredient) => ingredient !== removeIngredient);
+    setEveryIngredients(ingredientFilter);
+  }
+
+  function addIngredients(addIngredient) {
+    const adicionaIngredient = [...everyIngredients, addIngredient];
+    setEveryIngredients(adicionaIngredient);
+  }
 
   function showIngredients() {
     const ingredients = generatesIngredientList(currentMeal);
@@ -51,6 +62,8 @@ function MealInProgress() {
         key={ index }
         index={ index }
         id={ id }
+        removeIngredients={ removeIngredients }
+        addIngredients={ addIngredients }
       />
     ));
   }
@@ -157,6 +170,7 @@ function MealInProgress() {
         onClick={ saveThisRecipe }
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ everyIngredients.length !== 0 }
       >
         Finalizar
       </button>

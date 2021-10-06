@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 
-function IngredientCheckBox({ ingredient, index, id }) {
+function IngredientCheckBox({ ingredient, index, id,
+  removeIngredients,
+  addIngredients }) {
   const [checked, setChecked] = useState();
   const location = useLocation();
   // Checa se estamos em uma pagina de bebidas ou comidas
@@ -36,7 +38,7 @@ function IngredientCheckBox({ ingredient, index, id }) {
       // Seta o check para true, riscando a opção
       setChecked(true);
       // Adiciona o ingrediente utilizado no array correspondente do localStorage
-      console.log(currentRecipes[mealOrCockTail][id]);
+      removeIngredients(ingredient);
       const newIngredients = [...currentRecipes[mealOrCockTail][id], ingredient];
       // Faz o spread das receitas atuais pra não substituir a chave drinks
       const newRecipes = { ...currentRecipes,
@@ -54,6 +56,7 @@ function IngredientCheckBox({ ingredient, index, id }) {
       // Remove o ingrediente utilizado do array correspondente do localStorage
       const newIngredients = currentRecipes[mealOrCockTail][id]
         .filter((currIngredient) => currIngredient !== ingredient);
+      addIngredients(ingredient);
       // Faz o spread das receitas atuais pra não substituir a chave drinks
       const newRecipes = { ...currentRecipes,
         [mealOrCockTail]: {
@@ -88,6 +91,8 @@ IngredientCheckBox.propTypes = {
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   ingredient: PropTypes.string.isRequired,
+  removeIngredients: PropTypes.func.isRequired,
+  addIngredients: PropTypes.func.isRequired,
 };
 
 export default IngredientCheckBox;
