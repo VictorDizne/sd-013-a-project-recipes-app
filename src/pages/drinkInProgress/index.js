@@ -14,6 +14,7 @@ import saveDrinkOnLS from '../../services/saveDrinkOnLS';
 function DrinkInProgress() {
   const [currentDrink, setCurrentDrink] = useState({});
   const [loadingPage, setLoadingPage] = useState(true);
+  const [everyIngredients, setEveryIngredients] = useState([]);
   const [favorite, setFavorite] = useState(false);
   const [shareMessage, setShareMessage] = useState(false);
   const history = useHistory();
@@ -24,6 +25,7 @@ function DrinkInProgress() {
     async function fetchDrink() {
       const { drinks } = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       setCurrentDrink(drinks[0]);
+      setEveryIngredients(generatesIngredientList(drinks[0]));
       // Salva a receita na chave "inProgress" no LocalStorage
       saveDrinkOnLS(drinks[0]);
       // Checa se a receita é favorita, para que o coracao fique preenchido ao carregar a página
@@ -39,6 +41,17 @@ function DrinkInProgress() {
     setLoadingPage(false);
   }, [id]);
 
+  function removeIngredients(removeIngredient) {
+    const ingredientFilter = everyIngredients
+      .filter((ingredient) => ingredient !== removeIngredient);
+    setEveryIngredients(ingredientFilter);
+  }
+
+  function addIngredients(addIngredient) {
+    const adicionaIngredient = [...everyIngredients, addIngredient];
+    setEveryIngredients(adicionaIngredient);
+  }
+
   function showIngredients() {
     const ingredients = generatesIngredientList(currentDrink);
     // Faz um map do array gerado acima, criando uma checkbox para cada ingrediente da lista
@@ -48,6 +61,8 @@ function DrinkInProgress() {
         key={ index }
         index={ index }
         id={ id }
+        addIngredients={ addIngredients }
+        removeIngredients={ removeIngredients }
       />
     ));
   }
@@ -154,6 +169,7 @@ function DrinkInProgress() {
         onClick={ saveThisRecipe }
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ everyIngredients.length !== 0 }
       >
         Finalizar
       </button>
