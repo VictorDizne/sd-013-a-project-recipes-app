@@ -4,6 +4,7 @@ import appContext from './appContext';
 
 const AppProvider = ({ children }) => {
   const [refreshComments, setRefresh] = useState(false);
+  const [searchBool, setSearch] = useState(false);
   const [state, setState] = useState({
     foods: [],
     drinks: [],
@@ -105,6 +106,8 @@ const AppProvider = ({ children }) => {
     verify,
     setRefresh,
     refreshComments,
+    searchBool,
+    setSearch,
   };
 
   return (
