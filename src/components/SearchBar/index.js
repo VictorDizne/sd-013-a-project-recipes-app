@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
-import { TextField, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+// import { FormControlLabel, Radio } from '@mui/material';
 import RecipesContext from '../../context/RecipesContext';
 
 import style from './searchBar.module.scss';
@@ -28,45 +28,63 @@ const SearchBar = ({ isMeal, handleSearchBtnClick }) => {
         >
           X
         </button>
-        <TextField
+        <input
           id="search-text-input"
-          label="Procurar"
-          variant="outlined"
+          placeholder="Procurar"
           value={ input }
           onChange={ ({ target }) => setInput(target.value) }
           type="text"
-          size="small"
-          margin="dense"
-          inputProps={ {
-            'data-testid': 'search-input',
-          } }
-          fullWidth
+          data-testid="search-input"
         />
-        <RadioGroup
-          aria-label="ingredient"
-          defaultValue="Ingrediente"
+        <div
           name="radio-buttons-group"
           onChange={ ({ target }) => setRadio(target.value) }
+          className={ style.radioGroup }
         >
-          <FormControlLabel
-            value="Ingrediente"
-            control={ <Radio /> }
-            label="Ingrediente"
-            data-testid="ingredient-search-radio"
-          />
-          <FormControlLabel
-            value="Nome"
-            control={ <Radio /> }
-            label="Nome"
-            data-testid="name-search-radio"
-          />
-          <FormControlLabel
-            value="Primeira Letra"
-            control={ <Radio /> }
-            label="Primeira Letra"
-            data-testid="first-letter-search-radio"
-          />
-        </RadioGroup>
+          <label
+            htmlFor="Ingrediente"
+            className={ radio === 'Ingrediente' ? style.checked : null }
+          >
+            <input
+              id="Ingrediente"
+              name="search"
+              value="Ingrediente"
+              defaultChecked
+              // label="Ingrediente"
+              data-testid="ingredient-search-radio"
+              type="radio"
+            />
+            Ingrediente
+          </label>
+          <label
+            htmlFor="Nome"
+            className={ radio === 'Nome' ? style.checked : null }
+          >
+            <input
+              id="Nome"
+              name="search"
+              value="Nome"
+              // label="Nome"
+              data-testid="name-search-radio"
+              type="radio"
+            />
+            Nome
+          </label>
+          <label
+            htmlFor="Primeira Letra"
+            className={ radio === 'Primeira Letra' ? style.checked : null }
+          >
+            <input
+              id="Primeira Letra"
+              name="search"
+              value="Primeira Letra"
+              // label="Primeira Letra"
+              data-testid="first-letter-search-radio"
+              type="radio"
+            />
+            Primeira Letra
+          </label>
+        </div>
         <button
           type="submit"
           data-testid="exec-search-btn"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
-import { CardContent } from '@mui/material';
+// import { CardContent } from '@mui/material';
 import shareIcon from '../../images/shareIcon.svg';
 import blackFavoriteIcon from '../../images/blackHeartIcon.svg';
 import whiteFavoriteIcon from '../../images/whiteHeartIcon.svg';
@@ -41,7 +41,7 @@ function RecipeInProgress({ recipe, isMeal }) {
   const goToRecipesDone = () => {
     // const isMeal = !!recipe.strArea;
     const formatedRecipe = formatRecipeToFavorite(recipe, isMeal);
-    const lcStorage = localStorage.getItem('doneRecipes');
+    const lcStorage = JSON.parse(localStorage.getItem('doneRecipes'));
 
     if (!lcStorage) {
       localStorage.setItem('doneRecipes', JSON.stringify([formatedRecipe]));
@@ -122,7 +122,7 @@ function RecipeInProgress({ recipe, isMeal }) {
         alt={ isMeal ? 'foto da comida' : 'foto do drink' }
         // style={ { width: '100vw' } }
       />
-      <CardContent>
+      <div className={ style.content }>
         <h3 data-testid="recipe-category">
           {`${recipe.strCategory} ${isMeal ? '' : recipe.strAlcoholic}`}
         </h3>
@@ -132,7 +132,7 @@ function RecipeInProgress({ recipe, isMeal }) {
         <div data-testid="instructions" className={ style.instructions }>
           { recipe.strInstructions }
         </div>
-      </CardContent>
+      </div>
 
       <button
         className={ style.startButton }

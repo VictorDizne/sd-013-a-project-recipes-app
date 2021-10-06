@@ -48,7 +48,13 @@
   }
 }
 
+.content {
+  width: 100%;
+  padding: 1rem;
+}
+
 .instructions {
+  width: 100%;
   font-size: 1.25rem;
   font-weight: 400;
   color: var(--gray-800);

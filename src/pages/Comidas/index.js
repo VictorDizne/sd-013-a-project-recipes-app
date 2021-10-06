@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -16,10 +16,16 @@ export default function Comidas({ history }) {
     handleBtnClick,
     getMealsCategories,
     mealsCategories,
-    isLoading,
-    setIsLoading,
+    // isLoading,
+    // setIsLoading,
     setMeals,
   } = useContext(RecipesContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const [firstRecipe, setFirstRecipe] = useState(() => {
+    const [first] = meals;
+    return first;
+  });
+  const [isCardsLoading, setIsCardsLoading] = useState(false);
 
   useEffect(() => {
     if (meals.length === 1 && meals[0].strCategory) {
@@ -33,9 +39,11 @@ export default function Comidas({ history }) {
 
   useEffect(() => {
     if (meals.length > 0 && mealsCategories) setIsLoading(false);
+    setFirstRecipe(meals[0]);
   }, [meals, mealsCategories, setIsLoading]);
 
   const getMealsByCategory = (categoryName) => {
+    setIsCardsLoading(true);
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`)
       .then((res) => res.json())
       .then((json) => {
@@ -44,67 +52,73 @@ export default function Comidas({ history }) {
           const twelveFirstMeals = json.meals.slice(0, endIndex);
           const withNumberOfIngredients = calculateNumberIngredients(twelveFirstMeals);
           setMeals(withNumberOfIngredients);
-          setIsLoading(false);
+          setIsCardsLoading(false);
         } else {
           const withNumberOfIngredients = calculateNumberIngredients(json.meals);
           setMeals(withNumberOfIngredients);
-          setIsLoading(false);
+          setIsCardsLoading(false);
         }
       });
   };
 
   return (
-    <>
-      <Header pageTitle="Comidas" history={ history } isMeal />
-
-      {
-        isLoading
-          ? <Loading />
-          : (
-            <>
-              <div className={ style.filters }>
+    isLoading
+      ? <Loading />
+      : (
+        <>
+          <Header pageTitle="Comidas" history={ history } isMeal />
+          <div className={ style.filters }>
+            <ButtonFilter
+              categoryName="All"
+              fetchByCategory={ () => {
+                handleBtnClick({
+                  input: '',
+                  isMeal: true,
+                  radio: 'Nome',
+                });
+              } }
+              isMeal="meal"
+            >
+              All
+            </ButtonFilter>
+            {
+              mealsCategories.map((category) => (
                 <ButtonFilter
-                  categoryName="All"
-                  onClick={ () => {
-                    handleBtnClick({
-                      input: '',
-                      isMeal: true,
-                      radio: 'Nome',
-                    });
-                  } }
+                  firstRecipe={ firstRecipe }
+                  key={ category.strCategory }
+                  categoryName={ category.strCategory }
+                  fetchByCategory={ getMealsByCategory }
                   isMeal="meal"
-                >
-                  All
-                </ButtonFilter>
-                {
-                  mealsCategories.map((category) => (
-                    <ButtonFilter
-                      key={ category.strCategory }
-                      categoryName={ category.strCategory }
-                      onClick={ getMealsByCategory }
-                      isMeal="meal"
-                    />))
-                }
-              </div>
-              {
-                meals.map((meal, index) => (
-                  <Card
-                    key={ meal.idMeal }
-                    index={ index }
-                    recipe={ meal }
-                    recipeImage={ meal.strMealThumb }
-                    recipeName={ meal.strMeal }
-                    link={ `/comidas/${meal.idMeal}` }
-                    ingredientsNumber={ meal.numberIngredients }
-                  />
-                ))
-              }
-            </>
-          )
-      }
+                />))
+            }
+          </div>
 
-      <Footer />
-    </>
+          {
+            isCardsLoading
+              ? <Loading />
+              : (
+                <>
+                  {
+                    meals.map((meal, index) => (
+                      <Card
+                        key={ meal.idMeal }
+                        index={ index }
+                        recipe={ meal }
+                        recipeImage={ meal.strMealThumb }
+                        recipeName={ meal.strMeal }
+                        link={ `/comidas/${meal.idMeal}` }
+                        ingredientsNumber={ meal.numberIngredients }
+                      />
+                    ))
+                  }
+                </>
+              )
+          }
+
+          <Footer />
+        </>
+      )
+
   );
 }
 

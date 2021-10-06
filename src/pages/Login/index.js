@@ -77,42 +77,44 @@ export default function Login({ history }) {
           {/* <div className="logo"> */}
           {/* <img className="logo-image" src={ Logo } alt="logo" /> */}
           {/* </div> */ }
-          <form onSubmit={ handleSubmit }>
-            <h1>
-              As melhores receitas na palma da sua mão.
-            </h1>
-            <h2>
-              Na imagem:
-              {' '}
-              {randomMeal.strMeal}
-            </h2>
-            <input
-              id="name-text-input"
-              placeholder="Email"
-              name="email"
-              onChange={ handleChange }
-              value={ email }
-              type="email"
-              data-testid="email-input"
-            />
-            <input
-              id="password-text-field"
-              placeholder="Password"
-              name="password"
-              onChange={ handleChange }
-              value={ password }
-              type="password"
-              data-testid="password-input"
-            />
-            <button
-              data-testid="login-submit-btn"
-              disabled={ !validEmail || !validPassword }
-              type="submit"
-            >
-              <span> &#129046; </span>
-              <span>Entrar</span>
-            </button>
-          </form>
+          <div className={ style.formBackground }>
+            <form onSubmit={ handleSubmit }>
+              <h1>
+                As melhores receitas na palma da sua mão.
+              </h1>
+              <h2>
+                Na imagem:
+                {' '}
+                {randomMeal.strMeal}
+              </h2>
+              <input
+                id="name-text-input"
+                placeholder="Email"
+                name="email"
+                onChange={ handleChange }
+                value={ email }
+                type="email"
+                data-testid="email-input"
+              />
+              <input
+                id="password-text-field"
+                placeholder="Password"
+                name="password"
+                onChange={ handleChange }
+                value={ password }
+                type="password"
+                data-testid="password-input"
+              />
+              <button
+                data-testid="login-submit-btn"
+                disabled={ !validEmail || !validPassword }
+                type="submit"
+              >
+                <span> &#129046; </span>
+                <span>Entrar</span>
+              </button>
+            </form>
+          </div>
         </main>
       )
   );

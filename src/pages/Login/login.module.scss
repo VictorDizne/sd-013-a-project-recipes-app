@@ -27,18 +27,24 @@
     text-align: center;
   }
 
+  
+}
+
+.formBackground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70vh;
+  background: var(--blue-800);
+  background: linear-gradient(0deg, rgb(26, 26, 43) 0%, rgba(60, 60, 85, 0.705) 70%, #4555ff00 100%);
+  padding: 1rem;
+
   form {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 70vh;
-    background: var(--blue-800);
-    background: linear-gradient(0deg, rgb(26, 26, 43) 0%, rgba(60, 60, 85, 0.705) 70%, #4555ff00 100%);
-    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    // margin: 8rem 0;
 
     input {
       background-color: var(--white);

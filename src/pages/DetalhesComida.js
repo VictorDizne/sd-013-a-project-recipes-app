@@ -8,18 +8,16 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
   const isTrue = true;
   const [meal, setMeal] = useState({});
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const {
     setBtnText,
     setIsFavorite,
-    isLoading,
-    setIsLoading,
   } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetching = async () => {
       const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
       const json = await res.json();
-      // console.log(json.meals[0]);
       setMeal(json.meals[0]);
       setIsLoading(false);
     };
@@ -31,12 +29,8 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
     const getRecipeStorage = localStorage.getItem('doneRecipes');
     if (getRecipeStorage) {
       const recipeExists = JSON.parse(getRecipeStorage).some((r) => (
-        r.idMeal === meal.idMeal));
-      if (recipeExists) {
-        setStartRecipeBtn(false);
-      } else {
-        setStartRecipeBtn(true);
-      }
+        r.id === meal.idMeal));
+      setStartRecipeBtn(!recipeExists);
     }
   }, [meal.idMeal]);
 
@@ -53,10 +47,10 @@ function DetalhesComida({ match: { params: { recipeId } }, history }) {
   useEffect(() => {
     const inProgressRecipe = localStorage.getItem('inProgressRecipes');
     if (inProgressRecipe) {
-      const recipeExists = JSON.parse(inProgressRecipe);
-      if (recipeExists.meals[meal.idMeal]) setBtnText('Continuar Receita');
+      const { meals } = JSON.parse(inProgressRecipe);
+      if (meals[meal.idMeal]) setBtnText('Continuar Receita');
     }
-  }, [meal.idMeal, setBtnText]);
+  }, [meal, setBtnText]);
 
   return (
     isLoading

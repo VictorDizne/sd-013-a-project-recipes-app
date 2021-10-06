@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import Card from '../../components/Card';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import Loading from '../../components/Loading';
 import RecipesContext from '../../context/RecipesContext';
 import calculateNumberIngredients from '../../utils/calculateNumberIngredients';
 
@@ -10,6 +11,7 @@ import style from './explorarComidasArea.module.scss';
 
 export default function ExplorarComidasArea({ history }) {
   const [origins, setOrigins] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { meals, setMeals, handleBtnClick } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -18,6 +20,7 @@ export default function ExplorarComidasArea({ history }) {
       const data = await response.json();
       const OriginArray = data.meals;
       setOrigins([{ strArea: 'All' }, ...OriginArray]);
+      setIsLoading(false);
     };
     fetchOrigin();
   }, []);
@@ -40,40 +43,47 @@ export default function ExplorarComidasArea({ history }) {
   };
 
   return (
-    <>
-      <Header pageTitle="Explorar Origem" history={ history } isMeal />
+    isLoading
+      ? <Loading />
+      : (
+        <>
+          <Header pageTitle="Explorar Origem" history={ history } isMeal />
 
-      <select
-        className={ style.dropDown }
-        data-testid="explore-by-area-dropdown"
-        onChange={ fetchMealsByOrigin }
-      >
+          <select
+            className={ style.dropDown }
+            data-testid="explore-by-area-dropdown"
+            onChange={ fetchMealsByOrigin }
+          >
 
-        {origins.map(({ strArea }) => (
-          <option data-testid={ `${strArea}-option` } key={ strArea } value={ strArea }>
-            {strArea}
-          </option>
-        ))}
+            {origins.map(({ strArea }) => (
+              <option
+                data-testid={ `${strArea}-option` }
+                key={ strArea }
+                value={ strArea }
+              >
+                {strArea}
+              </option>
+            ))}
 
-      </select>
+          </select>
 
-      {
-        meals.map((meal, index) => (
-          <Card
-            key={ meal.idMeal }
-            index={ index }
-            recipe={ meal }
-            recipeImage={ meal.strMealThumb }
-            recipeName={ meal.strMeal }
-            link={ `/comidas/${meal.idMeal}` }
-            ingredientsNumber={ meal.numberIngredients }
+          {
+            meals.map((meal, index) => (
+              <Card
+                key={ meal.idMeal }
+                index={ index }
+                recipe={ meal }
+                recipeImage={ meal.strMealThumb }
+                recipeName={ meal.strMeal }
+                link={ `/comidas/${meal.idMeal}` }
+                ingredientsNumber={ meal.numberIngredients }
+              />
+            ))
+          }
 
-          />
-        ))
-      }
-
-      <Footer />
-    </>
+          <Footer />
+        </>
+      )
   );
 }
 
