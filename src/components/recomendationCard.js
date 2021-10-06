@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardGroup } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 
-export default function CardRecomendations({ recomends, maxCards }) {
+export default function CardRecomendations({ recomends, maxCards, bColor }) {
   const carousel = [];
   const name = useLocation().pathname.includes('bebidas');
 
@@ -19,8 +19,8 @@ export default function CardRecomendations({ recomends, maxCards }) {
       const { src, alt, to } = srcAltTo(i);
       carousel.push(
         <CardGroup key={ i }>
-          <Card style={ { width: '14rem' } }>
-            <Card.Body>
+          <Card style={ { width: '14rem', border: 'none' } }>
+            <Card.Body style={ { backgroundColor: `${bColor}` } }>
               <Link
                 to={ to }
                 data-testid={ `${i}-recomendation-card` }

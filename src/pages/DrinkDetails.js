@@ -10,6 +10,10 @@ import appContext from '../contexts/appContext';
 import './css/details.css';
 import CommentCards from '../components/commentCards';
 import CommentForm from '../components/commentForm';
+import drinkIcon from '../images/drink.png';
+import instructionIcon from '../images/drink-instructions.png';
+import videoIcon from '../images/drink-video.png';
+import recommendationDrinkIcon from '../images/recommendation-drink.png';
 
 function DrinkDetail() {
   const [drink, setDrink] = useState({});
@@ -85,20 +89,32 @@ function DrinkDetail() {
   const URL = drink.strYoutube ? drink.strYoutube.split('=') : '';
 
   return (
-    <div>
+    <main
+      style={ {
+        backgroundImage:
+        'linear-gradient(to left bottom, #530c17, #690832, #781255, #792980, #6145ae)',
+        color: '#cbaada',
+      } }
+    >
       <Image
         src={ drink.strDrinkThumb }
         alt={ `${drink.trMeal}` }
         data-testid="recipe-photo"
+        style={ { marginBottom: '10px' } }
         fluid
       />
       <Container fluid>
         <Stack
           direction="row"
-          spacing={ 15 }
+          spacing={ 16 }
         >
           <div>
-            <h2 data-testid="recipe-title">{drink.strDrink}</h2>
+            <h4
+              data-testid="recipe-title"
+              style={ { width: '150px' } }
+            >
+              {drink.strDrink}
+            </h4>
             <p data-testid="recipe-category">{drink.strAlcoholic}</p>
           </div>
           <div>
@@ -106,7 +122,14 @@ function DrinkDetail() {
             <ShareButton dataTestId="share-btn" />
           </div>
         </Stack>
-        <h3>Ingredients</h3>
+        <h3>
+          <img
+            src={ drinkIcon }
+            alt="ícone de ingredientes da bebida"
+            style={ { width: '32px', marginRight: '5px' } }
+          />
+          Ingredients
+        </h3>
         <ul>
           {
             ingredients.map((ingredient, i) => (
@@ -116,8 +139,23 @@ function DrinkDetail() {
             ))
           }
         </ul>
-        <h3>Instructions</h3>
+        <h3>
+          <img
+            src={ instructionIcon }
+            alt="ícone de instruções"
+            style={ { width: '32px', marginRight: '5px' } }
+          />
+          Instructions
+        </h3>
         <p data-testid="instructions">{drink.strInstructions}</p>
+        <h3>
+          <img
+            src={ videoIcon }
+            alt="ícone de ingredientes"
+            style={ { width: '36px', marginRight: '5px' } }
+          />
+          Video Tutorial
+        </h3>
         <div data-testid="video" className="video-detail">
           <iframe
             width="360"
@@ -129,18 +167,26 @@ function DrinkDetail() {
             allowFullScreen
           />
         </div>
+        <h3>
+          <img
+            src={ recommendationDrinkIcon }
+            alt="ícone de ingredientes"
+            style={ { width: '36px', marginRight: '5px' } }
+          />
+          recommendations
+        </h3>
         <div className="horizontal-scroll">
           <CardRecomendations
-            name="bebidas"
+            bColor="#bb8ecd"
             recomends={ recomendations }
             maxCards={ 6 }
           />
         </div>
         <section>
           <div style={ { marginBottom: '10px' } }>
-            <CommentForm id={ id } />
+            <CommentForm id={ id } sendButtonVariant="secondary" />
           </div>
-          <CommentCards id={ id } />
+          <CommentCards id={ id } noCommentColor="#9B5AB9" />
         </section>
         <div>
           <button
@@ -154,7 +200,7 @@ function DrinkDetail() {
           </button>
         </div>
       </Container>
-    </div>
+    </main>
   );
 }
 

@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
+import { Button, Popover, Typography } from '@material-ui/core';
 import copytoclipboard from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import shareFill from '../images/shareFill.svg';
 
 const ShareButton = ({ dataTestId, doneRecipe }) => {
-  console.log(doneRecipe);
   const { pathname } = useLocation();
   const [clipped, setClipped] = useState(false);
 
   const copy = () => {
-    const SIX = 6000;
+    const SIX = 1000;
     if (pathname.includes('feitas')) {
       copytoclipboard(`http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}`);
       setClipped(true);
@@ -30,15 +31,26 @@ const ShareButton = ({ dataTestId, doneRecipe }) => {
 
   return (
     <div>
-      <button
+      <Button
         data-testid={ dataTestId }
         type="button"
         onClick={ copy }
         src={ shareIcon }
       >
-        <img src={ shareIcon } alt="botão de copiar link da receita" />
-      </button>
-      { clipped && <p>Link copiado!</p>}
+        <img
+          src={ clipped ? shareFill : shareIcon }
+          alt="botão de copiar link da receita"
+        />
+      </Button>
+      <Popover
+        open={ clipped }
+        anchorOrigin={ {
+          vertical: 'bottom',
+          horizontal: 'left',
+        } }
+      >
+        <Typography sx={ { p: 2 } }>Link copiado!</Typography>
+      </Popover>
     </div>
   );
 };

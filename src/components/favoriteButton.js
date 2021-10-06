@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Proptypes from 'prop-types';
+import { Button } from '@material-ui/core';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import appContext from '../contexts/appContext';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 const FavoriteButton = ({ drink, meal }) => {
   const { favoriteRecipe, removeFavRecipe, verify } = useContext(appContext);
@@ -16,7 +17,7 @@ const FavoriteButton = ({ drink, meal }) => {
   }, [drink, meal, verify]);
 
   return (
-    <button
+    <Button
       type="button"
       onClick={ () => {
         setFavorited(!favorited);
@@ -28,7 +29,7 @@ const FavoriteButton = ({ drink, meal }) => {
         data-testid="favorite-btn"
         alt="botão de favoritar receita"
       />
-    </button>
+    </Button>
   );
 };
 

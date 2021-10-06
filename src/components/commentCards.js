@@ -3,7 +3,7 @@ import { Card, Col, Row } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import appContext from '../contexts/appContext';
 
-const CommentCards = ({ id }) => {
+const CommentCards = ({ id, noCommentColor }) => {
   const { setRefresh, refreshComments } = useContext(appContext);
   const comments = JSON.parse(sessionStorage.getItem(id));
   const [commentsArr, setCommentsArr] = useState([]);
@@ -20,8 +20,8 @@ const CommentCards = ({ id }) => {
   }, [refreshComments, setRefresh]);
 
   const comentaryNull = () => (
-    <Card>
-      <Card.Body>
+    <Card style={ { marginBottom: '30px', border: 'none' } }>
+      <Card.Body style={ { backgroundColor: noCommentColor } }>
         <Card.Title>Não há comentários!</Card.Title>
       </Card.Body>
     </Card>
@@ -34,8 +34,8 @@ const CommentCards = ({ id }) => {
           ? comentaryNull()
           : commentsArr.map(({ email, comment }, i) => (
             <Col key={ i }>
-              <Card>
-                <Card.Body>
+              <Card style={ { marginBottom: '10px', border: 'none' } }>
+                <Card.Body style={ { backgroundColor: noCommentColor } }>
                   <Card.Title>{ email }</Card.Title>
                   <Card.Text>
                     { comment }
@@ -51,6 +51,7 @@ const CommentCards = ({ id }) => {
 
 CommentCards.propTypes = {
   id: propTypes.string.isRequired,
+  noCommentColor: propTypes.string.isRequired,
 };
 
 export default CommentCards;

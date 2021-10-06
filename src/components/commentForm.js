@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import Proptypes from 'prop-types';
-import { Button, Form } from 'react-bootstrap';
-
+import { TextField, Button } from '@material-ui/core';
+import arrowRight from '../images/right-arrow.png';
 import appContext from '../contexts/appContext';
 
-const CommentForm = ({ id }) => {
+const CommentForm = ({ id, sendButtonVariant }) => {
   const [comment, setComment] = useState('');
   const { setRefresh } = useContext(appContext);
 
@@ -25,25 +25,36 @@ const CommentForm = ({ id }) => {
 
   return (
     <div>
-      <Form.Control
-        as="textarea"
-        placeholder="Leave a comment here"
-        style={ { height: '150px', marginBottom: '10px' } }
-        value={ comment }
+      <TextField
+        id="outlined-multiline-flexible"
+        label="Comente!"
+        multiline
+        rows={ 5 }
+        fullWidth
+        style={ { marginBottom: '10px' } }
+        size="medium"
         onChange={ ({ target }) => setComment(target.value) }
+        value={ comment }
       />
-      <Button
-        variant="outline-secondary"
-        onClick={ saveCommentary }
+      <div
+        style={ { display: 'flex', flexDirection: 'row-reverse' } }
       >
-        Send
-      </Button>
+        <Button
+          variant="contained"
+          color={ sendButtonVariant }
+          onClick={ saveCommentary }
+        >
+          Send
+          <img src={ arrowRight } alt="ícone" style={ { width: '18px' } } />
+        </Button>
+      </div>
     </div>
   );
 };
 
 CommentForm.propTypes = {
   id: Proptypes.string.isRequired,
+  sendButtonVariant: Proptypes.string.isRequired,
 };
 
 export default CommentForm;
