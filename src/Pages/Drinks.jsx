@@ -22,12 +22,7 @@ export default function Drinks() {
 
   useEffect(() => {
     // Requisição inicial para renderizar cards ao carregar a página.
-    // const fetchAPI = async () => {
-    //   const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    //   const json = await result.json();
-    //   setSearchData(json.drinks.slice(0, DOZE));
-    // };
-    fetchAPI(pathnameCheck());
+    fetchAPI(pathnameCheck(pathname));
   }, []);
 
   return (

@@ -20,10 +20,8 @@ export default function Foods() {
 
   const { pathname } = useLocation();
 
-  // const API = () => (fetchAPI(pathnameCheck()));
   useEffect(() => {
     // Requisição inicial para renderizar cards ao carregar a página.
-    // const { pathname } = useLocation();
     fetchAPI(pathnameCheck(pathname));
   }, []);
 
@@ -32,8 +30,7 @@ export default function Foods() {
       <Header value={ pageTitle } />
       <h1>Foods</h1>
       <Buttons />
-
-      {loading && searchData.length === 1
+      {(loading && searchData.length === 1)
         ? history.push(`/comidas/${searchData[0].idMeal}`)
         : searchData.map((recipe, index) => (
           index < DOZE && <RecipeCard

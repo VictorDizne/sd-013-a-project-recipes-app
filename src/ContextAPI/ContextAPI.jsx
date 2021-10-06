@@ -106,12 +106,12 @@ function ContextAPIProvider({ children }) {
   };
 
   // const { pathname } = useLocation();
-  // verificarrr
+  // verificar
   const pathnameCheck = (pathname) => {
     switch (pathname) {
-    case '/comidas/':
+    case '/comidas':
       return 'themealdb';
-    case '/bebidas/':
+    case '/bebidas':
       return 'thecocktaildb';
     default:
       return null;
