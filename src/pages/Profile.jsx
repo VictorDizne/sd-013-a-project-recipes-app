@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
-  const [email, setEmail] = useState();
+  // const [email, setEmail] = useState();
   const history = useHistory();
+  // console.log(email);
 
-  useEffect(() => {
-    const login = JSON.parse(localStorage.getItem('user'));
-    setEmail(login.email);
-  }, []);
+  // useEffect(() => {
+  //   const login = JSON.parse(localStorage.getItem('user'));
+  //   setEmail(login.email);
+  // }, []);
 
   const Sair = () => {
     localStorage.clear();
@@ -20,7 +21,8 @@ function Profile() {
   return (
     <div>
       <Header />
-      <h4 data-testid="profile-email">{ email }</h4>
+      <Footer />
+
       <Link to="/receitas-favoritas">
         <button
           type="button"
@@ -45,7 +47,6 @@ function Profile() {
       >
         Sair
       </button>
-      <Footer />
     </div>
 
   );

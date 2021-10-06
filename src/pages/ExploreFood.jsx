@@ -6,7 +6,6 @@ function ExploreFood() {
   return (
     <div>
       <Header />
-      Explore Food
       <Footer />
     </div>
 
