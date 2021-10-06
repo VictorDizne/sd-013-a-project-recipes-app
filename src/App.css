@@ -15,27 +15,11 @@
   max-height: 80vh;
 }
 
-
-
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
-}
-
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
 .button-header {
   border: 0;
   border-radius: 10px;
-  height: 40px;
   background-color: transparent;
+  height: 40px;
 }
 
 @keyframes shake {
