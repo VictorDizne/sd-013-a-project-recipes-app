@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { useDebugState } from 'use-named-state';
+import { saveLocalStorage, handleFavoriteIcon, handleShare } from '../functions';
 import recipeContext from '../context';
-import { handleFavoriteIcon, handleShare } from '../functions';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
@@ -13,23 +14,49 @@ import './Styles/RecipeInProgress.css';
 const copy = require('clipboard-copy');
 
 function ComponentDetailsContent({ keys }) {
-  const { details } = useContext(recipeContext).ContextDetails;
+  const { details, recipeProgress } = useContext(recipeContext).ContextDetails;
+  const history = useHistory();
+  const currentPage = useHistory().location.pathname.includes('/in-progress');
 
   const favoritedRecipe = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]')
     .some((recipe) => recipe.id === details[keys.id]);
 
   const [favoriteIcon, setFavoriteIcon] = useDebugState('FavoriteIcon', favoritedRecipe);
   const [share, setShareIcon] = useDebugState('Share', false);
+  const [button, setButton] = useDebugState('button', true);
 
   useEffect(() => {
     setFavoriteIcon(favoritedRecipe);
   }, [favoritedRecipe, setFavoriteIcon]);
+
+  useEffect(() => {
+    if (recipeProgress !== '') {
+      setButton(Object.values(recipeProgress).every((item) => item === true));
+    }
+  }, [recipeProgress]);
 
   if (details[keys.title] === undefined) return <h1>Loading</h1>;
 
   let youtube;
 
   if (keys.iframe) youtube = details[keys.video].replace('watch?v=', 'embed/');
+
+  const handleClick = () => {
+    // CRIA O OBJETO E SETA NO LOCALSTORAGE
+    const newArray = {
+      id: details[keys.id],
+      type: keys.typeK,
+      area: details[keys.area],
+      category: details[keys.category],
+      alcoholicOrNot: details[keys.alcoholicOrNot],
+      name: details[keys.title],
+      image: details[keys.thumb],
+      doneDate: new Date(Date.now()).toLocaleString().split(' ')[0],
+      tags: [details.strTags],
+    };
+    saveLocalStorage('doneRecipes', newArray, details[keys.id]);
+    history.push('/receitas-feitas');
+  };
 
   return (
     <div>
@@ -79,6 +106,16 @@ function ComponentDetailsContent({ keys }) {
           allowFullScreen
         />
       }
+      {currentPage
+      && (
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          onClick={ handleClick }
+          disabled={ !button }
+        >
+          FINALIZAR
+        </button>)}
     </div>
   );
 }

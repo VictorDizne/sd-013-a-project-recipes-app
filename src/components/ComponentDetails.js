@@ -12,7 +12,6 @@ function ComponentDetails() {
   const textButton = useRef('Continuar Receita');
 
   const [button, setButton] = useState(true);
-  console.log(button);
 
   useEffect(() => {
     if (currentPage) {

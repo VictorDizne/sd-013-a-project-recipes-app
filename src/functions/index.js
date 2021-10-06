@@ -25,30 +25,30 @@ export const filterIngredientsAndMeasures = (details) => {
 
 // FUNÇÕES PARA SETAR O LOCAL STORAGE
 
-const productIsExistent = (newProduct, favoriteRecipes) => {
-  const productFound = favoriteRecipes.find(((recipe) => recipe.id === newProduct.id));
+const productIsExistent = (newProduct, recipes) => {
+  const productFound = recipes.find(((recipe) => recipe.id === newProduct.id));
   if (!productFound) return [false, newProduct];
   return [true, productFound];
 };
 
-export const saveLocalStorage = (newArray, id) => {
-  let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+export const saveLocalStorage = (key, newArray, id) => {
+  let dataArray = JSON.parse(localStorage.getItem(key) || '[]');
 
-  const [isExist, recipe] = productIsExistent(newArray, favoriteRecipes);
+  const [isExist, recipe] = productIsExistent(newArray, dataArray);
 
   if (isExist) {
-    const updatedProductList = favoriteRecipes.filter((item) => {
+    const updatedProductList = dataArray.filter((item) => {
       if (item.id !== id) {
         return true;
       }
       return false;
     });
-    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedProductList));
+    localStorage.setItem(key, JSON.stringify(updatedProductList));
     return recipe;
   }
 
-  favoriteRecipes = [...favoriteRecipes, recipe];
-  localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  dataArray = [...dataArray, recipe];
+  localStorage.setItem(key, JSON.stringify(dataArray));
 };
 
 // FUNÇÕES PARA SETAR O LOCAL STORAGE
@@ -67,7 +67,7 @@ export const handleFavoriteIcon = (setFavoriteIcon, favoriteIcon, details, keys)
     name: details[keys.title],
     image: details[keys.thumb],
   };
-  saveLocalStorage(newArray, details[keys.id]);
+  saveLocalStorage('favoriteRecipes', newArray, details[keys.id]);
 };
 
 export const handleShare = (setShareIcon, share, copy) => {
@@ -76,7 +76,16 @@ export const handleShare = (setShareIcon, share, copy) => {
     const url = window.location.href.split('/in-progress');
     const splitedURL = url[0];
     copy(splitedURL);
-    console.log(splitedURL);
+  } else {
+    copy('');
+  }
+};
+
+export const handleShareDone = (setShareIcon, share, copy, params) => {
+  setShareIcon(!share);
+  if (!share) {
+    const url = `http://localhost:3000/${params.type}s/${params.id}`;
+    copy(url);
   } else {
     copy('');
   }

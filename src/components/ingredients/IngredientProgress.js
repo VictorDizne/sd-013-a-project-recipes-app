@@ -1,13 +1,11 @@
-import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
 import recipeContext from '../../context';
 import usePersistedState from '../../utils/usePersistedState';
 import { filterIngredientsAndMeasures } from '../../functions';
 
-function IngredientProgress({ idK }) {
+function IngredientProgress() {
   const { details, setRecipeProgress } = useContext(recipeContext).ContextDetails;
   const inputs = document.getElementsByTagName('input');
-  console.log(idK);
 
   const [progress, setProgress] = usePersistedState('inProgressRecipes', '');
 
@@ -61,9 +59,5 @@ function IngredientProgress({ idK }) {
     </div>
   );
 }
-
-IngredientProgress.propTypes = {
-  idK: PropTypes.string.isRequired,
-};
 
 export default IngredientProgress;
