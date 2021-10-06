@@ -4,12 +4,16 @@ import { useHistory } from 'react-router';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-import '../PaginasCss/Header.css';
 import Context from '../Context/Context';
+import Category from './Category';
 
 const maxCharacters = 14;
 const maxCard = 11;
+
 function Header() {
+  const history = useHistory();
+  const [showInput, setShowInput] = useState(true);
+
   const {
     handleInputText,
     handleInputRadio,
@@ -20,10 +24,8 @@ function Header() {
     handleClickFetch,
     data,
     changePage,
+    category,
   } = useContext(Context);
-
-  const history = useHistory();
-  const [showInput, setShowInput] = useState(true);
 
   const formataNome = () => (
     path.length > maxCharacters
@@ -99,7 +101,7 @@ function Header() {
           Buscar
         </button>
       </div>
-
+      <Category category={ category } />
       {
         data.filter((el, i) => (i <= maxCard ? el : false))
           .map(({ strDrink, strDrinkThumb, strMeal, strMealThumb }, i) => (
@@ -111,6 +113,7 @@ function Header() {
                 alt={ strDrink || strMeal }
                 data-testid={ `${i}-card-img` }
                 src={ strDrinkThumb || strMealThumb }
+                width="200"
               />
               <h1 data-testid={ `${i}-card-name` }>{ strDrink || strMeal }</h1>
             </div>))
