@@ -27,8 +27,10 @@ function Header({ title, hideProfile, hideSearch }) {
   return (
     <header className="header">
       {!hideProfile && profileComponent}
-      <h1 data-testid="page-title">{ title }</h1>
-      {!hideSearch && searchComponent}
+      <h1 data-testid="page-title">{title}</h1>
+      <div>
+        {!hideSearch && searchComponent}
+      </div>
     </header>
   );
 }
