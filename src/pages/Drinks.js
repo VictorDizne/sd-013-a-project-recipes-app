@@ -11,13 +11,14 @@ const Drinks = () => {
   const {
     drinkData,
     handleDrinksApisOnload,
-    setDrinkCategories } = useContext(RecipesContext);
+    setDrinkCategories, ingredient } = useContext(RecipesContext);
   const [buttons, setButtons] = useState([]);
   const MAX_BUTTONS = 5;
   const MAX_RECIPES = 12;
 
   useEffect(() => {
-    handleDrinksApisOnload();
+    if (ingredient === '') handleDrinksApisOnload();
+
     const fetchButtons = async () => {
       const response = await fetchDrinkCategories();
       setButtons(response);

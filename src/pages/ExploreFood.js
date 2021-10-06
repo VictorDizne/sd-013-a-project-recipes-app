@@ -1,40 +1,56 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { fetchRandomMeal } from '../services/comidasApi';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/ExplorePages.css';
+import '../styles/Buttons.css';
 
-const ExploreFood = () => (
-  <div>
-    <Header title="Explorar Comidas" />
-    <div className="container">
-      <Link to="/explorar/comidas/ingredientes">
+const ExploreFood = () => {
+  const history = useHistory();
+
+  const randomMeal = async () => {
+    const meal = await fetchRandomMeal();
+    const id = meal[0].idMeal;
+    history.push(`/comidas/${id}`);
+  };
+
+  return (
+    <div>
+      <Header title="Explorar Comidas" />
+
+      <div className="container select-buttons">
         <button
           type="button"
           data-testid="explore-by-ingredient"
+          className="buttons"
+          onClick={ () => history.push('/explorar/comidas/ingredientes') }
         >
           Por Ingredientes
         </button>
-      </Link>
-      <Link to="/explorar/comidas/area">
+
         <button
           type="button"
           data-testid="explore-by-area"
+          className="buttons"
+          onClick={ () => history.push('/explorar/comidas/area') }
         >
           Por Local de Origem
         </button>
-      </Link>
-      <Link to="/comidas">
+
         <button
           type="button"
           data-testid="explore-surprise"
+          className="buttons"
+          onClick={ randomMeal }
         >
           Me Surpreenda!
         </button>
-      </Link>
+      </div>
+
+      <Footer />
     </div>
-    <Footer />
-  </div>
-);
+  );
+};
 
 export default ExploreFood;
