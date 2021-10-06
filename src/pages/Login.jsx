@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../PaginasCss/Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -21,28 +22,36 @@ function Login() {
   }
   return (
     <section>
+      <h2 className="login-title">Login</h2>
       <form>
         <input
+          className="input"
           type="email"
           value={ email }
+          placeholder="Email"
           onChange={ (event) => setEmail(event.target.value) }
           data-testid="email-input"
         />
         <input
+          className="input"
           type="password"
+          placeholder="Senha"
           data-testid="password-input"
           value={ password }
           onChange={ (event) => setPassword(event.target.value) }
         />
         <Link to="/comidas">
-          <button
-            type="button"
-            onClick={ userLogin }
-            disabled={ !userValid() }
-            data-testid="login-submit-btn"
-          >
-            Entrar
-          </button>
+          <div>
+            <button
+              className="login-submit-btn"
+              type="button"
+              onClick={ userLogin }
+              disabled={ !userValid() }
+              data-testid="login-submit-btn"
+            >
+              Entrar
+            </button>
+          </div>
         </Link>
       </form>
     </section>

@@ -15,7 +15,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import NotFound from './pages/NotFound';
 import ProgressRecipes from './pages/ProgressRecipes';
-import Provider from './Store/Store';
+import Provider from './Store/MyProvider';
 
 function App() {
   return (
