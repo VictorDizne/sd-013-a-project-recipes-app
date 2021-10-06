@@ -1,16 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useDebugState } from 'use-named-state';
 import recipeContext from '../context';
 import ComponentDetailsContent from './ComponentDetailsContent';
 
 function ComponentRecipeInProgress() {
-  const { fetchDetails, recipeProgress } = useContext(recipeContext).ContextDetails;
+  const {
+    fetchDetails } = useContext(recipeContext).ContextDetails;
   const { id } = useParams();
   const currentPage = useHistory().location.pathname.includes('/comidas');
-  const history = useHistory();
-
-  const [button, setButton] = useDebugState('button', true);
 
   useEffect(() => {
     if (currentPage) {
@@ -19,16 +16,6 @@ function ComponentRecipeInProgress() {
       fetchDetails('thecocktaildb', 'lookup', 'i', id);
     }
   }, [currentPage, id]);
-
-  useEffect(() => {
-    if (recipeProgress !== '') {
-      setButton(Object.values(recipeProgress).every((item) => item === true));
-    }
-  }, [recipeProgress]);
-
-  const handleClick = () => {
-    history.push('/receitas-feitas');
-  };
 
   const keysM = {
     title: 'strMeal',
@@ -66,14 +53,6 @@ function ComponentRecipeInProgress() {
           ? <ComponentDetailsContent keys={ keysM } />
           : <ComponentDetailsContent keys={ keysD } />
       }
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        onClick={ handleClick }
-        disabled={ !button }
-      >
-        FINALIZAR
-      </button>
     </div>
   );
 }
