@@ -1,5 +1,5 @@
-const endpointFilterByFood = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const endpointFilterByDrink = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+const endpointFilterByFood = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
 export const categoryFood = async (categorySelect) => {
   const response = await fetch(`${endpointFilterByFood}${categorySelect}`);
