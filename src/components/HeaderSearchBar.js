@@ -34,6 +34,7 @@ function HeaderSearchBar({ page, handleClickSearchBar }) {
         value={ inputText }
         onChange={ (event) => setInputText(event.target.value) }
       />
+
       <div className="radio-container">
         <label htmlFor="ingredient" className="label">
           <input
@@ -47,6 +48,7 @@ function HeaderSearchBar({ page, handleClickSearchBar }) {
           />
           Ingrediente
         </label>
+
         <label htmlFor="name" className="label">
           <input
             type="radio"
@@ -59,6 +61,7 @@ function HeaderSearchBar({ page, handleClickSearchBar }) {
           />
           Nome
         </label>
+
         <label htmlFor="letter" className="label">
           <input
             type="radio"
@@ -72,6 +75,7 @@ function HeaderSearchBar({ page, handleClickSearchBar }) {
           Primeira letra
         </label>
       </div>
+
       <button
         type="button"
         data-testid="exec-search-btn"
