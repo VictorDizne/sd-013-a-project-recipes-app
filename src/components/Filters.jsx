@@ -25,9 +25,10 @@ const Filters = ({ alimento }) => {
       setBtnState({
         category: name,
       });
-      setIsFiltered(true);
+      // setIsFiltered(true);
     } else {
-      setIsFiltered(false);
+      buttonAll();
+      // setIsFiltered(false);
     }
   };
 

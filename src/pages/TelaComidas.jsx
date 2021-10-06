@@ -29,10 +29,7 @@ const TelaComidas = ({ history }) => {
     if (!firstRender.current) {
       const { category } = btnState;
       const ApiCategoryFood = async () => {
-        const fetchCategoryFood = await foodAPIRequest(
-          'filter',
-          `c=${category}`,
-        );
+        const fetchCategoryFood = await foodAPIRequest('filter', `c=${category}`);
         setDataFood(fetchCategoryFood);
       };
       ApiCategoryFood();
