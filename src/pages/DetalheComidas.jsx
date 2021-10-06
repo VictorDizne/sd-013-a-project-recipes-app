@@ -56,7 +56,7 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
 
   const favInfo = {
     id,
-    type: 'comida',
+    type: 'comidas',
     area: strArea,
     category: strCategory,
     alcoholicOrNot: '',
@@ -125,16 +125,6 @@ const DetalheComidas = ({ match: { params: { id }, url }, history }) => {
                   { ingredient }
                 </li>))}
           </ul>
-          {/* <ul>
-            {ingredientMeasures(foodDetail, 'medida')
-              .map((measure, i) => (
-                <li
-                  data-testid={ `${i}-ingredient-name-and-measure` }
-                  key={ i }
-                >
-                  { measure }
-                </li>))}
-          </ul> */}
         </div>
       </section>
       <p data-testid="instructions">{strInstructions}</p>

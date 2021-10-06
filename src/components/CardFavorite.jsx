@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import Share from '../images/shareIcon.svg';
 import BlackHeart from '../images/blackHeartIcon.svg';
 
-const CardFavorite = () => {
+const CardFavorite = ({ url }) => {
   const [favs, setFavs] = useState([]);
+  const [isHidden, setIsHidden] = useState(true);
+  const [clip, setClip] = useState('');
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
@@ -18,6 +21,19 @@ const CardFavorite = () => {
     setFavs(localStoreRemoved);
     localStorage.setItem('favoriteRecipes', JSON.stringify(localStoreRemoved));
     console.log('remove fav');
+  };
+
+  const handleShare = ({ target: { name, id } }) => {
+    if (name === 'bebidas') {
+      copy(`http://localhost:3000/${name}/${id}`);
+    } else {
+      copy(`http://localhost:3000/${name}/${id}`);
+    }
+    navigator.clipboard.readText().then(
+      (clipText) => setClip(clipText),
+    );
+
+    setIsHidden(!isHidden);
   };
 
   return (
@@ -39,13 +55,19 @@ const CardFavorite = () => {
           <p data-testid={ `${index}-horizontal-top-text` }>{fav.alcoholicOrNot}</p>
           <button
             type="button"
+            onClick={ handleShare }
+            name={ fav.type }
+            id={ fav.id }
           >
             <img
               data-testid={ `${index}-horizontal-share-btn` }
               src={ Share }
               alt="btn share"
+              name={ fav.type }
+              id={ fav.id }
             />
           </button>
+          <p hidden={ isHidden }>Link copiado!</p>
           <button
             className="fav"
             type="button"

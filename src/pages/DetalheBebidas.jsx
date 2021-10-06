@@ -55,7 +55,7 @@ const DetalheBebidas = ({ match: { params: { id }, url }, history }) => {
 
   const favInfo = {
     id,
-    type: 'bebida',
+    type: 'bebidas',
     area: '',
     category: strCategory,
     alcoholicOrNot: strAlcoholic,
