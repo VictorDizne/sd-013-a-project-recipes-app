@@ -9,6 +9,8 @@ import { fetchDrinksByCategory, fetchDrinksByQuery, fetchDrinksCategories,
   fetchMealsByQuery, fetchMealsCategories } from '../../services/API';
 import RecipeCard from './RecipeCard';
 
+import './RecipeList.css';
+
 const handleCat = ({ currentTarget: { value } }, setCat) => {
   setCat((prevState) => (prevState === value ? 'All' : value));
 };
@@ -60,34 +62,38 @@ function RecipesList({ type }) {
   }
 
   return (
-    <div>
-      <h1>List</h1>
-      <button
-        type="button"
-        onClick={ () => setCat('All') }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      {
-        categories.slice(0, maxCategories).map(({ strCategory }) => (
-          <button
-            key={ strCategory }
-            type="button"
-            data-testid={ `${strCategory}-category-filter` }
-            value={ strCategory }
-            onClick={ (event) => handleCat(event, setCat) }
-          >
-            { strCategory }
-          </button>
-        ))
-      }
-      {
-        lists.slice(0, maxListLength).map((rec, index) => (
-          <RecipeCard key={ index } type={ type } rec={ rec } idx={ index } />
-        ))
-      }
-    </div>
+    <>
+      <div className="list-button-container">
+        <button
+          type="button"
+          onClick={ () => setCat('All') }
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
+        {
+          categories.slice(0, maxCategories).map(({ strCategory }) => (
+            <button
+              key={ strCategory }
+              type="button"
+              data-testid={ `${strCategory}-category-filter` }
+              value={ strCategory }
+              onClick={ (event) => handleCat(event, setCat) }
+            >
+              { strCategory }
+            </button>
+          ))
+        }
+      </div>
+      <hr />
+      <div className="list-container">
+        {
+          lists.slice(0, maxListLength).map((rec, index) => (
+            <RecipeCard key={ index } type={ type } rec={ rec } idx={ index } />
+          ))
+        }
+      </div>
+    </>
   );
 }
 

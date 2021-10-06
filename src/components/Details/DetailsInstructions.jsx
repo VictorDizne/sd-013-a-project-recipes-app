@@ -11,7 +11,7 @@ function DetailsInstructions() {
   return (
     <div className="details-instructions-container">
       <h3>Instructions</h3>
-      <div className="details-intructions">
+      <div className="details-instructions">
         {instrucArray.map((p, idx) => (
           <p key={ `${p[0]}${idx}` } data-testid="instructions">{p}</p>
         ))}

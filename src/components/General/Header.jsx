@@ -85,6 +85,7 @@ function Header({ title, search }) {
               onChange={ (e) => setQuery(e.target.value) }
               value={ query }
               type="text"
+              className="header-input"
               placeholder="Buscar Receita"
               data-testid="search-input"
             />

@@ -3,13 +3,16 @@
 }
 
 .details-img-container img {
-  width: 100%;
+  border-radius: 10px;
+  height: 400px;
+  width: 500px;
 }
 
 .details-header-container {
   display: flex;
-  justify-content: space-between;
-  margin: 5px 0 15px;
+  justify-content: space-evenly;
+  margin: 25px 0;
+  width: 65vw;
 }
 
 .details-header-title * {
@@ -36,33 +39,63 @@
   top: 50%;
 }
 
+.details-ingredients-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 25px 0;
+}
+
 .details-ingredients-container h3 {
   margin: 0 5px;
+  text-align: center;
 }
 
 .details-ingredient-list {
   background-color: rgba(211, 211, 211, 0.774);
   margin-top: 5px;
-  padding: 5px 0 5px 40px;
+  padding: 40px;
+}
+
+.details-ingredient-list li {
+  margin-top: 2px;
+  padding: 8px;
+}
+
+.details-instructions-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .details-instructions-container h3 {
   margin: 0 5px 5px;
+  text-align: center;
 }
 
-.details-intructions {
+.details-instructions {
   background-color: rgba(211, 211, 211, 0.774);
+  display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
-  padding: 1px 8px;
+  padding: 40px;
+  width: 50%;
+  word-spacing: 2px;
+}
+
+.details-instructions p {
+  margin-top: 12px;
 }
 
 .details-video-container {
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 
 .details-video-container * {
   border: none;
+  border-radius: 10px;
 }
 
 .details-recommendations-container {
@@ -75,7 +108,8 @@
 }
 
 .details-recommendations-container h3 {
-  margin: 10px 5px;
+  margin: 50px 0 20px;
+  text-align: center;
 }
 
 .recomendation-cards-outercontainer {
@@ -86,9 +120,8 @@
 
 .recomendation-cards-wrapper {
   height: 100%;
-  overflow-x: scroll;
+  overflow-x: hidden;
   overflow-y: hidden;
-  width: 100%;
 }
 
 .recomendation-cards-innercontainer {
@@ -98,16 +131,18 @@
 }
 
 .recommendation-card {
-  margin: 0 15px;
-  width: 150px;
+  margin: 0 25px;
 }
 
 .recommendation-card img {
-  width: 100%;
+  border-radius: 50%;
+  height: 150px;
+  width: 160px;
 }
 
 .recommendation-card p {
   margin: 5px 0;
+  text-align: center;
 }
 
 .details-start-btn {
@@ -119,4 +154,51 @@
   padding: 15px;
   position: fixed;
   width: 95%;
+}
+
+/* media queries */
+
+@media screen and ( max-width : 640px ) {
+
+  .details-food-link {
+    margin-bottom: -10px;
+  }
+
+  .details-header-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+  }
+
+  .details-img-container img {
+    border-radius: 10px;
+    width: 100vw;
+  }
+
+  .details-ingredients-container h3 {
+    margin-bottom: 10px;
+  }
+
+  .details-ingredient-list {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
+
+  .details-instructions-container {
+    width: 100%;
+  }
+
+  .details-instructions {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .recomendation-cards-wrapper {
+    height: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 100vw;
+  }
 }

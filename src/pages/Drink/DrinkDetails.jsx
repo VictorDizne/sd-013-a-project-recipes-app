@@ -21,14 +21,33 @@ function DrinkDetails() {
   if (error) return <h3>Hmm, Algo deu errado, por favor tente novamente</h3>;
 
   return ( // 'spec' serve para sinalizar ao componente se é comida ou bebida;
-    <>
-      <DetailsImage spec="Drink" />
-      <DetailsHeader spec="Drink" />
-      <DetailsIngredients />
-      <DetailsInstructions />
-      <DetailsRecommendations spec="Drink" />
-      <DetailsStartRecipe spec="Drink" />
-    </>
+    // a página é de drink, mas o css é o mesmo para comida e drink
+    <div className="details-food-container">
+      <div>
+        <DetailsImage spec="Drink" />
+      </div>
+
+      <div className="details-food-link">
+        <DetailsHeader spec="Drink" />
+      </div>
+
+      <div>
+        <DetailsIngredients />
+      </div>
+
+      <div>
+        <DetailsInstructions />
+      </div>
+
+      <div>
+        <DetailsRecommendations spec="Drink" />
+      </div>
+
+      <div>
+        <DetailsStartRecipe spec="Drink" />
+
+      </div>
+    </div>
   );
 }
 

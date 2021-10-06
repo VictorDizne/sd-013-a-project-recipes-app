@@ -6,6 +6,7 @@ import { DetailsImage, DetailsHeader, DetailsIngredients,
   DetailsInstructions, DetailsVideo,
   DetailsRecommendations, DetailsStartRecipe } from '../../components/Details';
 import '../../CSS/Details.css';
+import './FoodDetails.css';
 
 function FoodDetails() {
   const { id } = useParams(); // Pega o ID da receita na URL;
@@ -22,15 +23,36 @@ function FoodDetails() {
   if (error) return <h3>Hmm, Algo deu errado, por favor tente novamente</h3>;
 
   return ( // 'spec' serve para sinalizar ao componente se é comida ou bebida;
-    <>
-      <DetailsImage spec="Meal" />
-      <DetailsHeader spec="Meal" />
-      <DetailsIngredients />
-      <DetailsInstructions />
-      <DetailsVideo />
-      <DetailsRecommendations spec="Meal" />
-      <DetailsStartRecipe spec="Meal" />
-    </>
+    <div className="details-food-container">
+      <div>
+        <DetailsImage spec="Meal" />
+      </div>
+
+      <div className="details-food-link">
+        <DetailsHeader spec="Meal" />
+      </div>
+
+      <div>
+        <DetailsIngredients />
+      </div>
+
+      <div>
+        <DetailsInstructions />
+      </div>
+
+      <div>
+        <DetailsVideo />
+      </div>
+
+      <div>
+        <DetailsRecommendations spec="Meal" />
+      </div>
+
+      <div>
+        <DetailsStartRecipe spec="Meal" />
+
+      </div>
+    </div>
   );
 }
 
