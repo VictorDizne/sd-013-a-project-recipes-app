@@ -7,7 +7,8 @@ import * as myFuncStorage from '../services/storage';
 
 function FavoriteRecipes() {
   const { setCheckFavorite } = useContext(MyContext);
-  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favoriteRecipes = localStorage.getItem('favoriteRecipes') !== null
+    ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
   const [recipes, setRecipes] = useState([]);
   const [foodFilter, setFoodFilter] = useState(false);
   const [drinkFilter, setDrinkFilter] = useState(false);
