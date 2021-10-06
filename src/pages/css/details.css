@@ -15,7 +15,6 @@
 }
 
 .horizontal-scroll {
-  border: 1px solid black;
   display: flex;
   margin: 5px;
   max-height: 300px;
