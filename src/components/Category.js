@@ -9,9 +9,6 @@ function Category() {
   const { category, setData, backupData } = useContext(Context);
   const [toggle, setToggle] = useState(false);
 
-  // const [categorySelect, seteCategorySelect] = useState('');
-  // const [pathState, setPathState] = useState('');
-
   const { pathname } = useLocation();
 
   const changeCategory = async ({ target }) => {
