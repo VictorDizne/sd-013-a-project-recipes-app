@@ -106,12 +106,12 @@ function DrinkDetail() {
       <Container fluid>
         <Stack
           direction="row"
-          spacing={ 16 }
+          spacing={ 0.5 }
         >
           <div>
             <h4
               data-testid="recipe-title"
-              style={ { width: '150px' } }
+              style={ { width: '270px' } }
             >
               {drink.strDrink}
             </h4>

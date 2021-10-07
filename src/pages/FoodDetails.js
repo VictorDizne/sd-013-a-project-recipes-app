@@ -105,15 +105,15 @@ function FoodDetails() {
       <Container>
         <Stack
           direction="row"
-          spacing={ 16 }
+          spacing={ 0.5 }
         >
           <div>
-            <h2
+            <h3
               data-testid="recipe-title"
-              style={ { width: '150px' } }
+              style={ { width: '270px' } }
             >
               {meal.strMeal}
-            </h2>
+            </h3>
             <p data-testid="recipe-category">{meal.strCategory}</p>
           </div>
           <div>
