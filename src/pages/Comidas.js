@@ -21,7 +21,6 @@ function Comidas() {
   useEffect(() => {
     handleCurrentPage();
     if (params.i) {
-      console.log({ params });
       handleFetch('themealdb', 'filter', 'i', params.i);
     } else {
       handleFetch('themealdb');

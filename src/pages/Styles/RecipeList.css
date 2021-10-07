@@ -1,3 +1,14 @@
+.dropdown-select-contain {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.dropdown-select {
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+
 .button-card {
   background-color: white;
   border: none;
@@ -10,7 +21,7 @@
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  height: 200px;
+  height: 220px;
   width: 130px;
 }
 
@@ -19,8 +30,9 @@
   display: flex;
   font-size: 16px;
   font-weight: 700;
-  height: 50px;
+  height: 100px;
   justify-content: center;
   margin-top: 10px;
   overflow: hidden;
+  padding: 10px;
 }

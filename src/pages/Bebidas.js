@@ -22,7 +22,6 @@ function Bebidas() {
   useEffect(() => {
     handleCurrentPage();
     if (params.i) {
-      console.log({ params });
       handleFetch('thecocktaildb', 'filter', 'i', params.i);
     } else {
       handleFetch('thecocktaildb');
