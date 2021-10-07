@@ -109,6 +109,7 @@ function RecipeDetails(props) {
           data-testid="recipe-photo"
           src={ isMeal ? data.strMealThumb : data.strDrinkThumb }
           alt={ isMeal ? 'foto da comida' : 'foto da bebida' }
+          style={ { height: '20vh' } }
         />
 
         <h2 data-testid="recipe-title">{isMeal ? data.strMeal : data.strDrink}</h2>
