@@ -42,14 +42,21 @@ function Dropdown() {
   }
 
   return (
-    <div>
-      <select onChange={ handleChange } data-testid="explore-by-area-dropdown">
-        {local.map((area, index) => (
-          <option data-testid={ `${area}-option` } key={ index }>{area}</option>
-        ))}
-      </select>
+    <div className="list-container">
+      <div className="dropdown-select-contain">
+        <select
+          onChange={ handleChange }
+          data-testid="explore-by-area-dropdown"
+          className="dropdown-select"
+        >
+          {local.map((area, index) => (
+            <option data-testid={ `${area}-option` } key={ index }>{area}</option>
+          ))}
+        </select>
+      </div>
       {card.map((item, index) => (
         <div
+          className="button-card"
           role="button"
           tabIndex={ index }
           onKeyDown={ () => click(index) }
@@ -57,13 +64,17 @@ function Dropdown() {
           data-testid={ `${index}-recipe-card` }
           key={ index }
         >
-          <h3 data-testid={ `${index}-card-name` }>{item.strMeal}</h3>
-          <img
-            data-testid={ `${index}-card-img` }
-            alt="meals"
-            src={ item.strMealThumb }
-            width="100px"
-          />
+          <div className="card-img-contain">
+            <img
+              data-testid={ `${index}-card-img` }
+              alt="meals"
+              src={ item.strMealThumb }
+              width="130px"
+            />
+            <div className="recipe-title">
+              <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+            </div>
+          </div>
         </div>
       ))}
     </div>
