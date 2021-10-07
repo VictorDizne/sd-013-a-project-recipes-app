@@ -1381,6 +1381,14 @@
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.6.0.tgz"
   "version" "2.6.0"
 
+"@react-mock/localstorage@^0.1.2":
+  "integrity" "sha512-IprMHwcAeyl6gfSA9nEhNDYQiLlVnKdw62O3WDFkHtuT6X16Fajic/geN7HrTdPTL47flhG9coXhgkXDmj665w=="
+  "resolved" "https://registry.npmjs.org/@react-mock/localstorage/-/localstorage-0.1.2.tgz"
+  "version" "0.1.2"
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    "lodash" "^4.17.11"
+
 "@restart/context@^2.1.4":
   "integrity" "sha512-INJYZQJP7g+IoDUh/475NlGiTeMfwTXUEr3tmRneckHIxNolGOW9CTq83S8cxq0CgJwwcMzMJFchxvlwe7Rk8Q=="
   "resolved" "https://registry.npmjs.org/@restart/context/-/context-2.1.4.tgz"
