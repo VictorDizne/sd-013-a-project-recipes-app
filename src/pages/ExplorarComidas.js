@@ -3,7 +3,7 @@ import { useDebugState } from 'use-named-state';
 import { Link } from 'react-router-dom';
 import Header from '../components/ComponentHeader';
 import ComponentFooter from '../components/ComponentFooter';
-import './Styles/ExplorarComidas.css';
+import './Styles/Explorar.css';
 
 function ExplorarComidas() {
   const [comidaID, setComidaID] = useDebugState('comidaID', 0);
@@ -19,10 +19,10 @@ function ExplorarComidas() {
   }, []);
 
   return (
-    <div className="geral">
+    <div className="explorar-main">
       <Header title="Explorar Comidas " hideSearch hideProfile={ false } />
-      <div className="explorar">
-        <div className="container">
+      <div className="container-explorar">
+        <div className="Link-container">
           <Link
             className="link"
             data-testid="explore-by-ingredient"
@@ -31,7 +31,7 @@ function ExplorarComidas() {
             Por Ingredientes
           </Link>
         </div>
-        <div className="container">
+        <div className="Link-container">
           <Link
             className="link"
             data-testid="explore-by-area"
@@ -40,7 +40,7 @@ function ExplorarComidas() {
             Por Local de Origem
           </Link>
         </div>
-        <div className="container">
+        <div className="Link-container">
           <Link
             className="link"
             data-testid="explore-surprise"
