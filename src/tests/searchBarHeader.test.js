@@ -11,6 +11,49 @@ const startToSearchBtt = 'search-top-btn';
 const radioIngredient = 'ingredient-search-radio';
 const searchButton = 'exec-search-btn';
 
+// const renderPath = (path) => {
+//   const history = createBrowserHistory();
+//   history.push(path);
+//   const { ...resources } = render(
+//     <AppProvider state={ food: }>
+//       <Router history={ history }>
+//         <App />
+//       </Router>
+//       ,
+//     </AppProvider>,
+//   );
+
+//   return { ...resources };
+// };
+
+// const drinksContext = {
+//   drinks: [
+//     {
+//       idDrink: '15997',
+//       strDrink: 'GG',
+//       strIngredient1: 'Galliano',
+//       strIngredient2: 'Ginger ale',
+//       strIngredient3: 'Ice',
+//     },
+//     {
+//       idDrink: '17222',
+//       strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
+//       strIngredient1: 'Gin',
+//       strMeasure1: '1 3/4 shot ',
+//       strMeasure2: '1 Shot ',
+//       strMeasure3: '1/4 Shot',
+//       strMeasure4: '1/8 Shot',
+//     },
+//     {
+//       idDrink: '13501',
+//       strDrink: 'ABC',
+//       strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg',
+//       strIngredient1: 'Amaretto',
+//       strIngredient2: 'Baileys irish cream',
+//       strIngredient3: 'Cognac',
+//     }],
+// };
+
 describe(`13 - Implemente os elementos da barra de busca
   respeitando os atributos descritos no protótipo`, () => {
   it(`Deve existir os data-testids tanto da barra
@@ -59,35 +102,5 @@ describe(`14 - Posicione a barra logo abaixo do
     global.fetch = jest.fn().mockResolvedValue(response);
 
     await waitForElement(() => screen.findByText('Chick-Fil-A Sandwich'));
-  });
-});
-
-describe(`15 - Busque na API de comidas caso a pessoa
-  esteja na página de comidas e na de bebidas caso esteja na de bebidas`, () => {
-  it(`Se o radio selecionado for Ingrediente, a
-    busca na API é feita corretamente pelo ingrediente`, async () => {
-    const resultByIngredient = {
-      meals: [
-        {
-          strDrink: '3-Mile Long Island Iced Tea',
-          strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/rrtssw1472668972.jpg',
-          idDrink: '15300',
-        },
-      ],
-    };
-    renderWithRouter(<SearchButton />);
-    const operSearchBar = screen.getByTestId(startToSearchBtt);
-    userEvent.click(operSearchBar);
-    const searchInput = screen.getByTestId('search-input');
-    const ingredientRadio = screen.getByTestId(radioIngredient);
-    const searchBtt = screen.getByTestId(searchButton);
-    userEvent.type(searchInput, 'Gin');
-    userEvent.click(ingredientRadio);
-    userEvent.click(searchBtt);
-
-    const response = { json: jest.fn().mockResolvedValue(resultByIngredient) };
-    global.fetch = jest.fn().mockResolvedValue(response);
-
-    await waitForElement(() => screen.findByText('3-Mile Long Island Iced Tea'));
   });
 });

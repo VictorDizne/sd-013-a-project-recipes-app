@@ -71,7 +71,6 @@ function ProcessFood() {
   const isChecked = (ingredientName) => {
     const NOT_FOUND = -1;
     const ingredientsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(ingredientsLocal);
     if (ingredientsLocal.meals[id] && ingredientsLocal.meals[id]
       .indexOf(ingredientName) !== NOT_FOUND) {
       return true;
