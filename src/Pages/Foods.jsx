@@ -14,7 +14,14 @@ export default function Foods() {
 
   const history = useHistory();
 
-  const { searchData, loading, pathnameCheck, fetchAPI } = useContext(Context);
+  const {
+    searchData,
+    setSearchData,
+    exploreData,
+    loading,
+    pathnameCheck,
+    fetchAPI,
+  } = useContext(Context);
 
   const DOZE = 12;
 
@@ -22,7 +29,14 @@ export default function Foods() {
 
   useEffect(() => {
     // Requisição inicial para renderizar cards ao carregar a página.
-    fetchAPI(pathnameCheck(pathname));
+    const verifyStates = () => {
+      if (exploreData.length >= 1) {
+        setSearchData(exploreData);
+      } else {
+        fetchAPI(pathnameCheck(pathname));
+      }
+    };
+    verifyStates();
   }, []);
 
   return (

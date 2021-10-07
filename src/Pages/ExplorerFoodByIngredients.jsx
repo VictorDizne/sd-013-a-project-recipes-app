@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
-import RecipesContext from '../Context/RecipesContext';
+import Context from '../ContextAPI/Context';
 
 export default function ExploreFoodByIngredients() {
   const pageTitle = {
@@ -10,7 +10,8 @@ export default function ExploreFoodByIngredients() {
     setIcon: false,
   };
   const [ingredients, setIngredients] = useState([]);
-  const setRecipesDb = useContext(RecipesContext);
+  const { setExploreData } = useContext(Context);
+  // const setRecipesDb = useContext(RecipesContext);
   const history = useHistory();
   const limits = 12;
 
@@ -26,8 +27,8 @@ export default function ExploreFoodByIngredients() {
   async function getMealFromIngredient(param) {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${param}`);
     const data = await response.json();
-    setRecipesDb([]);
-    return setRecipesDb(data.meals);
+    // setRecipesDb([]);
+    return setExploreData(data.meals);
   }
 
   return (
@@ -39,8 +40,8 @@ export default function ExploreFoodByIngredients() {
             <button
               name={ meal.strIngredient }
               type="button"
-              onClick={ ({ target }) => {
-                getMealFromIngredient(target.getAttribute('name'));
+              onClick={ async () => {
+                await getMealFromIngredient(meal.strIngredient);
                 return history.push('/comidas');
               } }
             >

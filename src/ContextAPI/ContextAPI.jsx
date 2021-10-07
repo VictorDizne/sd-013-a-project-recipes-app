@@ -4,6 +4,7 @@ import Context from './Context';
 
 function ContextAPIProvider({ children }) {
   const [searchData, setSearchData] = useState([]);
+  const [exploreData, setExploreData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const errorMessage = (
@@ -139,6 +140,8 @@ function ContextAPIProvider({ children }) {
     // pathnameReverse,
     searchData,
     setSearchData,
+    exploreData,
+    setExploreData,
     loading,
     setLoading,
   };
