@@ -6,6 +6,7 @@ const emdPointDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s
 
 function useFetchAPI() {
   const [data, setData] = useState([]);
+  const [backupData, setBackupData] = useState([]);
 
   const { pathname } = useLocation();
 
@@ -15,6 +16,7 @@ function useFetchAPI() {
         const response = await fetch(endpointFoods);
         const { meals } = await response.json();
         setData(meals);
+        setBackupData(meals);
       };
       fetchComidas();
     } else {
@@ -22,13 +24,14 @@ function useFetchAPI() {
         const response = await fetch(emdPointDrinks);
         const { drinks } = await response.json();
         setData(drinks);
+        setBackupData(drinks);
       };
       fechBebidas();
     }
   }, [pathname]);
 
   return (
-    [data, setData]
+    [data, setData, backupData]
   );
 }
 

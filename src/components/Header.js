@@ -104,17 +104,21 @@ function Header() {
       <Category category={ category } />
       {
         data.filter((el, i) => (i <= maxCard ? el : false))
-          .map(({ strDrink, strDrinkThumb, strMeal, strMealThumb }, i) => (
+          .map(({ strDrink,
+            strDrinkThumb, strMeal, strMealThumb, idDrink, idMeal,
+          }, i) => (
             <div
               data-testid={ `${i}-recipe-card` }
               key={ i }
             >
-              <img
-                alt={ strDrink || strMeal }
-                data-testid={ `${i}-card-img` }
-                src={ strDrinkThumb || strMealThumb }
-                width="200"
-              />
+              <Link to={ `/${path}/${idDrink || idMeal}` }>
+                <img
+                  alt={ strDrink || strMeal }
+                  data-testid={ `${i}-card-img` }
+                  src={ strDrinkThumb || strMealThumb }
+                  width="200"
+                />
+              </Link>
               <h1 data-testid={ `${i}-card-name` }>{ strDrink || strMeal }</h1>
             </div>))
       }
