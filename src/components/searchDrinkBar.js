@@ -53,54 +53,58 @@ function SearchDrinkBar() {
 
   return (
     <div className="search-metods">
-      <label htmlFor="filter_radio">
-        Ingrediente
+      <div className="search-labels">
+        <label htmlFor="filter_radio">
+          Ingrediente
+          <input
+            type="radio"
+            name="radio"
+            value="ingredient"
+            onChange={ handleSearchParameter }
+            data-testid="ingredient-search-radio"
+          />
+        </label>
+
+        <label htmlFor="name">
+          Nome
+          <input
+            type="radio"
+            name="radio"
+            value="text"
+            onChange={ handleSearchParameter }
+            data-testid="name-search-radio"
+          />
+        </label>
+
+        <label htmlFor="firstLetter">
+          Primeira Letra
+          <input
+            type="radio"
+            name="radio"
+            value="firstLetter"
+            onChange={ handleSearchParameter }
+            data-testid="first-letter-search-radio"
+          />
+        </label>
+      </div>
+      <div className="search-inputs">
         <input
-          type="radio"
-          name="radio"
-          value="ingredient"
+          placeholder="Buscar"
+          type="text"
+          data-testid="search-input"
+          name="text"
           onChange={ handleSearchParameter }
-          data-testid="ingredient-search-radio"
         />
-      </label>
 
-      <label htmlFor="name">
-        Nome
-        <input
-          type="radio"
-          name="radio"
-          value="text"
-          onChange={ handleSearchParameter }
-          data-testid="name-search-radio"
-        />
-      </label>
-
-      <label htmlFor="firstLetter">
-        Primeira Letra
-        <input
-          type="radio"
-          name="radio"
-          value="firstLetter"
-          onChange={ handleSearchParameter }
-          data-testid="first-letter-search-radio"
-        />
-      </label>
-
-      <input
-        placeholder="Buscar"
-        type="text"
-        data-testid="search-input"
-        name="text"
-        onChange={ handleSearchParameter }
-      />
-
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ checkInput }
-      >
-        Buscar
-      </button>
+        <button
+          className="button-header-complete"
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ checkInput }
+        >
+          Buscar
+        </button>
+      </div>
     </div>
   );
 }

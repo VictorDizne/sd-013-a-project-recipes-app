@@ -44,18 +44,23 @@ function Header({ title }) {
   }
 
   return (
-    <header className="header">
-      <Link to="/perfil">
-        <img
-          className="iconprofile"
-          src={ profileIcon }
-          alt="profileIcon"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h1 className="page-title" data-testid="page-title">{ title }</h1>
-      {}
-      { showSearchButton() }
+    <header className="header-complete">
+      <div className="header">
+        <div className="iconprofile1">
+          <Link to="/perfil">
+            <img
+              className="iconprofile"
+              src={ profileIcon }
+              alt="profileIcon"
+              data-testid="profile-top-btn"
+            />
+          </Link>
+        </div>
+        <div className="page-title">
+          <h1 data-testid="page-title">{ title }</h1>
+        </div>
+        { showSearchButton() }
+      </div>
       { searchBar() }
     </header>
   );

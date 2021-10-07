@@ -1,0 +1,119 @@
+* {
+  background-color: none;
+  border: none;
+  color: #4d2f13;
+  max-width: 360px;
+  text-decoration: none;
+}
+
+body {
+  background-color: #fef2df;
+}
+
+.page-title {
+  align-items: baseline;
+  border-bottom: 2px solid #695542;
+  display: flex;
+  height: 48px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 5px;
+}
+
+.header-complete {
+  background-color: #f9bd85;
+  /* background-image: linear-gradient(181.273deg, rgba(248, 190, 137, 1) 41.389%, rgba(253, 240, 225, 1) 85.604%); */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+}
+
+.header-button {
+  background-color: #f9bd85;
+  /* border: 2px solid #695542; */
+  margin-top: 4px;
+  padding: 3px;
+}
+
+.iconprofile {
+  background-color: #f9bd85;
+  /* border: 2px solid #695542; */
+  margin-top: 4px;
+  padding: 5px;
+}
+
+.search-labels {
+  display: flex;
+  justify-content: space-around;
+}
+
+.search-inputs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.button-header-complete {
+  background-color: #e7b382;
+  border: 1px solid #695542;
+}
+
+.every-category-button {
+  display: flex;
+  flex-flow: wrap row;
+  gap: 6px;
+  justify-content: center;
+}
+
+.button-category {
+  background-color: #e7b382;
+  border: 1px solid #695542;
+}
+
+.foodImage {
+  border-radius: 8px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  width: 120px;
+}
+
+.div-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  max-width: 360px;
+}
+
+.eachFood {
+  align-content: space-between;
+  background: none;
+  border-radius: 5px;
+  box-shadow: 25px 20px 10px -15px rgba(249, 191, 140, 1);
+  font-size: larger;
+  margin-bottom: 6px;
+  margin-top: 15px;
+  text-align: center;
+  width: 150px;
+}
+
+.footer {
+  background-color: #f9bd85;
+  /* border-top: 2px solid #695542; */
+  bottom: 0;
+  display: flex;
+  padding: 4px;
+  position: fixed;
+}
+
+.footerButtons {
+  background-color: #f9bd85;
+  border: none;
+  width: 120px;
+}

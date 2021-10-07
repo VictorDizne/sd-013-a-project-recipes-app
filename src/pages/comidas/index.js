@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import '../Search.css';
 import EveryMealCard from '../../components/everyMealCard';
 import Footer from '../../components/footer';
 import Header from '../../components/header';

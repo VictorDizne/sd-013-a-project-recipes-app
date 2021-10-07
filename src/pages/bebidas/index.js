@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import '../Search.css';
 import DrinkCategories from '../../components/drinkCategories';
 import EveryDrinkCard from '../../components/everyDrinkCard';
 import Footer from '../../components/footer';
