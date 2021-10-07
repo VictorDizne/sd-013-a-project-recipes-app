@@ -11,6 +11,7 @@ export default function ExploreByIngredients() {
   };
   const [ingredients, setIngredients] = useState([]);
   const setRecipesDB = useContext(RecipesContext);
+  // const { fetchCategories, fetchAPI } = useContext(Context);
   const history = useHistory();
   const limits = 12;
 
@@ -24,8 +25,9 @@ export default function ExploreByIngredients() {
   }, []);
 
   async function getDrinksFromIngredients(param) {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${param}`);
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?i=${param}`);
     const data = await response.json();
+    console.log(data);
     setRecipesDB([]);
     return setRecipesDB(data.drinks);
   }
