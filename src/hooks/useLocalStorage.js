@@ -1,7 +1,7 @@
 // source: https://usehooks.com/useLocalStorage/
 import { useState } from 'react';
 
-function useIngredients(key, initialValue) {
+function useLocalStorage(key, initialValue) {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState(() => {
@@ -33,4 +33,4 @@ function useIngredients(key, initialValue) {
   };
   return [storedValue, setValue];
 }
-export default useIngredients;
+export default useLocalStorage;

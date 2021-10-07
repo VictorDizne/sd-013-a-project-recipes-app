@@ -23,6 +23,7 @@ import RenderCheckbox from '../components/RenderCheckbox';
 import '../styles/Progress.css';
 import { loadLocalStorage, saveLocalStorage } from '../helpers/localStorageHelper';
 import { getDate, getTags, getType } from '../helpers/getRecipeHelpers';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function Progress({ foodDrink }) {
   const path = useLocation().pathname; // Caminho atual
@@ -32,6 +33,7 @@ function Progress({ foodDrink }) {
   const [loading, setLoading] = useState(false); // Carregando
   const [recipe, setRecipe] = useState(); // Detalhes
   const [isFavorite, setIsFavorite] = useState(false); // Favoritado
+  const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
   const [doneRecipe, setDoneRecipe] = useState(true); // Finalizar receita
 
   const history = useHistory();
@@ -57,22 +59,20 @@ function Progress({ foodDrink }) {
   /* Gerencia as receitas favoritas */
   const manageFavorites = () => {
     if (isFavorite) { // Caso seja favorito - desfavoritar
-      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const removed = favoriteRecipes.filter((item) => item.id !== id);
+      const removed = favorites.filter((item) => item.id !== id);
 
-      localStorage.setItem('favoriteRecipes', JSON.stringify(removed));
+      setFavorites(removed);
       setIsFavorite(false);
     } else {
-      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-      favoriteRecipes.push(newRecipe(
+      const newFavorites = [...favorites];
+      newFavorites.push(newRecipe(
         recipe,
         foodDrink,
         foodDrinkPT,
         foodDrinkCap,
       ));
 
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+      setFavorites(newFavorites);
       setIsFavorite(true);
     }
   };
@@ -93,11 +93,9 @@ function Progress({ foodDrink }) {
     };
 
     const doneRecipes = loadLocalStorage('doneRecipes') || [];
-    console.log(doneRecipes);
     const recipeID = doneRecipes
       .findIndex((localStorageRecipe) => localStorageRecipe.id === lastDoneRecipe.id);
     const NOT_FOUND = -1;
-
     if (recipeID === NOT_FOUND) {
       const addLastDoneRecipe = [...doneRecipes, lastDoneRecipe];
       saveLocalStorage('doneRecipes', addLastDoneRecipe);
