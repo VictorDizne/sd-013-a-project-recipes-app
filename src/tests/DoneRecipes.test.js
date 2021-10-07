@@ -11,12 +11,15 @@ import renderWithReduxAndRouter from '../helpers/renderWithReduxAndRouter';
 
 // Mocks
 import { doneMock, drinksQuantity, foodQuantity } from '../mocks/DoneMock';
+import * as lsModules from '../helpers/localStorageHelper';
 
 // Mock copy library
 jest.mock('clipboard-copy');
 
 // History
 let mockHistory = {};
+
+// CONSTS
 const PROFILE_ICON = 'profile-top-btn';
 const PAGE_TITLE = 'page-title';
 const ALL_BTN = 'filter-by-all-btn';
@@ -34,6 +37,8 @@ const DONE_RECIPES_EMPTY_LOCAL_STORAGE = {
   items: { doneRecipes: JSON.stringify([]) },
 };
 const SHARE_BTN = '0-horizontal-share-btn';
+const EMPTY_DONE_RECIPES = /Adicione novas Receitas!/i;
+const COPY_LINK = /Link copiado!/i;
 
 describe('Testa as funcionalidades da Done.jsx', () => {
   beforeEach(() => {
@@ -110,16 +115,16 @@ describe('Testa as funcionalidades da Done.jsx', () => {
 
     userEvent.click(shareBtn);
 
-    const shareMsg = await screen.findAllByText(/Link copiado!/i);
+    const shareMsg = await screen.findAllByText(COPY_LINK);
 
-    expect(copy).toHaveBeenCalledWith('http://localhost:3000/comidas/53060');
+    expect(copy).toHaveBeenCalledWith(`http://localhost:3000/comidas/${FIRST_RECIPE.id}`);
     expect(shareMsg[0]).toBeInTheDocument();
   });
   it('Testa se renderiza uma tag <p> com o texto "Adicione novas Receitas!" '
   + 'se doneRecipes estiver vazio. ', () => {
     renderWithReduxAndRouter(<Done />, DONE_RECIPES_EMPTY_LOCAL_STORAGE);
 
-    const doneRecipesEmptyMSG = screen.getByText(/Adicione novas Receitas!/i);
+    const doneRecipesEmptyMSG = screen.getByText(EMPTY_DONE_RECIPES);
 
     expect(doneRecipesEmptyMSG).toBeInTheDocument();
   });
@@ -158,4 +163,19 @@ describe('Testa as funcionalidades da Done.jsx para as rotas de redirecionamento
     const recipeNameInActualPage = screen.getByText(recipeName.innerHTML);
     expect(recipeNameInActualPage).toBeInTheDocument();
   });
+});
+test('Testa se save/loadLocalStorage atualiza as receitas do compoente.', () => {
+  const spySaveLS = jest.spyOn(lsModules, 'saveLocalStorage');
+  const spyLoadLS = jest.spyOn(lsModules, 'loadLocalStorage');
+  const ONE = 1;
+  const TWO = 2;
+  renderWithReduxAndRouter(<Done />, DONE_RECIPES_LOCAL_STORAGE_MOCK);
+
+  expect(spySaveLS).not.toHaveBeenCalled();
+  expect(spyLoadLS).toHaveBeenCalledTimes(ONE);
+
+  // testa se retorna [] quando não tem uma chave no local storage
+  const emptyStore = lsModules.loadLocalStorage('checkEmptyKeyCoverage');
+  expect(spyLoadLS).toHaveBeenCalledTimes(TWO);
+  expect(emptyStore).toEqual([]);
 });
