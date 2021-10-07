@@ -27,6 +27,7 @@ function ExplorarComidasIngredientes() {
   function IngredientList() {
     const results = ingredientArray.map((ingredient, index) => index < foodListSize && (
       <div
+        className="button-card"
         key={ index }
         onClick={ () => handleClickCard(ingredient.strIngredient1) }
         onKeyPress={ () => handleClickCard(ingredient.strIngredient1) }
@@ -34,15 +35,18 @@ function ExplorarComidasIngredientes() {
         role="button"
         tabIndex={ index }
       >
-
-        <img
-          alt={ ingredient.strIngredient }
-          data-testid={ `${index}-card-img` }
-          src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
-        />
-        <p data-testid={ `${index}-card-name` }>
-          {ingredient.strIngredient1}
-        </p>
+        <div className="card-img-contain">
+          <img
+            alt={ ingredient.strIngredient }
+            data-testid={ `${index}-card-img` }
+            src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
+          />
+          <div className="recipe-title">
+            <p data-testid={ `${index}-card-name` }>
+              {ingredient.strIngredient1}
+            </p>
+          </div>
+        </div>
       </div>));
     return results;
   }
@@ -50,7 +54,9 @@ function ExplorarComidasIngredientes() {
   return (
     <div>
       <Header title="Explorar Ingredientes" hideSearch />
-      <IngredientList />
+      <div className="list-container">
+        <IngredientList />
+      </div>
       <ComponentFooter />
     </div>
 
