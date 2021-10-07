@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import YouTube from 'react-youtube';
-import RecomendationCards from '../Components/RecomendationCard';
-import ButtonRecipe from '../Components/ButtonRecipe';
 import whiteHeartIcon from '../Images/whiteHeartIcon.svg';
 import blackHeartIcon from '../Images/blackHeartIcon.svg';
 import shareIcon from '../Images/shareIcon.svg';
 import useApiId from '../Hooks/useApiId';
-import useFetchApi from '../Hooks/useFetchApi';
-import youtubeLink from '../services/YoutubeLink';
 import '../Styles/btn-down.css';
 import '../Styles/RecipeDetails.css';
 
@@ -46,19 +41,20 @@ function checkFavorite(isMeal, data, setFavButton) {
   localStorage.favoriteRecipes = JSON.stringify([fav]);
 }
 
-function RecipeDetails(props) {
+const RecipeProgress = (props) => {
   const { match: { params: { id } } } = props;
   const { pathname } = useLocation();
   const pathnameCheck = (pathnameParam) => {
     switch (pathnameParam) {
-    case `/comidas/${id}`:
+    case `/comidas/${id}/in-progress`:
       return 'themealdb';
-    case `/bebidas/${id}`:
+    case `/bebidas/${id}/in-progress`:
       return 'thecocktaildb';
     default:
       return null;
     }
   };
+  console.log(pathname);
 
   const [data, isMeal] = useApiId(pathnameCheck(pathname), id);
   const [favButton, setFavButton] = useState(false);
@@ -71,13 +67,12 @@ function RecipeDetails(props) {
 
   verifyFunction(VINTE, data, arrayIngredients, arrayMeasures);
 
-  const pathnameReverse = isMeal
-    ? pathnameCheck(`/bebidas/${id}`)
-    : pathnameCheck(`/comidas/${id}`);
-  const recomendationData = useFetchApi(pathnameReverse);
-
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+    if (isMeal) {
+      setShareButton(true);
+      return navigator.clipboard.writeText(`http://localhost:3000/comidas/${id}`);
+    }
+    navigator.clipboard.writeText(`http://localhost:3000/bebidas/${id}`);
     setShareButton(true);
   };
 
@@ -102,7 +97,7 @@ function RecipeDetails(props) {
 
   return (
     <div>
-      <h1>RecipeDetails</h1>
+      <h1>RecipeInProgress</h1>
 
       <div>
         <img
@@ -148,39 +143,25 @@ function RecipeDetails(props) {
         >
           { isMeal ? data.strCategory : (`${data.strAlcoholic} - ${data.strCategory}`) }
         </h2>
-        <ul>
-          {arrayIngredients.map((ingredient, index) => (
-            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              { `${ingredient} - ${arrayMeasures[index]}` }
+        {arrayIngredients.map((ingredient, index) => (
+          <ul key={ index }>
+            <li id={ index } data-testid={ `${index}-ingredient-step` }>
+              <input type="checkbox" id={ index } />
+              { ` ${ingredient} - ${arrayMeasures[index]}` }
             </li>
-          ))}
-        </ul>
+          </ul>
+        ))}
         <p data-testid="instructions">{data.strInstructions}</p>
-
-        {isMeal && (
-          <div data-testid="video">
-            <YouTube
-              videoId={ youtubeLink(data.strYoutube, pathname) }
-            />
-          </div>)}
-
-        <div className="scroll">
-          <RecomendationCards
-            itens={ recomendationData }
-            pathname={ pathnameReverse }
-            isMeal={ isMeal }
-            cardsLimit={ 6 }
-          />
-        </div>
-
-        <ButtonRecipe id={ id } />
+        <button type="button" data-testid="finish-recipe-btn">
+          Finalizar Receita
+        </button>
       </div>
 
     </div>
   );
-}
+};
 
-RecipeDetails.propTypes = {
+RecipeProgress.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -188,4 +169,4 @@ RecipeDetails.propTypes = {
   }).isRequired,
 };
 
-export default RecipeDetails;
+export default RecipeProgress;

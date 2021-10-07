@@ -14,7 +14,14 @@ export default function Drinks() {
 
   const history = useHistory();
 
-  const { searchData, pathnameCheck, fetchAPI, loading } = useContext(Context);
+  const {
+    searchData,
+    setSearchData,
+    exploreData,
+    loading,
+    pathnameCheck,
+    fetchAPI,
+  } = useContext(Context);
 
   const DOZE = 12;
 
@@ -22,12 +29,14 @@ export default function Drinks() {
 
   useEffect(() => {
     // Requisição inicial para renderizar cards ao carregar a página.
-    // const fetchAPI = async () => {
-    //   const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    //   const json = await result.json();
-    //   setSearchData(json.drinks.slice(0, DOZE));
-    // };
-    fetchAPI(pathnameCheck());
+    const verifyStates = () => {
+      if (exploreData.length >= 1) {
+        setSearchData(exploreData);
+      } else {
+        fetchAPI(pathnameCheck(pathname));
+      }
+    };
+    verifyStates();
   }, []);
 
   return (

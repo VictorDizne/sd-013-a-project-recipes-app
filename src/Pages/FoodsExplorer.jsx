@@ -33,7 +33,6 @@ export default function FoodsExplorer() {
           </button>
 
         </Link>
-        <span> carregando...</span>
       </div>
     );
   }

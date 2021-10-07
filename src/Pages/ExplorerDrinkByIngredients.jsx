@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
-import RecipesContext from '../Context/RecipesContext';
+import Context from '../ContextAPI/Context';
 
 export default function ExploreByIngredients() {
   const pageTitle = {
@@ -10,8 +10,8 @@ export default function ExploreByIngredients() {
     setIcon: false,
   };
   const [ingredients, setIngredients] = useState([]);
-  const setRecipesDB = useContext(RecipesContext);
-  // const { fetchCategories, fetchAPI } = useContext(Context);
+  const { setExploreData } = useContext(Context);
+  // const setRecipesDB = useContext(RecipesContext);
   const history = useHistory();
   const limits = 12;
 
@@ -19,6 +19,7 @@ export default function ExploreByIngredients() {
     const getIngredients = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
         .then((res) => res.json());
+      console.log(response.drinks);
       setIngredients(response.drinks);
     };
     getIngredients();
@@ -27,9 +28,7 @@ export default function ExploreByIngredients() {
   async function getDrinksFromIngredients(param) {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?i=${param}`);
     const data = await response.json();
-    console.log(data);
-    setRecipesDB([]);
-    return setRecipesDB(data.drinks);
+    return setExploreData(data.drinks);
   }
 
   return (
@@ -41,8 +40,8 @@ export default function ExploreByIngredients() {
             <button
               name={ drink.stringredient1 }
               type="button"
-              onClick={ ({ target }) => {
-                getDrinksFromIngredients(target.getAttribute('name'));
+              onClick={ async () => {
+                await getDrinksFromIngredients(drink.strIngredient1);
                 return history.push('/bebidas');
               } }
             >

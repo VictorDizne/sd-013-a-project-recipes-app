@@ -16,7 +16,6 @@ function Button() {
   const pathnameCheck = () => {
     switch (pathname) {
     case '/comidas':
-      console.log(pathname);
       return 'themealdb';
     case '/bebidas':
       return 'thecocktaildb';

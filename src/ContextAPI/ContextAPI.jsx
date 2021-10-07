@@ -4,6 +4,7 @@ import Context from './Context';
 
 function ContextAPIProvider({ children }) {
   const [searchData, setSearchData] = useState([]);
+  const [exploreData, setExploreData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const errorMessage = (
@@ -106,12 +107,12 @@ function ContextAPIProvider({ children }) {
   };
 
   // const { pathname } = useLocation();
-  // verificarrr
+  // verificar
   const pathnameCheck = (pathname) => {
     switch (pathname) {
-    case '/comidas/':
+    case '/comidas':
       return 'themealdb';
-    case '/bebidas/':
+    case '/bebidas':
       return 'thecocktaildb';
     default:
       return null;
@@ -139,6 +140,8 @@ function ContextAPIProvider({ children }) {
     // pathnameReverse,
     searchData,
     setSearchData,
+    exploreData,
+    setExploreData,
     loading,
     setLoading,
   };
