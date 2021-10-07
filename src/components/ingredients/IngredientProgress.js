@@ -38,6 +38,7 @@ function IngredientProgress() {
 
   return (
     <div>
+      <h2>Ingredients</h2>
       {shortArrays.map((item, index) => (
         <li key={ index }>
           <label

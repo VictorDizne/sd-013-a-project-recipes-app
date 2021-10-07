@@ -59,43 +59,67 @@ function ComponentDetailsContent({ keys }) {
   };
 
   return (
-    <div>
-      <img data-testid="recipe-photo" src={ details[keys.thumb] } alt="recipe" />
-      <button type="button" onClick={ () => handleShare(setShareIcon, share, copy) }>
-        <img data-testid="share-btn" src={ ShareIcon } alt="" width="30px" />
-      </button>
-      {
-        share && <p>Link copiado!</p>
-      }
-      <button
-        type="button"
-        onClick={ () => handleFavoriteIcon(setFavoriteIcon, favoriteIcon, details, keys) }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ favoriteIcon ? BlackHeartIcon : WhiteHeartIcon }
-          alt=""
-          width="30px"
-        />
-      </button>
+    <div className="details-main">
+      <div className="details-card">
+        <div className="details-image-icon">
+          <img
+            className="details-image"
+            data-testid="recipe-photo"
+            src={ details[keys.thumb] }
+            alt="recipe"
+          />
+          <button
+            className="details-icon-favorite"
+            type="button"
+            onClick={
+              () => handleFavoriteIcon(setFavoriteIcon, favoriteIcon, details, keys)
+            }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ favoriteIcon ? BlackHeartIcon : WhiteHeartIcon }
+              alt=""
+              width="30px"
+            />
+          </button>
+          <button
+            className="details-icon-share"
+            type="button"
+            onClick={ () => handleShare(setShareIcon, share, copy) }
+          >
+            <img data-testid="share-btn" src={ ShareIcon } alt="" width="30px" />
+          </button>
+        </div>
+        {
+          share && <p>Link copiado!</p>
+        }
+      </div>
       <h1 data-testid="recipe-title">{details[keys.title]}</h1>
-      <h4 data-testid="recipe-category">
+      <h3 data-testid="recipe-category">
         {details[keys.category]}
         {' '}
         {details[keys.alcoholicOrNot]}
-      </h4>
+      </h3>
+      <div className="details-ingredients">
+        {
+          keys.click
+            ? <IngredientProgress idK={ details[keys.id] } />
+            : <IngredientDetails />
+        }
+      </div>
+      <div className="details-ingredients">
+        <h3 className="details-instructions-title ">Instructions:</h3>
+        <p
+          data-testid="instructions"
+        >
+          {details[keys.instructions]}
 
-      {
-        keys.click
-          ? <IngredientProgress idK={ details[keys.id] } />
-          : <IngredientDetails />
-      }
-
-      <h5 data-testid="instructions">{details[keys.instructions]}</h5>
-
+        </p>
+      </div>
       {
         keys.iframe && <iframe
           data-testid="video"
+          className="details-video"
           width="300"
           height="200"
           src={ youtube }
@@ -110,11 +134,12 @@ function ComponentDetailsContent({ keys }) {
       && (
         <button
           data-testid="finish-recipe-btn"
+          className="details-finish-btn"
           type="button"
           onClick={ handleClick }
           disabled={ !button }
         >
-          FINALIZAR
+          FINISH RECIPE
         </button>)}
     </div>
   );

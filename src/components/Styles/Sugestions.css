@@ -18,8 +18,14 @@
 }
 
 .btn-start {
+  background-color: #f76239;
+  border: none;
+  border-radius: 5px;
   bottom: 0;
+  color: white;
   height: 30px;
+  margin-bottom: 5px;
+  margin-left: 18px;
   position: fixed;
-  width: 100vw;
+  width: 90vw;
 }

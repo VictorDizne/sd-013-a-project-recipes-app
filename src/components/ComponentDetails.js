@@ -70,12 +70,16 @@ function ComponentDetails() {
 
   return (
     <div>
-      {
-        currentPage
-          ? <ComponentDetailsContent keys={ keysM } />
-          : <ComponentDetailsContent keys={ keysD } />
-      }
-      <ComponentSugestions />
+      <div>
+        {
+          currentPage
+            ? <ComponentDetailsContent keys={ keysM } />
+            : <ComponentDetailsContent keys={ keysD } />
+        }
+      </div>
+      <div>
+        <ComponentSugestions />
+      </div>
       <div className="btn-container">
         {
           button && (

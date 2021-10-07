@@ -13,11 +13,16 @@ function IngredientDetails() {
   }
   return (
     <div>
+      <h3 className="details-ingredient-title">Ingredients:</h3>
       {
         shortArrays.map((item, index) => (
-          <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+          <h5
+            className="ingredient-step"
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
             {item.toString().replace(',', ' - ')}
-          </p>
+          </h5>
         ))
       }
     </div>

@@ -1,3 +1,90 @@
+h1 {
+  font-family: Acme , sans-serif;
+}
+
+.details-main {
+  margin: 20px auto;
+  width: 90%;
+}
+
+.details-card {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.details-image {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.details-image-icon {
+  position: relative;
+}
+
+.details-icon-favorite {
+  background-color: inherit;
+  border: none;
+  bottom: 10px;
+  position: absolute;
+  right: 50px;
+}
+
+.details-icon-share {
+  background-color: inherit;
+  border: none;
+  bottom: 10px;
+  position: absolute;
+  right: 10px;
+}
+
+.details-ingredients {
+  background-color: #ececec;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.details-ingredient-title {
+  margin-bottom: 10px;
+}
+
+.details-instructions-title {
+  margin-bottom: 10px;
+}
+
+.details-ingredients p {
+  line-height: 1.4;
+}
+
+.ingredient-step {
+  margin-bottom: 2px;
+}
+
+.details-video {
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+li {
+  line-height: 1.4;
+  list-style: none;
+}
+
+.details-finish-btn {
+  background-color: #f76239;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  height: 30px;
+  width: 100%;
+}
+
+.details-finish-btn:disabled {
+  opacity: 0.7;
+}
+
 .risk {
   text-decoration: line-through;
 }
