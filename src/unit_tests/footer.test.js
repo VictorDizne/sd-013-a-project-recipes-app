@@ -8,6 +8,7 @@ describe('Testa o Footer', () => {
     renderWithRouter(<Comidas />);
 
     const button = screen.getByTestId('drinks-bottom-btn');
+
     expect(button).toBeInTheDocument();
   });
 
