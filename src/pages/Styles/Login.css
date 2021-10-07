@@ -1,57 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap') ;
-
 * {
   margin: 0;
   padding: 0;
 }
 
 .Login-main {
-  background-color: #242423;
-  bottom: 0;
+  background-color: #fbfbfe;
+  height: 100vh;
+}
+
+.Login-container {
+  background-image: url('../../images/mesa.svg');
+  background-position: 0 190px;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.Login-form {
+  align-items: center;
   display: flex;
   flex-direction: column;
   height: 100vh;
   justify-content: center;
-  position: relative;
-}
-
-.Login-container {
-  align-items: center;
-  background-color: #fbfbfe;
-  background-image: url('../../images/mesa.svg');
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-size: 250px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 20px;
-  position: relative;
-  text-align: center;
-  width: 200px;
+  margin-top: 80px;
 }
 
 .Login-title {
-  font-family: Lobster , cursive;
-  margin-right: 20px;
-  top: 20px;
+  display: flex;
+  height: 150px;
+  justify-content: center;
+  margin-top: 80px;
 }
 
-.Login-form {
-  margin-top: 20px;
+.Login-div {
+  height: 50px;
+  margin: 10px 0;
+  position: relative;
+  width: 75%;
 }
 
 .Login-input {
-  border: 1px solid gray;
+  border: none;
   border-radius: 5px;
-  height: 30px;
-  margin: 10px;
+  font-size: 16px;
+  height: 100%;
   outline: none;
-  padding: 5px;
-  width: 170px;
+  padding: 9px;
+  width: 100%;
 }
 
 .Login-input-button {
@@ -63,15 +59,11 @@
   font-weight: 900;
   height: 40px;
   margin: 10px;
-  width: 180px;
+  width: 270px;
 }
 
 .Login-input-button:disabled {
   opacity: 0.5;
-}
-
-.Login-div {
-  position: relative;
 }
 
 .Login-eye {
@@ -84,16 +76,16 @@
 }
 
 .Login-div span {
-  left: 20px;
+  left: 10px;
   opacity: 0.5;
   pointer-events: none;
   position: absolute;
-  top: 17px;
+  top: 5px;
   transition: 0.5s;
 }
 
 .Login-div input:focus ~ span, .Login-div input:valid ~ span {
-  font-size: 10px;
+  font-size: 16px;
   opacity: 1;
   transform: translateY(-5px);
 }

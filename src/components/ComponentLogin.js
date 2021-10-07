@@ -41,7 +41,7 @@ function ComponentLogin() {
   return (
     <div className="Login-container">
       <div className="Login-title">
-        <img src={ foodfinder } alt="" width="180px" />
+        <img src={ foodfinder } alt="" width="300px" />
       </div>
       <div className="Login-form">
         <div className="Login-div">
