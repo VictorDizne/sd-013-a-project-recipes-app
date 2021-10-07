@@ -2,17 +2,22 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
+import { LocalStorageMock } from '@react-mock/localstorage';
 import { MainContext } from '../context/Provider';
 
-const renderWithRouterAndContext = (component, value) => {
-  const history = createMemoryHistory();
+const renderWithRouterAndContext = (
+  component, value, initialEntries = ['/'], items = {},
+) => {
+  const history = createMemoryHistory({ initialEntries });
   return ({
     ...render(
-      <MainContext.Provider value={ value }>
-        <Router history={ history }>
-          {component}
-        </Router>
-      </MainContext.Provider>,
+      <Router history={ history }>
+        <MainContext.Provider value={ value }>
+          <LocalStorageMock items={ items }>
+            {component}
+          </LocalStorageMock>
+        </MainContext.Provider>
+      </Router>,
     ),
     history,
   });

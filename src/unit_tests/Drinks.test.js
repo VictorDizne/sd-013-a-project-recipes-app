@@ -16,6 +16,7 @@ describe('Test on Drinks screen, ', () => {
     renderWithRouterAndContext(
       <Drinks />,
       context,
+      ['/bebidas'],
     );
     const title = screen.getByRole('heading', { level: '1' });
     expect(title).toBeInTheDocument();
