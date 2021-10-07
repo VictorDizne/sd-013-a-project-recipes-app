@@ -6,7 +6,6 @@ import Header from '../components/Header';
 function ExploreFood() {
   return (
     <section>
-
       <div>
         <Header />
         <Link to="/explorar/comidas/ingredientes">
