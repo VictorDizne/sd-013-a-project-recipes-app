@@ -43,4 +43,14 @@ describe('Test on Meals screen, ', () => {
       expect(index < maxElements).toBeTruthy();
     });
   });
+  // it('that there are 6 category buttons', () => {
+  //   renderWithRouterAndContext(
+  //     <Meals />,
+  //     context,
+  //   );
+
+  //   const categoryButtons = screen.getAllByTestId(/category-filter/i);
+  //   expect(categoryButtons).toBeInTheDocument();
+  //   expect(categoryButtons).toBe(6);
+  // });
 });

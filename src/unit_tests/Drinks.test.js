@@ -1,6 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import Drinks from '../pages/Drinks';
+import App from '../App';
 import renderWithRouterAndContext from './renderWithRouterAndContext';
 
 const drinksMock = require('../../cypress/mocks/drinks');
@@ -12,12 +13,14 @@ const context = {
 };
 
 describe('Test on Drinks screen, ', () => {
-  it('that there is "Bebidas" on Title', () => {
-    renderWithRouterAndContext(
-      <Drinks />,
+  it('that there is "Bebidas" on Title', async () => {
+    const { history } = renderWithRouterAndContext(
+      <App />,
       context,
     );
-    const title = screen.getByRole('heading', { level: '1' });
+    history.push('/bebidas');
+
+    const title = await screen.getByRole('heading', { level: '1' });
     expect(title).toBeInTheDocument();
     expect(title.textContent).toBe('Bebidas');
   });
