@@ -22,7 +22,6 @@ import RecipeDetails from './Pages/RecipeDetails';
 import RecipeProgress from './Pages/RecipeProgress';
 import NotFound from './Pages/NotFound';
 
-
 function App() {
   return (
     <ContextAPIProvider>
