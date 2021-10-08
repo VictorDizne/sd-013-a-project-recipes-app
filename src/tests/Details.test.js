@@ -4,13 +4,10 @@ import { screen } from '@testing-library/react';
 
 // Children
 import userEvent from '@testing-library/user-event';
-import copy from 'clipboard-copy';
 import App from '../App';
 
 // Helpers
 import renderWithReduxAndRouter from '../helpers/renderWithReduxAndRouter';
-// Mock copy library
-jest.mock('clipboard-copy');
 
 // Variables;
 const RECIPE_PHOTO = 'recipe-photo';
@@ -68,47 +65,24 @@ describe('Testa a página de detalhes', () => {
     expect(emptyHeart).toEqual(favoriteBtn.src);
   });
 
-  // it('testa botão de compartilhar', async () => {
-  //   const shareBtn = await screen.findByTestId(SHARE_BTN);
+  it('renderização condicional do botão iniciar receita', async () => {
+    const recipes = {
+      cocktails: {},
+      meals: { 52977: ['Cumin - 2 tsp', 'Tomato Puree - 1 tbs'] },
+    };
 
-  //   userEvent.click(shareBtn);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipes));
 
-  //   const shareMsg = await screen.findByText(/Link copiado!/i);
+    const startBtn = await screen.findByTestId(START_RECIPE_BTN);
 
-  //   expect(copy).toHaveBeenCalledWith('http://localhost:3000/comidas/52977');
-  //   expect(shareMsg).toBeInTheDocument();
-  // });
+    expect(startBtn.innerHTML).toBe('Continuar Receita');
+  });
 
-  // it('testa as checkboxs e o botao de finalizar receita', async () => {
-  //   const checkboxes = await screen.findAllByTestId(/ingredient-step/i);
+  it('testa redirecionamento do botão iniciar receita', async () => {
+    const startBtn = await screen.findByTestId(START_RECIPE_BTN);
 
-  //   checkboxes.forEach((checkbox) => {
-  //     userEvent.click(checkbox);
-  //   });
+    userEvent.click(startBtn);
 
-  //   const finishBtn = await screen.findByTestId(FINISH_RECIPE_BTN);
-  //   expect(finishBtn.disabled).toBeFalsy();
-
-  //   userEvent.click(finishBtn);
-
-  //   expect(historyMock.location.pathname).toBe('/receitas-feitas');
-  // });
-
-  // it('testa funcionamento de atualizar data da receita', async () => {
-  //   const recipe = [{ id: '52977', type: 'comida', area: 'Turkish', category: 'Side', alcoholicOrNot: '', name: 'Corba', image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg', doneDate: '02/10/2021', tags: ['Soup'] }];
-
-  //   localStorage.setItem('doneRecipes', JSON.stringify(recipe));
-
-  //   const checkboxes = await screen.findAllByTestId(/ingredient-step/i);
-
-  //   checkboxes.forEach((checkbox) => {
-  //     userEvent.click(checkbox);
-  //   });
-
-  //   const finishBtn = await screen.findByTestId(FINISH_RECIPE_BTN);
-  //   userEvent.click(finishBtn);
-
-  //   const date = JSON.parse(localStorage.getItem('doneRecipes'))[0].doneDate;
-  //   expect(date).not.toBe(recipe[0].doneDate);
-  // });
+    expect(historyMock.location.pathname).toBe('/comidas/52977/in-progress');
+  });
 });
