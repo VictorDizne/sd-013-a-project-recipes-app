@@ -19,16 +19,18 @@ export default function ExploreByIngredients() {
     const getIngredients = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
         .then((res) => res.json());
-      console.log(response.drinks);
       setIngredients(response.drinks);
     };
     getIngredients();
   }, []);
 
   async function getDrinksFromIngredients(param) {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?i=${param}`);
+    const response = await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${param}`,
+    );
     const data = await response.json();
-    return setExploreData(data.drinks);
+    console.log(data.drinks);
+    setExploreData(data.drinks);
   }
 
   return (
@@ -40,6 +42,7 @@ export default function ExploreByIngredients() {
             <button
               name={ drink.stringredient1 }
               type="button"
+              key={ index }
               onClick={ async () => {
                 await getDrinksFromIngredients(drink.strIngredient1);
                 return history.push('/bebidas');
