@@ -5,7 +5,10 @@ import Context from './Context';
 function ContextAPIProvider({ children }) {
   const [searchData, setSearchData] = useState([]);
   const [exploreData, setExploreData] = useState([]);
+  const [areaData, setAreaData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingExplore, setLoadingExplore] = useState(false);
+  const [areas, setAreas] = useState([]);
 
   const errorMessage = (
     'Sinto muito, não encontramos nenhuma receita para esses filtros.'
@@ -100,10 +103,23 @@ function ContextAPIProvider({ children }) {
     const result = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?s=`);
     const json = await result.json();
     if (type === 'themealdb') {
+      setLoadingExplore(true);
       setSearchData(json.meals);
     } else {
       setSearchData(json.drinks);
     }
+  };
+
+  const fetchAreas = async () => {
+    const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const json = await result.json();
+    setAreas(json.meals);
+  };
+
+  const fetchByArea = async (area) => {
+    const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+    const json = await result.json();
+    setAreaData(json.meals);
   };
 
   // const { pathname } = useLocation();
@@ -136,6 +152,8 @@ function ContextAPIProvider({ children }) {
     fetchFirstLetter,
     fetchCategories,
     fetchAPI,
+    fetchAreas,
+    fetchByArea,
     pathnameCheck,
     // pathnameReverse,
     searchData,
@@ -144,6 +162,10 @@ function ContextAPIProvider({ children }) {
     setExploreData,
     loading,
     setLoading,
+    loadingExplore,
+    areas,
+    areaData,
+    setAreaData,
   };
 
   return (
