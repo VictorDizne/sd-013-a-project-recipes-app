@@ -26,10 +26,8 @@ export default function ExploreByIngredients() {
   }, []);
 
   async function getDrinksFromIngredients(param) {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${param}`);
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?i=${param}`);
     const data = await response.json();
-    // setRecipesDB([]);
-    console.log(data.drinks);
     return setExploreData(data.drinks);
   }
 

@@ -19,6 +19,7 @@ import ExplorerFoodByIngredients from './Pages/ExplorerFoodByIngredients';
 import Profile from './Pages/Profile';
 // import DrinkDetails from './Pages/DrinkDetails';
 import RecipeDetails from './Pages/RecipeDetails';
+import RecipeProgress from './Pages/RecipeProgress';
 import NotFound from './Pages/NotFound';
 
 function App() {
@@ -50,6 +51,8 @@ function App() {
               component={ ExplorerDrinkByIngredients }
             />
             <Route exact path="/perfil" component={ Profile } />
+            <Route exact path="/comidas/:id/in-progress" component={ RecipeProgress } />
+            <Route exact path="/bebidas/:id/in-progress" component={ RecipeProgress } />
           </Switch>
         </BrowserRouter>
       </RecipesProvider>
