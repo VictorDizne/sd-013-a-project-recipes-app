@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Context from '../Context/Context';
 import { handleCategorySelect } from '../services/GetAPICategory';
@@ -6,17 +6,24 @@ import { handleCategorySelect } from '../services/GetAPICategory';
 const maxCategory = 4;
 
 function Category() {
-  const { category, setData } = useContext(Context);
-
-  // const [categorySelect, seteCategorySelect] = useState('');
-  // const [pathState, setPathState] = useState('');
+  const { category, setData, backupData } = useContext(Context);
+  const [toggle, setToggle] = useState(false);
 
   const { pathname } = useLocation();
 
   const changeCategory = async ({ target }) => {
-    const result = await handleCategorySelect(pathname, target.value);
-    console.log(pathname);
-    await setData(result);
+    if (toggle) {
+      await setData(backupData);
+      setToggle(false);
+    } else {
+      const result = await handleCategorySelect(pathname, target.value);
+      await setData(result);
+      setToggle(true);
+    }
+  };
+
+  const filterByAll = () => {
+    setData(backupData);
   };
 
   return (
@@ -32,6 +39,14 @@ function Category() {
           >
             { strCategory }
           </button>))}
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ filterByAll }
+        value="All"
+      >
+        All
+      </button>
     </div>
   );
 }

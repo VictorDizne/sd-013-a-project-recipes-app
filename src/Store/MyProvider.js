@@ -9,7 +9,8 @@ import useFetchAPI from '../Hocks/useFetchAPI';
 import useFetchCategorys from '../Hocks/useFetchCategorys';
 
 const Provider = ({ children }) => {
-  const [data, setData] = useFetchAPI();
+  const [data, setData, backupData] = useFetchAPI();
+
   const [category, setCategory] = useFetchCategorys([]);
 
   const [loading, setLoading] = useState(false);
@@ -94,6 +95,7 @@ const Provider = ({ children }) => {
     setData,
     category,
     setCategory,
+    backupData,
   };
 
   return (
