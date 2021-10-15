@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import FilterDrinksCategory from '../components/filterDrinksCategory';
 
 const Bebidas = () => (
-  <div>
+  <div className="containerBebidas">
     <Header page="Bebidas" bebidas />
     <br />
     <FilterDrinksCategory />

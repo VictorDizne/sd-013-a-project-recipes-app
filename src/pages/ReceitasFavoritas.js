@@ -33,47 +33,55 @@ const ReceitasFavoritas = () => {
   // [{ id, type, area, category, alcoholicOrNot, name, image }]
   if (favorites) {
     return (
-      <div>
-        <HeaderWithoutSearch page="Receitas Favoritas" />
-        <div>
-          <button
-            type="button"
-            data-testid="filter-by-all-btn"
-            onClick={ () => resetFilter() }
-          >
-            All
-          </button>
-          <button
-            onClick={ () => filterFavorites('bebida') }
-            type="button"
-            data-testid="filter-by-drink-btn"
-          >
-            Bebidas
-          </button>
-          <button
-            onClick={ () => filterFavorites('comida') }
-            type="button"
-            data-testid="filter-by-food-btn"
-          >
-            Comidas
-          </button>
+      <div className="favoritesPage">
+        <div className="favoritesHeader">
+          <HeaderWithoutSearch page="Receitas Favoritas" />
         </div>
-        {favorites.map((recipe, index) => (
-          <FavoriteCard
-            key={ index }
-            recipe={ recipe }
-            index={ index }
-            markFavorite={ markFavorite }
-          />
-        ))}
+        <div className="favoritesBody">
+          <div className="favoritesButtonsFilters">
+            <button
+              type="button"
+              data-testid="filter-by-all-btn"
+              onClick={ () => resetFilter() }
+            >
+              All
+            </button>
+            <button
+              onClick={ () => filterFavorites('bebida') }
+              type="button"
+              data-testid="filter-by-drink-btn"
+            >
+              Bebidas
+            </button>
+            <button
+              onClick={ () => filterFavorites('comida') }
+              type="button"
+              data-testid="filter-by-food-btn"
+            >
+              Comidas
+            </button>
+          </div>
+          <div className="favoritesCard">
+            {favorites.map((recipe, index) => (
+              <FavoriteCard
+                key={ index }
+                recipe={ recipe }
+                index={ index }
+                markFavorite={ markFavorite }
+              />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <HeaderWithoutSearch page="Receitas Favoritas" />
-      <div>
+    <div className="favoritesPage">
+      <div className="favoritesHeader">
+        <HeaderWithoutSearch page="Receitas Favoritas" />
+      </div>
+      <div className="favoritesButtonsFilters">
         <button
           type="button"
           data-testid="filter-by-all-btn"

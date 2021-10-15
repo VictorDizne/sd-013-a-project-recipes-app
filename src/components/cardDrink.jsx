@@ -26,6 +26,7 @@ const CardDrink = () => {
             </h3>
             <img
               data-testid={ `${index}-card-img` }
+              className="imgCardDrink"
               src={ drink.strDrinkThumb }
               alt={ drink.strDrink }
               width="150px"
@@ -53,6 +54,7 @@ const CardDrink = () => {
             </h3>
             <img
               data-testid={ `${index}-card-img` }
+              className="imgCardDrink"
               src={ receita.strDrinkThumb }
               alt={ receita.strDrink }
               width="150px"
@@ -78,6 +80,7 @@ const CardDrink = () => {
           </h3>
           <img
             data-testid={ `${index}-card-img` }
+            className="imgCardDrink"
             src={ receita.strDrinkThumb }
             alt={ receita.strDrink }
             width="150px"

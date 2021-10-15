@@ -48,7 +48,7 @@ const Form = () => {
   }
 
   return (
-    <form className="container">
+    <form className="loginContainer">
       <img src={ Logo } alt="logo" />
       <br />
       <div className="inputContainter">

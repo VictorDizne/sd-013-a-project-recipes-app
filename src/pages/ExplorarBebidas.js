@@ -18,30 +18,35 @@ const ExplorarBebidas = () => {
   };
 
   return (
-    <div>
-      <HeaderWithoutSearch page="Explorar Bebidas" />
-      <div>
-        <Link to="/explorar/bebidas/ingredientes">
+    <div className="explorerDrink">
+      <div className="explorerDrinkHeader">
+        <HeaderWithoutSearch page="Explorar Bebidas" />
+      </div>
+      <div className="explorerDrinkBody">
+        <br />
+        <div>
+          <Link to="/explorar/bebidas/ingredientes">
+            <button
+              type="submit"
+              data-testid="explore-by-ingredient"
+            >
+              Por Ingredientes
+            </button>
+          </Link>
+        </div>
+        <div>
+          {/* <Link to="/explorar/bebidas/supreendabebidas"> teste */}
           <button
             type="submit"
-            data-testid="explore-by-ingredient"
+            data-testid="explore-surprise"
+            onClick={ handleClick }
           >
-            Por Ingredientes
+            Me Surpreenda!
           </button>
-        </Link>
+          {/* </Link> */}
+        </div>
+        <Footer />
       </div>
-      <div>
-        {/* <Link to="/explorar/bebidas/supreendabebidas"> teste */}
-        <button
-          type="submit"
-          data-testid="explore-surprise"
-          onClick={ handleClick }
-        >
-          Me Surpreenda!
-        </button>
-        {/* </Link> */}
-      </div>
-      <Footer />
     </div>
   );
 };

@@ -64,7 +64,7 @@ const Searchbar = ({ bebidas }) => {
 
   return (
     <div className="searchbar-container">
-      <label htmlFor="search-input">
+      <label className="teste" htmlFor="search-input">
         <input
           data-testid="search-input"
           type="text"
@@ -109,7 +109,6 @@ const Searchbar = ({ bebidas }) => {
       <button
         onClick={ handleClick }
         type="button"
-        className="btn btn-success"
         data-testid="exec-search-btn"
       >
         Fazer busca

@@ -27,6 +27,7 @@ const CardMeal = () => {
               {meal.strMeal}
             </h3>
             <img
+              className="imgCardMeal"
               data-testid={ `${index}-card-img` }
               src={ meal.strMealThumb }
               alt={ meal.strMeal }
@@ -53,6 +54,7 @@ const CardMeal = () => {
               {receita.strMeal}
             </h3>
             <img
+              className="imgCardMeal"
               data-testid={ `${index}-card-img` }
               src={ receita.strMealThumb }
               alt={ receita.strMeal }
@@ -77,6 +79,7 @@ const CardMeal = () => {
             {receita.strMeal}
           </h3>
           <img
+            className="imgCardMeal"
             data-testid={ `${index}-card-img` }
             src={ receita.strMealThumb }
             alt={ receita.strMeal }

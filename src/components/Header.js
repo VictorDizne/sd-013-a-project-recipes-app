@@ -24,7 +24,12 @@ const Header = ({ page, bebidas }) => {
       <header>
         <div className="container2">
           <Link to="/perfil">
-            <img src={ profileIcon } alt="searchIcon" data-testid="profile-top-btn" />
+            <img
+              src={ profileIcon }
+              className="img-hover"
+              alt="searchIcon"
+              data-testid="profile-top-btn"
+            />
           </Link>
           <h3 data-testid="page-title">{page}</h3>
           <button onClick={ handleClick } type="button" className="no-style-button">
@@ -35,6 +40,7 @@ const Header = ({ page, bebidas }) => {
             />
           </button>
         </div>
+        <br />
         <div>
           <Searchbar bebidas={ bebidas } />
         </div>
@@ -45,7 +51,12 @@ const Header = ({ page, bebidas }) => {
   return (
     <header className="container2">
       <Link to="/perfil">
-        <img src={ profileIcon } alt="searchIcon" data-testid="profile-top-btn" />
+        <img
+          src={ profileIcon }
+          className="img-hover"
+          alt="searchIcon"
+          data-testid="profile-top-btn"
+        />
       </Link>
       <h3 data-testid="page-title">{page}</h3>
       <button

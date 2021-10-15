@@ -31,24 +31,31 @@ const ExplorarBebidasIng = () => {
   };
 
   return (
-    <div>
-      <HeaderWithoutSearch page="Explorar Ingredientes" />
-      { ingredientsDrinks.map((drink, index) => (
-        <button
-          type="submit"
-          key={ index }
-          data-testid={ `${index}-ingredient-card` }
-          onClick={ () => handleClick(drink.strIngredient1) }
-        >
-          <h3 data-testid={ `${index}-card-name` }>{ drink.strIngredient1 }</h3>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.thecocktaildb.com/images/ingredients/${drink.strIngredient1}-Small.png` }
-            alt={ drink.strIngredient1 }
-          />
-        </button>
-      )) }
-      <Footer />
+    <div className="explorerDrinkIngredients">
+      <div className="explorerDrinkIngredientsHeader">
+        <HeaderWithoutSearch page="Explorar Ingredientes" />
+      </div>
+      <div className="explorerDrinkIngredientsBody">
+        <div className="containerDrinkIngredients">
+          { ingredientsDrinks.map((drink, index) => (
+            <button
+              type="submit"
+              className="cardDrinkIng"
+              key={ index }
+              data-testid={ `${index}-ingredient-card` }
+              onClick={ () => handleClick(drink.strIngredient1) }
+            >
+              <h3 data-testid={ `${index}-card-name` }>{ drink.strIngredient1 }</h3>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.thecocktaildb.com/images/ingredients/${drink.strIngredient1}-Small.png` }
+                alt={ drink.strIngredient1 }
+              />
+            </button>
+          )) }
+        </div>
+        <Footer />
+      </div>
     </div>
   );
 };

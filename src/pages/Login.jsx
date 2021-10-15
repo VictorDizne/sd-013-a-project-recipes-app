@@ -2,7 +2,7 @@ import React from 'react';
 import Form from '../components/Form';
 
 const Login = () => (
-  <div className="inputContainer">
+  <div className="homeContainer">
     <Form />
   </div>
 );

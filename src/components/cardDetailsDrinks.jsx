@@ -56,7 +56,7 @@ const CardDetailsDrinks = (id) => {
   }
 
   return (
-    <div>
+    <div className="detailsDrink">
       <button type="button" data-testid="share-btn" onClick={ () => copyText() }>
         Compartilhar receita
       </button>

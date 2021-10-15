@@ -23,10 +23,13 @@ const Perfil = () => {
   }
 
   return (
-    <div>
-      <HeaderWithoutSearch page="Perfil" />
-      <h4 data-testid="profile-email">{email}</h4>
-      <div>
+    <div className="profile">
+      <div className="profileHeader">
+        <HeaderWithoutSearch page="Perfil" />
+      </div>
+      <div className="profileBody">
+        <br />
+        <h4 data-testid="profile-email">{email}</h4>
         <button
           data-testid="profile-done-btn"
           type="button"
@@ -48,8 +51,8 @@ const Perfil = () => {
         >
           Sair
         </button>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };

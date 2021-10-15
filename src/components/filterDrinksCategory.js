@@ -36,8 +36,9 @@ const FilterDrinksCategory = () => {
   }
 
   return (
-    <div>
+    <div className="btn-group">
       <button
+        className="btn btn-outline-dark"
         onClick={ handleAllClick }
         type="button"
         data-testid="All-category-filter"
@@ -46,6 +47,7 @@ const FilterDrinksCategory = () => {
       </button>
       {filtersSlice.map((filter) => (
         <button
+          className="btn btn-outline-dark"
           type="button"
           key={ filter.strCategory }
           value={ filter.strCategory }

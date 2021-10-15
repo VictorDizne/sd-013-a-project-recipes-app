@@ -21,15 +21,19 @@ const FavoriteCard = ({ recipe, index, markFavorite }) => {
 
   if (recipe.type === 'bebida') {
     return (
-      <button type="submit">
-        <button type="button" onClick={ () => history.push(`/bebidas/${recipe.id}`) }>
+      <button className="favoriteCard" type="button">
+        <button
+          type="button"
+          className="no-style-btn"
+          onClick={ () => history.push(`/bebidas/${recipe.id}`) }
+        >
+          <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
           <img
+            className="imgFavorite"
             data-testid={ `${index}-horizontal-image` }
             src={ recipe.image }
             alt={ recipe.name }
-            width="150px"
           />
-          <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
         </button>
         <h3
           data-testid={ `${index}-horizontal-top-text` }
@@ -38,6 +42,7 @@ const FavoriteCard = ({ recipe, index, markFavorite }) => {
         </h3>
         <button
           type="button"
+          className="no-style-btn"
           onClick={ () => copyText(recipe.id, recipe.type) }
         >
           <img
@@ -48,6 +53,7 @@ const FavoriteCard = ({ recipe, index, markFavorite }) => {
         </button>
         <button
           type="button"
+          className="no-style-btn"
           onClick={ () => markFavorite(recipe.id) }
         >
           <img
@@ -62,15 +68,18 @@ const FavoriteCard = ({ recipe, index, markFavorite }) => {
   }
 
   return (
-    <button type="submit">
-      <button type="button" onClick={ () => history.push(`/comidas/${recipe.id}`) }>
+    <button className="favoriteCard" type="button">
+      <button
+        type="button"
+        className="no-style-btn"
+        onClick={ () => history.push(`/comidas/${recipe.id}`) }
+      >
+        <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ recipe.image }
           alt={ recipe.name }
-          width="150px"
         />
-        <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
       </button>
       <h3
         data-testid={ `${index}-horizontal-top-text` }
@@ -79,6 +88,7 @@ const FavoriteCard = ({ recipe, index, markFavorite }) => {
       </h3>
       <button
         type="button"
+        className="no-style-btn"
         onClick={ () => copyText(recipe.id, recipe.type) }
       >
         <img
@@ -89,6 +99,7 @@ const FavoriteCard = ({ recipe, index, markFavorite }) => {
       </button>
       <button
         type="button"
+        className="no-style-btn"
         onClick={ () => markFavorite(recipe.id) }
       >
         <img
