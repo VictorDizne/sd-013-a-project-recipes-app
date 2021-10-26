@@ -15,6 +15,10 @@ button, .img-hover {
   padding: 5px;
 }
 
+.btn-login {
+  margin-left: 48%;
+}
+
 button:hover {
   background-color: rgb(39, 38, 38);
   box-shadow: black 2px 2px 1px;
@@ -32,11 +36,24 @@ button:hover {
 
   }
 
+  .logo {
+    max-width: fit-content;
+    max-height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .input-group {
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .loginContainer {
     align-items: center;
-    border: 1px solid red;
+    justify-content: center;
     height: 100%;
-    width: 100vw;
+    width: 100%;
   }
 
   .loginContainer img {

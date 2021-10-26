@@ -49,7 +49,7 @@ const Form = () => {
 
   return (
     <form className="loginContainer">
-      <img src={ Logo } alt="logo" />
+      <div className="logo"><img src={ Logo } alt="logo" /></div>
       <br />
       <div className="inputContainter">
         <label className="input-group mb-3" htmlFor="email">
@@ -78,16 +78,17 @@ const Form = () => {
             onChange={ (e) => handlePassword(e) }
           />
         </label>
-
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ btnDisable }
-          className="btn btn-primary"
-          onClick={ () => handleClick() }
-        >
-          Enviar
-        </button>
+        <div className="btn-login">
+          <button
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ btnDisable }
+            className="btn btn-primary"
+            onClick={ () => handleClick() }
+          >
+            Enviar
+          </button>
+        </div>
       </div>
     </form>
   );
