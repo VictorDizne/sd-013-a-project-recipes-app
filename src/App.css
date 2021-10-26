@@ -1,68 +1,253 @@
-.meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
-  width: 100%;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.img-hover:hover {
+  box-shadow: black 2px 2px 1px;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+button, .img-hover {
+  background-color: rgb(5, 4, 4);
+  border-radius: 5px;
+  color: whitesmoke;
+  padding: 5px;
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+button:hover {
+  background-color: rgb(39, 38, 38);
+  box-shadow: black 2px 2px 1px;
+  color: whitesmoke;
 }
 
-@keyframes shake {
+@media screen and ( max-width : 540px )  and ( max-height : 720px ) {
 
-  0% {
-    transform: rotate(5deg);
+  /* TELA DE LOGIN */
+  .homeContainer {
+    /* display: block; */
+    background: url('images/comidaPinter.jpeg');
+    background-color: rgba(128, 164, 237, 0.5);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+
   }
 
-  50% {
-    transform: rotate(-5deg);
+  .loginContainer {
+    align-items: center;
+    border: 1px solid red;
+    height: 100%;
+    width: 100vw;
   }
 
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
+  .loginContainer img {
+    width: 100%;
+    height: 52%;
   }
 
-  50% {
-    transform: rotate(20deg);
+  .inputContainter input, .inputContainter span {
+    border: 1px solid black;
+    opacity: 1.0;
   }
 
-  100% {
-    transform: rotate(-10deg);
+  .inputContainer:first-child {
+    width: 100%;
+  }
+
+  .btn:hover {
+    border: 1px white;
+  }
+
+  .btn:disabled {
+    background-color: gray;
+  }
+
+  /* HEADER */
+  .container2 {
+    background-color: #f7613b;
+    border-color: #3bf7ba;
+    border-radius: 7px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10%;
+  }
+
+  .container2 img, .container2 button {
+    border: none;
+    background-color: transparent;
+  }
+
+  .containerComidas, .containerBebidas, .explorerDrinkIngredientsBody {
+    background-color: #f5d547;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    height: 100%;
+  }
+
+  /* TELA COMIDAS */
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 11vw;
+  }
+
+  .containerCardMeal, .containerCardDrink, .containerDrinkIngredients {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .cardMeal, .cardDrink, .cardDrinkIng {
+    background-color: #f7613b;
+    height: 200px;
+    margin: 5% 0;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: break-word;
+    border: none;
+    color: white;
+
+    /*   transition-duration: 0.5s;
+    text-overflow: ellipsis; */
+  }
+
+  .containerDrinkIngredients {
+    background-color: #f5d547;
+  }
+
+  .searchbar-container {
+    display: flex;
+    padding-top: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f7613b;
+    border-radius: 5px;
+  }
+
+  .imgCardDrink, .imgCardMeal {
+    width: 100%;
+    height: 80%;
+  }
+
+  .cardMeal:hover, .cardDrink:hover{
+    background-color: rgb(1, 11, 44);
+  }
+
+  /* TELA DETALHES COMIDAS */
+  .detailsMeal, .detailsDrink {
+    align-items: center;
+    background-color: #f5d547;
+    display: grid;
+    /* flex-direction: column; */
+  }
+
+  .detailsMeal li, .detailsDrink li {
+    list-style-type: none;
+  }
+
+  .detailsMeal p, .detailsMeal button, .detailsDrink p, .detailsDrink button {
+    margin: 0 5vw;
+  }
+
+  .header-without-search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between
+  }
+  /* PERFIL/EXPLORAR */
+  .profile, .explorer, .explorerDrink, .explorerDrinkIngredients, .favoritesPage {
+      background-color: #f5d547;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+  .profileHeader, .explorerHeader, .explorerDrinkHeader, .explorerDrinkIngredientsHeader, .favoritesHeader{
+    background-color: #f7613b;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .favoritesButtonsFilters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .profileBody, .explorerBody, .explorerDrinkBody {
+    background-color: #f5d547;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    justify-content: space-between;
+  }
+
+  .profileBody button {
+    margin: 0 5vw;
+  }
+
+  .no-style-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  .favoritesCard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 1;
+    margin: 0 5vw;
+  }
+
+  .favoriteCard {
+    border: none;
+    /* display: flex; */
+    /* align-items: center; */
+    background-color: #f7613b;
+    height: 300px;
+    margin: 5vw 0;
+    /* flex-direction: column; */
+    width: 150px;
+  }
+
+  .favoriteCard img {
+    width: 100%;
+  }
+
+  .favoriteCard h3 {
+    font-size: medium;
+  }
+
+  .favoritesBody {
+    background-color: #f5d547;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+  }
+
+  /* FOOTER */
+  .footer {
+    align-items: center;
+    background-color: darkgray;
+    display: flex;
+    height: 10vh;
+    justify-content: space-around;
   }
 }
