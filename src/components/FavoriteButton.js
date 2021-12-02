@@ -88,6 +88,7 @@ const FavoriteButton = ({ recipeDetails }) => {
       <button
         type="button"
         onClick={ () => handleClickFavorite() }
+        className="details-btn"
       >
         <img
           data-testid="favorite-btn"

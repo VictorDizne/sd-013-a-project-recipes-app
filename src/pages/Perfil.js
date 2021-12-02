@@ -30,13 +30,13 @@ const Perfil = () => {
       <div className="profileBody">
         <br />
         <h4 data-testid="profile-email">{email}</h4>
-        <button
+        {/* <button
           data-testid="profile-done-btn"
           type="button"
           onClick={ () => history.push('/receitas-feitas') }
         >
           Receitas Feitas
-        </button>
+        </button> */}
         <button
           data-testid="profile-favorite-btn"
           type="button"

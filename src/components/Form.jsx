@@ -78,7 +78,7 @@ const Form = () => {
             onChange={ (e) => handlePassword(e) }
           />
         </label>
-        <div className="btn-login">
+        <div className="login-btn">
           <button
             type="button"
             data-testid="login-submit-btn"
