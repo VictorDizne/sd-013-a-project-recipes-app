@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import clipboardCopy from 'clipboard-copy';
 import Loading from './loadingComponent';
-import RecomendationCardMeals from './RecomendationsCardMeals';
+// import RecomendationCardMeals from './RecomendationsCardMeals';
 import FavoriteButton from './FavoriteButton';
 
 const CardDetailsDrinks = (id) => {

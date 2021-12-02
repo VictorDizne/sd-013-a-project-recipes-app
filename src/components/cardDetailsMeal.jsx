@@ -2,7 +2,7 @@ import React, { useState, useEffect /* useLocation */ } from 'react';
 import { useHistory } from 'react-router';
 import clipboardCopy from 'clipboard-copy';
 import Loading from './loadingComponent';
-import RecomendationCardDrinks from './recomendationCardDrinks';
+// import RecomendationCardDrinks from './recomendationCardDrinks';
 import FavoriteButton from './FavoriteButton';
 // const copy = require('clipboard-copy');
 
